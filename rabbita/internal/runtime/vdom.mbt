@@ -20,7 +20,7 @@ priv enum INode {
 type INode = Unit
 
 ///|
-struct Instance {
+priv struct Instance {
   cell : &IsCell
   mut inode : INode?
   link : Link
@@ -305,7 +305,7 @@ type Event = Unit
 
 ///|
 pub struct Props {
-  mut slots : Map[String, Ref[(Event, &Scheduler) -> Unit]]
+  priv mut slots : Map[String, Ref[(Event, &Scheduler) -> Unit]]
   handlers : Map[String, (Event, &Scheduler) -> Unit]
   attrs : Map[String, String]
   props : Map[String, @variant.Variant]
@@ -320,11 +320,6 @@ pub fn Props::new(
   handlers : Map[String, (Event, &Scheduler) -> Unit],
 ) -> Props {
   { slots: {}, handlers, attrs, styles, props }
-}
-
-///|
-pub fn Props::empty() -> Props {
-  { slots: {}, handlers: {}, attrs: {}, styles: {}, props: {} }
 }
 
 ///|

@@ -39,30 +39,19 @@ pub fn Flags::mark_dirty(Self) -> Unit
 pub fn Flags::new() -> Self
 
 type Id
-pub fn Id::new() -> Self
 pub impl Compare for Id
 pub impl Eq for Id
 pub impl Hash for Id
 pub impl Show for Id
 
-type InstId
-pub fn InstId::new() -> Self
-pub impl Compare for InstId
-pub impl Eq for InstId
-pub impl Hash for InstId
-pub impl Show for InstId
-
-type Instance
-
 pub struct Props {
-  mut slots : Map[String, Ref[(@dom.Event, &Scheduler) -> Unit]]
   handlers : Map[String, (@dom.Event, &Scheduler) -> Unit]
   attrs : Map[String, String]
   props : Map[String, @variant.Variant]
   styles : Map[String, String]
+  // private fields
 }
 pub fn Props::copy(Self) -> Self
-pub fn Props::empty() -> Self
 pub fn Props::new(Map[String, String], Map[String, @variant.Variant], Map[String, String], Map[String, (@dom.Event, &Scheduler) -> Unit]) -> Self
 
 pub(all) struct Sandbox {
@@ -71,7 +60,6 @@ pub(all) struct Sandbox {
   mut on_url_request : ((@url.UrlRequest) -> Cmd)?
   // private fields
 }
-pub fn Sandbox::drain(Self) -> Unit
 pub fn Sandbox::flush(Self) -> Unit
 pub fn Sandbox::initialize(Self) -> Unit
 pub fn Sandbox::new(&IsCell) -> Self
@@ -98,9 +86,8 @@ pub(open) trait IsCell {
   flags(Self) -> Flags
 }
 
-pub(open) trait Scheduler {
+pub trait Scheduler {
   add(Self, Cmd) -> Unit
   add_url_changed(Self, @url.Url) -> Unit
-  add_url_request(Self, @url.UrlRequest) -> Unit
 }
 

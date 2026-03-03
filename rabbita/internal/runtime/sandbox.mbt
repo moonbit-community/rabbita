@@ -79,7 +79,7 @@ pub fn Sandbox::new(root : &IsCell) -> Sandbox {
 ///|
 /// Processing all pending messages FIFO to update all relevant models
 #cfg(target="js")
-pub fn Sandbox::drain(self : Self) -> Unit {
+fn Sandbox::drain(self : Self) -> Unit {
   if !self.drain_scheduled {
     self.drain_scheduled = true
     while self.msg_queue.pop() is Some(id) {
@@ -133,6 +133,15 @@ fn Sandbox::drop_live_subtree(self : Self, root : Instance) -> Unit {
         stack.push(c)
       }
     }
+  }
+}
+
+///|
+#cfg(target="js")
+fn Sandbox::add_url_request(self : Self, request : UrlRequest) -> Unit {
+  match self.on_url_request {
+    None => ()
+    Some(f) => self.add(f(request))
   }
 }
 
@@ -206,14 +215,5 @@ pub impl Scheduler for Sandbox with add_url_changed(self, url) {
   match self.on_url_changed {
     None => ()
     Some(f) => self.add(f(url))
-  }
-}
-
-///|
-#cfg(target="js")
-pub impl Scheduler for Sandbox with add_url_request(self, request) {
-  match self.on_url_request {
-    None => ()
-    Some(f) => self.add(f(request))
   }
 }
