@@ -1,0 +1,14 @@
+import {
+  "moonbit-community/rabbita",
+  "moonbit-community/rabbita/common",
+  "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/sub",
+  "moonbitlang/core/immut/vector",
+  "moonbitlang/core/string",
+}
+
+supported_targets = "js"
+
+options(
+  "is-main": true,
+)

@@ -1,0 +1,22 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "example/sokobank/main"
+
+// Values
+
+// Errors
+
+// Types and methods
+type Model
+
+type Msg
+
+type Pos derive(Eq)
+
+type Tile derive(Eq)
+
+type World
+
+// Type aliases
+
+// Traits
+

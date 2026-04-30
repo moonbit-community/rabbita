@@ -1,0 +1,15 @@
+{
+  "name": "example/sokobank",
+  "version": "0.2.0",
+  "deps": {
+    "moonbit-community/rabbita": {
+      "path": "../../rabbita"
+    }
+  },
+  "readme": "README.md",
+  "repository": "",
+  "license": "Apache-2.0",
+  "keywords": [],
+  "description": "A Sokoban time-travel demo for Rabbita TEA.",
+  "preferred-target": "js"
+}
