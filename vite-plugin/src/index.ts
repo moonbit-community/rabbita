@@ -271,9 +271,15 @@ function resolveJsOutput(
   const localBuildRoot = path.resolve(path.join(project.moduleRoot, '_build'));
   for (const buildRoot of buildRoots) {
     const metadata = readBuildMetadata(buildRoot);
-    if (!metadata) {
-      continue;
-    }
+    // Error-tolerant approach: if metadata is missing or malformed, we will
+    // still attempt to find JS outputs in the build root, prioritizing the
+    // local build root. This allows for some flexibility in build artifact
+    // structures while still supporting the main package selection logic when
+    // metadata is available. 
+    // 
+    // if (!metadata) {
+    //   continue;
+    // }
     const allowFallback = path.resolve(buildRoot) === localBuildRoot;
     const mainPkg = pickMainPackage(
       metadata,
