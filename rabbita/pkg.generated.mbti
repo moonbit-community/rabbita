@@ -14,6 +14,12 @@ pub fn[A, E : Error] attempt((Result[A, E]) -> @cmd.Cmd, async () -> A raise E) 
 
 pub fn batch(Array[@cmd.Cmd]) -> @cmd.Cmd
 
+#deprecated
+pub fn[Model, Msg] cell(model~ : Model, update~ : (@cmd.Emit[Msg], Msg, Model) -> (@cmd.Cmd, Model), view~ : (@cmd.Emit[Msg], Model) -> @html.Html, subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> () -> Val[@html.Html]
+
+#deprecated
+pub fn[Model, Msg] cell_with_emit(model~ : Model, update~ : (@cmd.Emit[Msg], Msg, Model) -> (@cmd.Cmd, Model), view~ : (@cmd.Emit[Msg], Model) -> @html.Html, subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> (@cmd.Emit[Msg], () -> Val[@html.Html])
+
 pub fn[Model : Eq, Msg] create_pure_state(Model, update~ : (Msg, Model) -> Model) -> (Val[Model], @cmd.Emit[Msg])
 
 pub fn[T : Eq] create_resource((@cmd.Emit[Result[T, Error]]) -> @cmd.Cmd) -> Val[Status[T]]
@@ -39,6 +45,15 @@ pub let none : @cmd.Cmd
 pub fn[A] perform((A) -> @cmd.Cmd, async () -> A noraise) -> @cmd.Cmd
 
 pub fn render_to_string(() -> Val[@html.Html]) -> String
+
+#deprecated
+pub fn[Model, Msg] simple_cell(model~ : Model, update~ : (Msg, Model) -> Model, view~ : (@cmd.Emit[Msg], Model) -> @html.Html) -> () -> Val[@html.Html]
+
+#deprecated
+pub fn[Model, Msg] simple_cell_with_emit(model~ : Model, update~ : (Msg, Model) -> Model, view~ : (@cmd.Emit[Msg], Model) -> @html.Html, subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> (@cmd.Emit[Msg], () -> Val[@html.Html])
+
+#deprecated
+pub fn static_cell(@html.Html) -> () -> Val[@html.Html]
 
 // Errors
 
@@ -72,6 +87,9 @@ pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I : Eq, J
 pub fn[E : @common.Enumerate + Eq, C : Eq] Val::switch(Self[E], (E) -> Self[C]) -> Self[C]
 
 // Type aliases
+#deprecated
+pub type Cell = () -> Val[@html.Html]
+
 pub using @cmd {type Cmd}
 
 pub using @cmd {type Emit}
