@@ -59,6 +59,7 @@ pub fn VNode::elem(String, Props, Children[Self], namespace_uri? : String) -> Se
 pub fn VNode::fragment(Array[Self]) -> Self
 pub fn VNode::link(Props, Children[Self], escape? : Bool) -> Self
 pub fn VNode::text(String) -> Self
+pub fn VNode::thunk(Int, () -> Self) -> Self
 pub impl Eq for VNode
 
 // Type aliases

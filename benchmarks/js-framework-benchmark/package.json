@@ -1,0 +1,26 @@
+{
+  "name": "js-framework-benchmark-rabbita",
+  "version": "0.1.0",
+  "description": "Rabbita keyed implementation for js-framework-benchmark",
+  "type": "module",
+  "main": "dist/main.js",
+  "js-framework-benchmark": {
+    "frameworkVersion": "0.12.4-dev",
+    "frameworkHomeURL": "https://github.com/moonbit-community/rabbita",
+    "language": "MoonBit"
+  },
+  "scripts": {
+    "dev": "npm run build-prod",
+    "build-prod": "moon build main --target js --release --target-dir _build && node build.mjs"
+  },
+  "author": "Rabbita contributors",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/moonbit-community/rabbita",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moonbit-community/rabbita.git"
+  },
+  "devDependencies": {
+    "terser": "5.44.0"
+  }
+}

@@ -128,6 +128,8 @@ pub fn[C : IsChildren] kbd(style? : Array[String], id? : String, class? : String
 
 pub fn[C : IsChildren] label(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, for_? : String, attrs? : Attrs, C) -> Html
 
+pub fn lazy(Int, () -> Html) -> Html
+
 pub fn[C : IsChildren] legend(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] li(style? : Array[String], value? : Int, id? : String, class? : String, title? : String, hidden? : Bool, on_click? : @cmd.Cmd, attrs? : Attrs, C) -> Html

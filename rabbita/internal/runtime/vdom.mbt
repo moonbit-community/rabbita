@@ -18,19 +18,37 @@ pub impl Eq for VNode with fn equal(_, _) {
 ///|
 #cfg(target="js")
 priv enum INode {
-  Elem(String, Props, Children[INode], namespace_uri~ : String?, @dom.Element)
-  Text(String, @dom.Element)
-  Frag(Array[INode], @dom.Comment, @dom.Comment)
-  Thunk(Int, INode)
+  Elem(
+    VNode,
+    String,
+    Props,
+    Children[INode],
+    namespace_uri~ : String?,
+    @dom.Element
+  )
+  Text(VNode, String, @dom.Element)
+  Frag(VNode, Array[INode], @dom.Comment, @dom.Comment)
+  Thunk(VNode, Int, INode)
+}
+
+///|
+#cfg(target="js")
+fn INode::vnode(self : Self) -> VNode {
+  match self {
+    Elem(vnode, _, _, _, namespace_uri=_, _) => vnode
+    Text(vnode, _, _) => vnode
+    Frag(vnode, _, _, _) => vnode
+    Thunk(vnode, _, _) => vnode
+  }
 }
 
 ///|
 #cfg(target="js")
 fn INode::start(s : Self) -> @dom.Node {
   match s {
-    Elem(_, _, _, e, ..) | Text(_, e) => e.as_node()
-    Thunk(_, n) => n.start()
-    Frag(_, s, _) => s.as_node()
+    Elem(_, _, _, _, namespace_uri=_, e) | Text(_, _, e) => e.as_node()
+    Thunk(_, _, n) => n.start()
+    Frag(_, _, s, _) => s.as_node()
   }
 }
 
@@ -38,9 +56,9 @@ fn INode::start(s : Self) -> @dom.Node {
 #cfg(target="js")
 fn INode::end(s : Self) -> @dom.Node {
   match s {
-    Elem(_, _, _, e, ..) | Text(_, e) => e.as_node()
-    Thunk(_, n) => n.end()
-    Frag(_, _, e) => e.as_node()
+    Elem(_, _, _, _, namespace_uri=_, e) | Text(_, _, e) => e.as_node()
+    Thunk(_, _, n) => n.end()
+    Frag(_, _, _, e) => e.as_node()
   }
 }
 
@@ -48,9 +66,10 @@ fn INode::end(s : Self) -> @dom.Node {
 #cfg(target="js")
 fn INode::remove(self : Self, sandbox : Sandbox, parent : @dom.Node) -> Unit {
   match self {
-    Elem(_, _, _, e, ..) | Text(_, e) => parent.remove_child(e.as_node())
-    Thunk(_, inode) => inode.remove(sandbox, parent)
-    Frag(_, s, e) => {
+    Elem(_, _, _, _, namespace_uri=_, e) | Text(_, _, e) =>
+      parent.remove_child(e.as_node())
+    Thunk(_, _, inode) => inode.remove(sandbox, parent)
+    Frag(_, _, s, e) => {
       let s = s.as_node()
       let e = e.as_node()
       // guard s.get_parent_node().to_option() is Some(a) &&
@@ -73,10 +92,10 @@ fn INode::relocate(
   before : @js.Nullable[@dom.Node],
 ) -> Unit {
   match self {
-    Elem(_, _, _, e, ..) | Text(_, e) =>
+    Elem(_, _, _, _, namespace_uri=_, e) | Text(_, _, e) =>
       parent.insert_before(e.as_node(), before)
-    Thunk(_, inode) => inode.relocate(parent, before)
-    Frag(_, s, e) => {
+    Thunk(_, _, inode) => inode.relocate(parent, before)
+    Frag(_, _, s, e) => {
       {
         guard s.get_parent_node().to_option() is Some(a)
         guard e.get_parent_node().to_option() is Some(b)
@@ -108,11 +127,11 @@ fn VNode::insert(
     Text(s) => {
       let e = @dom.document().create_text_node(s)
       parent.insert_before(e.as_node(), before)
-      Text(s, e)
+      Text(self, s, e)
     }
     Thunk(hash, render) => {
       let inode = render().insert(sandbox, parent, before)
-      Thunk(hash, inode)
+      Thunk(self, hash, inode)
     }
     Frag(childs) => {
       let doc = @dom.document()
@@ -125,9 +144,12 @@ fn VNode::insert(
       })
       fragment.append_child(end.as_node())
       parent.insert_before(fragment.as_node(), before)
-      Frag(childs, start, end)
+      Frag(self, childs, start, end)
     }
     Elem(tag, properties, childs, namespace_uri~) => {
+      // Event listener slots belong to one mounted occurrence. Keep them out of
+      // the source VNode so sharing a VNode across mount points remains safe.
+      let properties = properties.mounted_copy()
       let s = if tag == CAPTURED_LINK_TAG { "a" } else { tag }
       let doc = @dom.document()
       let element = match namespace_uri {
@@ -175,7 +197,7 @@ fn VNode::insert(
         }
       }
       parent.insert_before(n, before)
-      Elem(tag, properties, childs, namespace_uri~, element)
+      Elem(self, tag, properties, childs, namespace_uri~, element)
     }
   }
 }
@@ -274,6 +296,18 @@ pub fn Props::copy(self : Props) -> Props {
 
 ///|
 #cfg(target="js")
+fn Props::mounted_copy(self : Props) -> Props {
+  {
+    slots: {},
+    handlers: self.handlers,
+    attrs: self.attrs,
+    props: self.props,
+    styles: self.styles,
+  }
+}
+
+///|
+#cfg(target="js")
 fn[T] nullable(x : T) -> @js.Nullable[T] {
   @js.Nullable::from_option(Some(x))
 }
@@ -295,53 +329,62 @@ fn diff_node(
   parent : @dom.Node,
   anchor : @js.Nullable[@dom.Node],
 ) -> INode {
-  match (old, new) {
-    (
-      Elem(tag1, props1, childs1, namespace_uri=ns1, e),
-      Elem(tag2, props2, childs2, namespace_uri=ns2),
-    ) =>
-      if tag1 != tag2 || ns1 != ns2 {
+  if physical_equal(old.vnode(), new) {
+    old
+  } else {
+    match (old, new) {
+      (
+        Elem(_, tag1, props1, childs1, namespace_uri=ns1, e),
+        Elem(tag2, props2, childs2, namespace_uri=ns2),
+      ) =>
+        if tag1 != tag2 || ns1 != ns2 {
+          old.remove(sandbox, parent.as_node())
+          new.insert(sandbox, parent.as_node(), anchor)
+        } else {
+          // `diff_props` installs listener slots into its second argument, so
+          // retain an occurrence-local snapshot instead of mutating the VNode.
+          let props2 = props2.mounted_copy()
+          diff_props(props1, props2, sandbox, e)
+          let childs = diff_children(
+            childs1,
+            childs2,
+            sandbox,
+            e.as_node(),
+            null(),
+          )
+          Elem(new, tag2, props2, childs, namespace_uri=ns2, e)
+        }
+      (Text(_, s1, e), Text(s2)) => {
+        if s1 != s2 {
+          e.set_node_value(@js.Nullable::from_option(Some(s2)))
+        }
+        Text(new, s2, e)
+      }
+      (Frag(_, childs1, s, e), Frag(childs2)) => {
+        let childs = diff_children(
+          Array(childs1),
+          Array(childs2),
+          sandbox,
+          parent.as_node(),
+          nullable(e.as_node()),
+        )
+        guard childs is Array(childs)
+        Frag(new, childs, s, e)
+      }
+      (Thunk(_, hash1, inode), Thunk(hash2, render)) =>
+        if hash1 == hash2 {
+          // Keep the latest wrapper so a subsequent diff against this exact
+          // VNode can take the physical-identity fast path.
+          Thunk(new, hash2, inode)
+        } else {
+          let vnode = render()
+          let inode = diff_node(inode, vnode, sandbox, parent, anchor)
+          Thunk(new, hash2, inode)
+        }
+      (_, _) => {
         old.remove(sandbox, parent.as_node())
         new.insert(sandbox, parent.as_node(), anchor)
-      } else {
-        diff_props(props1, props2, sandbox, e)
-        let childs = diff_children(
-          childs1,
-          childs2,
-          sandbox,
-          e.as_node(),
-          null(),
-        )
-        Elem(tag2, props2, childs, namespace_uri=ns2, e)
       }
-    (Text(s1, e), Text(s2)) => {
-      if s1 != s2 {
-        e.set_node_value(@js.Nullable::from_option(Some(s2)))
-      }
-      Text(s2, e)
-    }
-    (Frag(childs1, s, e), Frag(childs2)) => {
-      let childs = diff_children(
-        Array(childs1),
-        Array(childs2),
-        sandbox,
-        parent.as_node(),
-        nullable(e.as_node()),
-      )
-      guard childs is Array(childs)
-      Frag(childs, s, e)
-    }
-    (Thunk(hash1, inode) as old, Thunk(hash2, render)) =>
-      if hash1 == hash2 {
-        old
-      } else {
-        let vnode = render()
-        let inode = diff_node(inode, vnode, sandbox, parent, anchor)
-        Thunk(hash2, inode)
-      }
-    (_, _) => {
-      old.remove(sandbox, parent.as_node())
-      new.insert(sandbox, parent.as_node(), anchor)
     }
   }
 }
@@ -424,6 +467,64 @@ fn diff_props(
 
 ///|
 #cfg(target="js")
+fn lis_members(old_positions : Array[Int]) -> Array[Bool] {
+  let members = Array::make(old_positions.length(), false)
+  let mut previous = -1
+  let mut already_increasing = true
+  for index, old_position in old_positions {
+    if old_position >= 0 {
+      members[index] = true
+      if old_position <= previous {
+        already_increasing = false
+      }
+      previous = old_position
+    }
+  }
+  if already_increasing {
+    return members
+  }
+  let predecessors = Array::make(old_positions.length(), -1)
+  // Each entry is a new-order index. The old position at that index is the
+  // smallest tail found for an increasing subsequence of this length.
+  let tails : Array[Int] = []
+  for index, old_position in old_positions {
+    if old_position < 0 {
+      continue
+    }
+    let mut low = 0
+    let mut high = tails.length()
+    while low < high {
+      let middle = low + (high - low) / 2
+      if old_positions[tails[middle]] < old_position {
+        low = middle + 1
+      } else {
+        high = middle
+      }
+    }
+    if low > 0 {
+      predecessors[index] = tails[low - 1]
+    }
+    if low == tails.length() {
+      tails.push(index)
+    } else {
+      tails[low] = index
+    }
+  }
+  for index, _ in members {
+    members[index] = false
+  }
+  if tails.last() is Some(last) {
+    let mut index = last
+    while index >= 0 {
+      members[index] = true
+      index = predecessors[index]
+    }
+  }
+  members
+}
+
+///|
+#cfg(target="js")
 fn diff_children(
   old : Children[INode],
   new : Children[VNode],
@@ -469,40 +570,77 @@ fn diff_children(
           v1.remove(sandbox, parent)
         }
       }
+      let old_order = old.to_array()
       let order = new.to_array()
-      let mut before = null()
+      let mut same_key_order = old_order.length() == order.length()
+      if same_key_order {
+        for index, pair in order {
+          let (key, _) = pair
+          if old_order[index].0 != key {
+            same_key_order = false
+            break
+          }
+        }
+      }
+      let stable = if same_key_order {
+        ([] : Array[Bool])
+      } else {
+        let old_positions : Map[String, Int] = {}
+        for index, pair in old_order {
+          let (key, _) = pair
+          old_positions[key] = index
+        }
+        let positions = order.map(pair => {
+          let (key, _) = pair
+          old_positions.get(key).unwrap_or(-1)
+        })
+        lis_members(positions)
+      }
+      let mut before = anchor
       let reversed = []
       for i in order.length()>..0 {
         let (k, v2) = order[i]
         let inode = match old.get(k) {
           None => v2.insert(sandbox, parent, before)
-          Some(v1) => {
-            let inode = diff_node(v1, v2, sandbox, parent, before)
-            inode.relocate(parent, before)
-            inode
-          }
+          Some(v1) =>
+            if same_key_order || stable[i] {
+              diff_node(v1, v2, sandbox, parent, before)
+            } else {
+              let old_start = v1.start()
+              let inode = diff_node(v1, v2, sandbox, parent, before)
+              // A replacement is already inserted at `before`; only an
+              // existing mounted range that survived diffing needs relocation.
+              if old_start.is_same_node(inode.start()) {
+                inode.relocate(parent, before)
+              }
+              inode
+            }
         }
         reversed.push((k, inode))
         before = nullable(inode.start())
       }
-      Map(Map::from_array(reversed))
+      Map(Map::from_array(reversed.rev()))
     }
     (_, _) => {
       match old {
         Map(xs) => xs.each((_, x) => x.remove(sandbox, parent))
         Array(xs) => xs.each(x => x.remove(sandbox, parent))
       }
-      new.map(y => y.insert(sandbox, parent, null()))
+      match new {
+        Array(xs) =>
+          Array(xs.map(vnode => vnode.insert(sandbox, parent, anchor)))
+        Map(xs) => {
+          // `Map::map` evaluates its callback from tail to head while cloning
+          // the linked structure. Mount explicitly in insertion order because
+          // DOM insertion is an observable side effect.
+          let mounted = {}
+          for key, vnode in xs {
+            mounted[key] = vnode.insert(sandbox, parent, anchor)
+          }
+          Map(mounted)
+        }
+      }
     }
-  }
-}
-
-///|
-#cfg(target="js")
-fn[A, B] Children::map(c : Children[A], f : (A) -> B) -> Children[B] {
-  match c {
-    Array(arr) => Array(arr.map(f))
-    Map(mp) => Map(mp.map((_, v) => f(v)))
   }
 }
 
