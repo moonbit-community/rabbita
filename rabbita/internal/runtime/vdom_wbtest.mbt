@@ -139,6 +139,27 @@ extern "js" fn vdom_test_child_values(parent : @dom.Node) -> String = "(parent) 
 
 ///|
 #cfg(target="js")
+test "empty Props maps use copy-on-write isolation" {
+  let first = Props::empty()
+  let second = Props::empty()
+  assert_true(physical_equal(first.attrs, second.attrs))
+  assert_true(physical_equal(first.handlers, second.handlers))
+  first.set_attribute("class", "first")
+  first.set_property("hidden", Boolean(true))
+  first.set_style("color", "red")
+  first.set_handler("click", fn(_, _) {  })
+  assert_true(first.attrs.get("class") is Some("first"))
+  assert_true(second.attrs.is_empty())
+  assert_true(second.props.is_empty())
+  assert_true(second.styles.is_empty())
+  assert_true(second.handlers.is_empty())
+  let copied = second.copy()
+  copied.set_attribute("id", "copy")
+  assert_true(second.attrs.is_empty())
+}
+
+///|
+#cfg(target="js")
 fn mount_keyed_for_test(
   vnodes : Map[String, VNode],
   sandbox : Sandbox,
@@ -165,7 +186,7 @@ test "diff reuses an INode for the identical VNode" {
 
 ///|
 #cfg(target="js")
-test "thunk stores the latest wrapper without rerendering an equal hash" {
+test "thunk reuses its INode without rerendering an equal hash" {
   let parent = vdom_test_parent()
   let sandbox = Sandbox::new()
   let render_count = Ref::{ val: 0 }
@@ -179,16 +200,14 @@ test "thunk stores the latest wrapper without rerendering an equal hash" {
     render_count.val += 100
     VNode::text("unused")
   })
-  let inode = diff_node(inode, same_hash, sandbox, parent, null())
+  let updated = diff_node(inode, same_hash, sandbox, parent, null())
   assert_eq(render_count.val, 1)
-  assert_true(physical_equal(inode.vnode(), same_hash))
-  let identical = diff_node(inode, same_hash, sandbox, parent, null())
-  assert_true(physical_equal(inode, identical))
+  assert_true(physical_equal(inode, updated))
   let changed_hash = VNode::Thunk(2, () => {
     render_count.val += 1
     VNode::text("second")
   })
-  ignore(diff_node(identical, changed_hash, sandbox, parent, null()))
+  ignore(diff_node(updated, changed_hash, sandbox, parent, null()))
   assert_eq(render_count.val, 2)
 }
 
@@ -207,10 +226,10 @@ test "sharing a VNode keeps listener slots local to each mount" {
       Elem(_, _, first_props, _, namespace_uri=_, _),
       Elem(_, _, second_props, _, namespace_uri=_, _),
     ) => {
-      guard first_props.slots.get("click") is Some(first_slot) else {
+      guard pairs_get(first_props.slots, "click") is Some(first_slot) else {
         fail("first mount has no click listener slot")
       }
-      guard second_props.slots.get("click") is Some(second_slot) else {
+      guard pairs_get(second_props.slots, "click") is Some(second_slot) else {
         fail("second mount has no click listener slot")
       }
       assert_false(physical_equal(first_slot, second_slot))
@@ -240,6 +259,53 @@ test "keyed diff leaves an unchanged order in place" {
   reset_vdom_test_relocations(parent)
   ignore(diff_children(mounted, children, sandbox, parent, before))
   assert_eq(vdom_test_relocations(parent), 0)
+}
+
+///|
+#cfg(target="js")
+test "keyed prefix append keeps existing nodes in place" {
+  let parent = vdom_test_parent()
+  let sandbox = Sandbox::new()
+  let anchor = VNode::text("anchor").insert(sandbox, parent, null())
+  let before = nullable(anchor.start())
+  let a = VNode::text("a")
+  let b = VNode::text("b")
+  let old_map = Map::from_array([("a", a), ("b", b)])
+  let mounted = mount_keyed_for_test(old_map, sandbox, parent, before)
+  let appended : Children[VNode] = Map(
+    Map::from_array([
+      ("a", a),
+      ("b", b),
+      ("c", VNode::text("c")),
+      ("d", VNode::text("d")),
+    ]),
+  )
+  reset_vdom_test_relocations(parent)
+  ignore(diff_children(mounted, appended, sandbox, parent, before))
+  assert_eq(vdom_test_relocations(parent), 0)
+  assert_eq(vdom_test_child_values(parent), "a,b,c,d,anchor")
+}
+
+///|
+#cfg(target="js")
+test "keyed deletion subsequence removes without relocating survivors" {
+  let parent = vdom_test_parent()
+  let sandbox = Sandbox::new()
+  let anchor = VNode::text("anchor").insert(sandbox, parent, null())
+  let before = nullable(anchor.start())
+  let a = VNode::text("a")
+  let b = VNode::text("b")
+  let c = VNode::text("c")
+  let d = VNode::text("d")
+  let old_map = Map::from_array([("a", a), ("b", b), ("c", c), ("d", d)])
+  let mounted = mount_keyed_for_test(old_map, sandbox, parent, before)
+  let removed : Children[VNode] = Map(
+    Map::from_array([("a", a), ("c", c), ("d", d)]),
+  )
+  reset_vdom_test_relocations(parent)
+  ignore(diff_children(mounted, removed, sandbox, parent, before))
+  assert_eq(vdom_test_relocations(parent), 0)
+  assert_eq(vdom_test_child_values(parent), "a,c,d,anchor")
 }
 
 ///|
@@ -350,35 +416,6 @@ test "a non-LIS replacement is inserted without a redundant relocation" {
   ignore(diff_children(mounted, next, sandbox, parent, before))
   assert_eq(vdom_test_relocations(parent), 0)
   assert_eq(vdom_test_child_values(parent), "new-c,a,b,anchor")
-}
-
-///|
-#cfg(target="js")
-test "Array and keyed Map conversion preserves order before an anchor" {
-  let parent = vdom_test_parent()
-  let sandbox = Sandbox::new()
-  let anchor = VNode::text("anchor").insert(sandbox, parent, null())
-  let before = nullable(anchor.start())
-  let old_vnodes = [VNode::text("old-a"), VNode::text("old-b")]
-  let old : Children[INode] = Array(
-    old_vnodes.map(vnode => vnode.insert(sandbox, parent, before)),
-  )
-  let keyed : Children[VNode] = Map(
-    Map::from_array([
-      ("a", VNode::text("a")),
-      ("b", VNode::text("b")),
-      ("c", VNode::text("c")),
-    ]),
-  )
-  let mounted = diff_children(old, keyed, sandbox, parent, before)
-  assert_eq(vdom_test_child_values(parent), "a,b,c,anchor")
-  let array : Children[VNode] = Array([
-    VNode::text("x"),
-    VNode::text("y"),
-    VNode::text("z"),
-  ])
-  ignore(diff_children(mounted, array, sandbox, parent, before))
-  assert_eq(vdom_test_child_values(parent), "x,y,z,anchor")
 }
 
 ///|

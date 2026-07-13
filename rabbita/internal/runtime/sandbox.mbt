@@ -3,6 +3,10 @@
 using @queue {type Queue}
 
 ///|
+#cfg(target="js")
+extern "js" fn schedule_render(f : () -> Unit) = "queueMicrotask"
+
+///|
 /// The rendering pipeline will do the following step:
 ///
 /// 1. view(model) -> newView  
@@ -79,12 +83,12 @@ pub fn Sandbox::initialize(self : Self, vnode : @duplix.Node[VNode]) -> Unit {
 }
 
 ///|
-/// Schedules a drawing frame to be rendered on the next animation frame.
+/// Schedules DOM patching after the current command batch.
 #cfg(target="js")
 pub fn Sandbox::flush(self : Self) -> Unit {
   if !self.paint_scheduled {
     self.paint_scheduled = true
-    @dom.window().request_animation_frame(fn(_) {
+    schedule_render(fn() {
       if self.inode is Some(inode) {
         let end = inode.end()
         let parent = end.get_parent_node().unwrap()
@@ -98,7 +102,6 @@ pub fn Sandbox::flush(self : Self) -> Unit {
         f(self)
       }
     })
-    |> ignore
   }
 }
 

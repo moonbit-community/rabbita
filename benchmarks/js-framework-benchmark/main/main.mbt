@@ -2,10 +2,7 @@
 using @rabbita {type Cmd, type Emit, type Html, type Val}
 
 ///|
-using @html {type Attrs, button, div, h1, node, span, table, tbody, td, tr}
-
-///|
-using @ref {type Ref}
+using @html {type Attrs, button, div, h1, node, span, table, tbody}
 
 ///|
 let adjectives : Array[String] = [
@@ -32,15 +29,43 @@ extern "js" fn random_index(max : Int) -> Int = "(max) => Math.round(Math.random
 ///|
 priv struct Row {
   id : Int
+  id_text : String
   label : String
   view_version : Int
-} derive(Eq)
+}
 
 ///|
-fn build_data(count : Int, next_id : Ref[Int]) -> Array[Row] {
-  Array::makei(count, _ => {
-    let row = {
-      id: next_id.val,
+priv struct Model {
+  rows : Array[Row]
+  selected : Int
+  next_id : Int
+}
+
+///|
+impl Eq for Model with fn equal(a, b) {
+  a.selected == b.selected &&
+  a.next_id == b.next_id &&
+  physical_equal(a.rows, b.rows)
+}
+
+///|
+priv enum Msg {
+  Create(Int)
+  Append
+  UpdateEveryTenth
+  Clear
+  Swap
+  Select(Int)
+  Remove(Int)
+}
+
+///|
+fn build_data(count : Int, start_id : Int) -> Array[Row] {
+  Array::makei(count, index => {
+    let id = start_id + index
+    {
+      id,
+      id_text: id.to_string(),
       label: adjectives[random_index(adjectives.length())] +
       " " +
       colours[random_index(colours.length())] +
@@ -48,8 +73,6 @@ fn build_data(count : Int, next_id : Ref[Int]) -> Array[Row] {
       nouns[random_index(nouns.length())],
       view_version: 0,
     }
-    next_id.val = next_id.val + 1
-    row
   })
 }
 
@@ -84,6 +107,29 @@ fn swap_rows(rows : Array[Row]) -> Array[Row] {
   let updated = rows.copy()
   updated.swap(1, 998)
   updated
+}
+
+///|
+fn update_model(msg : Msg, model : Model) -> Model {
+  match msg {
+    Create(count) =>
+      {
+        rows: build_data(count, model.next_id),
+        selected: 0,
+        next_id: model.next_id + count,
+      }
+    Append =>
+      {
+        ..model,
+        rows: model.rows + build_data(1000, model.next_id),
+        next_id: model.next_id + 1000,
+      }
+    UpdateEveryTenth => { ..model, rows: update_every_tenth(model.rows) }
+    Clear => { ..model, rows: [], selected: 0 }
+    Swap => { ..model, rows: swap_rows(model.rows) }
+    Select(id) => { ..model, selected: id }
+    Remove(id) => { ..model, rows: remove_row(model.rows, id) }
+  }
 }
 
 ///|
@@ -131,49 +177,63 @@ fn controls(
 }
 
 ///|
-fn row_view(
-  row : Row,
-  selected : Bool,
-  set_selected : Emit[(Int) -> Int],
-  set_rows : Emit[(Array[Row]) -> Array[Row]],
-) -> Html {
-  tr(class=if selected { "danger" } else { "" }, [
-    td(class="col-md-1", row.id.to_string()),
-    td(class="col-md-4", [
-      node("a", click_attrs(set_selected(_ => row.id)), row.label),
+// These values are immutable after initialization. Reusing them reflects how
+// static attributes and static subtrees are normally hoisted by a UI compiler,
+// and lets Rabbita's VNode identity fast path do useful work inside changed
+// rows as well.
+let normal_row_attrs : Attrs = Attrs::build().class("")
+
+///|
+let selected_row_attrs : Attrs = Attrs::build().class("danger")
+
+///|
+let narrow_cell_attrs : Attrs = Attrs::build().class("col-md-1")
+
+///|
+let label_cell_attrs : Attrs = Attrs::build().class("col-md-4")
+
+///|
+let trailing_cell : Html = node(
+  "td",
+  Attrs::build().class("col-md-6"),
+  ([] : Array[Html]),
+)
+
+///|
+let remove_icon : Html = node(
+  "span",
+  Attrs::build().class("glyphicon glyphicon-remove").aria_hidden("true"),
+  ([] : Array[Html]),
+)
+
+///|
+fn row_view(row : Row, selected : Bool, emit : Emit[Msg]) -> Html {
+  node("tr", if selected { selected_row_attrs } else { normal_row_attrs }, [
+    node("td", narrow_cell_attrs, row.id_text),
+    node("td", label_cell_attrs, [
+      node("a", click_attrs(emit(Select(row.id))), row.label),
     ]),
-    td(class="col-md-1", [
-      node("a", click_attrs(set_rows(rows => remove_row(rows, row.id))), [
-        span(
-          class="glyphicon glyphicon-remove",
-          attrs=Attrs::build().aria_hidden("true"),
-          ([] : Array[Html]),
-        ),
-      ]),
+    node("td", narrow_cell_attrs, [
+      node("a", click_attrs(emit(Remove(row.id))), [remove_icon]),
     ]),
-    td(class="col-md-6", ([] : Array[Html])),
+    trailing_cell,
   ])
 }
 
 ///|
 fn app() -> Val[Html] {
-  let next_id = @ref.new(1)
-  let (rows, set_rows) = @rabbita.create_variable(([] : Array[Row]))
-  let (selected, set_selected) = @rabbita.create_variable(0)
+  let (model, emit) = @rabbita.create_pure_state(
+    Model::{ rows: [], selected: 0, next_id: 1 },
+    update=update_model,
+  )
 
   let controls = controls(
-    @rabbita.batch([
-      set_rows(_ => build_data(1000, next_id)),
-      set_selected(_ => 0),
-    ]),
-    @rabbita.batch([
-      set_rows(_ => build_data(10000, next_id)),
-      set_selected(_ => 0),
-    ]),
-    set_rows(rows => rows + build_data(1000, next_id)),
-    set_rows(update_every_tenth),
-    @rabbita.batch([set_rows(_ => []), set_selected(_ => 0)]),
-    set_rows(swap_rows),
+    emit(Create(1000)),
+    emit(Create(10000)),
+    emit(Append),
+    emit(UpdateEveryTenth),
+    emit(Clear),
+    emit(Swap),
   )
   let preload = span(
     class="preloadicon glyphicon glyphicon-remove",
@@ -181,18 +241,13 @@ fn app() -> Val[Html] {
     ([] : Array[Html]),
   )
 
-  rows.map2(selected, (rows, selected) => {
-    let rendered_rows = Map(
-      rows.map(row => {
-        let is_selected = selected == row.id
+  model.map(model => {
+    let rendered_rows = @html.keyed(
+      model.rows.map(row => {
+        let is_selected = model.selected == row.id
         let selected_hash = if is_selected { 1 } else { 0 }
         let hash = row.view_version * 2 + selected_hash
-        (
-          row.id.to_string(),
-          @html.lazy(hash, () => {
-            row_view(row, is_selected, set_selected, set_rows)
-          }),
-        )
+        (row.id_text, @html.lazy(hash, () => row_view(row, is_selected, emit)))
       }),
     )
 

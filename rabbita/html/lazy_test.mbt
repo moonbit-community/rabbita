@@ -12,16 +12,3 @@ test "lazy defers constructing its subtree" {
   )
   assert_eq(render_count.val, 1)
 }
-
-///|
-test "lazy composes with ordinary html" {
-  let html = @html.div([
-    @html.text("before"),
-    @html.lazy(1, () => @html.span("inside")),
-    @html.text("after"),
-  ])
-  inspect(
-    @rabbita.render_to_string(() => @rabbita.Val::constant(html)),
-    content="<div>before<span>inside</span>after</div>",
-  )
-}

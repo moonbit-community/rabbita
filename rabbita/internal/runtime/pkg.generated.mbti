@@ -23,14 +23,18 @@ pub(all) enum Children[T] {
 }
 
 pub struct Props {
-  handlers : Map[String, (@dom.Event, &@cmd.Scheduler) -> Unit]
-  attrs : Map[String, String]
-  props : Map[String, @variant.Variant]
-  styles : Map[String, String]
+  mut attrs : Map[String, String]
+  mut props : Map[String, @variant.Variant]
+  mut styles : Map[String, String]
   // private fields
 }
 pub fn Props::copy(Self) -> Self
+pub fn Props::empty() -> Self
 pub fn Props::new(Map[String, String], Map[String, @variant.Variant], Map[String, String], Map[String, (@dom.Event, &@cmd.Scheduler) -> Unit]) -> Self
+pub fn Props::set_attribute(Self, String, String) -> Unit
+pub fn Props::set_handler(Self, String, (@dom.Event, &@cmd.Scheduler) -> Unit) -> Unit
+pub fn Props::set_property(Self, String, @variant.Variant) -> Unit
+pub fn Props::set_style(Self, String, String) -> Unit
 
 pub(all) struct Sandbox {
   mut mount : String

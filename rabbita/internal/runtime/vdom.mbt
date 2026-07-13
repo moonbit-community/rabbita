@@ -147,9 +147,11 @@ fn VNode::insert(
       Frag(self, childs, start, end)
     }
     Elem(tag, properties, childs, namespace_uri~) => {
-      // Event listener slots belong to one mounted occurrence. Keep them out of
-      // the source VNode so sharing a VNode across mount points remains safe.
-      let properties = properties.mounted_copy()
+      let properties = if properties.handlers.is_empty() {
+        properties
+      } else {
+        properties.mounted_copy()
+      }
       let s = if tag == CAPTURED_LINK_TAG { "a" } else { tag }
       let doc = @dom.document()
       let element = match namespace_uri {
@@ -157,29 +159,38 @@ fn VNode::insert(
         Some(ns) => doc.create_element_ns(ns, s)
       }
       let { slots, handlers, attrs, props, styles } = properties
-      for e, h in handlers {
-        let slot = @ref.new(h)
-        element.add_event_listener(e, x => (slot.val)(x, sandbox))
-        slots[e] = slot
+      if !handlers.is_empty() {
+        for pair in handlers {
+          let (e, h) = pair
+          let slot = @ref.new(h)
+          element.add_event_listener(e, x => (slot.val)(x, sandbox))
+          slots.push((e, slot))
+        }
       }
       if tag == CAPTURED_LINK_TAG {
         element.add_event_listener("click", sandbox.captured_link_listener)
       }
-      for n, val in attrs {
-        element.set_attribute(n, val)
+      if !attrs.is_empty() {
+        for n, val in attrs {
+          element.set_attribute(n, val)
+        }
       }
-      for n, val in props {
-        element.set_property(n, variant_to_js_value(val))
+      if !props.is_empty() {
+        for n, val in props {
+          element.set_property(n, variant_to_js_value(val))
+        }
       }
-      let sheet = if element.to_html_element() is Some(html) {
-        html.get_style()
-      } else if element.to_svg_element() is Some(svg) {
-        svg.get_style()
-      } else {
-        panic()
-      }
-      for n, val in styles {
-        sheet.set_property(n, val)
+      if !styles.is_empty() {
+        let sheet = if element.to_html_element() is Some(html) {
+          html.get_style()
+        } else if element.to_svg_element() is Some(svg) {
+          svg.get_style()
+        } else {
+          panic()
+        }
+        for n, val in styles {
+          sheet.set_property(n, val)
+        }
       }
       let n = element.as_node()
       let childs : Children[INode] = if is_html_void_element(tag) {
@@ -188,7 +199,7 @@ fn VNode::insert(
         match childs {
           Array(xs) => Array(xs.map(x => x.insert(sandbox, n, null())))
           Map(mp) => {
-            let imp = {}
+            let imp : Map[String, INode] = Map([], capacity=mp.length())
             for k, v in mp {
               imp[k] = v.insert(sandbox, n, null())
             }
@@ -236,6 +247,12 @@ pub fn VNode::fragment(childs : Array[VNode]) -> VNode {
 }
 
 ///|
+/// Construct a lazily rendered virtual DOM subtree.
+pub fn VNode::thunk(hash : Int, render : () -> VNode) -> VNode {
+  Thunk(hash, render)
+}
+
+///|
 pub(all) enum Children[T] {
   Array(Array[T])
   Map(Map[String, T])
@@ -250,18 +267,54 @@ type Event = @dom.Event
 type Event = Unit
 
 ///|
+let empty_slots : Array[(String, Ref[(Event, &Scheduler) -> Unit])] = []
+
+///|
+let empty_handlers : Array[(String, (Event, &Scheduler) -> Unit)] = []
+
+///|
+let empty_strings : Map[String, String] = {}
+
+///|
+let empty_variants : Map[String, @variant.Variant] = {}
+
+///|
 pub struct Props {
-  priv mut slots : Map[String, Ref[(Event, &Scheduler) -> Unit]]
-  handlers : Map[String, (Event, &Scheduler) -> Unit]
-  attrs : Map[String, String]
-  props : Map[String, @variant.Variant]
-  styles : Map[String, String]
+  priv mut slots : Array[(String, Ref[(Event, &Scheduler) -> Unit])]
+  priv mut handlers : Array[(String, (Event, &Scheduler) -> Unit)]
+  mut attrs : Map[String, String]
+  mut props : Map[String, @variant.Variant]
+  mut styles : Map[String, String]
 }
 
 ///|
 test {
-  let props = { slots: {}, handlers: {}, attrs: {}, props: {}, styles: {} }
-  props.slots = {}
+  let props = { slots: [], handlers: [], attrs: {}, props: {}, styles: {} }
+  props.slots = []
+}
+
+///|
+#cfg(target="js")
+fn[V] pairs_get(items : Array[(String, V)], key : String) -> V? {
+  for pair in items {
+    let (stored_key, value) = pair
+    if stored_key == key {
+      return Some(value)
+    }
+  }
+  None
+}
+
+///|
+fn[V] pairs_set(items : Array[(String, V)], key : String, value : V) -> Unit {
+  for index, pair in items {
+    let (stored_key, _) = pair
+    if stored_key == key {
+      items[index] = (key, value)
+      return
+    }
+  }
+  items.push((key, value))
 }
 
 ///|
@@ -271,7 +324,69 @@ pub fn Props::new(
   styles : Map[String, String],
   handlers : Map[String, (Event, &Scheduler) -> Unit],
 ) -> Props {
-  { slots: {}, handlers, attrs, styles, props }
+  {
+    slots: empty_slots,
+    handlers: if handlers.is_empty() {
+      empty_handlers
+    } else {
+      handlers.to_array()
+    },
+    attrs,
+    styles,
+    props,
+  }
+}
+
+///|
+pub fn Props::empty() -> Props {
+  {
+    slots: empty_slots,
+    handlers: empty_handlers,
+    attrs: empty_strings,
+    props: empty_variants,
+    styles: empty_strings,
+  }
+}
+
+///|
+pub fn Props::set_attribute(self : Props, key : String, value : String) -> Unit {
+  if physical_equal(self.attrs, empty_strings) {
+    self.attrs = {}
+  }
+  self.attrs[key] = value
+}
+
+///|
+pub fn Props::set_property(
+  self : Props,
+  key : String,
+  value : @variant.Variant,
+) -> Unit {
+  if physical_equal(self.props, empty_variants) {
+    self.props = {}
+  }
+  self.props[key] = value
+}
+
+///|
+pub fn Props::set_style(self : Props, key : String, value : String) -> Unit {
+  if physical_equal(self.styles, empty_strings) {
+    self.styles = {}
+  }
+  self.styles[key] = value
+}
+
+///|
+pub fn Props::set_handler(
+  self : Props,
+  key : String,
+  value : (Event, &Scheduler) -> Unit,
+) -> Unit {
+  if physical_equal(self.handlers, empty_handlers) {
+    self.handlers = [(key, value)]
+  } else {
+    pairs_set(self.handlers, key, value)
+  }
 }
 
 ///|
@@ -286,8 +401,8 @@ fn[K : Eq + Hash, V] copy_map(src : Map[K, V]) -> Map[K, V] {
 ///|
 pub fn Props::copy(self : Props) -> Props {
   {
-    slots: copy_map(self.slots),
-    handlers: copy_map(self.handlers),
+    slots: self.slots.copy(),
+    handlers: self.handlers.copy(),
     attrs: copy_map(self.attrs),
     props: copy_map(self.props),
     styles: copy_map(self.styles),
@@ -298,7 +413,7 @@ pub fn Props::copy(self : Props) -> Props {
 #cfg(target="js")
 fn Props::mounted_copy(self : Props) -> Props {
   {
-    slots: {},
+    slots: [],
     handlers: self.handlers,
     attrs: self.attrs,
     props: self.props,
@@ -341,9 +456,12 @@ fn diff_node(
           old.remove(sandbox, parent.as_node())
           new.insert(sandbox, parent.as_node(), anchor)
         } else {
-          // `diff_props` installs listener slots into its second argument, so
-          // retain an occurrence-local snapshot instead of mutating the VNode.
-          let props2 = props2.mounted_copy()
+          let props2 = if props1.handlers.is_empty() &&
+            props2.handlers.is_empty() {
+            props2
+          } else {
+            props2.mounted_copy()
+          }
           diff_props(props1, props2, sandbox, e)
           let childs = diff_children(
             childs1,
@@ -373,9 +491,7 @@ fn diff_node(
       }
       (Thunk(_, hash1, inode), Thunk(hash2, render)) =>
         if hash1 == hash2 {
-          // Keep the latest wrapper so a subsequent diff against this exact
-          // VNode can take the physical-identity fast path.
-          Thunk(new, hash2, inode)
+          old
         } else {
           let vnode = render()
           let inode = diff_node(inode, vnode, sandbox, parent, anchor)
@@ -398,69 +514,93 @@ fn diff_props(
   parent : @dom.Element,
 ) -> Unit {
   // update event listeners slots
-  let slots = old.slots
-  for event, slot in slots {
-    if !new.handlers.contains(event) {
-      slot.val = fn(_, _) {  }
+  let slots = if physical_equal(old.handlers, new.handlers) ||
+    (old.handlers.is_empty() && new.handlers.is_empty()) {
+    old.slots
+  } else {
+    let slots = if physical_equal(old.slots, empty_slots) &&
+      !new.handlers.is_empty() {
+      []
+    } else {
+      old.slots
     }
-  }
-  for event, handler in new.handlers {
-    match slots.get(event) {
-      Some(slot) => slot.val = handler
-      None => {
-        let slot = @ref.new(handler)
-        parent.add_event_listener(event, e => (slot.val)(e, sandbox))
-        slots[event] = slot
+    for pair in slots {
+      let (event, slot) = pair
+      if pairs_get(new.handlers, event) is None {
+        slot.val = fn(_, _) {  }
       }
     }
+    for pair in new.handlers {
+      let (event, handler) = pair
+      match pairs_get(slots, event) {
+        Some(slot) => slot.val = handler
+        None => {
+          let slot = @ref.new(handler)
+          parent.add_event_listener(event, e => (slot.val)(e, sandbox))
+          slots.push((event, slot))
+        }
+      }
+    }
+    slots
   }
   new.slots = slots
 
   // O(n+m), TODO: use small sorted array to optimize this 
   // patch attributes
-  for k, _ in old.attrs {
-    if !new.attrs.contains(k) {
-      parent.remove_attribute(k)
+  if !physical_equal(old.attrs, new.attrs) &&
+    !(old.attrs.is_empty() && new.attrs.is_empty()) {
+    for k, _ in old.attrs {
+      if !new.attrs.contains(k) {
+        parent.remove_attribute(k)
+      }
+    }
+    for k, v2 in new.attrs {
+      match old.attrs.get(k) {
+        None => parent.set_attribute(k, v2)
+        Some(v1) => if v1 != v2 { parent.set_attribute(k, v2) }
+      }
     }
   }
-  for k, v2 in new.attrs {
-    match old.attrs.get(k) {
-      None => parent.set_attribute(k, v2)
-      Some(v1) => if v1 != v2 { parent.set_attribute(k, v2) }
-    }
-  }
+
   // patch properties
-  for k, _ in old.props {
-    if !new.props.contains(k) {
-      parent.remove_property(k)
+  if !physical_equal(old.props, new.props) &&
+    !(old.props.is_empty() && new.props.is_empty()) {
+    for k, _ in old.props {
+      if !new.props.contains(k) {
+        parent.remove_property(k)
+      }
+    }
+    for k, v2 in new.props {
+      match old.props.get(k) {
+        None => parent.set_property(k, variant_to_js_value(v2))
+        Some(v1) =>
+          if v1 != v2 {
+            parent.set_property(k, variant_to_js_value(v2))
+          }
+      }
     }
   }
-  for k, v2 in new.props {
-    match old.props.get(k) {
-      None => parent.set_property(k, variant_to_js_value(v2))
-      Some(v1) =>
-        if v1 != v2 {
-          parent.set_property(k, variant_to_js_value(v2))
-        }
-    }
-  }
+
   // patch styles
-  let stylesheet = if parent.to_html_element() is Some(html) {
-    html.get_style()
-  } else if parent.to_svg_element() is Some(svg) {
-    svg.get_style()
-  } else {
-    panic()
-  }
-  for k, _ in old.styles {
-    if !new.styles.contains(k) {
-      stylesheet.remove_property(k) |> ignore
+  if !physical_equal(old.styles, new.styles) &&
+    !(old.styles.is_empty() && new.styles.is_empty()) {
+    let stylesheet = if parent.to_html_element() is Some(html) {
+      html.get_style()
+    } else if parent.to_svg_element() is Some(svg) {
+      svg.get_style()
+    } else {
+      panic()
     }
-  }
-  for k, v2 in new.styles {
-    match old.styles.get(k) {
-      None => stylesheet.set_property(k, v2)
-      Some(v1) => if v1 != v2 { stylesheet.set_property(k, v2) }
+    for k, _ in old.styles {
+      if !new.styles.contains(k) {
+        stylesheet.remove_property(k) |> ignore
+      }
+    }
+    for k, v2 in new.styles {
+      match old.styles.get(k) {
+        None => stylesheet.set_property(k, v2)
+        Some(v1) => if v1 != v2 { stylesheet.set_property(k, v2) }
+      }
     }
   }
 }
@@ -525,6 +665,49 @@ fn lis_members(old_positions : Array[Int]) -> Array[Bool] {
 
 ///|
 #cfg(target="js")
+fn[A, B] map_keys_are_prefix(
+  prefix : Map[String, A],
+  values : Map[String, B],
+) -> Bool {
+  let prefix_keys = prefix.keys()
+  let value_keys = values.keys()
+  while prefix_keys.next() is Some(prefix_key) {
+    if value_keys.next() is Some(value_key) {
+      if prefix_key != value_key {
+        return false
+      }
+    } else {
+      return false
+    }
+  }
+  true
+}
+
+///|
+#cfg(target="js")
+fn[A, B] map_keys_are_subsequence(
+  subsequence : Map[String, A],
+  values : Map[String, B],
+) -> Bool {
+  let expected = subsequence.keys()
+  let candidates = values.keys()
+  while expected.next() is Some(expected_key) {
+    let mut found = false
+    while candidates.next() is Some(candidate) {
+      if candidate == expected_key {
+        found = true
+        break
+      }
+    }
+    if !found {
+      return false
+    }
+  }
+  true
+}
+
+///|
+#cfg(target="js")
 fn diff_children(
   old : Children[INode],
   new : Children[VNode],
@@ -534,12 +717,6 @@ fn diff_children(
 ) -> Children[INode] {
   match (old, new) {
     (Array(old), Array(new)) => {
-      // if old.length() == 3 && new.length() == 3 {
-      //   println("---------------diff_children(Arr,Arr)")
-      //   println(old.map(x => x.binding().to_string()))
-      //   println(new.map(x => x.binding().to_string()))
-      //   println("-------------------------------------")
-      // }
       let len1 = old.length()
       let len2 = new.length()
       let mut before = anchor
@@ -565,37 +742,121 @@ fn diff_children(
       Array(acc.rev())
     }
     (Map(old), Map(new)) => {
-      for k, v1 in old {
-        if !new.contains(k) {
-          v1.remove(sandbox, parent)
-        }
+      if old.is_empty() && new.is_empty() {
+        return Map(old)
       }
-      let old_order = old.to_array()
-      let order = new.to_array()
-      let mut same_key_order = old_order.length() == order.length()
+      if new.is_empty() &&
+        anchor.to_option() is None &&
+        parent.to_element() is Some(element) {
+        element.set_inner_html("")
+        return Map({})
+      }
+      let mut same_key_order = old.length() == new.length()
       if same_key_order {
-        for index, pair in order {
-          let (key, _) = pair
-          if old_order[index].0 != key {
+        let old_keys = old.keys()
+        let new_keys = new.keys()
+        while new_keys.next() is Some(new_key) {
+          if old_keys.next() is Some(old_key) {
+            if old_key != new_key {
+              same_key_order = false
+              break
+            }
+          } else {
             same_key_order = false
             break
           }
         }
       }
-      let stable = if same_key_order {
-        ([] : Array[Bool])
-      } else {
-        let old_positions : Map[String, Int] = {}
-        for index, pair in old_order {
-          let (key, _) = pair
-          old_positions[key] = index
+      if same_key_order {
+        for key, vnode in new {
+          let mounted = old[key]
+          old[key] = diff_node(
+            mounted,
+            vnode,
+            sandbox,
+            parent,
+            mounted.end().get_next_sibling(),
+          )
         }
-        let positions = order.map(pair => {
-          let (key, _) = pair
-          old_positions.get(key).unwrap_or(-1)
-        })
-        lis_members(positions)
+        return Map(old)
       }
+      if old.length() < new.length() && map_keys_are_prefix(old, new) {
+        let old_length = old.length()
+        let mut index = 0
+        for key, vnode in new {
+          if index < old_length {
+            let mounted = old[key]
+            old[key] = diff_node(
+              mounted,
+              vnode,
+              sandbox,
+              parent,
+              mounted.end().get_next_sibling(),
+            )
+          } else {
+            old[key] = vnode.insert(sandbox, parent, anchor)
+          }
+          index += 1
+        }
+        return Map(old)
+      }
+      if old.length() > new.length() && map_keys_are_subsequence(new, old) {
+        let removed = []
+        for key, mounted in old {
+          if !new.contains(key) {
+            mounted.remove(sandbox, parent)
+            removed.push(key)
+          }
+        }
+        for key in removed {
+          old.remove(key)
+        }
+        for key, vnode in new {
+          let mounted = old[key]
+          old[key] = diff_node(
+            mounted,
+            vnode,
+            sandbox,
+            parent,
+            mounted.end().get_next_sibling(),
+          )
+        }
+        return Map(old)
+      }
+      if anchor.to_option() is None && parent.to_element() is Some(element) {
+        let mut shares_key = false
+        for key, _ in new {
+          if old.contains(key) {
+            shares_key = true
+            break
+          }
+        }
+        if !shares_key {
+          element.set_inner_html("")
+          let mounted : Map[String, INode] = Map([], capacity=new.length())
+          for key, vnode in new {
+            mounted[key] = vnode.insert(sandbox, parent, anchor)
+          }
+          return Map(mounted)
+        }
+      }
+      for k, v1 in old {
+        if !new.contains(k) {
+          v1.remove(sandbox, parent)
+        }
+      }
+      let order = new.to_array()
+      let old_positions : Map[String, Int] = Map([], capacity=old.length())
+      let mut old_index = 0
+      for key, _ in old {
+        old_positions[key] = old_index
+        old_index += 1
+      }
+      let positions = order.map(pair => {
+        let (key, _) = pair
+        old_positions.get(key).unwrap_or(-1)
+      })
+      let stable = lis_members(positions)
       let mut before = anchor
       let reversed = []
       for i in order.length()>..0 {
@@ -603,7 +864,7 @@ fn diff_children(
         let inode = match old.get(k) {
           None => v2.insert(sandbox, parent, before)
           Some(v1) =>
-            if same_key_order || stable[i] {
+            if stable[i] {
               diff_node(v1, v2, sandbox, parent, before)
             } else {
               let old_start = v1.start()
@@ -626,21 +887,17 @@ fn diff_children(
         Map(xs) => xs.each((_, x) => x.remove(sandbox, parent))
         Array(xs) => xs.each(x => x.remove(sandbox, parent))
       }
-      match new {
-        Array(xs) =>
-          Array(xs.map(vnode => vnode.insert(sandbox, parent, anchor)))
-        Map(xs) => {
-          // `Map::map` evaluates its callback from tail to head while cloning
-          // the linked structure. Mount explicitly in insertion order because
-          // DOM insertion is an observable side effect.
-          let mounted = {}
-          for key, vnode in xs {
-            mounted[key] = vnode.insert(sandbox, parent, anchor)
-          }
-          Map(mounted)
-        }
-      }
+      new.map(y => y.insert(sandbox, parent, null()))
     }
+  }
+}
+
+///|
+#cfg(target="js")
+fn[A, B] Children::map(c : Children[A], f : (A) -> B) -> Children[B] {
+  match c {
+    Array(arr) => Array(arr.map(f))
+    Map(mp) => Map(mp.map((_, v) => f(v)))
   }
 }
 

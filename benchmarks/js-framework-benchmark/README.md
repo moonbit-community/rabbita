@@ -4,14 +4,17 @@ This is a keyed implementation of
 [js-framework-benchmark](https://github.com/krausest/js-framework-benchmark).
 It deliberately uses Rabbita's incremental graph and `@html.lazy` together:
 
-- the row collection and selected row are separate `Val`s;
-- one `Val::map2` combines the row collection with selected state, avoiding
-  per-row incremental graph allocation in the 10,000-row create benchmark;
+- one message-driven `create_pure_state` owns the row collection and selection;
+- one `Val::map` renders that model, avoiding per-row incremental graph
+  allocation in the 10,000-row create benchmark;
+- `@html.keyed` builds keyed VNode children directly, without an intermediate
+  `Map[String, Html]` clone;
 - each keyed row is wrapped in `@html.lazy` with a hash containing every
   rendered input (`view_version` and selected state), analogous to a memoized
   row component;
-- the `tbody` receives a keyed `Map[String, Html]`, so remove and swap retain
-  DOM identity.
+- the `tbody` receives keyed children, so remove and swap retain DOM identity;
+- static row attributes and static subtrees are hoisted and shared, allowing
+  the VNode identity fast path to skip them inside the rows that do change.
 
 Build from this directory:
 
