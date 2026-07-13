@@ -42,6 +42,24 @@ pub fn fragment(children : Array[Html]) -> Html {
 }
 
 ///|
+/// Defer constructing a subtree until it is mounted or rendered.
+///
+/// On the client, Rabbita reuses the previously mounted subtree while `hash`
+/// stays the same. Change `hash` whenever any value captured by `render`
+/// changes; otherwise the DOM for this subtree will intentionally stay stale.
+///
+/// ```mbt check
+/// test {
+///   let name = "Rabbita"
+///   let greeting = lazy(name.hash(), () => p("Hello, \{name}!"))
+///   ignore(greeting)
+/// }
+/// ```
+pub fn lazy(hash : Int, render : () -> Html) -> Html {
+  @runtime.VNode::thunk(hash, () => render().0)
+}
+
+///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button)
 pub fn[C : IsChildren] button(
   style? : Array[String] = [],

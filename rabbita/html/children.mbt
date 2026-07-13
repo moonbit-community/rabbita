@@ -4,6 +4,17 @@ pub trait IsChildren {
 }
 
 ///|
+/// Build keyed children without allocating an intermediate `Map[String, Html]`.
+pub fn keyed(children : Array[(String, Html)]) -> @runtime.Children[VNode] {
+  let vnodes : Map[String, VNode] = Map([], capacity=children.length())
+  for pair in children {
+    let (key, child) = pair
+    vnodes[key] = child.0
+  }
+  Map(vnodes)
+}
+
+///|
 pub impl IsChildren for Html with fn to_children(html) {
   Array([html.0])
 }

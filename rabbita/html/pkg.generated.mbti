@@ -126,7 +126,11 @@ pub fn[C : IsChildren] ins(style? : Array[String], id? : String, class? : String
 
 pub fn[C : IsChildren] kbd(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
+pub fn keyed(Array[(String, Html)]) -> @runtime.Children[@runtime.VNode]
+
 pub fn[C : IsChildren] label(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, for_? : String, attrs? : Attrs, C) -> Html
+
+pub fn lazy(Int, () -> Html) -> Html
 
 pub fn[C : IsChildren] legend(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 

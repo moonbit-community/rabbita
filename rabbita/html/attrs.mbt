@@ -17,7 +17,7 @@ struct Attrs(Props)
 
 ///|
 pub fn Attrs::build() -> Attrs {
-  Attrs(Props::new({}, {}, {}, {}))
+  Attrs(Props::empty())
 }
 
 ///|
@@ -40,28 +40,28 @@ fn Attrs::copy(self : Attrs) -> Attrs {
 /// content since the browser will parse the string into DOM nodes.
 #internal(xss_vulnerable, "This function may cause xss attack.")
 pub fn Attrs::inner_html(self : Attrs, html : String) -> Attrs {
-  self.0.props["innerHTML"] = @variant.String(html)
-  self.0
+  self.0.set_property("innerHTML", @variant.String(html))
+  self
 }
 
 ///|
 /// Set a raw attribute.
 fn Attrs::attribute(self : Attrs, key : String, value : String) -> Attrs {
-  self.0.attrs[key] = value
+  self.0.set_attribute(key, value)
   self
 }
 
 ///|
 /// Set a property.
 fn Attrs::property(self : Attrs, key : String, value : Variant) -> Attrs {
-  self.0.props[key] = value
+  self.0.set_property(key, value)
   self
 }
 
 ///|
 /// Set a style declaration.
 pub fn Attrs::style(self : Attrs, key : String, value : String) -> Attrs {
-  self.0.styles[key] = value
+  self.0.set_style(key, value)
   self
 }
 
@@ -72,7 +72,7 @@ fn Attrs::handler(
   key : String,
   value : (Event, &@cmd.Scheduler) -> Unit,
 ) -> Attrs {
-  self.0.handlers[key] = value
+  self.0.set_handler(key, value)
   self
 }
 
@@ -362,7 +362,7 @@ pub fn Attrs::disabled(self : Attrs, value : Bool) -> Attrs {
   // Note: `disabled` is a DOM property; removing it using `remove_property` does not work.
   // Treat it as an attribute to ensure it is correctly removed by vdom diff.
   if value {
-    self.attrs["disabled"] = "disabled"
+    ignore(self.attribute("disabled", "disabled"))
   }
   self
 }
