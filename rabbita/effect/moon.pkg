@@ -3,7 +3,6 @@ import {
   "moonbit-community/rabbita/common",
   "moonbit-community/rabbita/internal/key",
   "moonbit-community/rabbita/internal/any",
-  "moonbit-community/rabbita/effect",
   "moonbit-community/rabbita/internal/slotmap",
   "moonbitlang/core/queue",
 }

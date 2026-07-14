@@ -1,6 +1,13 @@
+
+///|
+pub(all) enum Kind {
+  Immediately
+  AfterRender
+}
+
 ///|
 pub(open) trait Scheduler {
-  fn run_effect(Self, EffectKind, OnExecute) -> Unit
+  fn run_effect(Self, Kind, OnExecute) -> Unit
   fn queue_message(Self, @slotmap.Id, @any.Any) -> Unit
   fn drain_message(Self) -> Unit
   fn add(Self, Cmd) -> Unit = _

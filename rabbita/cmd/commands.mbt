@@ -1,8 +1,4 @@
-///|
-pub(all) enum EffectKind {
-  Immediately
-  AfterRender
-}
+
 
 ///|
 /// A deferred command handled by the Rabbita runtime.
@@ -17,8 +13,8 @@ enum Cmd {
   LegacyMessage(OnExecute)
 }
 
-///|
-type OnExecute = (&Scheduler) -> Unit
+
+
 
 ///|
 pub let immediately : EffectKind = Immediately
