@@ -1,0 +1,13 @@
+import {
+  "moonbit-community/rabbita",
+  "moonbit-community/rabbita/clipboard",
+  "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/svg",
+  "moonbit-community/rabbita-ui" @ui,
+  "Yoorkin/shiki",
+  "moonbitlang/async",
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")

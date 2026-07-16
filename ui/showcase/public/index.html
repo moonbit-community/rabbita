@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Live shadcn/ui Vega component catalogue implemented with Rabbita."
+    />
+    <title>Rabbita UI · Vega components</title>
+    <style>
+      .rui-showcase-demo-code-summary {
+        position: relative;
+        display: block;
+        height: 6.75rem;
+        overflow: hidden;
+        cursor: pointer;
+        list-style: none;
+        outline: none;
+      }
+
+      .rui-showcase-demo-code-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .rui-showcase-demo-code-summary::marker {
+        content: "";
+      }
+
+      .rui-showcase-demo-code-summary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(
+          to bottom,
+          transparent 0%,
+          color-mix(
+              in oklab,
+              var(--rui-showcase-code-background) 30%,
+              transparent
+            )
+            26%,
+          var(--rui-showcase-code-background) 88%
+        );
+        pointer-events: none;
+      }
+
+      .rui-showcase-demo-code-toggle {
+        box-sizing: border-box;
+        position: absolute;
+        left: 50%;
+        bottom: 1rem;
+        z-index: 2;
+        display: inline-flex;
+        height: 2rem;
+        min-height: 2rem;
+        width: 6rem;
+        min-width: 6rem;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(-50%);
+        border: 1px solid var(--rui-border);
+        border-radius: 0.625rem;
+        background: var(--rui-background);
+        padding: 0 0.75rem;
+        color: var(--rui-foreground);
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1;
+        white-space: nowrap;
+        transition:
+          background-color 150ms ease,
+          border-color 150ms ease,
+          color 150ms ease;
+      }
+
+      .rui-showcase-demo-code-summary:hover
+        .rui-showcase-demo-code-toggle {
+        background: var(--rui-muted);
+      }
+
+      .rui-showcase-demo-code-summary:focus-visible
+        .rui-showcase-demo-code-toggle {
+        outline: 2px solid var(--rui-ring);
+        outline-offset: 2px;
+      }
+
+      .rui-showcase-demo-code[open] > .rui-showcase-demo-code-summary {
+        display: none;
+      }
+
+      .rui-showcase-demo-code-panel {
+        animation: rui-showcase-code-in 160ms ease-out;
+      }
+
+      .rui-showcase-shiki,
+      .rui-showcase-shiki > yoorkin-shiki-code {
+        display: block;
+        min-width: 0;
+      }
+
+      .rui-showcase-shiki .shiki,
+      .rui-showcase-shiki yoorkin-shiki-code > pre {
+        box-sizing: border-box;
+        min-width: max-content;
+        margin: 0;
+        background: transparent !important;
+        padding: 1.5rem 0;
+        font-family:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.8125rem;
+        line-height: 1.75;
+        tab-size: 2;
+        white-space: pre;
+      }
+
+      .rui-showcase-shiki code {
+        display: grid;
+        counter-reset: rui-showcase-code-line;
+      }
+
+      .rui-showcase-shiki code > .line {
+        display: block;
+        min-height: 1lh;
+        padding: 1px 4rem 1px 0;
+        counter-increment: rui-showcase-code-line;
+      }
+
+      .rui-showcase-shiki code > .line::before {
+        content: counter(rui-showcase-code-line);
+        display: inline-block;
+        box-sizing: border-box;
+        width: 4rem;
+        padding-right: 1.5rem;
+        color: var(--rui-muted-foreground);
+        text-align: right;
+        opacity: 0.65;
+        user-select: none;
+      }
+
+      .rui-showcase-demo-code-peek .shiki,
+      .rui-showcase-demo-code-peek yoorkin-shiki-code > pre {
+        padding: 1.125rem 0;
+      }
+
+      .rui-showcase-demo-section {
+        scroll-margin-top: 1rem;
+      }
+
+      .rui-showcase-rail-link {
+        border-radius: 0.25rem;
+        transition:
+          color 150ms ease,
+          background-color 150ms ease;
+      }
+
+      .rui-showcase-rail-link:hover {
+        color: var(--rui-foreground) !important;
+      }
+
+      .rui-showcase-rail-link:focus-visible {
+        outline: 2px solid var(--rui-ring);
+        outline-offset: 2px;
+        color: var(--rui-foreground) !important;
+      }
+
+      .rui-showcase-component-toc .rui-showcase-rail-link:hover {
+        background: var(--rui-accent);
+      }
+
+      @keyframes rui-showcase-code-in {
+        from {
+          opacity: 0;
+          transform: translateY(-0.25rem);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .rui-showcase-demo-code-panel {
+          animation: none;
+        }
+
+        .rui-showcase-demo-code-toggle {
+          transition: none;
+        }
+
+        .rui-showcase-rail-link {
+          transition: none;
+        }
+      }
+
+      @media (max-width: 80rem) {
+        #rui-showcase {
+          --rui-showcase-component-columns: minmax(0, 46rem);
+        }
+
+        .rui-showcase-component-toc {
+          display: none;
+        }
+      }
+
+      @media (max-width: 64rem) {
+        #rui-showcase {
+          --rui-showcase-catalog-columns: minmax(0, 1fr);
+          --rui-showcase-rail-position: static;
+          --rui-showcase-rail-max-width: none;
+          --rui-showcase-rail-max-height: none;
+          --rui-showcase-rail-direction: row;
+        }
+
+        .rui-showcase-catalog {
+          padding-right: 0 !important;
+          padding-bottom: 0.5rem;
+        }
+
+        .rui-showcase-catalog-nav {
+          width: max-content;
+          gap: 0.25rem !important;
+        }
+
+        .rui-showcase-catalog .rui-showcase-rail-link {
+          flex: 0 0 auto;
+          border: 1px solid var(--rui-border);
+          background: var(--rui-background);
+          padding: 0.5rem 0.75rem !important;
+          white-space: nowrap;
+        }
+      }
+
+    </style>
+    <script
+      src="../../../_build/js/debug/build/moonbit-community/rabbita-ui/showcase/main/main.js?v=20260717-c"
+      type="module"
+    ></script>
+  </head>
+  <body style="margin:0">
+    <div id="app"></div>
+  </body>
+</html>

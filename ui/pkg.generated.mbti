@@ -1,0 +1,1224 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/rabbita-ui"
+
+import {
+  "moonbit-community/rabbita",
+  "moonbit-community/rabbita/cmd",
+  "moonbit-community/rabbita/html",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn accordion(items~ : Array[AccordionEntry], type_? : AccordionType, collapsible? : Bool, disabled? : Bool, default_value? : String, default_values? : Array[String], show_indicator? : Bool, force_mount? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], item_style? : Array[String], trigger_style? : Array[String], content_style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] accordion_content(value~ : String, open? : Bool, force_mount? : Bool, labelledby? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn accordion_entry(value~ : String, label~ : String, content~ : @html.Html, disabled? : Bool) -> AccordionEntry
+
+pub fn[C : @html.IsChildren] accordion_item(value~ : String, open? : Bool, disabled? : Bool, name? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] accordion_root(type_? : AccordionType, disabled? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] accordion_trigger(value~ : String, open? : Bool, disabled? : Bool, controls? : String, show_indicator? : Bool, on_value_change? : @cmd.Emit[String], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert(variant? : AlertVariant, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_action(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn alert_dialog(id~ : String, default_open? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (AlertDialogScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] alert_dialog_action(AlertDialogScope, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_cancel(AlertDialogScope, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_content(AlertDialogScope, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_description(AlertDialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_media(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn alert_dialog_overlay(AlertDialogScope, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn alert_dialog_portal(Array[@html.Html]) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_title(AlertDialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_dialog_trigger(AlertDialogScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] alert_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] aspect_ratio(ratio? : Double, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment(state? : AttachmentState, size? : AttachmentSize, orientation? : AttachmentOrientation, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_action(variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, aria_label? : String, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_actions(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_group(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_media(variant? : AttachmentMediaVariant, error? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_trigger(disabled? : Bool, on_click? : @cmd.Cmd, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] attachment_trigger_link(href~ : String, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] avatar(size? : AvatarSize, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] avatar_badge(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] avatar_fallback(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] avatar_group(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] avatar_group_count(size? : AvatarSize, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn avatar_image(src? : String, alt? : String, width? : Int, height? : Int, srcset? : String, sizes? : String, loading? : String, decoding? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] avatar_with_fallback(id~ : String, src~ : String, alt? : String, size? : AvatarSize, on_status_change? : @cmd.Emit[AvatarImageStatus], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], image_attrs? : @html.Attrs, image_style? : Array[String], fallback_attrs? : @html.Attrs, fallback_style? : Array[String], C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] badge(variant? : BadgeVariant, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] badge_link(href~ : String, variant? : BadgeVariant, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] breadcrumb(aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn breadcrumb_ellipsis(label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] breadcrumb_item(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] breadcrumb_link(href~ : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] breadcrumb_list(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] breadcrumb_page(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn breadcrumb_separator(children? : @html.Html, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] bubble(variant? : BubbleVariant, align? : ContentAlignment, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] bubble_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] bubble_content_button(disabled? : Bool, type_? : String, aria_label? : String, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] bubble_content_link(href~ : String, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] bubble_group(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] bubble_reactions(side? : BubbleReactionSide, align? : ContentAlignment, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] button(variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, type_? : String, id? : String, class? : String, title? : String, name? : String, value? : String, autofocus? : Bool, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], slot? : String, C) -> @html.Html
+
+pub fn[C : @html.IsChildren] button_group(orientation? : SeparatorOrientation, id? : String, class? : String, title? : String, aria_label? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn button_group_separator(orientation? : SeparatorOrientation, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] button_group_text(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn calendar(default_month? : CalendarDate, default_selected? : CalendarDate, today? : CalendarDate, show_outside_days? : Bool, disabled? : Bool, aria_label? : String, on_select? : @cmd.Emit[CalendarDate], on_month_change? : @cmd.Emit[CalendarDate], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, previous_attrs? : @html.Attrs, next_attrs? : @html.Attrs, grid_attrs? : @html.Attrs, day_attrs? : @html.Attrs, style? : Array[String], header_style? : Array[String], caption_style? : Array[String], nav_style? : Array[String], previous_style? : Array[String], next_style? : Array[String], grid_style? : Array[String], weekday_style? : Array[String], cell_style? : Array[String], day_style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn calendar_date(year~ : Int, month~ : Int, day~ : Int) -> CalendarDate
+
+pub fn calendar_day_button(date~ : CalendarDate, selected? : Bool, today? : Bool, outside? : Bool, disabled? : Bool, focused? : Bool, on_select? : @cmd.Emit[CalendarDate], on_focus_change? : @cmd.Emit[CalendarDate], on_focus_move? : @cmd.Emit[CalendarDate], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn calendar_multiple(default_month? : CalendarDate, default_selected? : Array[CalendarDate], today? : CalendarDate, show_outside_days? : Bool, disabled? : Bool, aria_label? : String, on_select? : @cmd.Emit[Array[CalendarDate]], on_month_change? : @cmd.Emit[CalendarDate], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, previous_attrs? : @html.Attrs, next_attrs? : @html.Attrs, grid_attrs? : @html.Attrs, day_attrs? : @html.Attrs, style? : Array[String], header_style? : Array[String], caption_style? : Array[String], nav_style? : Array[String], previous_style? : Array[String], next_style? : Array[String], grid_style? : Array[String], weekday_style? : Array[String], cell_style? : Array[String], day_style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn calendar_range(default_month? : CalendarDate, default_selected? : DateRange, today? : CalendarDate, show_outside_days? : Bool, disabled? : Bool, aria_label? : String, on_select? : @cmd.Emit[DateRange], on_month_change? : @cmd.Emit[CalendarDate], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, previous_attrs? : @html.Attrs, next_attrs? : @html.Attrs, grid_attrs? : @html.Attrs, day_attrs? : @html.Attrs, style? : Array[String], header_style? : Array[String], caption_style? : Array[String], nav_style? : Array[String], previous_style? : Array[String], next_style? : Array[String], grid_style? : Array[String], weekday_style? : Array[String], cell_style? : Array[String], day_style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] card(size? : CardSize, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] card_action(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] card_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] card_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] card_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] card_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] card_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] carousel(count~ : Int, default_index? : Int, loop_? : Bool, orientation? : CarouselOrientation, aria_label? : String, on_index_change? : @cmd.Emit[Int], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], (CarouselScope) -> C) -> @rabbita.Val[@html.Html]
+
+pub fn carousel_active_index(CarouselScope) -> Int
+
+pub fn carousel_can_next(CarouselScope) -> Bool
+
+pub fn carousel_can_previous(CarouselScope) -> Bool
+
+pub fn[C : @html.IsChildren] carousel_content(scope~ : CarouselScope, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, track_attrs? : @html.Attrs, style? : Array[String], track_style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] carousel_item(scope~ : CarouselScope, index~ : Int, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn carousel_items(scope~ : CarouselScope, items~ : Array[@html.Html], id? : String, class? : String, title? : String, attrs? : @html.Attrs, track_attrs? : @html.Attrs, style? : Array[String], track_style? : Array[String], item_style? : Array[String]) -> @html.Html
+
+pub fn carousel_next(scope~ : CarouselScope, disabled? : Bool, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn carousel_previous(scope~ : CarouselScope, disabled? : Bool, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn carousel_slide_count(CarouselScope) -> Int
+
+pub fn[C : @html.IsChildren] chart_container(aria_label? : String, aspect? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] chart_legend(position? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] chart_legend_content(position? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] chart_legend_item(color? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] chart_style(variables? : Array[(String, String)], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] chart_tooltip(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] chart_tooltip_content(active? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn chart_tooltip_item(label~ : String, value~ : String, color? : String, indicator? : ChartIndicator, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] chart_tooltip_label(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn checkbox(default_checked? : Bool, default_indeterminate? : Bool, disabled? : Bool, read_only? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_checked_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn[T : @html.IsChildren, C : @html.IsChildren] collapsible(default_open? : Bool, disabled? : Bool, show_indicator? : Bool, force_mount? : Bool, id? : String, trigger_id? : String, content_id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, trigger_attrs? : @html.Attrs, content_attrs? : @html.Attrs, style? : Array[String], trigger_style? : Array[String], content_style? : Array[String], trigger~ : T, content~ : C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] collapsible_content(open? : Bool, force_mount? : Bool, labelledby? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] collapsible_root(open? : Bool, disabled? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] collapsible_trigger(open? : Bool, disabled? : Bool, controls? : String, show_indicator? : Bool, on_open_change? : @cmd.Emit[Bool], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn combobox(id~ : String, options~ : Array[ComboboxOption], default_value? : String, default_values? : Array[String], multiple? : Bool, default_open? : Bool, placeholder? : String, empty_text? : String, disabled? : Bool, invalid? : Bool, required? : Bool, name? : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, on_value_change? : @cmd.Emit[String], on_values_change? : @cmd.Emit[Array[String]], on_query_change? : @cmd.Emit[String], on_open_change? : @cmd.Emit[Bool], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], render? : (ComboboxScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] combobox_chip(scope~ : ComboboxScope, value~ : String, removable? : Bool, remove_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_chips(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn combobox_chips_input(scope~ : ComboboxScope, aria_label? : String, auto_complete? : @html.AutoComplete, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn combobox_clear(scope~ : ComboboxScope, label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_collection(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_content(scope~ : ComboboxScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_empty(visible? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_group(label_id? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn combobox_input(scope~ : ComboboxScope, aria_label? : String, auto_complete? : @html.AutoComplete, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_item(scope~ : ComboboxScope, value~ : String, disabled? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_label(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] combobox_list(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn combobox_option(value~ : String, label~ : String, disabled? : Bool) -> ComboboxOption
+
+pub fn combobox_separator(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn combobox_trigger(scope~ : ComboboxScope, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn combobox_value(scope~ : ComboboxScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], prefix? : @html.Html) -> @html.Html
+
+pub fn command(id~ : String, default_query? : String, should_filter? : Bool, filter? : (String, String, Array[String]) -> Bool, on_value_select? : @cmd.Emit[String], on_query_change? : @cmd.Emit[String], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (CommandScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn command_close(CommandScope) -> @cmd.Cmd
+
+pub fn command_dialog(id~ : String, default_open? : Bool, default_query? : String, should_filter? : Bool, filter? : (String, String, Array[String]) -> Bool, close_on_select? : Bool, close_on_escape? : Bool, close_on_overlay? : Bool, aria_label? : String, on_value_select? : @cmd.Emit[String], on_query_change? : @cmd.Emit[String], on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], trigger? : (CommandScope) -> @html.Html, (CommandScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] command_dialog_trigger(scope~ : CommandScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] command_empty(scope~ : CommandScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] command_group(scope~ : CommandScope, heading? : String, heading_id? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], heading_style? : Array[String], C) -> @html.Html
+
+pub fn command_input(scope~ : CommandScope, placeholder? : String, aria_label? : String, auto_complete? : @html.AutoComplete, disabled? : Bool, on_input? : @cmd.Emit[String], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], input_style? : Array[String]) -> @html.Html
+
+pub fn command_is_open(CommandScope) -> Bool
+
+pub fn[C : @html.IsChildren] command_item(scope~ : CommandScope, value~ : String, keywords? : Array[String], disabled? : Bool, force_mount? : Bool, on_select? : @cmd.Emit[String], on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] command_list(scope~ : CommandScope, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn command_open(CommandScope) -> @cmd.Cmd
+
+pub fn command_query(CommandScope) -> String
+
+pub fn command_separator(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] command_shortcut(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn context_menu(id~ : String, default_open? : Bool, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_open_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], (ContextMenuScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] context_menu_checkbox_item(ContextMenuScope, value~ : String, disabled? : Bool, close_on_select? : Bool, on_checked_change? : @cmd.Emit[Bool], on_select? : @cmd.Cmd, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_content(ContextMenuScope, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_group(aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_item(ContextMenuScope, disabled? : Bool, inset? : Bool, destructive? : Bool, close_on_select? : Bool, on_select? : @cmd.Cmd, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_label(inset? : Bool, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn context_menu_portal(Array[@html.Html]) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_radio_group(ContextMenuScope, value~ : String, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (ContextMenuRadioGroupScope) -> C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_radio_item(ContextMenuRadioGroupScope, value~ : String, disabled? : Bool, close_on_select? : Bool, on_value_change? : @cmd.Emit[String], on_select? : @cmd.Cmd, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn context_menu_root(id~ : String, default_open? : Bool, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_open_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], (ContextMenuScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn context_menu_separator(class? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_shortcut(class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_sub(ContextMenuScope, value~ : String, attrs? : @html.Attrs, style? : Array[String], (ContextMenuSubScope) -> C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_sub_content(ContextMenuSubScope, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_sub_trigger(ContextMenuSubScope, disabled? : Bool, inset? : Bool, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] context_menu_trigger(ContextMenuScope, tabindex? : Int, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[T] data_table(id~ : String, rows~ : Array[T], columns~ : Array[DataTableColumn[T]], row_key~ : (T) -> String, page_size? : Int, searchable? : Bool, selectable? : Bool, show_columns? : Bool, search_placeholder? : String, empty_text? : String, aria_label? : String, default_sort_key? : String, default_sort_descending? : Bool, default_selected? : Array[String], default_hidden_columns? : Array[String], on_selection_change? : @cmd.Emit[Array[String]], on_query_change? : @cmd.Emit[String], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn[T] data_table_column(key~ : String, label~ : String, value~ : (T) -> String, render? : (T) -> @html.Html, sortable? : Bool, searchable? : Bool, hideable? : Bool, numeric? : Bool) -> DataTableColumn[T]
+
+pub fn date_picker(id~ : String, default_value? : CalendarDate, default_month? : CalendarDate, today? : CalendarDate, default_open? : Bool, show_outside_days? : Bool, placeholder? : String, disabled? : Bool, invalid? : Bool, aria_label? : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, presets? : Array[DatePickerPreset], format_value? : (CalendarDate) -> String, on_value_change? : @cmd.Emit[CalendarDate], on_open_change? : @cmd.Emit[Bool], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], calendar_attrs? : @html.Attrs, calendar_style? : Array[String], day_attrs? : @html.Attrs, day_style? : Array[String], preset_style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn date_picker_preset(label~ : String, value~ : CalendarDate) -> DatePickerPreset
+
+pub fn date_range(start~ : CalendarDate, end? : CalendarDate) -> DateRange
+
+pub fn date_range_picker(id~ : String, default_value? : DateRange, default_month? : CalendarDate, today? : CalendarDate, default_open? : Bool, show_outside_days? : Bool, placeholder? : String, disabled? : Bool, invalid? : Bool, aria_label? : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, format_value? : (DateRange) -> String, on_value_change? : @cmd.Emit[DateRange], on_open_change? : @cmd.Emit[Bool], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], calendar_attrs? : @html.Attrs, calendar_style? : Array[String], day_attrs? : @html.Attrs, day_style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn dialog(id~ : String, default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (DialogScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] dialog_close(DialogScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dialog_content(DialogScope, close_on_overlay? : Bool, show_close? : Bool, close_label? : String, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dialog_description(DialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dialog_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dialog_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn dialog_overlay(DialogScope, close_on_overlay? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn dialog_portal(Array[@html.Html]) -> @html.Html
+
+pub fn[C : @html.IsChildren] dialog_title(DialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dialog_trigger(DialogScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] direction(direction? : TextDirection, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn drawer(id~ : String, default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (DrawerScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] drawer_close(DrawerScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] drawer_content(DrawerScope, direction? : DrawerDirection, close_on_overlay? : Bool, show_handle? : Bool, show_close? : Bool, close_label? : String, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] drawer_description(DrawerScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] drawer_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn drawer_handle(direction? : DrawerDirection, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] drawer_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn drawer_overlay(DrawerScope, close_on_overlay? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn drawer_portal(Array[@html.Html]) -> @html.Html
+
+pub fn[C : @html.IsChildren] drawer_title(DrawerScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] drawer_trigger(DrawerScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn dropdown_menu(id~ : String, default_open? : Bool, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_open_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], (DropdownMenuScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] dropdown_menu_checkbox_item(DropdownMenuScope, value~ : String, disabled? : Bool, close_on_select? : Bool, on_checked_change? : @cmd.Emit[Bool], on_select? : @cmd.Cmd, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_content(DropdownMenuScope, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_group(aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_item(DropdownMenuScope, disabled? : Bool, inset? : Bool, destructive? : Bool, close_on_select? : Bool, on_select? : @cmd.Cmd, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_label(inset? : Bool, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn dropdown_menu_portal(Array[@html.Html]) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_radio_group(DropdownMenuScope, value~ : String, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (DropdownMenuRadioGroupScope) -> C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_radio_item(DropdownMenuRadioGroupScope, value~ : String, disabled? : Bool, close_on_select? : Bool, on_value_change? : @cmd.Emit[String], on_select? : @cmd.Cmd, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn dropdown_menu_root(id~ : String, default_open? : Bool, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_open_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], (DropdownMenuScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn dropdown_menu_separator(class? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_shortcut(class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_sub(DropdownMenuScope, value~ : String, attrs? : @html.Attrs, style? : Array[String], (DropdownMenuSubScope) -> C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_sub_content(DropdownMenuSubScope, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_sub_trigger(DropdownMenuSubScope, disabled? : Bool, inset? : Bool, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] dropdown_menu_trigger(DropdownMenuScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, aria_label? : String, on_click? : @cmd.Cmd, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] empty(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] empty_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] empty_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] empty_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] empty_media(variant? : EmptyMediaVariant, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] empty_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field(orientation? : FieldOrientation, disabled? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_error(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_group(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_label(for_? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_legend(variant? : FieldLegendVariant, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_separator(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_set(disabled? : Bool, name? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] field_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] form(action? : String, name? : String, on_submit? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] form_control(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] form_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] form_field(name~ : String, invalid? : Bool, required? : Bool, describedby? : String, errormessage? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] form_item(invalid? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] form_label(for_? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] form_message(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[T : @html.IsChildren, C : @html.IsChildren] hover_card(id~ : String, href? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, default_open? : Bool, disabled? : Bool, open_delay? : Int, close_delay? : Int, hoverable? : Bool, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, trigger_variant? : ButtonVariant, trigger_size? : ButtonSize, aria_labelledby? : String, aria_describedby? : String, on_open_change? : @cmd.Emit[Bool], on_trigger_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], T, C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] hover_card_content(id~ : String, trigger_id~ : String, open? : Bool, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, aria_labelledby? : String, aria_describedby? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] hover_card_trigger(content_id~ : String, href~ : String, open? : Bool, disabled? : Bool, open_delay? : Int, close_delay? : Int, variant? : ButtonVariant, size? : ButtonSize, target? : @html.Target, rel? : String, download? : String, escape? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn input(input_type? : @html.InputType, name? : String, value? : String, checked? : Bool, read_only? : Bool, multiple? : Bool, accept? : String, placeholder? : String, auto_complete? : @html.AutoComplete, max? : Int, min? : Int, step? : Int, maxlength? : Int, minlength? : Int, pattern? : String, size? : Int, width? : Int, height? : Int, id? : String, class? : String, title? : String, hidden? : Bool, disabled? : Bool, required? : Bool, autofocus? : Bool, list? : String, inputmode? : String, invalid? : Bool, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String], slot? : String) -> @html.Html
+
+pub fn[C : @html.IsChildren] input_group(disabled? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] input_group_addon(align? : InputGroupAddonAlign, for_? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] input_group_button(size? : InputGroupButtonSize, variant? : ButtonVariant, disabled? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn input_group_input(input_type? : @html.InputType, name? : String, value? : String, placeholder? : String, read_only? : Bool, disabled? : Bool, required? : Bool, autofocus? : Bool, invalid? : Bool, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] input_group_text(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn input_group_textarea(name? : String, value? : String, rows? : Int, cols? : Int, placeholder? : String, read_only? : Bool, disabled? : Bool, required? : Bool, autofocus? : Bool, invalid? : Bool, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn input_otp(id~ : String, max_length? : Int, default_value? : String, separator_after? : Int, disabled? : Bool, invalid? : Bool, aria_label? : String, on_value_change? : @cmd.Emit[String], on_complete? : @cmd.Emit[String], class? : String, title? : String, attrs? : @html.Attrs, input_attrs? : @html.Attrs, style? : Array[String], render? : (InputOtpScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] input_otp_group(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn input_otp_separator(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn input_otp_slot(scope~ : InputOtpScope, index~ : Int, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] item(variant? : ItemVariant, size? : ItemSize, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_actions(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_group(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_link(href~ : String, variant? : ItemVariant, size? : ItemSize, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_media(variant? : ItemMediaVariant, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn item_separator(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] item_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] kbd(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] kbd_group(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] label(for_? : String, disabled? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] marker(variant? : MarkerVariant, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] marker_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] marker_icon(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] marker_link(href~ : String, variant? : MarkerVariant, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn menubar(id~ : String, default_value? : String, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_value_change? : @cmd.Emit[String?], aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (MenubarScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] menubar_checkbox_item(MenubarMenuScope, value~ : String, disabled? : Bool, close_on_select? : Bool, on_checked_change? : @cmd.Emit[Bool], on_select? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_content(MenubarMenuScope, side_offset? : Int, align_offset? : Int, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_group(aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_item(MenubarMenuScope, disabled? : Bool, inset? : Bool, destructive? : Bool, close_on_select? : Bool, on_select? : @cmd.Cmd, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_label(inset? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_menu(MenubarScope, value~ : String, attrs? : @html.Attrs, style? : Array[String], (MenubarMenuScope) -> C) -> @html.Html
+
+pub fn menubar_portal(Array[@html.Html]) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_radio_group(MenubarMenuScope, value~ : String, aria_label? : String, attrs? : @html.Attrs, style? : Array[String], (MenubarRadioGroupScope) -> C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_radio_item(MenubarRadioGroupScope, value~ : String, disabled? : Bool, close_on_select? : Bool, on_value_change? : @cmd.Emit[String], on_select? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn menubar_root(id~ : String, default_value? : String, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_value_change? : @cmd.Emit[String?], aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (MenubarScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn menubar_separator(attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_shortcut(attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_sub(MenubarMenuScope, value~ : String, attrs? : @html.Attrs, style? : Array[String], (MenubarSubScope) -> C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_sub_content(MenubarSubScope, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_sub_trigger(MenubarSubScope, disabled? : Bool, inset? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] menubar_trigger(MenubarMenuScope, disabled? : Bool, aria_label? : String, on_click? : @cmd.Cmd, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message(align? : ContentAlignment, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_avatar(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_group(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_scroller(id~ : String, default_at_end? : Bool, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (MessageScrollerScope) -> C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] message_scroller_button(scope~ : MessageScrollerScope, direction? : MessageScrollDirection, label? : String, variant? : ButtonVariant, size? : ButtonSize, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_scroller_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_scroller_item(scroll_anchor? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] message_scroller_viewport(scope~ : MessageScrollerScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] native_select(size? : NativeSelectSize, value? : String, name? : String, disabled? : Bool, required? : Bool, autofocus? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_change? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String], wrapper_style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] native_select_optgroup(label? : String, disabled? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] native_select_option(value? : String, selected? : Bool, disabled? : Bool, label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn navigation_menu(id~ : String, default_value? : String, viewport? : Bool, on_value_change? : @cmd.Emit[String?], aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (NavigationMenuScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] navigation_menu_content(NavigationMenuItemScope, side_offset? : Int, align_offset? : Int, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn navigation_menu_indicator(NavigationMenuItemScope, class? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] navigation_menu_item(NavigationMenuScope, value~ : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (NavigationMenuItemScope) -> C) -> @html.Html
+
+pub fn[C : @html.IsChildren] navigation_menu_link(href~ : String, active? : Bool, target? : @html.Target, rel? : String, download? : String, escape? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] navigation_menu_list(NavigationMenuScope, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn navigation_menu_root(id~ : String, default_value? : String, viewport? : Bool, on_value_change? : @cmd.Emit[String?], aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (NavigationMenuScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] navigation_menu_trigger(NavigationMenuItemScope, disabled? : Bool, aria_label? : String, on_click? : @cmd.Cmd, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] navigation_menu_viewport(NavigationMenuScope, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] pagination(aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] pagination_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn pagination_ellipsis(label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] pagination_item(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] pagination_link(href~ : String, is_active? : Bool, disabled? : Bool, size? : ButtonSize, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn pagination_next(href~ : String, disabled? : Bool, text? : String, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn pagination_previous(href~ : String, disabled? : Bool, text? : String, aria_label? : String, target? : @html.Target, rel? : String, download? : String, escape? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[T : @html.IsChildren, C : @html.IsChildren] popover(id~ : String, default_open? : Bool, disabled? : Bool, modal? : Bool, initial_focus? : Bool, initial_focus_id? : String, restore_focus? : Bool, final_focus_id? : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, trigger_variant? : ButtonVariant, trigger_size? : ButtonSize, title_id? : String, description_id? : String, on_open_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], T, C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] popover_anchor(id~ : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn popover_close(String) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] popover_close_button(target_id~ : String, disabled? : Bool, variant? : ButtonVariant, size? : ButtonSize, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] popover_content(id~ : String, trigger_id~ : String, open? : Bool, modal? : Bool, initial_focus? : Bool, initial_focus_id? : String, restore_focus? : Bool, final_focus_id? : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, title_id? : String, description_id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] popover_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] popover_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn popover_open(String) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] popover_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn popover_toggle(String) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] popover_trigger(target_id~ : String, open? : Bool, disabled? : Bool, variant? : ButtonVariant, size? : ButtonSize, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn progress(value? : Int, min? : Int, max? : Int, aria_label? : String, aria_value_text? : String, labelledby? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], children? : Array[@html.Html]) -> @html.Html
+
+pub fn progress_indicator(value? : Int, min? : Int, max? : Int, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] progress_label(value? : Int, min? : Int, max? : Int, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] progress_track(value? : Int, min? : Int, max? : Int, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn progress_value(value? : Int, min? : Int, max? : Int, text? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] radio_group(default_value? : String, name? : String, disabled? : Bool, required? : Bool, invalid? : Bool, orientation? : RadioGroupOrientation, on_value_change? : @cmd.Emit[String], id? : String, class? : String, title? : String, aria_label? : String, attrs? : @html.Attrs, style? : Array[String], (RadioGroupScope) -> C) -> @rabbita.Val[@html.Html]
+
+pub fn radio_group_item(scope~ : RadioGroupScope, value~ : String, disabled? : Bool, required? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, aria_label? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] radio_group_root(orientation? : RadioGroupOrientation, id? : String, class? : String, title? : String, aria_label? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] resizable_group(id~ : String, default_sizes~ : Array[Int], min_sizes? : Array[Int], max_sizes? : Array[Int], orientation? : SeparatorOrientation, aria_label? : String, on_resize? : @cmd.Emit[Array[Int]], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (ResizableGroupScope) -> C) -> @rabbita.Val[@html.Html]
+
+pub fn resizable_group_handle(scope~ : ResizableGroupScope, between~ : Int, with_handle? : Bool, aria_label? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] resizable_group_panel(scope~ : ResizableGroupScope, index~ : Int, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn resizable_handle(scope~ : ResizableScope, with_handle? : Bool, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] resizable_panel(scope~ : ResizableScope, side~ : ResizablePanelSide, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] resizable_panel_group(id~ : String, default_size? : Int, min? : Int, max? : Int, orientation? : SeparatorOrientation, aria_label? : String, on_resize? : @cmd.Emit[Int], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (ResizableScope) -> C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] scroll_area(orientation? : SeparatorOrientation, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] scroll_area_with_scrollbar(orientation? : SeparatorOrientation, id~ : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @rabbita.Val[@html.Html]
+
+pub fn scroll_bar(orientation? : SeparatorOrientation, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn select(id~ : String, options~ : Array[SelectOption], default_value? : String, default_open? : Bool, placeholder? : String, disabled? : Bool, invalid? : Bool, required? : Bool, name? : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, on_value_change? : @cmd.Emit[String], on_open_change? : @cmd.Emit[Bool], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], render? : (SelectScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] select_content(scope~ : SelectScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] select_group(label_id? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] select_item(scope~ : SelectScope, value~ : String, disabled? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] select_label(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn select_option(value~ : String, label~ : String, disabled? : Bool) -> SelectOption
+
+pub fn select_scroll_down_button(scope~ : SelectScope, label? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn select_scroll_up_button(scope~ : SelectScope, label? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn select_separator(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn select_trigger(scope~ : SelectScope, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn select_value(scope~ : SelectScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], prefix? : @html.Html) -> @html.Html
+
+pub fn separator(orientation? : SeparatorOrientation, decorative? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], slot? : String) -> @html.Html
+
+pub fn sheet(id~ : String, default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (SheetScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] sheet_close(SheetScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sheet_content(SheetScope, side? : SheetSide, close_on_overlay? : Bool, show_close? : Bool, close_label? : String, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sheet_description(SheetScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sheet_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sheet_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sheet_title(SheetScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sheet_trigger(SheetScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar(SidebarScope, side? : SidebarSide, variant? : SidebarVariant, collapsible? : SidebarCollapsible, mobile? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], C) -> @html.Html
+
+pub fn sidebar_close_mobile(SidebarScope) -> @cmd.Cmd
+
+pub fn sidebar_collapse(SidebarScope) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] sidebar_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn sidebar_expand(SidebarScope) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] sidebar_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_group(id? : String, class? : String, title? : String, aria_label? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_group_action(disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_group_content(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_group_label(scope? : SidebarScope, hide_when_collapsed? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn sidebar_input(name? : String, value? : String, placeholder? : String, auto_complete? : @html.AutoComplete, id? : String, class? : String, title? : String, disabled? : Bool, aria_label? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_inset(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn sidebar_is_collapsed(SidebarScope) -> Bool
+
+pub fn sidebar_is_mobile_open(SidebarScope) -> Bool
+
+pub fn[C : @html.IsChildren] sidebar_menu(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_menu_action(show_on_hover? : Bool, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_menu_badge(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_menu_button(href? : String, is_active? : Bool, size? : SidebarMenuButtonSize, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_menu_item(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn sidebar_menu_skeleton(show_icon? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_menu_sub(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_menu_sub_button(href? : String, is_active? : Bool, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_menu_sub_item(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn sidebar_open_mobile(SidebarScope) -> @cmd.Cmd
+
+pub fn sidebar_provider(default_collapsed? : Bool, default_mobile_open? : Bool, on_collapsed_change? : @cmd.Emit[Bool], on_mobile_open_change? : @cmd.Emit[Bool], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (SidebarScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn sidebar_rail(SidebarScope, side? : SidebarSide, min_width? : Int, max_width? : Int, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn sidebar_separator(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] sidebar_trigger(SidebarScope, mobile? : Bool, controls? : String, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn skeleton(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn slider(id~ : String, default_value? : Int, min? : Int, max? : Int, step? : Int, large_step? : Int, orientation? : SeparatorOrientation, disabled? : Bool, aria_label? : String, on_value_change? : @cmd.Emit[Int], on_value_commit? : @cmd.Emit[Int], class? : String, title? : String, attrs? : @html.Attrs, input_attrs? : @html.Attrs, style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn slider_values(id~ : String, default_values~ : Array[Int], min? : Int, max? : Int, step? : Int, large_step? : Int, min_steps_between_values? : Int, orientation? : SeparatorOrientation, disabled? : Bool, aria_label? : String, on_value_change? : @cmd.Emit[Array[Int]], on_value_commit? : @cmd.Emit[Array[Int]], class? : String, title? : String, attrs? : @html.Attrs, input_attrs? : @html.Attrs, style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn sonner(max_toasts? : Int, position? : String, class? : String, attrs? : @html.Attrs, style? : Array[String], (ToastScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn spinner(label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn switch(default_checked? : Bool, size? : SwitchSize, disabled? : Bool, read_only? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_checked_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn tab_entry(value~ : String, label~ : String, content~ : @html.Html, disabled? : Bool) -> TabEntry
+
+pub fn[C : @html.IsChildren] table(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], container_attrs? : @html.Attrs, container_style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] table_body(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] table_caption(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] table_cell(colspan? : Int, rowspan? : Int, headers? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] table_footer(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] table_head(scope? : @html.Scope, abbr? : String, colspan? : Int, rowspan? : Int, headers? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] table_header(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] table_row(selected? : Bool, expanded? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn tabs(items~ : Array[TabEntry], default_value? : String, orientation? : TabsOrientation, list_variant? : TabsListVariant, aria_label? : String, force_mount? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, list_attrs? : @html.Attrs, style? : Array[String], list_style? : Array[String], trigger_style? : Array[String], content_style? : Array[String]) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] tabs_content(value~ : String, selected? : Bool, force_mount? : Bool, labelledby? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] tabs_list(orientation? : TabsOrientation, variant? : TabsListVariant, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] tabs_root(value? : String, orientation? : TabsOrientation, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] tabs_trigger(value~ : String, selected? : Bool, disabled? : Bool, tab_stop? : Bool, controls? : String, on_value_change? : @cmd.Emit[String], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn textarea(name? : String, value? : String, rows? : Int, cols? : Int, placeholder? : String, read_only? : Bool, disabled? : Bool, maxlength? : Int, minlength? : Int, required? : Bool, autofocus? : Bool, wrap? : String, invalid? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String], slot? : String) -> @html.Html
+
+pub fn[C : @html.IsChildren] theme(mode? : ColorMode, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] toast(variant? : ToastVariant, open? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] toast_action(on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn toast_close(scope~ : ToastScope, toast_id~ : Int, label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn[C : @html.IsChildren] toast_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] toast_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn toaster(max_toasts? : Int, position? : String, class? : String, attrs? : @html.Attrs, style? : Array[String], (ToastScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] toggle(default_pressed? : Bool, variant? : ToggleVariant, size? : ToggleSize, disabled? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_pressed_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], slot? : String, C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] toggle_group(default_values? : Array[String], multiple? : Bool, orientation? : SeparatorOrientation, variant? : ToggleVariant, size? : ToggleSize, spacing? : Int, aria_label? : String, on_value_change? : @cmd.Emit[Array[String]], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], (ToggleGroupScope) -> C) -> @rabbita.Val[@html.Html]
+
+pub fn[C : @html.IsChildren] toggle_group_item(scope~ : ToggleGroupScope, value~ : String, disabled? : Bool, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[T : @html.IsChildren, C : @html.IsChildren] tooltip(id~ : String, default_open? : Bool, disabled? : Bool, delay? : Int, close_delay? : Int, close_on_click? : Bool, hoverable? : Bool, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, show_arrow? : Bool, trigger_variant? : ButtonVariant, trigger_size? : ButtonSize, on_open_change? : @cmd.Emit[Bool], on_trigger_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], arrow_attrs? : @html.Attrs, arrow_style? : Array[String], T, C) -> @rabbita.Val[@html.Html]
+
+pub fn tooltip_arrow(side? : PopupSide, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+pub fn tooltip_close(String) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] tooltip_content(id~ : String, trigger_id~ : String, open? : Bool, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, show_arrow? : Bool, class? : String, title? : String, attrs? : @html.Attrs, arrow_attrs? : @html.Attrs, style? : Array[String], arrow_style? : Array[String], C) -> @html.Html
+
+pub fn tooltip_open(String) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] tooltip_provider(delay? : Int, close_delay? : Int, timeout? : Int, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn tooltip_toggle(String) -> @cmd.Cmd
+
+pub fn[C : @html.IsChildren] tooltip_trigger(content_id~ : String, open? : Bool, disabled? : Bool, variant? : ButtonVariant, size? : ButtonSize, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_blockquote(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_h1(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_h2(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_h3(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_h4(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_inline_code(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_large(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_lead(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_list(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_muted(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_p(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+pub fn[C : @html.IsChildren] typography_small(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+
+// Errors
+
+// Types and methods
+type AccordionEntry
+
+pub(all) enum AccordionType {
+  Single
+  Multiple
+} derive(Eq, @debug.Debug)
+
+type AlertDialogScope
+
+pub(all) enum AlertVariant {
+  Default
+  Destructive
+} derive(Eq, @debug.Debug)
+
+pub(all) enum AttachmentMediaVariant {
+  AttachmentIcon
+  AttachmentImage
+} derive(Eq, @debug.Debug)
+
+pub(all) enum AttachmentOrientation {
+  AttachmentHorizontal
+  AttachmentVertical
+} derive(Eq, @debug.Debug)
+
+pub(all) enum AttachmentSize {
+  AttachmentDefaultSize
+  AttachmentSm
+  AttachmentXs
+} derive(Eq, @debug.Debug)
+
+pub(all) enum AttachmentState {
+  AttachmentIdle
+  AttachmentUploading
+  AttachmentProcessing
+  AttachmentError
+  AttachmentDone
+} derive(Eq, @debug.Debug)
+
+pub(all) enum AvatarImageStatus {
+  AvatarLoading
+  AvatarLoaded
+  AvatarError
+} derive(Eq, @debug.Debug)
+
+pub(all) enum AvatarSize {
+  Default
+  Sm
+  Lg
+} derive(Eq, @debug.Debug)
+
+pub(all) enum BadgeVariant {
+  Default
+  Secondary
+  Destructive
+  Outline
+  Ghost
+  Link
+} derive(Eq, @debug.Debug)
+
+pub(all) enum BubbleReactionSide {
+  ReactionTop
+  ReactionBottom
+} derive(Eq, @debug.Debug)
+
+pub(all) enum BubbleVariant {
+  BubbleDefault
+  BubbleSecondary
+  BubbleMuted
+  BubbleTinted
+  BubbleOutline
+  BubbleGhost
+  BubbleDestructive
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ButtonSize {
+  Default
+  Xs
+  Sm
+  Lg
+  Icon
+  IconXs
+  IconSm
+  IconLg
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ButtonVariant {
+  Default
+  Outline
+  Secondary
+  Ghost
+  Destructive
+  Link
+} derive(Eq, @debug.Debug)
+
+type CalendarDate derive(Eq, @debug.Debug)
+pub fn CalendarDate::day(Self) -> Int
+pub fn CalendarDate::month(Self) -> Int
+pub fn CalendarDate::to_iso_string(Self) -> String
+pub fn CalendarDate::year(Self) -> Int
+
+pub(all) enum CardSize {
+  Default
+  Sm
+} derive(Eq, @debug.Debug)
+
+pub(all) enum CarouselOrientation {
+  CarouselHorizontal
+  CarouselVertical
+} derive(Eq, @debug.Debug)
+
+type CarouselScope
+
+pub(all) enum ChartIndicator {
+  ChartDot
+  ChartLine
+  ChartDashed
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ColorMode {
+  Light
+  Dark
+} derive(Eq, @debug.Debug)
+
+type ComboboxOption
+
+type ComboboxScope
+
+type CommandScope
+
+pub(all) enum ContentAlignment {
+  AlignStart
+  AlignEnd
+} derive(Eq, @debug.Debug)
+
+type ContextMenuRadioGroupScope
+
+type ContextMenuScope
+
+type ContextMenuSubScope
+
+type DataTableColumn[T]
+
+type DatePickerPreset derive(Eq, @debug.Debug)
+
+type DateRange derive(Eq, @debug.Debug)
+pub fn DateRange::end(Self) -> CalendarDate?
+pub fn DateRange::start(Self) -> CalendarDate
+
+type DialogScope
+
+pub(all) enum DrawerDirection {
+  DrawerTop
+  DrawerRight
+  DrawerBottom
+  DrawerLeft
+} derive(Eq, @debug.Debug)
+
+type DrawerScope
+
+type DropdownMenuRadioGroupScope
+
+type DropdownMenuScope
+
+type DropdownMenuSubScope
+
+pub(all) enum EmptyMediaVariant {
+  EmptyMediaDefault
+  EmptyMediaIcon
+} derive(Eq, @debug.Debug)
+
+pub(all) enum FieldLegendVariant {
+  FieldLegend
+  FieldLabelLegend
+} derive(Eq, @debug.Debug)
+
+pub(all) enum FieldOrientation {
+  FieldVertical
+  FieldHorizontal
+  FieldResponsive
+} derive(Eq, @debug.Debug)
+
+pub(all) enum InputGroupAddonAlign {
+  InputInlineStart
+  InputInlineEnd
+  InputBlockStart
+  InputBlockEnd
+} derive(Eq, @debug.Debug)
+
+pub(all) enum InputGroupButtonSize {
+  InputButtonXs
+  InputButtonSm
+  InputButtonIconXs
+  InputButtonIconSm
+} derive(Eq, @debug.Debug)
+
+type InputOtpScope
+
+pub(all) enum ItemMediaVariant {
+  ItemMediaDefault
+  ItemMediaIcon
+  ItemMediaImage
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ItemSize {
+  ItemDefaultSize
+  ItemSm
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ItemVariant {
+  ItemDefault
+  ItemOutline
+  ItemMuted
+} derive(Eq, @debug.Debug)
+
+pub(all) enum MarkerVariant {
+  MarkerDefault
+  MarkerSeparator
+  MarkerBorder
+} derive(Eq, @debug.Debug)
+
+type MenuCoreModel derive(Eq)
+
+type MenuIndicatorPlacement derive(Eq)
+
+type MenuScope
+
+type MenuSubmenuChange derive(Eq)
+
+type MenubarMenuScope
+
+type MenubarModel derive(Eq)
+
+type MenubarRadioGroupScope
+
+type MenubarScope
+
+type MenubarSubScope
+
+pub(all) enum MessageScrollDirection {
+  ScrollStart
+  ScrollEnd
+} derive(Eq, @debug.Debug)
+
+type MessageScrollerScope
+
+pub(all) enum NativeSelectSize {
+  NativeSelectDefault
+  NativeSelectSm
+} derive(Eq, @debug.Debug)
+
+type NavigationMenuItemScope
+
+type NavigationMenuModel derive(Eq)
+
+type NavigationMenuScope
+
+pub(all) enum PopupAlign {
+  Start
+  Center
+  End
+} derive(Eq, @debug.Debug)
+
+pub(all) enum PopupSide {
+  Top
+  Right
+  Bottom
+  Left
+} derive(Eq, @debug.Debug)
+
+pub(all) enum RadioGroupOrientation {
+  RadioVertical
+  RadioHorizontal
+} derive(Eq, @debug.Debug)
+
+type RadioGroupScope
+
+type ResizableGroupScope
+
+pub(all) enum ResizablePanelSide {
+  FirstPanel
+  SecondPanel
+} derive(Eq, @debug.Debug)
+
+type ResizableScope
+
+type SelectOption
+
+type SelectScope
+
+pub(all) enum SeparatorOrientation {
+  Horizontal
+  Vertical
+} derive(Eq, @debug.Debug)
+
+type SheetScope
+
+pub(all) enum SheetSide {
+  SheetTop
+  SheetRight
+  SheetBottom
+  SheetLeft
+} derive(Eq, @debug.Debug)
+
+pub(all) enum SidebarCollapsible {
+  SidebarOffcanvas
+  SidebarIcon
+  SidebarFixed
+} derive(Eq, @debug.Debug)
+
+pub(all) enum SidebarMenuButtonSize {
+  SidebarMenuSm
+  SidebarMenuDefault
+  SidebarMenuLg
+} derive(Eq, @debug.Debug)
+
+type SidebarScope
+
+pub(all) enum SidebarSide {
+  SidebarLeft
+  SidebarRight
+} derive(Eq, @debug.Debug)
+
+pub(all) enum SidebarVariant {
+  SidebarDefault
+  SidebarFloating
+  SidebarInset
+} derive(Eq, @debug.Debug)
+
+pub(all) enum SwitchSize {
+  Default
+  Sm
+} derive(Eq, @debug.Debug)
+
+type TabEntry
+
+pub(all) enum TabsListVariant {
+  TabsDefault
+  TabsLine
+} derive(Eq, @debug.Debug)
+
+pub(all) enum TabsOrientation {
+  TabsHorizontal
+  TabsVertical
+} derive(Eq, @debug.Debug)
+
+pub(all) enum TextDirection {
+  Ltr
+  Rtl
+} derive(Eq, @debug.Debug)
+
+type ToastScope
+pub fn ToastScope::dismiss(Self, id~ : Int) -> @cmd.Cmd
+pub fn ToastScope::dismiss_all(Self) -> @cmd.Cmd
+pub fn ToastScope::show(Self, title~ : String, description? : String, variant? : ToastVariant, duration_ms? : Int) -> @cmd.Cmd
+
+pub(all) enum ToastVariant {
+  ToastDefault
+  ToastDestructive
+  ToastSuccess
+} derive(Eq, @debug.Debug)
+
+type ToggleGroupScope
+
+pub(all) enum ToggleSize {
+  Default
+  Sm
+  Lg
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ToggleVariant {
+  Default
+  Outline
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
+
