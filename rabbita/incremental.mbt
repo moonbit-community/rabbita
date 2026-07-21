@@ -177,6 +177,506 @@ pub fn[
 }
 
 ///|
+/// Creates an incremental value derived from ten inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K,
+] Val::map10(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : (A, B, C, D, E, F, G, H, I, J) -> K,
+) -> Val[K] {
+  a.0.map10(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k)
+}
+
+///|
+/// Creates an incremental value derived from eleven inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L,
+] Val::map11(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : (A, B, C, D, E, F, G, H, I, J, K) -> L,
+) -> Val[L] {
+  a.0.map11(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k.0, l)
+}
+
+///|
+/// Creates an incremental value derived from twelve inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M,
+] Val::map12(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : (A, B, C, D, E, F, G, H, I, J, K, L) -> M,
+) -> Val[M] {
+  a.0.map12(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k.0, l.0, m)
+}
+
+///|
+/// Creates an incremental value derived from thirteen inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N,
+] Val::map13(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : (A, B, C, D, E, F, G, H, I, J, K, L, M) -> N,
+) -> Val[N] {
+  a.0.map13(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k.0, l.0, m.0, n)
+}
+
+///|
+/// Creates an incremental value derived from fourteen inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O,
+] Val::map14(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : (A, B, C, D, E, F, G, H, I, J, K, L, M, N) -> O,
+) -> Val[O] {
+  a.0.map14(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k.0, l.0, m.0, n.0, o)
+}
+
+///|
+/// Creates an incremental value derived from fifteen inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P,
+] Val::map15(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O) -> P,
+) -> Val[P] {
+  a.0.map15(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p,
+  )
+}
+
+///|
+/// Creates an incremental value derived from sixteen inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+  Q,
+] Val::map16(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  q : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P) -> Q,
+) -> Val[Q] {
+  a.0.map16(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    q,
+  )
+}
+
+///|
+/// Creates an incremental value derived from seventeen inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+  Q : Eq,
+  R,
+] Val::map17(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  q : Val[Q],
+  r : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q) -> R,
+) -> Val[R] {
+  a.0.map17(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    q.0,
+    r,
+  )
+}
+
+///|
+/// Creates an incremental value derived from eighteen inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+  Q : Eq,
+  R : Eq,
+  S,
+] Val::map18(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  q : Val[Q],
+  r : Val[R],
+  s : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R) -> S,
+) -> Val[S] {
+  a.0.map18(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    q.0,
+    r.0,
+    s,
+  )
+}
+
+///|
+/// Creates an incremental value derived from nineteen inputs.
+///
+/// The function is reevaluated when any input value changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+  Q : Eq,
+  R : Eq,
+  S : Eq,
+  T,
+] Val::map19(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  q : Val[Q],
+  r : Val[R],
+  s : Val[S],
+  t : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S) -> T,
+) -> Val[T] {
+  a.0.map19(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    q.0,
+    r.0,
+    s.0,
+    t,
+  )
+}
+
+///|
 /// Creates an HTML view derived from one incremental value.
 ///
 /// The render function is reevaluated when `a` changes.
@@ -306,6 +806,511 @@ pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I : Eq] V
   render : (A, B, C, D, E, F, G, H, I) -> Html,
 ) -> Val[Html] {
   a.0.map9(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, render)
+}
+
+///|
+/// Creates an HTML view derived from ten incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+] Val::view10(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  render : (A, B, C, D, E, F, G, H, I, J) -> Html,
+) -> Val[Html] {
+  a.0.map10(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, render)
+}
+
+///|
+/// Creates an HTML view derived from eleven incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+] Val::view11(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  render : (A, B, C, D, E, F, G, H, I, J, K) -> Html,
+) -> Val[Html] {
+  a.0.map11(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k.0, render)
+}
+
+///|
+/// Creates an HTML view derived from twelve incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+] Val::view12(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L) -> Html,
+) -> Val[Html] {
+  a.0.map12(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k.0, l.0, render)
+}
+
+///|
+/// Creates an HTML view derived from thirteen incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+] Val::view13(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L, M) -> Html,
+) -> Val[Html] {
+  a.0.map13(b.0, c.0, d.0, e.0, f.0, g.0, h.0, i.0, j.0, k.0, l.0, m.0, render)
+}
+
+///|
+/// Creates an HTML view derived from fourteen incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+] Val::view14(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L, M, N) -> Html,
+) -> Val[Html] {
+  a.0.map14(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    render,
+  )
+}
+
+///|
+/// Creates an HTML view derived from fifteen incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+] Val::view15(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O) -> Html,
+) -> Val[Html] {
+  a.0.map15(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    render,
+  )
+}
+
+///|
+/// Creates an HTML view derived from sixteen incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+] Val::view16(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P) -> Html,
+) -> Val[Html] {
+  a.0.map16(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    render,
+  )
+}
+
+///|
+/// Creates an HTML view derived from seventeen incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+  Q : Eq,
+] Val::view17(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  q : Val[Q],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q) -> Html,
+) -> Val[Html] {
+  a.0.map17(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    q.0,
+    render,
+  )
+}
+
+///|
+/// Creates an HTML view derived from eighteen incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+  Q : Eq,
+  R : Eq,
+] Val::view18(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  q : Val[Q],
+  r : Val[R],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R) -> Html,
+) -> Val[Html] {
+  a.0.map18(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    q.0,
+    r.0,
+    render,
+  )
+}
+
+///|
+/// Creates an HTML view derived from nineteen incremental values.
+///
+/// The render function is reevaluated when any input changes.
+pub fn[
+  A : Eq,
+  B : Eq,
+  C : Eq,
+  D : Eq,
+  E : Eq,
+  F : Eq,
+  G : Eq,
+  H : Eq,
+  I : Eq,
+  J : Eq,
+  K : Eq,
+  L : Eq,
+  M : Eq,
+  N : Eq,
+  O : Eq,
+  P : Eq,
+  Q : Eq,
+  R : Eq,
+  S : Eq,
+] Val::view19(
+  a : Val[A],
+  b : Val[B],
+  c : Val[C],
+  d : Val[D],
+  e : Val[E],
+  f : Val[F],
+  g : Val[G],
+  h : Val[H],
+  i : Val[I],
+  j : Val[J],
+  k : Val[K],
+  l : Val[L],
+  m : Val[M],
+  n : Val[N],
+  o : Val[O],
+  p : Val[P],
+  q : Val[Q],
+  r : Val[R],
+  s : Val[S],
+  render : (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S) -> Html,
+) -> Val[Html] {
+  a.0.map19(
+    b.0,
+    c.0,
+    d.0,
+    e.0,
+    f.0,
+    g.0,
+    h.0,
+    i.0,
+    j.0,
+    k.0,
+    l.0,
+    m.0,
+    n.0,
+    o.0,
+    p.0,
+    q.0,
+    r.0,
+    s.0,
+    render,
+  )
 }
 
 ///|

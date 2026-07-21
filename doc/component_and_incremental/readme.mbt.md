@@ -11,9 +11,10 @@ organized, not a distinct runtime value.
 ## Understand `Val` and the incremental graph
 
 A `Val[T]` represents a `T` in the incremental graph. `map` derives another
-`Val` from its evaluated value, while `view` derives a `Val[Html]`. The `map2`
-through `map9` and `view2` through `view9` methods do the same for several
-direct inputs without creating intermediate tuples.
+`Val` from its evaluated value, while `view` derives a `Val[Html]`. `mapN`
+derives a `Val` from several incremental inputs, while `viewN` derives a
+`Val[Html]` from them. Both combine the inputs directly without creating
+intermediate tuples.
 
 `Val::constant(value)` creates a `Val` that always evaluates to `value`. Use it
 when an API expects a `Val[T]`, but that value does not need to change as the

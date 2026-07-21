@@ -798,6 +798,56 @@ test "map12 wrapper" {
 }
 
 ///|
+test "map19 wrapper" {
+  let (x1, _) = @duplix.input(1)
+  let (x2, _) = @duplix.input(2)
+  let (x3, _) = @duplix.input(3)
+  let (x4, _) = @duplix.input(4)
+  let (x5, _) = @duplix.input(5)
+  let (x6, _) = @duplix.input(6)
+  let (x7, _) = @duplix.input(7)
+  let (x8, _) = @duplix.input(8)
+  let (x9, _) = @duplix.input(9)
+  let (x10, _) = @duplix.input(10)
+  let (x11, _) = @duplix.input(11)
+  let (x12, _) = @duplix.input(12)
+  let (x13, _) = @duplix.input(13)
+  let (x14, _) = @duplix.input(14)
+  let (x15, _) = @duplix.input(15)
+  let (x16, _) = @duplix.input(16)
+  let (x17, _) = @duplix.input(17)
+  let (x18, _) = @duplix.input(18)
+  let (x19, set_x19) = @duplix.input(19)
+  let sum = x1.map19(
+    x2,
+    x3,
+    x4,
+    x5,
+    x6,
+    x7,
+    x8,
+    x9,
+    x10,
+    x11,
+    x12,
+    x13,
+    x14,
+    x15,
+    x16,
+    x17,
+    x18,
+    x19,
+    (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s) => {
+      a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s
+    },
+  )
+
+  inspect(sum.read(), content="190")
+  set_x19(20)
+  inspect(sum.read(), content="191")
+}
+
+///|
 test "zip12 wrapper" {
   let (x1, _) = @duplix.input(1)
   let (x2, _) = @duplix.input(2)
