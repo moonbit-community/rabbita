@@ -385,7 +385,7 @@ pub fn calendar_range(
   let initial = calendar_range_initial_model(
     default_month, default_selected, today,
   )
-  let (model, emit) = @rabbita.create_state(initial, update=fn(_, msg, model) {
+  let (model, emit) = @rabbita.create_state(initial, update=fn(model, msg, _) {
     calendar_range_update(id, on_select, on_month_change, today, msg, model)
   })
   let select = emit.map(date => CalendarRangeChoose(date))
@@ -535,7 +535,7 @@ pub fn calendar_multiple(
   let initial = calendar_multiple_initial_model(
     default_month, default_selected, today,
   )
-  let (model, emit) = @rabbita.create_state(initial, update=fn(_, msg, model) {
+  let (model, emit) = @rabbita.create_state(initial, update=fn(model, msg, _) {
     calendar_multiple_update(id, on_select, on_month_change, today, msg, model)
   })
   let select = emit.map(date => CalendarMultipleChoose(date))

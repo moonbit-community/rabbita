@@ -9,7 +9,7 @@ enum Msg {
 fn app() -> Val[Html] {
   let (model, emit) = @rabbita.create_pure_state(
     0,
-    update=fn(msg, model) {
+    update=fn(model, msg) {
       match msg {
         Inc => model + 1
         Dec => model - 1

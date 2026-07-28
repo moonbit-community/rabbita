@@ -900,7 +900,7 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] tooltip(
         ]),
       )
     },
-    update=(emit, msg, current) => {
+    update=(current, msg, emit) => {
       tooltip_update(id, close_on_click, on_open_change, emit, msg, current)
     },
   )

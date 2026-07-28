@@ -19,7 +19,7 @@ struct Model {
 } derive(Eq)
 
 ///|
-fn update(_ : Emit[Msg], msg : Msg, model : Model) -> (Model, Cmd) {
+fn update(model : Model, msg : Msg, _ : Emit[Msg]) -> (Model, Cmd) {
   match msg {
     SelectPattern(index) => (set_animation_pattern(index, model), @rabbita.none)
     AnimationFrameTick(timestamp) =>
@@ -28,7 +28,7 @@ fn update(_ : Emit[Msg], msg : Msg, model : Model) -> (Model, Cmd) {
 }
 
 ///|
-fn subscriptions(emit : Emit[Msg], _ : Model) -> @sub.Sub {
+fn subscriptions(_ : Model, emit : Emit[Msg]) -> @sub.Sub {
   @sub.on_animation_frame(emit.map(timestamp => AnimationFrameTick(timestamp)))
 }
 

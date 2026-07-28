@@ -126,13 +126,13 @@ fn app() -> Val[Html] {
   ])
   let (route, _) = @rabbita.create_state(
     Home,
-    subscriptions=fn(emit, _) {
+    subscriptions=fn(_, emit) {
       @sub.batch([
         @sub.on_url_changed(url => emit(UrlChanged(url))),
         @sub.on_url_request(request => emit(UrlRequest(request))),
       ])
     },
-    update=fn(_, msg, current_route) {
+    update=fn(current_route, msg, _) {
       match msg {
         UrlRequest(request) =>
           match request {

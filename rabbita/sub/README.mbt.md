@@ -9,11 +9,11 @@ returning it.
 ## Basic shape
 
 In Rabbita, subscriptions are usually returned from the `subscriptions`
-callback of a cell.
+callback of `create_state`.
 
 ```mbt nocheck
 ///|
-fn subscriptions(emit : Emit[Msg], model : Model) -> @sub.Sub {
+fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
   if model.running {
     @sub.every(1000, emit(Tick))
   } else {
@@ -55,7 +55,7 @@ enum Msg {
 }
 
 ///|
-fn subscriptions(emit : Emit[Msg], _model : Model) -> @sub.Sub {
+fn subscriptions(_model : Model, emit : Emit[Msg]) -> @sub.Sub {
   @sub.batch([
     @sub.on_resize(v => emit(Resized(v))),
     @sub.on_mouse_move(m => emit(MouseMoved(m))),

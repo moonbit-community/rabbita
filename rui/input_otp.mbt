@@ -279,9 +279,9 @@ pub fn input_otp(
 ) -> @rabbita.Val[@html.Html] {
   let initial_value = otp_normalize(default_value, max_length)
   let (model, emit) = @rabbita.create_state({ value: initial_value }, update=fn(
-    _,
-    msg,
     model,
+    msg,
+    _,
   ) {
     match msg {
       SetOtpValue(value) => {

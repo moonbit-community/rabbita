@@ -54,7 +54,7 @@ enum Msg {
 
 ///|
 fn counter() -> Val[Html] {
-  let (count, emit) = @rabbita.create_pure_state(0, update=fn(msg, count) {
+  let (count, emit) = @rabbita.create_pure_state(0, update=fn(count, msg) {
     match msg {
       Inc => count + 1
       Dec => count - 1

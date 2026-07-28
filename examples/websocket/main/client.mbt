@@ -586,7 +586,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
 }
 
 ///|
-fn subscriptions(emit : Emit[Msg], model : Model) -> @sub.Sub {
+fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
   let url = normalized_url(model.url_input)
   if model.listening && url != "" {
     @websocket.listen(
@@ -944,7 +944,7 @@ fn main {
   fn app() {
     let (model, emit) = @rabbita.create_state(
       initial_model,
-      update=fn(emit, msg, model) {
+      update=fn(model, msg, emit) {
         let (cmd, model) = update(emit, msg, model)
         (model, cmd)
       },

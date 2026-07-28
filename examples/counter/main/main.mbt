@@ -10,7 +10,7 @@ fn main {
   fn app() -> Val[Html] {
     let (model, emit) = create_pure_state(
       0,
-      update=(msg, model) =>
+      update=(model, msg) =>
         match msg {
           Inc => model + 1
           Dec => model - 1

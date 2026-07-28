@@ -31,7 +31,7 @@ enum CounterMsg {
 
 ///|
 fn counter(title : String) -> Val[Html] {
-  let (count, emit) = @rabbita.create_pure_state(0, update=fn(msg, count) {
+  let (count, emit) = @rabbita.create_pure_state(0, update=fn(count, msg) {
     match msg {
       Increment => count + 1
       Decrement => count - 1
@@ -175,8 +175,8 @@ enum ParentMsg {
 ///|
 fn parent() -> Val[Html] {
   let (text, emit) = @rabbita.create_pure_state("Initial value", update=fn(
-    msg,
     _,
+    msg,
   ) {
     match msg {
       ResetText => "Initial value"

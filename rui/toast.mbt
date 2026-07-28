@@ -822,7 +822,7 @@ fn toaster_impl(
         toast_bind_document_pause_cmd(slot, emit),
       )
     },
-    update=fn(emit, msg, model) {
+    update=fn(model, msg, emit) {
       match msg {
         ShowToast(title, description, variant, duration_ms) => {
           let id = model.next_id

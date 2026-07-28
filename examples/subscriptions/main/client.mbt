@@ -275,7 +275,7 @@ fn update(_ : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
 }
 
 ///|
-fn subscriptions(emit : Emit[Msg], model : Model) -> @sub.Sub {
+fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
   match model.active_tab {
     Every =>
       if model.ticking {
@@ -408,7 +408,7 @@ fn main {
         mouse_x: 0,
         mouse_y: 0,
       },
-      update=fn(emit, msg, model) {
+      update=fn(model, msg, emit) {
         let (cmd, model) = update(emit, msg, model)
         (model, cmd)
       },

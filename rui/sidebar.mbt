@@ -1577,7 +1577,7 @@ pub fn sidebar_provider(
         },
       )
     },
-    update=fn(_, msg, state) {
+    update=fn(state, msg, _) {
       match msg {
         ToggleSidebarCollapsed => {
           let next = !state.collapsed
@@ -2480,7 +2480,7 @@ pub fn[C : @html.IsChildren] sidebar_menu_button_with_tooltip(
         ]),
       )
     },
-    update=(emit, msg, current) => {
+    update=(current, msg, emit) => {
       tooltip_update(
         content_id, true, on_tooltip_open_change, emit, msg, current,
       )

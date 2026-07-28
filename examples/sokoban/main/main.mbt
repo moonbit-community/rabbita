@@ -144,7 +144,7 @@ fn clamp(min : Int, max : Int, idx : Int) -> Int {
 }
 
 ///|
-fn subscriptions(emit : Emit[Msg], _ : Model) -> Sub {
+fn subscriptions(_ : Model, emit : Emit[Msg]) -> Sub {
   on_key_down(event => emit(KeyPressed(event)))
 }
 
@@ -250,7 +250,7 @@ fn main {
   fn app() {
     let (model, emit) = create_state(
       { history: singleton(initial_world), cursor: 0 },
-      update=fn(_, msg, model) { (update(msg, model), none) },
+      update=fn(model, msg, _) { (update(msg, model), none) },
       subscriptions~,
     )
     view(emit, model)

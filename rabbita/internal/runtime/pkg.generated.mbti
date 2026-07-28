@@ -37,8 +37,8 @@ pub(all) struct Sandbox {
   hooks : @cmd.Hooks
   // private fields
 }
-pub fn[Model : Eq, Msg] Sandbox::create_state_machine(Self, (@cmd.Emit[Msg]) -> (Model, @cmd.Cmd), (@cmd.Emit[Msg], Msg, Model) -> (Model, @cmd.Cmd), subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> (@duplix.Node[Model], @cmd.Emit[Msg])
-pub fn[Model : Eq, Msg, Input : Eq] Sandbox::create_state_machine_with_input(Self, (@cmd.Emit[Msg], Input) -> (Model, @cmd.Cmd), (@cmd.Emit[Msg], Input, Msg, Model) -> (Model, @cmd.Cmd), subscriptions? : (@cmd.Emit[Msg], Input, Model) -> @sub.Sub, @duplix.Node[Input]) -> (@duplix.Node[Model], @cmd.Emit[Msg])
+pub fn[Model : Eq, Msg] Sandbox::create_state_machine(Self, (@cmd.Emit[Msg]) -> (Model, @cmd.Cmd), (Model, Msg, @cmd.Emit[Msg]) -> (Model, @cmd.Cmd), subscriptions? : (Model, @cmd.Emit[Msg]) -> @sub.Sub) -> (@duplix.Node[Model], @cmd.Emit[Msg])
+pub fn[Model : Eq, Msg, Input : Eq] Sandbox::create_state_machine_with_input(Self, (@cmd.Emit[Msg], Input) -> (Model, @cmd.Cmd), (Model, Input, Msg, @cmd.Emit[Msg]) -> (Model, @cmd.Cmd), subscriptions? : (Model, Input, @cmd.Emit[Msg]) -> @sub.Sub, @duplix.Node[Input]) -> (@duplix.Node[Model], @cmd.Emit[Msg])
 pub fn Sandbox::flush(Self) -> Unit
 pub fn Sandbox::initialize(Self, @duplix.Node[VNode]) -> Unit
 pub fn Sandbox::new() -> Self

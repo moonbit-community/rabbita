@@ -324,7 +324,7 @@ pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I : Eq] V
 /// }
 ///
 /// fn counter() -> Val[Html] {
-///   let (count, emit) = @rabbita.create_pure_state(0, update=fn(msg, count) {
+///   let (count, emit) = @rabbita.create_pure_state(0, update=fn(count, msg) {
 ///     match msg {
 ///       Inc => count + 1
 ///       Dec => count - 1
@@ -342,14 +342,14 @@ pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I : Eq] V
 #cfg(target="js")
 pub fn[Model : Eq, Msg] create_pure_state(
   model : Model,
-  update~ : (Msg, Model) -> Model,
+  update~ : (Model, Msg) -> Model,
 ) -> (Val[Model], Emit[Msg]) {
   let graph = ambient_graph.val.unwrap()
   let (node, emit) = graph.sandbox.create_state_machine(_ => (model, none), (
-    _,
-    msg,
     model,
-  ) => (update(msg, model), none))
+    msg,
+    _,
+  ) => (update(model, msg), none))
   (node, emit)
 }
 
@@ -369,7 +369,7 @@ pub fn[Model : Eq, Msg] create_pure_state(
 /// }
 ///
 /// fn counter() -> Val[Html] {
-///   let (count, emit) = @rabbita.create_state(0, update=fn(emit, msg, count) {
+///   let (count, emit) = @rabbita.create_state(0, update=fn(count, msg, emit) {
 ///     match msg {
 ///       Increment => (count + 1, @rabbita.none)
 ///       IncrementLater => (count, @rabbita.delay(emit(Increment), 1000))
@@ -383,8 +383,8 @@ pub fn[Model : Eq, Msg] create_pure_state(
 #cfg(target="js")
 pub fn[Model : Eq, Msg] create_state(
   model : Model,
-  update~ : (Emit[Msg], Msg, Model) -> (Model, Cmd),
-  subscriptions? : (Emit[Msg], Model) -> @sub.Sub,
+  update~ : (Model, Msg, Emit[Msg]) -> (Model, Cmd),
+  subscriptions? : (Model, Emit[Msg]) -> @sub.Sub,
 ) -> (Val[Model], Emit[Msg]) {
   let graph = ambient_graph.val.unwrap()
   let (node, emit) = graph.sandbox.create_state_machine(
@@ -568,7 +568,7 @@ pub fn[E : Eq, C : Eq] Val::switch_by(
 /// fn delayed_counter() -> Val[Html] {
 ///   let (count, emit) = @rabbita.create_state_with_init(
 ///     init=fn(emit) { (0, @rabbita.delay(emit(Inc), 1000)) },
-///     update=fn(_, msg, count) {
+///     update=fn(count, msg, _) {
 ///       match msg {
 ///         Inc => (count + 1, @rabbita.none)
 ///         Dec => (count - 1, @rabbita.none)
@@ -587,8 +587,8 @@ pub fn[E : Eq, C : Eq] Val::switch_by(
 #cfg(target="js")
 pub fn[Model : Eq, Msg] create_state_with_init(
   init~ : (Emit[Msg]) -> (Model, Cmd),
-  update~ : (Emit[Msg], Msg, Model) -> (Model, Cmd),
-  subscriptions? : (Emit[Msg], Model) -> @sub.Sub,
+  update~ : (Model, Msg, Emit[Msg]) -> (Model, Cmd),
+  subscriptions? : (Model, Emit[Msg]) -> @sub.Sub,
 ) -> (Val[Model], Emit[Msg]) {
   let graph = ambient_graph.val.unwrap()
   let (node, emit) = graph.sandbox.create_state_machine(
@@ -620,7 +620,7 @@ pub fn[Model : Eq, Msg] create_state_with_init(
 ///   let (count, emit) = @rabbita.create_state_with_input(
 ///     input=step,
 ///     init=fn(_, _) { (0, @rabbita.none) },
-///     update=fn(_, step, msg, count) {
+///     update=fn(count, step, msg, _) {
 ///       match msg {
 ///         Inc => (count + step, @rabbita.none)
 ///         Dec => (count - step, @rabbita.none)
@@ -639,8 +639,8 @@ pub fn[Model : Eq, Msg] create_state_with_init(
 #cfg(target="js")
 pub fn[Model : Eq, Msg, Input : Eq] create_state_with_input(
   init~ : (Emit[Msg], Input) -> (Model, Cmd),
-  update~ : (Emit[Msg], Input, Msg, Model) -> (Model, Cmd),
-  subscriptions? : (Emit[Msg], Input, Model) -> @sub.Sub,
+  update~ : (Model, Input, Msg, Emit[Msg]) -> (Model, Cmd),
+  subscriptions? : (Model, Input, Emit[Msg]) -> @sub.Sub,
   input~ : Val[Input],
 ) -> (Val[Model], Emit[Msg]) {
   let graph = ambient_graph.val.unwrap()
@@ -681,7 +681,7 @@ pub fn[Model : Eq, Msg, Input : Eq] create_state_with_input(
 pub fn[Model : Eq] create_variable(
   init : Model,
 ) -> (Val[Model], Emit[(Model) -> Model]) {
-  fn update(f, model) {
+  fn update(model, f) {
     f(model)
   }
   create_pure_state(init, update~)

@@ -93,7 +93,7 @@ let code_counter : String =
   #|  fn app() {
   #|    let (count, inject) = @rabbita.create_pure_state(
   #|      0,
-  #|      update=(msg, count) => {
+  #|      update=(count, msg) => {
   #|        match msg {
   #|          Click => count + 1
   #|        }
@@ -743,7 +743,7 @@ fn comparison() -> Val[Html] {
         @rabbita.delay(inject(NextComparison), 12000),
       )
     },
-    update=fn(inject, msg, model) {
+    update=fn(model, msg, inject) {
       match msg {
         SelectComparison(i) => ({ cmp_idx: i, cmp_anim: !model.cmp_anim }, none)
         NextComparison =>
@@ -1006,7 +1006,7 @@ fn app() -> Val[Html] {
   let (model, _) = @rabbita.create_state_with_input(
     input=chapters,
     init=fn(_, _) { ({ page: Home }, none) },
-    update=fn(_, chapters, msg, model) {
+    update=fn(model, chapters, msg, _) {
       let (cmd, model) = match msg {
         UrlRequest(req) =>
           match req {
@@ -1040,7 +1040,7 @@ fn app() -> Val[Html] {
       }
       (model, cmd)
     },
-    subscriptions=fn(inject, _, _) {
+    subscriptions=fn(_, _, inject) {
       @sub.batch([
         @sub.on_url_changed(url => inject(UrlChanged(url))),
         @sub.on_url_request(req => inject(UrlRequest(req))),

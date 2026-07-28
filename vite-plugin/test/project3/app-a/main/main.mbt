@@ -17,7 +17,7 @@ fn main {
   let app = @rabbita.new(() => {
     let (model, emit) = @rabbita.create_pure_state(
       (),
-      update=fn(_ : Msg, _) { () },
+      update=fn(_, _ : Msg) { () },
     )
     model.map(model => view(emit, model))
   })

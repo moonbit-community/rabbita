@@ -104,7 +104,7 @@ pub fn dropdown_menu(
         ]),
       )
     },
-    update=(emit, msg, current) => {
+    update=(current, msg, emit) => {
       match msg {
         DropdownSetOpen(open) =>
           if open == current.open {

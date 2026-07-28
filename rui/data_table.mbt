@@ -875,7 +875,7 @@ pub fn[T] data_table(
   let page_size = if page_size < 1 { 1 } else { page_size }
   let (model, emit) = @rabbita.create_state(
     initial,
-    update=fn(_, message, current) {
+    update=fn(current, message, _) {
       let next = data_table_update(message, current)
       let commands : Array[@cmd.Cmd] = []
       match message {
@@ -891,7 +891,7 @@ pub fn[T] data_table(
       }
       (next, @cmd.batch(commands))
     },
-    subscriptions=(emit, current) => {
+    subscriptions=(current, emit) => {
       if show_columns && current.columns_open {
         data_table_columns_dismiss_subscription(id, emit(DataTableCloseColumns))
       } else {

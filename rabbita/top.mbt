@@ -34,13 +34,13 @@ pub fn new(builder : () -> Val[Html]) -> App {
 #cfg(target="js")
 pub fn[Model : Eq, Msg] elmish(
   model~ : Model,
-  view~ : (Emit[Msg], Model) -> Html,
-  update~ : (Emit[Msg], Msg, Model) -> (Model, Cmd),
-  subscriptions? : (Emit[Msg], Model) -> @sub.Sub,
+  view~ : (Model, Emit[Msg]) -> Html,
+  update~ : (Model, Msg, Emit[Msg]) -> (Model, Cmd),
+  subscriptions? : (Model, Emit[Msg]) -> @sub.Sub,
 ) -> App {
   fn builder() {
     let (model, emit) = create_state(model, update~, subscriptions?)
-    model.map(model => view(emit, model))
+    model.map(model => view(model, emit))
   }
   let sandbox = @runtime.Sandbox::new()
   ambient_graph.val = Some(Graph(sandbox))

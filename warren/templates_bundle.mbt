@@ -10,7 +10,7 @@ let _embed_main_mbt : String =
   #|}
   #|
   #|fn app() -> Val[Html] {
-  #|  let (count, emit) = @rabbita.create_pure_state(0, update=fn(msg, count) {
+  #|  let (count, emit) = @rabbita.create_pure_state(0, update=fn(count, msg) {
   #|    match msg {
   #|      Clicked => count + 1
   #|    }
@@ -224,7 +224,7 @@ let _embed_main_mbt_2 : String =
   #|fn app() -> Val[Html] {
   #|  let (model, emit) = @rabbita.create_pure_state(
   #|    0,
-  #|    update=fn(msg, model) {
+  #|    update=fn(model, msg) {
   #|      match msg {
   #|        Inc => model + 1
   #|        Dec => model - 1

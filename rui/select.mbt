@@ -974,7 +974,7 @@ pub fn select(
         ]),
       )
     },
-    update=(emit, message, current) => {
+    update=(current, message, emit) => {
       let base_scope : SelectScope = {
         id,
         options,

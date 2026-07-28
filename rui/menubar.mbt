@@ -670,7 +670,7 @@ pub fn menubar(
         ]),
       )
     },
-    update=(emit, msg, current) => {
+    update=(current, msg, emit) => {
       match msg {
         MenubarActivate(value, index) =>
           if current.active_value == Some(value) {

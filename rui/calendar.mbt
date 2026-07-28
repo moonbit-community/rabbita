@@ -1209,7 +1209,7 @@ pub fn calendar(
   day_style? : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let initial = calendar_initial_model(default_month, default_selected, today)
-  let (model, emit) = @rabbita.create_state(initial, update=fn(_, msg, model) {
+  let (model, emit) = @rabbita.create_state(initial, update=fn(model, msg, _) {
     calendar_update(id, on_select, on_month_change, today, msg, model)
   })
   let select = emit.map(date => CalendarChoose(date))

@@ -33,9 +33,9 @@ fn[Model, Msg] make_deprecated_cell(
   })
 
   fn compat_update(
-    _ : Emit[Msg],
-    msg : Msg,
     model : DeprecatedModel[Model],
+    msg : Msg,
+    _ : Emit[Msg],
   ) -> (DeprecatedModel[Model], Cmd) {
     let (cmd, model) = update(emit, msg, model.0)
     (DeprecatedModel(model), cmd)
@@ -45,8 +45,8 @@ fn[Model, Msg] make_deprecated_cell(
     let (model, new_emit) = match subscriptions {
       Some(subscriptions) =>
         create_state(DeprecatedModel(model), update=compat_update, subscriptions=(
-          _,
           model,
+          _,
         ) => subscriptions(emit, model.0))
       None => create_state(DeprecatedModel(model), update=compat_update)
     }

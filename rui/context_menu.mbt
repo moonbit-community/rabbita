@@ -527,7 +527,7 @@ pub fn context_menu(
         ]),
       )
     },
-    update=(emit, msg, current) => {
+    update=(current, msg, emit) => {
       match msg {
         ContextOpenAt(x, y, point_x, point_y) => {
           let next = {

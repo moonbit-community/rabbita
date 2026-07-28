@@ -60,8 +60,8 @@ fn cleanup_store(
 pub fn[Model : Eq, Msg] Sandbox::create_state_machine(
   scheduler : Sandbox,
   initialize : (Emit[Msg]) -> (Model, Cmd),
-  update : (Emit[Msg], Msg, Model) -> (Model, Cmd),
-  subscriptions? : (Emit[Msg], Model) -> Sub,
+  update : (Model, Msg, Emit[Msg]) -> (Model, Cmd),
+  subscriptions? : (Model, Emit[Msg]) -> Sub,
 ) -> (@duplix.Node[Model], Emit[Msg]) {
   let id = global_stores.allocate()
   let emit = @cmd.make_emitter(id)
@@ -69,7 +69,7 @@ pub fn[Model : Eq, Msg] Sandbox::create_state_machine(
 
   fn handle_subs(scheduler : &Scheduler, model : Model) {
     if subscriptions is Some(subscriptions) {
-      let new_subs = subscriptions(emit, model).to_map(
+      let new_subs = subscriptions(model, emit).to_map(
         @key.key,
         filter_global=false,
       )
@@ -85,7 +85,7 @@ pub fn[Model : Eq, Msg] Sandbox::create_state_machine(
   fn on_update(scheduler : &Scheduler, msg : @any.Any) {
     let msg : Msg = msg.into()
     let old_model = model.read()
-    let (new_model, cmd) = update(emit, msg, old_model.unwrap())
+    let (new_model, cmd) = update(old_model.unwrap(), msg, emit)
     handle_subs(scheduler, new_model)
     set_model(Some(new_model))
     scheduler.add(cmd)
@@ -104,8 +104,8 @@ pub fn[Model : Eq, Msg] Sandbox::create_state_machine(
 pub fn[Model : Eq, Msg, Input : Eq] Sandbox::create_state_machine_with_input(
   scheduler : Sandbox,
   initialize : (Emit[Msg], Input) -> (Model, Cmd),
-  update : (Emit[Msg], Input, Msg, Model) -> (Model, Cmd),
-  subscriptions? : (Emit[Msg], Input, Model) -> Sub,
+  update : (Model, Input, Msg, Emit[Msg]) -> (Model, Cmd),
+  subscriptions? : (Model, Input, Emit[Msg]) -> Sub,
   input : @duplix.Node[Input],
 ) -> (@duplix.Node[Model], Emit[Msg]) {
   let id = global_stores.allocate()
@@ -115,7 +115,7 @@ pub fn[Model : Eq, Msg, Input : Eq] Sandbox::create_state_machine_with_input(
   fn handle_subs(scheduler : &Scheduler, model : Model) {
     if subscriptions is Some(subscriptions) {
       let input = input.read()
-      let new_subs = subscriptions(emit, input, model).to_map(
+      let new_subs = subscriptions(model, input, emit).to_map(
         @key.key,
         filter_global=false,
       )
@@ -132,7 +132,7 @@ pub fn[Model : Eq, Msg, Input : Eq] Sandbox::create_state_machine_with_input(
     let msg : Msg = msg.into()
     let old_model = model.read()
     let input_val = input.read()
-    let (new_model, cmd) = update(emit, input_val, msg, old_model.unwrap())
+    let (new_model, cmd) = update(old_model.unwrap(), input_val, msg, emit)
     handle_subs(scheduler, new_model)
     set_model(Some(new_model))
     scheduler.add(cmd)

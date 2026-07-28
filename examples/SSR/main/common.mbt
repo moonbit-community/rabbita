@@ -15,7 +15,7 @@ type Model = Int
 
 ///|
 #cfg(target="js")
-fn update(msg : Msg, count : Model) -> Model {
+fn update(count : Model, msg : Msg) -> Model {
   match msg {
     Clicked => count + 1
   }

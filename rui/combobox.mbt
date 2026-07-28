@@ -1475,7 +1475,7 @@ pub fn combobox(
         ]),
       )
     },
-    update=(_, message, current) => {
+    update=(current, message, _) => {
       match message {
         ComboboxOpen =>
           if disabled || current.open {

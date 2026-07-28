@@ -6,7 +6,7 @@ enum Msg {
 }
 
 fn app() -> Val[Html] {
-  let (count, emit) = @rabbita.create_pure_state(0, update=fn(msg, count) {
+  let (count, emit) = @rabbita.create_pure_state(0, update=fn(count, msg) {
     match msg {
       Clicked => count + 1
     }

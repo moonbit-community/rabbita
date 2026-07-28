@@ -895,7 +895,7 @@ fn slider_values_impl(
   )
   let (values, emit) = @rabbita.create_state_with_init(
     init=_ => (initial, slider_bind_pointer_cmd(id)),
-    update=fn(_, msg, current) {
+    update=fn(current, msg, _) {
       match msg {
         SetSliderValue(index, value) => {
           let next = slider_set_thumb_value(

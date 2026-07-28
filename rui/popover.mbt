@@ -1820,7 +1820,7 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] popover(
         ]),
       )
     },
-    update=(_, msg, current) => {
+    update=(current, msg, _) => {
       match msg {
         PopoverToggleRequested =>
           if disabled {

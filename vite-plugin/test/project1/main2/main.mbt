@@ -17,7 +17,7 @@ struct Model {
 } derive(Eq)
 
 ///|
-fn update(msg : Message, model : Model) -> Model {
+fn update(model : Model, msg : Message) -> Model {
   match msg {
     Increment => { count: model.count + 1 }
     Decrement => {

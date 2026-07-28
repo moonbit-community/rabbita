@@ -654,7 +654,7 @@ pub fn[C : @html.IsChildren] resizable_group(
   )
   let (sizes, emit) = @rabbita.create_state_with_init(
     init=emit => (initial, resizable_bind_pointer_cmd(id, orientation, emit)),
-    update=fn(_, msg, current) {
+    update=fn(current, msg, _) {
       let next = match msg {
         SetResizableGroupSizes(sizes) => sizes
         ResizeResizableGroupAt(between, percent) =>

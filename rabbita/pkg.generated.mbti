@@ -21,15 +21,15 @@ pub fn[Model, Msg] cell(model~ : Model, update~ : (@cmd.Emit[Msg], Msg, Model) -
 #deprecated
 pub fn[Model, Msg] cell_with_emit(model~ : Model, update~ : (@cmd.Emit[Msg], Msg, Model) -> (@cmd.Cmd, Model), view~ : (@cmd.Emit[Msg], Model) -> @html.Html, subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> (@cmd.Emit[Msg], () -> Val[@html.Html])
 
-pub fn[Model : Eq, Msg] create_pure_state(Model, update~ : (Msg, Model) -> Model) -> (Val[Model], @cmd.Emit[Msg])
+pub fn[Model : Eq, Msg] create_pure_state(Model, update~ : (Model, Msg) -> Model) -> (Val[Model], @cmd.Emit[Msg])
 
 pub fn[T : Eq] create_resource((@cmd.Emit[Result[T, Error]]) -> @cmd.Cmd) -> Val[Status[T]]
 
-pub fn[Model : Eq, Msg] create_state(Model, update~ : (@cmd.Emit[Msg], Msg, Model) -> (Model, @cmd.Cmd), subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> (Val[Model], @cmd.Emit[Msg])
+pub fn[Model : Eq, Msg] create_state(Model, update~ : (Model, Msg, @cmd.Emit[Msg]) -> (Model, @cmd.Cmd), subscriptions? : (Model, @cmd.Emit[Msg]) -> @sub.Sub) -> (Val[Model], @cmd.Emit[Msg])
 
-pub fn[Model : Eq, Msg] create_state_with_init(init~ : (@cmd.Emit[Msg]) -> (Model, @cmd.Cmd), update~ : (@cmd.Emit[Msg], Msg, Model) -> (Model, @cmd.Cmd), subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> (Val[Model], @cmd.Emit[Msg])
+pub fn[Model : Eq, Msg] create_state_with_init(init~ : (@cmd.Emit[Msg]) -> (Model, @cmd.Cmd), update~ : (Model, Msg, @cmd.Emit[Msg]) -> (Model, @cmd.Cmd), subscriptions? : (Model, @cmd.Emit[Msg]) -> @sub.Sub) -> (Val[Model], @cmd.Emit[Msg])
 
-pub fn[Model : Eq, Msg, Input : Eq] create_state_with_input(init~ : (@cmd.Emit[Msg], Input) -> (Model, @cmd.Cmd), update~ : (@cmd.Emit[Msg], Input, Msg, Model) -> (Model, @cmd.Cmd), subscriptions? : (@cmd.Emit[Msg], Input, Model) -> @sub.Sub, input~ : Val[Input]) -> (Val[Model], @cmd.Emit[Msg])
+pub fn[Model : Eq, Msg, Input : Eq] create_state_with_input(init~ : (@cmd.Emit[Msg], Input) -> (Model, @cmd.Cmd), update~ : (Model, Input, Msg, @cmd.Emit[Msg]) -> (Model, @cmd.Cmd), subscriptions? : (Model, Input, @cmd.Emit[Msg]) -> @sub.Sub, input~ : Val[Input]) -> (Val[Model], @cmd.Emit[Msg])
 
 pub fn[Model : Eq] create_variable(Model) -> (Val[Model], @cmd.Emit[(Model) -> Model])
 
@@ -37,7 +37,7 @@ pub fn delay(@cmd.Cmd, Int) -> @cmd.Cmd
 
 pub fn effect(async () -> Unit noraise) -> @cmd.Cmd
 
-pub fn[Model : Eq, Msg] elmish(model~ : Model, view~ : (@cmd.Emit[Msg], Model) -> @html.Html, update~ : (@cmd.Emit[Msg], Msg, Model) -> (Model, @cmd.Cmd), subscriptions? : (@cmd.Emit[Msg], Model) -> @sub.Sub) -> App
+pub fn[Model : Eq, Msg] elmish(model~ : Model, view~ : (Model, @cmd.Emit[Msg]) -> @html.Html, update~ : (Model, Msg, @cmd.Emit[Msg]) -> (Model, @cmd.Cmd), subscriptions? : (Model, @cmd.Emit[Msg]) -> @sub.Sub) -> App
 
 pub fn new(() -> Val[@html.Html]) -> App
 

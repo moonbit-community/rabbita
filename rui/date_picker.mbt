@@ -857,7 +857,7 @@ pub fn date_picker(
         ]),
       )
     },
-    update=(_, message, current) => {
+    update=(current, message, _) => {
       date_picker_update(
         id, disabled, today, on_value_change, on_open_change, message, current,
       )
@@ -1041,7 +1041,7 @@ pub fn date_range_picker(
         ]),
       )
     },
-    update=(_, message, current) => {
+    update=(current, message, _) => {
       date_range_picker_update(
         id, disabled, today, on_value_change, on_open_change, message, current,
       )

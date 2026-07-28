@@ -1193,7 +1193,7 @@ fn main {
         let model = initial_model()
         (model, initial_cmd(emit, model))
       },
-      update=fn(emit, msg, model) {
+      update=fn(model, msg, emit) {
         let (cmd, model) = update(emit, msg, model)
         (model, cmd)
       },

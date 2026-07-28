@@ -55,7 +55,7 @@ test "state machine unloads subscriptions when its component scope is disposed" 
       Active => {
         let (model, _) : (@duplix.Node[Int], @cmd.Emit[Unit]) = sandbox.create_state_machine(
           _ => (0, @cmd.none),
-          (_, _, model) => (model, @cmd.none),
+          (model, _, _) => (model, @cmd.none),
           subscriptions=(_, _) => subscription,
         )
         model
@@ -84,7 +84,7 @@ test "state machine with input unloads subscriptions when disposed" {
       Active => {
         let (model, _) : (@duplix.Node[Int], @cmd.Emit[Unit]) = sandbox.create_state_machine_with_input(
           (_, _) => (0, @cmd.none),
-          (_, _, _, model) => (model, @cmd.none),
+          (model, _, _, _) => (model, @cmd.none),
           subscriptions=(_, _, _) => subscription,
           input,
         )

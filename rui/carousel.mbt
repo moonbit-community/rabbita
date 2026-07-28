@@ -1525,7 +1525,7 @@ pub fn[C : @html.IsChildren] carousel(
         carousel_sync_layout_cmd(root_id, emit),
       )
     },
-    update=fn(emit, message, current) {
+    update=fn(current, message, emit) {
       match message {
         CarouselSetIndex(requested) => {
           let next = carousel_index(requested, count).clamp(

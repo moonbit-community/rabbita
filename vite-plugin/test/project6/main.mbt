@@ -6,7 +6,7 @@ fn main {
   let app = @rabbita.new(() => {
     let (model, emit) = @rabbita.create_pure_state(
       "moonModDir",
-      update=fn(_ : Unit, model) { model },
+      update=fn(model, _ : Unit) { model },
     )
     model.map(model => {
       ignore(emit)

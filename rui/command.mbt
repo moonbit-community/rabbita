@@ -1025,9 +1025,9 @@ pub fn command(
     generation: 0,
   }
   let (model, emit) = @rabbita.create_state(initial, update=fn(
-    emit,
-    message,
     current,
+    message,
+    emit,
   ) {
     command_update(
       emit,
@@ -1321,7 +1321,7 @@ pub fn command_dialog(
     init=fn(_) {
       (initial, if default_open { ui_dialog_show(id, true) } else { @cmd.none })
     },
-    update=fn(emit, message, current) {
+    update=fn(current, message, emit) {
       command_update(
         emit,
         "\{id}-command",

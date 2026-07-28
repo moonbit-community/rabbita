@@ -51,7 +51,7 @@ fn app() -> Val[Html] {
   // init : Model
   let init = { count: 0 }
   // model : Val[Model], emit : Emit[Msg]
-  let (model, emit) = @rabbita.create_pure_state(init, update=fn(msg, model) {
+  let (model, emit) = @rabbita.create_pure_state(init, update=fn(model, msg) {
     match msg {
       Inc => { count: model.count + 1 }
       Dec => { count: model.count - 1 }

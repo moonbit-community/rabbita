@@ -27,7 +27,7 @@ struct Model {
 } derive(Eq)
 
 ///|
-fn subscriptions(emit : Emit[Msg], model : Model) -> @sub.Sub {
+fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
   ignore(model)
   @sub.on_resize(v => emit(ViewportChanged(v)))
 }

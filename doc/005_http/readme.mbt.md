@@ -102,9 +102,9 @@ click button
 ///|
 fn build_app() -> Val[Html] {
   let (model, emit) = @rabbita.create_state(initial_model, update=fn(
-    emit,
-    msg,
     model,
+    msg,
+    emit,
   ) {
     let (cmd, model) = update(emit, msg, model)
     (model, cmd)
@@ -197,9 +197,9 @@ fn save_view(emit : Emit[SaveMsg], model : SaveModel) -> Html {
 ///|
 fn build_save_app() -> Val[Html] {
   let (model, emit) = @rabbita.create_state(save_initial_model, update=fn(
-    emit,
-    msg,
     model,
+    msg,
+    emit,
   ) {
     let (cmd, model) = save_update(emit, msg, model)
     (model, cmd)

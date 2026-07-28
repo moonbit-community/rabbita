@@ -220,7 +220,7 @@ fn tab_content(
 fn app() -> Val[Html] {
   let (model, emit) = @rabbita.create_state(
     { title: "", items: SortedMap::new(), next: 0, tab: All },
-    update=fn(emit, msg, model) {
+    update=fn(model, msg, _) {
       let { title, items, next, .. } = model
       let model = match msg {
         TitleChanged(title) => { ..model, title, }

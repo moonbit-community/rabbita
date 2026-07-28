@@ -697,7 +697,7 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] hover_card(
         ]),
       )
     },
-    update=(emit, msg, current) => {
+    update=(current, msg, emit) => {
       hover_card_update(id, on_open_change, emit, msg, current)
     },
   )

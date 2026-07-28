@@ -617,7 +617,7 @@ pub fn navigation_menu(
         ]),
       )
     },
-    update=(_, msg, current) => {
+    update=(current, msg, _) => {
       match msg {
         NavigationActivate(value, index) =>
           if current.value == Some(value) {

@@ -188,9 +188,9 @@ pub fn[C : @html.IsChildren] toggle_group(
   children : (ToggleGroupScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let (values, emit) = @rabbita.create_state(default_values, update=fn(
-    _,
-    msg,
     values,
+    msg,
+    _,
   ) {
     let next = match msg {
       ToggleGroupValue(value) =>

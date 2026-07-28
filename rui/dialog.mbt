@@ -277,7 +277,7 @@ pub fn dialog(
         ]),
       )
     },
-    update=fn(emit, message, current) {
+    update=fn(current, message, emit) {
       match message {
         OpenDialog =>
           if current.open {
