@@ -198,6 +198,28 @@ fn VNode::insert(
 const CAPTURED_LINK_TAG : String = "RABBITA_CAPTURED_LINK"
 
 ///|
+#cfg(target="js")
+fn is_html_void_element(tag : String) -> Bool {
+  match tag {
+    "area"
+    | "base"
+    | "br"
+    | "col"
+    | "embed"
+    | "hr"
+    | "img"
+    | "input"
+    | "link"
+    | "meta"
+    | "param"
+    | "source"
+    | "track"
+    | "wbr" => true
+    _ => false
+  }
+}
+
+///|
 pub fn VNode::elem(
   tag : String,
   props : Props,

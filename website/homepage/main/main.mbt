@@ -106,26 +106,6 @@ let code_counter : String =
   #|  new(app).mount("app")
   #|}
 
-///|
-let code_ssr : String =
-  #|test "render html to string" {
-  #|  enum Msg {}
-  #|  struct Model {
-  #|    todos : Array[String]
-  #|  }
-  #|  let page = @rabbita.simple_cell(
-  #|    model={ todos: ["todo1", "todo2"] },
-  #|    update=(_ : Msg, model) => model,
-  #|    view=(_, model) => ul(model.todos.map(x => li(x))),
-  #|  )
-  #|  inspect(
-  #|    @rabbita.render_to_string(page),
-  #|    content=(
-  #|      #|<ul><li>todo1</li><li>todo2</li></ul>
-  #|    ),
-  #|  )
-  #|}
-
 // ─── Comparison code samples ──────────────────────────────────────────────
 
 ///|
@@ -565,10 +545,7 @@ struct HeroTabEntry {
 }
 
 ///|
-let hero_tabs : Array[HeroTabEntry] = [
-  { label: "Counter", src: code_counter },
-  { label: "SSR", src: code_ssr },
-]
+let hero_tabs : Array[HeroTabEntry] = [{ label: "Counter", src: code_counter }]
 
 ///|
 struct HeroViewModel {

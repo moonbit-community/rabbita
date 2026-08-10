@@ -142,20 +142,3 @@ pub fn[Model, Msg] simple_cell_with_emit(
 pub fn static_cell(html : Html) -> Cell {
   () => Val::constant(html)
 }
-
-///|
-test "deprecated static cell renders on the server" {
-  let root : Cell = static_cell(@html.div("static"))
-  inspect(render_to_string(root), content="<div>static</div>")
-}
-
-///|
-#cfg(not(target="js"))
-test "deprecated stateful cell renders its initial model on the server" {
-  let root : Cell = cell(
-    model=7,
-    update=(_, _ : Unit, model) => (none, model + 1),
-    view=(_, model) => @html.div("\{model}"),
-  )
-  inspect(render_to_string(root), content="<div>7</div>")
-}

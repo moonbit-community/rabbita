@@ -73,33 +73,3 @@ struct App {
   sandbox : @runtime.Sandbox
   builder : () -> Val[Html]
 }
-
-///|
-/// Render a component into an HTML string.
-///
-/// This is the server-side rendering entrypoint for Rabbita. It evaluates
-/// the component once and serializes the resulting virtual DOM into static
-/// HTML.
-///
-/// Hydration is currently not supported. If you later call `mount` on the
-/// client, Rabbita will do a fresh client-side render instead of attaching to
-/// the existing server-rendered DOM.
-///
-/// ## Example
-///
-/// ```mbt check
-/// test "render html to string" {
-///   inspect(
-///     @rabbita.render_to_string(() => {
-///       @rabbita.Val::constant(@html.ul(["todo1", "todo2"].map(x => @html.li(x))))
-///     }),
-///     content=(
-///       #|<ul><li>todo1</li><li>todo2</li></ul>
-///     ),
-///   )
-/// }
-/// ```
-#internal(unstable, "Experimental API")
-pub fn render_to_string(builder : () -> Val[Html]) -> String {
-  @runtime.server_side_render(() => builder().0.read().0)
-}

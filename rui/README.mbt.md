@@ -17,8 +17,7 @@ shadcn/ui Vega visual language.
   needed for hover, focus, and motion.
 - Interactive state is owned by Rabbita incremental components.
 - Native HTML and ARIA behavior is used where the browser provides it.
-- JavaScript provides browser interaction; native builds expose initial state
-  for SSR and snapshot rendering.
+- JavaScript provides browser interaction.
 
 RUI includes components for forms, data display, navigation, disclosure,
 overlays, menus, and feedback. Exact APIs and copyable examples are available

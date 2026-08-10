@@ -12,7 +12,6 @@ import {
 }
 
 // Values
-pub fn server_side_render(() -> VNode) -> String
 
 // Errors
 

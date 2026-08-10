@@ -44,8 +44,6 @@ pub let none : @cmd.Cmd
 
 pub fn[A] perform((A) -> @cmd.Cmd, async () -> A noraise) -> @cmd.Cmd
 
-pub fn render_to_string(() -> Val[@html.Html]) -> String
-
 #deprecated
 pub fn[Model, Msg] simple_cell(model~ : Model, update~ : (Msg, Model) -> Model, view~ : (@cmd.Emit[Msg], Model) -> @html.Html) -> () -> Val[@html.Html]
 
