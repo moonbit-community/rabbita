@@ -6,7 +6,6 @@ import {
   "moonbit-community/rabbita/common",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/sub",
-  "moonbit-community/rabbita/url",
   "moonbitlang/core/immut/vector",
 }
 
@@ -61,9 +60,6 @@ pub fn static_cell(@html.Html) -> () -> Val[@html.Html]
 // Types and methods
 type App
 pub fn App::mount(Self, String) -> Unit
-pub fn App::with_init(Self, @cmd.Cmd) -> Unit
-#deprecated
-pub fn App::with_route(Self, url_changed? : @cmd.Emit[@url.Url], url_request? : @cmd.Emit[@url.UrlRequest]) -> Unit
 
 pub enum Status[T] {
   Pending

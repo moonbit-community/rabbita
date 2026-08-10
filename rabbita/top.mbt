@@ -22,7 +22,7 @@ pub type Html = @html.Html
 pub fn new(builder : () -> Val[Html]) -> App {
   let sandbox = @runtime.Sandbox::new()
   ambient_graph.val = Some(Graph(sandbox))
-  { sandbox, init_cmd: None, builder }
+  { sandbox, builder }
 }
 
 ///|
@@ -44,46 +44,7 @@ pub fn[Model : Eq, Msg] elmish(
   }
   let sandbox = @runtime.Sandbox::new()
   ambient_graph.val = Some(Graph(sandbox))
-  { sandbox, init_cmd: None, builder }
-}
-
-///|
-/// Configure routing callbacks for this app.
-///
-/// - `url_changed` is triggered for browser history navigation and when
-///   `push_url` / `replace_url` commands are used.
-/// - `url_request` is triggered when captured links `@html.a()` are clicked.
-///
-/// If the app is already mounted, a `url_changed` command for the current URL
-/// will be enqueued immediately.
-#cfg(target="js")
-#deprecated("use subscriptions and @sub.on_url_changed/@sub.on_url_request instead")
-pub fn App::with_route(
-  self : Self,
-  url_changed? : Emit[@url.Url],
-  url_request? : Emit[@url.UrlRequest],
-) -> Unit {
-  if url_changed is Some(msg) {
-    for _, sub in @sub.on_url_changed(msg).to_map(@key.key, filter_global=false) {
-      let (payload, loader) = sub
-      let _ = loader(payload, self.sandbox)
-    }
-  }
-  if url_request is Some(msg) {
-    for _, sub in @sub.on_url_request(msg).to_map(@key.key, filter_global=false) {
-      let (payload, loader) = sub
-      let _ = loader(payload, self.sandbox)
-    }
-  }
-}
-
-///|
-/// Registers a one-shot command to be queued when `mount` runs.
-/// This API is still evolving and may change in future releases.
-#cfg(target="js")
-#internal(unstable, "Experimental API")
-pub fn App::with_init(self : Self, cmd : Cmd) -> Unit {
-  self.init_cmd = Some(cmd)
+  { sandbox, builder }
 }
 
 ///|
@@ -98,10 +59,6 @@ pub fn App::mount(self : Self, element_id : String) -> Unit {
   .get_element_by_id(element_id)
   .unwrap()
   .set_inner_html("<div></div>")
-  if self.init_cmd is Some(cmd) {
-    self.sandbox.add(cmd)
-    self.init_cmd = None
-  }
 
   let vnode = (self.builder)()
 
@@ -115,7 +72,6 @@ pub fn App::mount(self : Self, element_id : String) -> Unit {
 struct App {
   sandbox : @runtime.Sandbox
   builder : () -> Val[Html]
-  mut init_cmd : Cmd?
 }
 
 ///|
