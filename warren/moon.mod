@@ -5,7 +5,7 @@ version = "0.2.3"
 import {
   "moonbitlang/async@0.19.3",
   "moonbitlang/parser@0.2.5",
-  "moonbitlang/x@0.4.43",
+  "moonbitlang/x@0.4.49",
 }
 
 readme = "README.md"
