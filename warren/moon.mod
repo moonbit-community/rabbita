@@ -1,6 +1,6 @@
 name = "moonbit-community/warren"
 
-version = "0.2.3"
+version = "0.2.4"
 
 import {
   "moonbitlang/async@0.19.3",
