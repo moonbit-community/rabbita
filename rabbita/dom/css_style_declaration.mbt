@@ -26,14 +26,16 @@ pub impl @js.Cast for CSSStyleDeclaration with fn from(value) {
 ///|
 /// Same as `get_property_value`
 #cfg(target="js")
-pub fn CSSStyleDeclaration::op_get(self : Self, property : String) -> String {
+#alias("_[_]")
+pub fn CSSStyleDeclaration::get(self : Self, property : String) -> String {
   self.get_property_value(property)
 }
 
 ///|
 /// Same as `set_property`
 #cfg(target="js")
-pub fn CSSStyleDeclaration::op_set(
+#alias("_[_]=_")
+pub fn CSSStyleDeclaration::set(
   self : Self,
   property : String,
   value : String,

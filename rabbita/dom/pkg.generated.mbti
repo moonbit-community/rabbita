@@ -67,6 +67,8 @@ pub fn CSS::supports(String, String) -> Bool
 type CSSRule
 
 type CSSStyleDeclaration
+#alias("_[_]")
+pub fn CSSStyleDeclaration::get(Self, String) -> String
 pub fn CSSStyleDeclaration::get_css_float(Self) -> String
 pub fn CSSStyleDeclaration::get_css_text(Self) -> String
 pub fn CSSStyleDeclaration::get_length(Self) -> Int
@@ -74,9 +76,9 @@ pub fn CSSStyleDeclaration::get_parent_rule(Self) -> CSSRule?
 pub fn CSSStyleDeclaration::get_property_priority(Self, String) -> String
 pub fn CSSStyleDeclaration::get_property_value(Self, String) -> String
 pub fn CSSStyleDeclaration::item(Self, Int) -> String
-pub fn CSSStyleDeclaration::op_get(Self, String) -> String
-pub fn CSSStyleDeclaration::op_set(Self, String, String) -> Unit
 pub fn CSSStyleDeclaration::remove_property(Self, String) -> String
+#alias("_[_]=_")
+pub fn CSSStyleDeclaration::set(Self, String, String) -> Unit
 pub fn CSSStyleDeclaration::set_css_float(Self, String) -> Unit
 pub fn CSSStyleDeclaration::set_css_text(Self, String) -> Unit
 pub fn CSSStyleDeclaration::set_property(Self, String, String) -> Unit
@@ -230,8 +232,9 @@ pub fn DataTransfer::set_drog_image(Self, Element, Int, Int) -> Unit
 type DataTransferItemList
 pub fn DataTransferItemList::add(Self, String, String) -> Unit
 pub fn DataTransferItemList::clear(Self) -> Unit
+#alias("_[_]")
+pub fn DataTransferItemList::get(Self, Int) -> Unit
 pub fn DataTransferItemList::length(Self) -> Int
-pub fn DataTransferItemList::op_get(Self, Int) -> Unit
 pub fn DataTransferItemList::remove(Self, Int) -> Unit
 
 type Document

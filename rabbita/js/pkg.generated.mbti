@@ -50,9 +50,11 @@ pub fn[K, V] Object::from_iter(Iter[(K, V)]) -> Self
 pub fn[K, V] Object::from_iter2(Iter2[K, V]) -> Self
 pub fn Object::from_value(Value) -> Optional[Self]
 pub fn Object::from_value_unchecked(Value) -> Self
+#alias("_[_]")
+pub fn[K, V] Object::get(Self, K) -> V
 pub fn Object::new() -> Self
-pub fn[K, V] Object::op_get(Self, K) -> V
-pub fn[K, V] Object::op_set(Self, K, V) -> Unit
+#alias("_[_]=_")
+pub fn[K, V] Object::set(Self, K, V) -> Unit
 pub fn Object::to_value(Self) -> Value
 
 type Optional[_]
