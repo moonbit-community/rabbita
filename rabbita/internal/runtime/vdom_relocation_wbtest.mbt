@@ -37,8 +37,8 @@ test "diffing unchanged keyed children does not reinsert DOM nodes" {
   parent..append_child(first.as_node()).append_child(second.as_node())
   let old : Children[INode] = Map(
     Map::from_array([
-      ("first", INode::Text("first", first)),
-      ("second", INode::Text("second", second)),
+      ("first", INode::Text(VNode::text("first"), "first", first)),
+      ("second", INode::Text(VNode::text("second"), "second", second)),
     ]),
   )
   let new : Children[VNode] = Map(
@@ -55,6 +55,22 @@ test "diffing unchanged keyed children does not reinsert DOM nodes" {
 
 ///|
 #cfg(target="js")
+test "diffing the same VNode stops at its cached subtree" {
+  let document = relocation_test_document()
+  let parent = document.create_element("div")
+  let text = document.create_text_node("transcript")
+  let vnode = VNode::text("transcript")
+  let old = INode::Text(vnode, "transcript", text)
+
+  let next = diff_node(old, vnode, Sandbox::new(), parent.as_node(), null())
+
+  // Returning the exact INode proves the diff did not descend into the
+  // subtree; a structurally equal reconstruction would allocate a new one.
+  assert_true(physical_equal(old, next))
+}
+
+///|
+#cfg(target="js")
 test "relocate inserts a DOM node when its position differs" {
   let document = relocation_test_document()
   let parent = document.create_element("div")
@@ -62,7 +78,10 @@ test "relocate inserts a DOM node when its position differs" {
   let second = document.create_text_node("second")
   parent..append_child(first.as_node()).append_child(second.as_node())
 
-  INode::Text("first", first).relocate(parent.as_node(), null())
+  INode::Text(VNode::text("first"), "first", first).relocate(
+    parent.as_node(),
+    null(),
+  )
 
   assert_eq(parent.get_attribute("data-insert-count"), Some("1"))
 }

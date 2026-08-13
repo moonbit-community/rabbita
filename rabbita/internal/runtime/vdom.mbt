@@ -18,19 +18,37 @@ pub impl Eq for VNode with fn equal(a, b) {
 ///|
 #cfg(target="js")
 priv enum INode {
-  Elem(String, Props, Children[INode], namespace_uri~ : String?, @dom.Element)
-  Text(String, @dom.Element)
-  Frag(Array[INode], @dom.Comment, @dom.Comment)
-  Thunk(Int, INode)
+  Elem(
+    VNode,
+    String,
+    Props,
+    Children[INode],
+    namespace_uri~ : String?,
+    @dom.Element
+  )
+  Text(VNode, String, @dom.Element)
+  Frag(VNode, Array[INode], @dom.Comment, @dom.Comment)
+  Thunk(VNode, Int, INode)
+}
+
+///|
+#cfg(target="js")
+fn INode::source(self : Self) -> VNode {
+  match self {
+    Elem(source, _, _, _, _, ..) => source
+    Text(source, _, _) => source
+    Frag(source, _, _, _) => source
+    Thunk(source, _, _) => source
+  }
 }
 
 ///|
 #cfg(target="js")
 fn INode::start(s : Self) -> @dom.Node {
   match s {
-    Elem(_, _, _, e, ..) | Text(_, e) => e.as_node()
-    Thunk(_, n) => n.start()
-    Frag(_, s, _) => s.as_node()
+    Elem(_, _, _, _, e, ..) | Text(_, _, e) => e.as_node()
+    Thunk(_, _, n) => n.start()
+    Frag(_, _, s, _) => s.as_node()
   }
 }
 
@@ -38,9 +56,9 @@ fn INode::start(s : Self) -> @dom.Node {
 #cfg(target="js")
 fn INode::end(s : Self) -> @dom.Node {
   match s {
-    Elem(_, _, _, e, ..) | Text(_, e) => e.as_node()
-    Thunk(_, n) => n.end()
-    Frag(_, _, e) => e.as_node()
+    Elem(_, _, _, _, e, ..) | Text(_, _, e) => e.as_node()
+    Thunk(_, _, n) => n.end()
+    Frag(_, _, _, e) => e.as_node()
   }
 }
 
@@ -61,9 +79,9 @@ fn INode::needs_relocation(
 #cfg(target="js")
 fn INode::remove(self : Self, sandbox : Sandbox, parent : @dom.Node) -> Unit {
   match self {
-    Elem(_, _, _, e, ..) | Text(_, e) => parent.remove_child(e.as_node())
-    Thunk(_, inode) => inode.remove(sandbox, parent)
-    Frag(_, s, e) => {
+    Elem(_, _, _, _, e, ..) | Text(_, _, e) => parent.remove_child(e.as_node())
+    Thunk(_, _, inode) => inode.remove(sandbox, parent)
+    Frag(_, _, s, e) => {
       let s = s.as_node()
       let e = e.as_node()
       // guard s.get_parent_node().to_option() is Some(a) &&
@@ -87,10 +105,10 @@ fn INode::relocate(
 ) -> Unit {
   guard self.needs_relocation(before) else { return }
   match self {
-    Elem(_, _, _, e, ..) | Text(_, e) =>
+    Elem(_, _, _, _, e, ..) | Text(_, _, e) =>
       parent.insert_before(e.as_node(), before)
-    Thunk(_, inode) => inode.relocate(parent, before)
-    Frag(_, s, e) => {
+    Thunk(_, _, inode) => inode.relocate(parent, before)
+    Frag(_, _, s, e) => {
       {
         guard! s.get_parent_node().to_option() is Some(a)
         guard! e.get_parent_node().to_option() is Some(b)
@@ -118,15 +136,16 @@ fn VNode::insert(
   parent : @dom.Node,
   before : @js.Nullable[@dom.Node],
 ) -> INode {
+  let source = self
   match self {
     Text(s) => {
       let e = @dom.document().create_text_node(s)
       parent.insert_before(e.as_node(), before)
-      Text(s, e)
+      INode::Text(source, s, e)
     }
     Thunk(hash, render) => {
       let inode = render().insert(sandbox, parent, before)
-      Thunk(hash, inode)
+      INode::Thunk(source, hash, inode)
     }
     Frag(childs) => {
       let doc = @dom.document()
@@ -139,7 +158,7 @@ fn VNode::insert(
       })
       fragment.append_child(end.as_node())
       parent.insert_before(fragment.as_node(), before)
-      Frag(childs, start, end)
+      INode::Frag(source, childs, start, end)
     }
     Elem(tag, properties, childs, namespace_uri~) => {
       let s = if tag == CAPTURED_LINK_TAG { "a" } else { tag }
@@ -193,7 +212,7 @@ fn VNode::insert(
         }
       }
       parent.insert_before(n, before)
-      Elem(tag, properties, childs, namespace_uri~, element)
+      INode::Elem(source, tag, properties, childs, namespace_uri~, element)
     }
   }
 }
@@ -320,9 +339,15 @@ fn diff_node(
   parent : @dom.Node,
   anchor : @js.Nullable[@dom.Node],
 ) -> INode {
+  // A component that did not recompute contributes the exact same VNode to
+  // its rebuilt parent. Preserve that identity in INode so the DOM diff can
+  // skip the component's whole subtree instead of walking it structurally.
+  if physical_equal(old.source(), new) {
+    return old
+  }
   match (old, new) {
     (
-      Elem(tag1, props1, childs1, namespace_uri=ns1, e),
+      INode::Elem(_, tag1, props1, childs1, namespace_uri=ns1, e),
       Elem(tag2, props2, childs2, namespace_uri=ns2),
     ) =>
       if tag1 != tag2 || ns1 != ns2 {
@@ -337,15 +362,15 @@ fn diff_node(
           e.as_node(),
           null(),
         )
-        Elem(tag2, props2, childs, namespace_uri=ns2, e)
+        INode::Elem(new, tag2, props2, childs, namespace_uri=ns2, e)
       }
-    (Text(s1, e), Text(s2)) => {
+    (INode::Text(_, s1, e), Text(s2)) => {
       if s1 != s2 {
         e.set_node_value(@js.Nullable::from_option(Some(s2)))
       }
-      Text(s2, e)
+      INode::Text(new, s2, e)
     }
-    (Frag(childs1, s, e), Frag(childs2)) => {
+    (INode::Frag(_, childs1, s, e), Frag(childs2)) => {
       let childs = diff_children(
         Array(childs1),
         Array(childs2),
@@ -354,15 +379,15 @@ fn diff_node(
         nullable(e.as_node()),
       )
       guard! childs is Array(childs)
-      Frag(childs, s, e)
+      INode::Frag(new, childs, s, e)
     }
-    (Thunk(hash1, inode) as old, Thunk(hash2, render)) =>
+    (INode::Thunk(_, hash1, inode) as old, Thunk(hash2, render)) =>
       if hash1 == hash2 {
         old
       } else {
         let vnode = render()
         let inode = diff_node(inode, vnode, sandbox, parent, anchor)
-        Thunk(hash2, inode)
+        INode::Thunk(new, hash2, inode)
       }
     (_, _) => {
       old.remove(sandbox, parent.as_node())
