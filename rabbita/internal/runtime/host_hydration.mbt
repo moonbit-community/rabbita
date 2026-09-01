@@ -55,7 +55,7 @@ pub fn HydrationHost::HydrationHost(builder : GraphBuilder) -> HydrationHost {
     }
   }
 
-  let vdom = @vdom.VDom::initialize_with_hydration(vnode, host)
+  let vdom = @vdom.VDom::hydrate(vnode, host)
   host.browser.document = Some(vdom)
   host.browser.drain_scheduled = false
   host

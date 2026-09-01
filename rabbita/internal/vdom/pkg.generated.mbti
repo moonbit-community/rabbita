@@ -29,8 +29,8 @@ pub fn Props::copy(Self) -> Self
 pub fn Props::new(Map[String, String], Map[String, @variant.Variant], Map[String, String], Map[String, (@dom.Event, &@cmd.Scheduler) -> Unit]) -> Self
 
 type VDom
-pub fn VDom::initialize(VNode, &@cmd.Scheduler, target_element_id? : String) -> Self
-pub fn VDom::initialize_with_hydration(VNode, &@cmd.Scheduler) -> Self
+pub fn VDom::hydrate(VNode, &@cmd.Scheduler) -> Self
+pub fn VDom::mount(VNode, &@cmd.Scheduler, @dom.Element) -> Self
 pub fn VDom::to_string(Self) -> String
 pub fn VDom::update(Self, VNode, &@cmd.Scheduler) -> Unit
 

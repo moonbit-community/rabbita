@@ -21,9 +21,10 @@ struct BrowserHost {
 
 ///|
 pub fn BrowserHost::BrowserHost(
-  element_id? : String,
+  element_id~ : String,
   builder : GraphBuilder,
 ) -> Self {
+  let target_element = @dom.document().get_element_by_id(element_id).unwrap()
   let (host, output) = @duplix.with_scope(scope => {
     let host = BrowserHost::{
       stores: SlotMap(),
@@ -44,9 +45,7 @@ pub fn BrowserHost::BrowserHost(
   let cmd = Context::inject_url_changed(host, url)
   Scheduler::queue_command(host, cmd)
   let root = ambient_host.protect(host, () => output.read())
-  host.document = Some(
-    @vdom.VDom::initialize(root, host, target_element_id?=element_id),
-  )
+  host.document = Some(@vdom.VDom::mount(root, host, target_element))
   host.drain_scheduled = false
   host
 }

@@ -329,10 +329,7 @@ pub fn VDom::update(self : Self, vnode : VNode, _ : &Scheduler) -> Unit {
 
 ///|
 #cfg(target="js")
-pub fn VDom::initialize_with_hydration(
-  vnode : VNode,
-  scheduler : &Scheduler,
-) -> VDom {
+pub fn VDom::hydrate(vnode : VNode, scheduler : &Scheduler) -> VDom {
   let captured_link_listener = new_captured_link_listener(scheduler)
   let inode = hydrate_root(vnode, scheduler, captured_link_listener)
   { inode, captured_link_listener, target_element: None }
@@ -359,93 +356,26 @@ fn new_captured_link_listener(scheduler : &Scheduler) -> @dom.Listener {
 
 ///|
 #cfg(target="js")
-pub fn VDom::initialize(
+pub fn VDom::mount(
   vnode : VNode,
   scheduler : &Scheduler,
-  target_element_id? : String,
+  container : @dom.Element,
 ) -> VDom {
   let captured_link_listener = new_captured_link_listener(scheduler)
-  match (target_element_id, vnode) {
-    (Some(id), vnode) => {
-      let container = @dom.document().get_element_by_id(id).unwrap()
-      // Clear any existing DOM so mounting does not append beside stale content.
-      container.set_inner_html("")
-      let inode = vnode.insert(
-        scheduler,
-        captured_link_listener,
-        container.as_node(),
-        null(),
-      )
-      VDom::{ target_element: Some(container), inode, captured_link_listener }
-    }
-    (
-      None,
-      Elem(
-        "html",
-        props,
-        Array(
-          [
-            Elem("head", head_props, head_children, ..),
-            Elem("body", body_props, body_children, ..),
-          ]
-        ),
-        namespace_uri=None
-      ),
-    ) => {
-      let head = {
-        let element = @dom.document().get_head().unwrap().as_element()
-        let props = insert_props(
-          element, "head", head_props, scheduler, captured_link_listener,
-        )
-        let children = insert_children(
-          element.as_node(),
-          head_children,
-          scheduler,
-          captured_link_listener,
-        )
-        INode::Elem("head", props, children, namespace_uri=None, element)
-      }
-      let body = {
-        let element = @dom.document().get_body().unwrap().as_element()
-        let props = insert_props(
-          element, "body", body_props, scheduler, captured_link_listener,
-        )
-        let children = insert_children(
-          element.as_node(),
-          body_children,
-          scheduler,
-          captured_link_listener,
-        )
-        INode::Elem("body", props, children, namespace_uri=None, element)
-      }
-
-      let html = @dom.document().get_document_element().unwrap()
-      let props = insert_props(
-        html, "html", props, scheduler, captured_link_listener,
-      )
-      let inode = INode::Elem(
-        "html",
-        props,
-        Array([head, body]),
-        html,
-        namespace_uri=None,
-      )
-      VDom::{ target_element: None, inode, captured_link_listener }
-    }
-    // VDom root invariant: the root must be either a `(Some(id), _)` or a 
-    // `(None, Elem("html", _, Array([Elem("head", ..), Elem("body", ..)]), ..)`
-    (_, Elem(_) | Text(_) | Frag(_) | Thunk(_)) => panic()
-  }
+  // Clear any existing DOM so mounting does not append beside stale content.
+  container.set_inner_html("")
+  let inode = vnode.insert(
+    scheduler,
+    captured_link_listener,
+    container.as_node(),
+    null(),
+  )
+  { target_element: Some(container), inode, captured_link_listener }
 }
 
 ///|
 #cfg(not(target="js"))
-pub fn VDom::initialize(
-  vnode : VNode,
-  _ : &Scheduler,
-  target_element_id? : String,
-) -> VDom {
-  ignore(target_element_id)
+pub fn VDom::from_vnode(vnode : VNode) -> VDom {
   { vnode, }
 }
 
@@ -525,7 +455,8 @@ fn diff_document(
         container.as_node(),
         null(),
       )
-    // See VDom root invariant in `VDom::initialize`
+    // Hydrated VDOM root invariant: updates may change properties and children, but
+    // must preserve the existing `html` root and its `head` and `body` elements.
     _ => panic()
   }
 }

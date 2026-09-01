@@ -64,7 +64,7 @@ pub async fn SSRHost::SSRHost(
     }
   }
 
-  host.document = Some(@vdom.VDom::initialize(vnode, host))
+  host.document = Some(@vdom.VDom::from_vnode(vnode))
   errdefer host.cleanup()
   host
 }

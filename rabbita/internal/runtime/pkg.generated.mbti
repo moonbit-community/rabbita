@@ -21,7 +21,7 @@ pub fn[Model : Eq, Msg, Input : Eq] create_state_machine_with_input((@cmd.Emit[M
 
 // Types and methods
 type BrowserHost
-pub fn BrowserHost::BrowserHost(element_id? : String, () -> @duplix.Node[@vdom.VNode]) -> Self
+pub fn BrowserHost::BrowserHost(element_id~ : String, () -> @duplix.Node[@vdom.VNode]) -> Self
 pub impl @cmd.Context for BrowserHost
 pub impl @cmd.Scheduler for BrowserHost
 pub impl Host for BrowserHost
