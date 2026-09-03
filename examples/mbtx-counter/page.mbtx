@@ -1,0 +1,32 @@
+import {
+  "moonbit-community/rabbita@0.15.4",
+  "moonbit-community/rabbita@0.15.4/html" @html,
+}
+
+///|
+priv enum Msg {
+  Increment
+  Decrement
+}
+
+///|
+fn app() -> @rabbita.Val[@rabbita.Html] {
+  let (count, emit) = @rabbita.create_pure_state(0, update=fn(count, msg) {
+    match msg {
+      Increment => count + 1
+      Decrement => count - 1
+    }
+  })
+  count.view(count => {
+    @html.div([
+      @html.h1(count.to_string()),
+      @html.button(on_click=emit(Decrement), "-"),
+      @html.button(on_click=emit(Increment), "+"),
+    ])
+  })
+}
+
+///|
+fn main {
+  @rabbita.new(app).mount("app")
+}

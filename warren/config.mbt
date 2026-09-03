@@ -241,6 +241,46 @@ async fn resolve_project_layout(
 }
 
 ///|
+async fn resolve_mbtx_layout(
+  root : SourcePath,
+  raw : String,
+  public_dir_raw : String?,
+) -> ProjectLayout {
+  guard raw.has_suffix(".mbtx") else {
+    fail("Standalone browser entry must use the `.mbtx` extension.")
+  }
+  let root_string = source_path_to_string(root)
+  let candidate = resolve_from(root_string, raw)
+  guard @fs.exists(candidate) else {
+    fail("Standalone browser entry does not exist.")
+  }
+  let canonical = @fs.realpath(candidate)
+  guard @fs.kind(canonical) is Regular else {
+    fail("Standalone browser entry must be a regular file.")
+  }
+  guard path_is_inside(canonical, root_string, allow_equal=false) else {
+    fail("Standalone browser entry must stay inside the project root.")
+  }
+  let public_dir = match public_dir_raw {
+    Some(value) => Some(resolve_input_dir(root, value, "Public"))
+    None => {
+      let conventional = resolve_from(root_string, "public")
+      if @fs.exists(conventional) {
+        Some(resolve_input_dir(root, "public", "Public"))
+      } else {
+        None
+      }
+    }
+  }
+  {
+    root,
+    browser_entry: SourcePath::new(canonical),
+    server_entry: None,
+    public_dir,
+  }
+}
+
+///|
 fn parse_server_target(raw : String?) -> ServerTarget raise {
   match raw {
     None | Some("wasm") => Wasm

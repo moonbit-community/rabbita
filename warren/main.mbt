@@ -99,6 +99,11 @@ fn warren_cli() -> @argparse.Command {
     subcommands=[
       Command(
         "dev",
+        positionals=[
+          PositionArg("mbtx", about="Standalone .mbtx browser entry.", conflicts_with=[
+            "browser-entry", "server-entry", "server-target",
+          ]),
+        ],
         options=[
           OptionArg(
             "browser-entry",
@@ -128,6 +133,11 @@ fn warren_cli() -> @argparse.Command {
       ),
       Command(
         "build",
+        positionals=[
+          PositionArg("mbtx", about="Standalone .mbtx browser entry.", conflicts_with=[
+            "browser-entry", "server-entry", "server-target",
+          ]),
+        ],
         options=[
           OptionArg(
             "browser-entry",
@@ -200,15 +210,20 @@ async fn run_cli() -> Unit {
     None => option_value(cli, "directory")
   }
   let root = effective_root(directory)
+  let mbtx_entry = option_value(submatches, "mbtx")
   match subcmd {
     "dev" => {
       let direct = submatches.flags.get("direct") is Some(true)
-      let layout = resolve_project_layout(
-        root,
-        option_value(submatches, "browser-entry"),
-        dev_server_entry_value(submatches),
-        option_value(submatches, "public-dir"),
-      )
+      let layout = if mbtx_entry is Some(raw) {
+        resolve_mbtx_layout(root, raw, option_value(submatches, "public-dir"))
+      } else {
+        resolve_project_layout(
+          root,
+          option_value(submatches, "browser-entry"),
+          dev_server_entry_value(submatches),
+          option_value(submatches, "public-dir"),
+        )
+      }
       let target_raw = option_value(submatches, "server-target")
       let server_target = parse_server_target(target_raw)
       if target_raw is Some(_) && layout.server_entry is None {
@@ -218,12 +233,16 @@ async fn run_cli() -> Unit {
       dev_project(layout, server_target, port, direct)
     }
     "build" => {
-      let layout = resolve_project_layout(
-        root,
-        option_value(submatches, "browser-entry"),
-        option_value(submatches, "server-entry"),
-        option_value(submatches, "public-dir"),
-      )
+      let layout = if mbtx_entry is Some(raw) {
+        resolve_mbtx_layout(root, raw, option_value(submatches, "public-dir"))
+      } else {
+        resolve_project_layout(
+          root,
+          option_value(submatches, "browser-entry"),
+          option_value(submatches, "server-entry"),
+          option_value(submatches, "public-dir"),
+        )
+      }
       let target_raw = option_value(submatches, "server-target")
       let server_target = parse_server_target(target_raw)
       if target_raw is Some(_) && layout.server_entry is None {
@@ -429,14 +448,4 @@ test "--direct conflicts with a non-empty server entry" {
     _ => false
   }
   assert_true(rejected)
-}
-
-///|
-test "CLI rejects the removed positional build entry" {
-  let rejected = try warren_cli().parse(argv=["build", "main"], env={}) catch {
-    _ => true
-  } noraise {
-    _ => false
-  }
-  inspect(rejected, content="true")
 }
