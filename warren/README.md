@@ -24,6 +24,13 @@ warren dev --browser-entry frontend --server-entry backend
 warren build --browser-entry frontend --server-entry backend
 ```
 
+Standalone `.mbtx` files can also be used as browser entries:
+
+```sh
+warren dev page.mbtx
+warren build page.mbtx
+```
+
 Pass an empty server entry to ignore an existing `cmd/server` and select the
 browser-only workflow. The browser entry cannot be empty.
 

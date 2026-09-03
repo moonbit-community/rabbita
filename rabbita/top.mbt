@@ -61,7 +61,7 @@ pub fn App::mount(self : Self, element_id : String) -> Unit {
 ///|
 #cfg(not(target="js"))
 fn split_url(url : String) -> (String, String) raise {
-  let { protocol, host, path, port, query, fragment } = @url.parse(url)
+  let { protocol, host, path, port, query, fragment, } = @url.parse(url)
   let protocol = match protocol {
     Http => "http"
     Https => "https"
