@@ -134,6 +134,11 @@ fn install_generic_event_probe(target : @dom.Element) -> Unit {
   )
   record(
     failures,
+    @dom.IsEvent::to_mouse_event(first) is None,
+    "generic_not_mouse_event",
+  )
+  record(
+    failures,
     physical_equal(@dom.IsEvent::as_event(first), first),
     "as_event",
   )
@@ -170,6 +175,11 @@ fn install_fractional_pointer_event_probe(target : @dom.Element) -> Unit {
   let listener : @dom.Listener = event => {
     let failures : Array[String] = []
     if @dom.IsEvent::to_pointer_event(event) is Some(pointer) {
+      record(
+        failures,
+        @dom.IsEvent::to_mouse_event(pointer) is Some(_),
+        "pointer_fractional_mouse_event",
+      )
       record(
         failures,
         pointer.get_client_x() == 10.25 && pointer.get_client_y() == 20.75,
