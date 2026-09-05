@@ -1,0 +1,23 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "example/document/app"
+
+import {
+  "moonbit-community/rabbita",
+  "moonbit-community/rabbita/html",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn view() -> @rabbita.Val[@html.Html]
+
+// Errors
+
+// Types and methods
+pub(all) struct Issue {
+  content : String
+  status : String
+} derive(Eq, ToJson, @json.FromJson)
+
+// Type aliases
+
+// Traits
