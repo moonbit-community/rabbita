@@ -92,15 +92,14 @@ pub async fn App::render(
   timeout? : Int = 10_000,
 ) -> String {
   let (origin, path) = split_url(url)
-  let host = @runtime.SSRHost(origin~, path~, () => {
-    let output = (self.builder)()
-    output.0.map(html => html.0)
-  })
-  defer host.cleanup()
-  let html = @async.with_timeout(timeout, () => {
+  @async.with_timeout(timeout, () => {
+    let host = @runtime.SSRHost(origin~, path~, () => {
+      let output = (self.builder)()
+      output.0.map(html => html.0)
+    })
+    defer host.cleanup()
     host.render_to_string(head.map(html => html.to_virtual_dom()))
   })
-  html
 }
 
 ///|
