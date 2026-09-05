@@ -276,16 +276,46 @@ extern "js" fn ffi_event_stop_immediate_propagation(x : Event) = "(self) => self
 ///|
 #cfg(target="js")
 extern "js" fn ffi_to_mouse_event(x : @js.Value) -> @js.Nullable[MouseEvent] =
-  #| (e) => e instanceof MouseEvent ? e : null
+  #| (event) => {
+  #|   if (typeof MouseEvent === "undefined") {
+  #|     return null
+  #|   }
+  #|   if (event instanceof MouseEvent) {
+  #|     return event
+  #|   }
+  #|   try {
+  #|     // Web IDL operations validate the interface brand across realms.
+  #|     MouseEvent.prototype.getModifierState.call(event, "")
+  #|     return event
+  #|   } catch {
+  #|     return null
+  #|   }
+  #| }
 
 ///|
 #cfg(target="js")
 extern "js" fn ffi_to_pointer_event(
   x : @js.Value,
 ) -> @js.Nullable[PointerEvent] =
-  #| (e) => typeof PointerEvent !== "undefined" && e instanceof PointerEvent
-  #|   ? e
-  #|   : null
+  #| (event) => {
+  #|   if (typeof PointerEvent === "undefined") {
+  #|     return null
+  #|   }
+  #|   if (event instanceof PointerEvent) {
+  #|     return event
+  #|   }
+  #|   try {
+  #|     // Use the native getter as a realm-independent brand check.
+  #|     const getPointerId = Object.getOwnPropertyDescriptor(
+  #|       PointerEvent.prototype,
+  #|       "pointerId",
+  #|     ).get
+  #|     getPointerId.call(event)
+  #|     return event
+  #|   } catch {
+  #|     return null
+  #|   }
+  #| }
 
 ///|
 #cfg(target="js")

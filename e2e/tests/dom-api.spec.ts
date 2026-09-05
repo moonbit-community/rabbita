@@ -114,20 +114,27 @@ test('event targets and concrete browser event subtypes expose their native fiel
   expect(await page.evaluate(() => sessionStorage.getItem('dom-api-beforeunload'))).toBe('passed');
 });
 
-test('pointer coordinate bindings preserve fractional CSS pixels', async ({ page }) => {
+test('pointer event casts accept iframe realm events and preserve fractional CSS pixels', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Install event API probes' }).click();
 
   await page.locator('#event-target').evaluate((target) => {
-    target.dispatchEvent(new PointerEvent('fractional-pointer-probe', {
-      pointerId: 7,
-      pointerType: 'mouse',
-      isPrimary: true,
-      clientX: 10.25,
-      clientY: 20.75,
-      screenX: 30.5,
-      screenY: 40.125,
-    }));
+    const iframe = document.createElement('iframe');
+    document.body.append(iframe);
+    try {
+      const iframeWindow = iframe.contentWindow as Window & typeof globalThis;
+      target.dispatchEvent(new iframeWindow.PointerEvent('fractional-pointer-probe', {
+        pointerId: 7,
+        pointerType: 'mouse',
+        isPrimary: true,
+        clientX: 10.25,
+        clientY: 20.75,
+        screenX: 30.5,
+        screenY: 40.125,
+      }));
+    } finally {
+      iframe.remove();
+    }
   });
 
   await expect(page.locator('#event-fractional-pointer-result')).toHaveText('passed');
