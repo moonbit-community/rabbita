@@ -96,10 +96,10 @@ pub async fn App::render(
     let output = (self.builder)()
     output.0.map(html => html.0)
   })
+  defer host.cleanup()
   let html = @async.with_timeout(timeout, () => {
     host.render_to_string(head.map(html => html.to_virtual_dom()))
   })
-  defer host.cleanup()
   html
 }
 

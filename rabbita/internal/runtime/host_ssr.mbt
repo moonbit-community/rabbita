@@ -53,6 +53,7 @@ pub async fn SSRHost::SSRHost(
     }
     (host, ambient_host.protect(host, builder))
   })
+  errdefer host.cleanup()
   let cmd = Context::inject_url_changed(host, host.origin + host.path)
   Scheduler::queue_command(host, cmd)
 
@@ -65,7 +66,6 @@ pub async fn SSRHost::SSRHost(
   }
 
   host.document = Some(@vdom.VDom::initialize(vnode, host))
-  errdefer host.cleanup()
   host
 }
 
