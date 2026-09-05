@@ -1,0 +1,72 @@
+name: nightly-toolchain
+
+# Canary against the MoonBit nightly toolchain, so that breaking changes in the
+# compiler or in `moonbitlang/core` show up here instead of in a user's build.
+# `check.yml` stays on the stable toolchain and is the gate for pull requests.
+
+on:
+  schedule:
+    # 04:00 UTC, after the nightly toolchain and core have been published.
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/nightly.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-toolchain-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MoonBit nightly
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s nightly
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: MoonBit version
+        run: |
+          moon version --all
+          moonrun --version
+
+      - name: Update dependencies
+        run: moon update
+
+      # Every `moon.work` member, so a package that a nightly `core` release
+      # removed is caught while resolving imports, before anything compiles.
+      - name: Check workspace
+        run: |
+          set -o pipefail
+          for target in js native wasm; do
+            echo "::group::moon check --target $target"
+            moon check --target "$target" 2>&1 | tee -a "$RUNNER_TEMP/nightly-check.log"
+            echo "::endgroup::"
+          done
+
+      # Nightly deprecates APIs ahead of stable, so warnings here are a heads-up
+      # rather than a failure: `--deny-warn` is the stable job's gate, not ours.
+      - name: Warning summary
+        if: always()
+        run: |
+          {
+            echo "### \`moon check\` on $(moon version | head -n 1)"
+            echo
+            if [ -s "$RUNNER_TEMP/nightly-check.log" ]; then
+              echo '| count | warning |'
+              echo '| ----: | ------- |'
+              grep -o 'Warning ([a-z_]*)' "$RUNNER_TEMP/nightly-check.log" \
+                | sort | uniq -c | sort -rn \
+                | sed -E 's/^ *([0-9]+) Warning \((.*)\)$/| \1 | `\2` |/' \
+                || echo "| 0 | none |"
+            else
+              echo "No check output; the toolchain install or \`moon update\` failed."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
