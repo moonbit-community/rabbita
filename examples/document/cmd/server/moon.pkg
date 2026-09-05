@@ -1,0 +1,14 @@
+import {
+  "moonbit-community/rabbita/server" @rabbita_server,
+  "example/document/app",
+  "hackwaly/moonback",
+  "moonbitlang/async",
+  "moonbitlang/core/json",
+  "moonbitlang/x/path",
+}
+
+warnings = "-alert_experimental"
+
+supported_targets = "native+wasm"
+
+pkgtype(kind: "executable")

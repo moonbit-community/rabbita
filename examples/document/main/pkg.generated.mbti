@@ -1,16 +1,11 @@
 // Generated using `moon info`, DON'T EDIT IT
 package "example/document/main"
 
-import {
-  "moonbitlang/core/json",
-}
-
 // Values
 
 // Errors
 
 // Types and methods
-type Issue derive(Eq, ToJson, @json.FromJson)
 
 // Type aliases
 

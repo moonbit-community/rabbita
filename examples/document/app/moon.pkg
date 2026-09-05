@@ -1,0 +1,10 @@
+import {
+  "moonbit-community/rabbita",
+  "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/http",
+  "moonbitlang/core/json",
+}
+
+warnings = "-alert_experimental"
+
+supported_targets = "js+native+wasm"

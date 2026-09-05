@@ -1,15 +1,10 @@
 import {
   "moonbit-community/rabbita",
-  "moonbit-community/rabbita/html",
-  "moonbit-community/rabbita/http",
-  "moonbitlang/async",
-  "moonbitlang/core/json",
-  "oboard/mocket",
-  "oboard/mocket/static_file",
+  "example/document/app",
 }
 
-warnings = "-unused_package-alert_experimental"
+warnings = "-alert_experimental"
 
-supported_targets = "js+native+wasm"
+supported_targets = "js"
 
 pkgtype(kind: "executable")
