@@ -218,7 +218,7 @@ pub fn checkbox(
   }
   let (model, emit) = @rabbita.create_state(initial, update=fn(_, msg, _) {
     let next = match msg {
-      CheckboxChange(checked) => { checked, indeterminate: false }
+      CheckboxChange(checked) => { checked, indeterminate: false, }
     }
     let command = if on_checked_change is Some(notify) {
       notify(next.checked)

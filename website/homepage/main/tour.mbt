@@ -6,7 +6,7 @@ pub(all) struct TourModel {
 } derive(Eq)
 
 ///|
-pub let init_tour : TourModel = { chapter_idx: 0 }
+pub let init_tour : TourModel = { chapter_idx: 0, }
 
 ///|
 struct TocEntry {
@@ -42,10 +42,10 @@ pub(all) struct TourChapter {
 
 ///|
 let tour_chapters : Array[TourChapter] = [
-  { title: "Introduction", path: "001_intro", section: "Rabbita Basic" },
-  { title: "Writing HTML", path: "002_writing_html", section: "Rabbita Basic" },
-  { title: "Command", path: "004_using_command", section: "Rabbita Basic" },
-  { title: "HTTP Request", path: "005_http", section: "Rabbita Basic" },
+  { title: "Introduction", path: "001_intro", section: "Rabbita Basic", },
+  { title: "Writing HTML", path: "002_writing_html", section: "Rabbita Basic", },
+  { title: "Command", path: "004_using_command", section: "Rabbita Basic", },
+  { title: "HTTP Request", path: "005_http", section: "Rabbita Basic", },
   {
     title: "Components & Incremental Graph",
     path: "component_and_incremental",
@@ -56,7 +56,7 @@ let tour_chapters : Array[TourChapter] = [
     path: "using_subscriptions",
     section: "Rabbita Basic",
   },
-  { title: "Router", path: "003_router", section: "Rabbita Basic" },
+  { title: "Router", path: "003_router", section: "Rabbita Basic", },
 ]
 
 // Returns the site root URL, e.g. "/" or "/rabbita/"
@@ -235,7 +235,7 @@ fn extract_toc(src : String) -> Array[TocEntry] {
           None => ""
         }
         if level >= 2 && level <= 3 && !s.is_empty() {
-          toc.push({ level, text: inline_to_text(inline), id: s })
+          toc.push({ level, text: inline_to_text(inline), id: s, })
         }
       }
       Blocks({ v: bs, .. }) => {

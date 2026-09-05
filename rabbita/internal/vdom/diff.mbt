@@ -122,7 +122,7 @@ fn insert_props(
   scheduler : &Scheduler,
   captured_link_listener : @dom.Listener,
 ) -> IProps {
-  let { handlers, attrs, props: properties, styles } = props
+  let { handlers, attrs, props: properties, styles, } = props
   let slots : Map[String, Ref[(@dom.Event, &Scheduler) -> Unit]] = Map([])
   for event, handler in handlers {
     let slot = @ref.new(handler)
@@ -148,7 +148,7 @@ fn insert_props(
   for name, value in styles {
     sheet.set_property(name, value)
   }
-  { props, slots }
+  { props, slots, }
 }
 
 ///|
@@ -335,7 +335,7 @@ pub fn VDom::initialize_with_hydration(
 ) -> VDom {
   let captured_link_listener = new_captured_link_listener(scheduler)
   let inode = hydrate_root(vnode, scheduler, captured_link_listener)
-  { inode, captured_link_listener, target_element: None }
+  { inode, captured_link_listener, target_element: None, }
 }
 
 ///|
@@ -376,7 +376,7 @@ pub fn VDom::initialize(
         container.as_node(),
         null(),
       )
-      VDom::{ target_element: Some(container), inode, captured_link_listener }
+      VDom::{ target_element: Some(container), inode, captured_link_listener, }
     }
     (
       None,
@@ -430,7 +430,7 @@ pub fn VDom::initialize(
         html,
         namespace_uri=None,
       )
-      VDom::{ target_element: None, inode, captured_link_listener }
+      VDom::{ target_element: None, inode, captured_link_listener, }
     }
     // VDom root invariant: the root must be either a `(Some(id), _)` or a 
     // `(None, Elem("html", _, Array([Elem("head", ..), Elem("body", ..)]), ..)`
@@ -669,7 +669,7 @@ fn diff_props(
       stylesheet.set_property(key, value2)
     }
   }
-  { props: new, slots }
+  { props: new, slots, }
 }
 
 ///|

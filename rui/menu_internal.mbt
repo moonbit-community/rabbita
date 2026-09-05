@@ -80,7 +80,7 @@ fn menu_core_model(
   checked : Array[String],
   radios : Array[(String, String)],
 ) -> MenuCoreModel {
-  { open, active: -1, checked, radios, submenus: [] }
+  { open, active: -1, checked, radios, submenus: [], }
 }
 
 ///|
@@ -807,7 +807,7 @@ fn focus_menu_item(id : String, content_id : String, index : Int) -> Bool {
     document.get_active_element() is Some(active) &&
     active.is_same_node(item.as_node())
   if !stable {
-    menu_focus_stability[stability_key] = { item: live_item, frames: 0 }
+    menu_focus_stability[stability_key] = { item: live_item, frames: 0, }
     return false
   }
   let frames = if menu_focus_stability.get(stability_key) is Some(previous) &&
@@ -818,7 +818,7 @@ fn focus_menu_item(id : String, content_id : String, index : Int) -> Bool {
     1
   }
   if frames < 3 {
-    menu_focus_stability[stability_key] = { item: Some(item), frames }
+    menu_focus_stability[stability_key] = { item: Some(item), frames, }
     false
   } else {
     menu_focus_stability.remove(stability_key)

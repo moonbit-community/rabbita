@@ -103,7 +103,7 @@ pub fn[T] data_table_column(
   hideable? : Bool = true,
   numeric? : Bool = false,
 ) -> DataTableColumn[T] {
-  { key, label, value, render, sortable, searchable, hideable, numeric }
+  { key, label, value, render, sortable, searchable, hideable, numeric, }
 }
 
 ///|
@@ -808,19 +808,19 @@ fn data_table_update(
   model : DataTableModel,
 ) -> DataTableModel {
   match message {
-    DataTableSetQuery(query) => { ..model, query, page: 0 }
+    DataTableSetQuery(query) => { ..model, query, page: 0, }
     DataTableSort(key) =>
       if model.sort_key == Some(key) {
-        { ..model, sort_descending: !model.sort_descending, page: 0 }
+        { ..model, sort_descending: !model.sort_descending, page: 0, }
       } else {
-        { ..model, sort_key: Some(key), sort_descending: false, page: 0 }
+        { ..model, sort_key: Some(key), sort_descending: false, page: 0, }
       }
     DataTableSetPage(page) => { ..model, page, }
     DataTableSetSelection(selected) => { ..model, selected, }
     DataTableToggleColumn(key) =>
-      { ..model, hidden_columns: data_table_toggle(model.hidden_columns, key) }
-    DataTableToggleColumns => { ..model, columns_open: !model.columns_open }
-    DataTableCloseColumns => { ..model, columns_open: false }
+      { ..model, hidden_columns: data_table_toggle(model.hidden_columns, key), }
+    DataTableToggleColumns => { ..model, columns_open: !model.columns_open, }
+    DataTableCloseColumns => { ..model, columns_open: false, }
   }
 }
 

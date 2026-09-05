@@ -6,8 +6,8 @@ using @html {button, div, h1, input, li, p, span, ul}
 
 ///|
 fn keyed_row(id : Int, name : Val[String]) -> Val[Html] {
-  let (state, set_state) = @rabbita.create_variable({ clicks: 0, draft: "" })
-  let set_draft = set_state.map(value => state => { ..state, draft: value })
+  let (state, set_state) = @rabbita.create_variable({ clicks: 0, draft: "", })
+  let set_draft = set_state.map(value => state => { ..state, draft: value, })
   state.view2(name, (state, name) => {
     li(id="row-\{id}") <| [
       span(class="row-name", name),
@@ -18,7 +18,7 @@ fn keyed_row(id : Int, name : Val[String]) -> Val[Html] {
         placeholder="Draft for \{name}",
       ),
       button(
-        on_click=set_state(value => { ..value, clicks: value.clicks + 1 }),
+        on_click=set_state(value => { ..value, clicks: value.clicks + 1, }),
         "Increment \{name}",
       ),
       span(id="row-count-\{id}", "local: \{state.clicks}"),
@@ -54,7 +54,7 @@ fn switched_branch(name : String) -> Val[Html] {
 ///|
 fn app() -> Val[Html] {
   let (list_model, list_emit) = @rabbita.create_pure_state(
-    { reversed: false, has_first: true },
+    { reversed: false, has_first: true, },
     update=update_list,
   )
   let rows = list_model.map(list_items).assoc(keyed_row)

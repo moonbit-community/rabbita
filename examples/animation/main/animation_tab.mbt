@@ -28,7 +28,7 @@ fn step_animation_frame(timestamp : Double, model : Model) -> Model {
       logo_pattern_index: model.logo_pattern_index,
     }
   } else {
-    { ..model, frame_count: model.frame_count + 1, last_frame_ms: timestamp }
+    { ..model, frame_count: model.frame_count + 1, last_frame_ms: timestamp, }
   }
 }
 

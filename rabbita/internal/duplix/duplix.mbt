@@ -52,7 +52,7 @@ struct Node[T] {
 
 ///|
 pub fn[T] constant(x : T) -> Node[T] {
-  let dirty_b = { dirty: false, parents: [], id: get_uuid() }
+  let dirty_b = { dirty: false, parents: [], id: get_uuid(), }
   {
     id: get_uuid(),
     scope: current_scope.val,
@@ -154,7 +154,7 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
     changed_at: 0,
     recomputed_at: 0,
     childs: [],
-    dirty_flag: { dirty: true, parents: [], id: get_uuid() },
+    dirty_flag: { dirty: true, parents: [], id: get_uuid(), },
   }
 
   fn write(x : T) {
@@ -168,7 +168,7 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
 ///|
 /// child_a ---derived---> parent_b
 pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
-  let dirty_b = { dirty: true, parents: [], id: get_uuid() }
+  let dirty_b = { dirty: true, parents: [], id: get_uuid(), }
   // a.dirty_flag.parents.push(dirty_b)
   {
     id: get_uuid(),
@@ -189,7 +189,7 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
 pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
   let mut b1_dirty_sub : DirtyFlag? = None
   let output_childs : Array[&ErasedNode] = []
-  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid() }
+  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
   fn compute() {
     let b2 = f(a.value.unwrap())
     let branch_changed = b1_dirty_sub is None ||
@@ -325,7 +325,7 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
   let mut epoch = 0
   let cache : Map[K, AssocEntry[V, C]] = Map([])
   let output_childs : Array[&ErasedNode] = [a]
-  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid() }
+  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
   fn compute() {
     epoch += 1
     let active_results : Array[Node[C]] = []
@@ -344,7 +344,7 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
         let entry = with_scope(scope => {
           let (value_node, set_value) = input(value)
           let result = f(key, value_node)
-          { value, set_value, result, scope, epoch }
+          { value, set_value, result, scope, epoch, }
         })
         cache.set(key, entry)
         entry

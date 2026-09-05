@@ -649,7 +649,7 @@ pub fn navigation_menu(
         NavigationToggle(value, index) =>
           if current.value == Some(value) {
             (
-              { value: None, index: -1, focus_index: index },
+              { value: None, index: -1, focus_index: index, },
               @cmd.batch([
                 if viewport {
                   @cmd.none
@@ -665,7 +665,7 @@ pub fn navigation_menu(
             )
           } else {
             (
-              { value: Some(value), index, focus_index: index },
+              { value: Some(value), index, focus_index: index, },
               @cmd.batch([
                 navigation_change_cmd(id, current, Some(value), index, viewport),
                 if on_value_change is Some(notify) {
@@ -679,7 +679,7 @@ pub fn navigation_menu(
         NavigationClose =>
           if current.value is Some(_) {
             (
-              { value: None, index: -1, focus_index: current.index },
+              { value: None, index: -1, focus_index: current.index, },
               @cmd.batch([
                 if viewport {
                   @cmd.none
@@ -701,10 +701,10 @@ pub fn navigation_menu(
           }
         NavigationNative(value, index, open) =>
           if open {
-            ({ value: Some(value), index, focus_index: index }, @cmd.none)
+            ({ value: Some(value), index, focus_index: index, }, @cmd.none)
           } else if current.value == Some(value) {
             (
-              { value: None, index: -1, focus_index: index },
+              { value: None, index: -1, focus_index: index, },
               if on_value_change is Some(notify) {
                 notify(None)
               } else {
@@ -715,7 +715,7 @@ pub fn navigation_menu(
             (current, @cmd.none)
           }
         NavigationSetFocus(index) =>
-          ({ ..current, focus_index: index }, @cmd.none)
+          ({ ..current, focus_index: index, }, @cmd.none)
       }
     },
   )
@@ -1090,7 +1090,7 @@ pub fn[C : @html.IsChildren] navigation_menu_content(
     children,
   )
   if scope.viewport {
-    scope.contents.val.push({ value: scope.value, content })
+    scope.contents.val.push({ value: scope.value, content, })
     @html.nothing
   } else {
     content

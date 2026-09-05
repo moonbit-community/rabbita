@@ -83,11 +83,11 @@ fn crate_index_at(crates : Vector[Pos], position : Pos) -> Int? {
 
 ///|
 fn try_move(delta : Pos, world : World) -> World? {
-  let target = { x: world.player.x + delta.x, y: world.player.y + delta.y }
+  let target = { x: world.player.x + delta.x, y: world.player.y + delta.y, }
   guard tile_at(target) != Wall else { None }
   match crate_index_at(world.crates, target) {
     Some(crate_index) => {
-      let crate_target = { x: target.x + delta.x, y: target.y + delta.y }
+      let crate_target = { x: target.x + delta.x, y: target.y + delta.y, }
       guard tile_at(crate_target) != Wall &&
         !world.crates.contains(crate_target) else {
         None
@@ -97,17 +97,17 @@ fn try_move(delta : Pos, world : World) -> World? {
         crates: world.crates.set(crate_index, crate_target),
       })
     }
-    None => Some({ ..world, player: target })
+    None => Some({ ..world, player: target, })
   }
 }
 
 ///|
 fn delta_from_key(event : Keyboard) -> Pos? {
   match event.key().to_lower() {
-    "arrowup" | "w" | "k" => Some({ x: 0, y: -1 })
-    "arrowdown" | "s" | "j" => Some({ x: 0, y: 1 })
-    "arrowleft" | "a" | "h" => Some({ x: -1, y: 0 })
-    "arrowright" | "d" | "l" => Some({ x: 1, y: 0 })
+    "arrowup" | "w" | "k" => Some({ x: 0, y: -1, })
+    "arrowdown" | "s" | "j" => Some({ x: 0, y: 1, })
+    "arrowleft" | "a" | "h" => Some({ x: -1, y: 0, })
+    "arrowright" | "d" | "l" => Some({ x: 1, y: 0, })
     _ => None
   }
 }
@@ -128,7 +128,7 @@ fn update(msg : Msg, model : Model) -> Model {
       }
       let cursor = model.cursor + 1
       let history = model.history.take(cursor).push(next)
-      { history, cursor }
+      { history, cursor, }
     }
     JumpTo(point) => {
       let idx = parse_int(point) catch { _ => 0 }
@@ -155,7 +155,7 @@ fn board_view(world : World) -> Html {
   div(class="board", style=["--cols: \{cols}", "--rows: \{rows}"]) <| Array::makei(
     cols * rows,
     index => {
-      let position = { x: index % cols, y: index / cols }
+      let position = { x: index % cols, y: index / cols, }
       let tile = tile_at(position)
       let state = (
         world.crates.contains(position),
@@ -244,12 +244,12 @@ fn view(emit : Emit[Msg], model : Val[Model]) -> Val[Html] {
 #cfg(target="js")
 fn main {
   let initial_world = {
-    player: { x: 2, y: 5 },
-    crates: from_array([{ x: 3, y: 2 }, { x: 3, y: 3 }, { x: 3, y: 4 }]),
+    player: { x: 2, y: 5, },
+    crates: from_array([{ x: 3, y: 2, }, { x: 3, y: 3, }, { x: 3, y: 4, }]),
   }
   fn app() {
     let (model, emit) = create_state(
-      { history: singleton(initial_world), cursor: 0 },
+      { history: singleton(initial_world), cursor: 0, },
       update=fn(model, msg, _) { (update(msg, model), none) },
       subscriptions~,
     )

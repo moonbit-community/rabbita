@@ -292,7 +292,7 @@ fn toast_mark_closing(
   let mut changed = false
   for entry in entries {
     if entry.id == id && !entry.closing {
-      result.push({ ..entry, closing: true, swipe_direction })
+      result.push({ ..entry, closing: true, swipe_direction, })
       changed = true
     } else {
       result.push(entry)
@@ -311,7 +311,7 @@ fn toast_mark_all_closing(
     if entry.closing {
       result.push(entry)
     } else {
-      result.push({ ..entry, closing: true, swipe_direction: 0 })
+      result.push({ ..entry, closing: true, swipe_direction: 0, })
       ids.push(entry.id)
     }
   }
@@ -811,7 +811,7 @@ fn toaster_impl(
   let (model, emit) = @rabbita.create_state_with_init(
     init=emit => {
       (
-        { next_id: 1, entries: [], pause_sources: [], expired: [] },
+        { next_id: 1, entries: [], pause_sources: [], expired: [], },
         toast_bind_document_pause_cmd(slot, emit),
       )
     },
@@ -940,7 +940,7 @@ fn toaster_impl(
             )
           }
           (
-            { ..model, entries, pause_sources, expired: [] },
+            { ..model, entries, pause_sources, expired: [], },
             @cmd.batch(commands),
           )
         }
@@ -975,10 +975,10 @@ fn toaster_impl(
   children : (ToastScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore(max_toasts)
-  let scope = { emit: @cmd.Emit(_ => @cmd.none) }
+  let scope = { emit: @cmd.Emit(_ => @cmd.none), }
   @rabbita.Val::constant(
     render_toaster(
-      { next_id: 1, entries: [], pause_sources: [], expired: [] },
+      { next_id: 1, entries: [], pause_sources: [], expired: [], },
       scope,
       slot,
       rich_colors,

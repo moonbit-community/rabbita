@@ -9,64 +9,64 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
   match message {
     StartGet =>
       (
-        { ..model, get: "loading" },
+        { ..model, get: "loading", },
         @http.get("/api/method/get").expect_text(
           emit.map(value => GetFinished(value)),
         ),
       )
     GetFinished(result) =>
-      ({ ..model, get: result_text(result) }, @rabbita.none)
+      ({ ..model, get: result_text(result), }, @rabbita.none)
     StartPost =>
       (
-        { ..model, post: "loading" },
+        { ..model, post: "loading", },
         @http.post("/api/method/post")
-        .with_json({ name: "rabbit" })
+        .with_json({ name: "rabbit", })
         .expect_text(emit.map(value => PostFinished(value))),
       )
     PostFinished(result) =>
-      ({ ..model, post: result_text(result) }, @rabbita.none)
+      ({ ..model, post: result_text(result), }, @rabbita.none)
     StartPut =>
       (
-        { ..model, put: "loading" },
+        { ..model, put: "loading", },
         @http.put("/api/method/put")
         .with_text("put-body")
         .expect_text(emit.map(value => PutFinished(value))),
       )
     PutFinished(result) =>
-      ({ ..model, put: result_text(result) }, @rabbita.none)
+      ({ ..model, put: result_text(result), }, @rabbita.none)
     StartPatch =>
       (
-        { ..model, patch: "loading" },
+        { ..model, patch: "loading", },
         @http.patch("/api/method/patch")
         .with_text("patch-body")
         .expect_text(emit.map(value => PatchFinished(value))),
       )
     PatchFinished(result) =>
-      ({ ..model, patch: result_text(result) }, @rabbita.none)
+      ({ ..model, patch: result_text(result), }, @rabbita.none)
     StartDelete =>
       (
-        { ..model, delete: "loading" },
+        { ..model, delete: "loading", },
         @http.delete("/api/method/delete").expect_empty(
           emit.map(value => DeleteFinished(value)),
         ),
       )
     DeleteFinished(error) =>
       (
-        { ..model, delete: if error is None { "deleted" } else { "failed" } },
+        { ..model, delete: if error is None { "deleted" } else { "failed" }, },
         @rabbita.none,
       )
     StartText =>
       (
-        { ..model, text: "loading" },
+        { ..model, text: "loading", },
         @http.get("/api/decode/text").expect_text(
           emit.map(value => TextFinished(value)),
         ),
       )
     TextFinished(result) =>
-      ({ ..model, text: result_text(result) }, @rabbita.none)
+      ({ ..model, text: result_text(result), }, @rabbita.none)
     StartJson =>
       (
-        { ..model, json: "loading" },
+        { ..model, json: "loading", },
         @http.get("/api/decode/json").expect_json(
           emit.map(value => JsonFinished(value)),
         ),
@@ -84,7 +84,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
       )
     StartBlob =>
       (
-        { ..model, blob: "loading" },
+        { ..model, blob: "loading", },
         @http.get("/api/decode/blob").expect_blob(
           emit.map(value => BlobFinished(value)),
         ),
@@ -102,7 +102,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
       )
     StartBytes =>
       (
-        { ..model, bytes: "loading" },
+        { ..model, bytes: "loading", },
         @http.get("/api/decode/bytes").expect_bytes(
           emit.map(value => BytesFinished(value)),
         ),
@@ -120,7 +120,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
       )
     StartFailure =>
       (
-        { ..model, failure: "loading" },
+        { ..model, failure: "loading", },
         @http.get("/api/failure").expect_text(
           emit.map(value => FailureFinished(value)),
         ),

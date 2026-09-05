@@ -92,11 +92,11 @@ fn command_dialog_fixture() -> Val[Html] {
 ///|
 fn data_table_fixture() -> Val[Html] {
   let rows : Array[FixturePayment] = [
-    { id: "pay-001", status: "Paid", owner: "Ada", amount: "120" },
-    { id: "pay-002", status: "Processing", owner: "Grace", amount: "80" },
-    { id: "pay-003", status: "Failed", owner: "Lin", amount: "240" },
-    { id: "pay-004", status: "Paid", owner: "Margaret", amount: "160" },
-    { id: "pay-005", status: "Paid", owner: "Evelyn", amount: "40" },
+    { id: "pay-001", status: "Paid", owner: "Ada", amount: "120", },
+    { id: "pay-002", status: "Processing", owner: "Grace", amount: "80", },
+    { id: "pay-003", status: "Failed", owner: "Lin", amount: "240", },
+    { id: "pay-004", status: "Paid", owner: "Margaret", amount: "160", },
+    { id: "pay-005", status: "Paid", owner: "Evelyn", amount: "40", },
   ]
   let columns : Array[@rui.DataTableColumn[FixturePayment]] = [
     @rui.data_table_column(key="status", label="Status", value=row => row.status),

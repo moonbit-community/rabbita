@@ -393,7 +393,7 @@ fn bind_scroll_area_pointer(
 
 ///|
 fn scroll_area_initial_metrics() -> ScrollAreaMetrics {
-  { offset: 0.0, viewport: 0.0, content: 0.0 }
+  { offset: 0.0, viewport: 0.0, content: 0.0, }
 }
 
 ///|
@@ -467,7 +467,9 @@ fn scroll_area_initialize_cmd(
           viewport,
           content,
         ) => {
-          scheduler.add(emit(ScrollAreaMeasured({ offset, viewport, content })))
+          scheduler.add(
+            emit(ScrollAreaMeasured({ offset, viewport, content, })),
+          )
         })
       },
       purpose="scroll-area-initialize",

@@ -12,7 +12,7 @@ pub fn select_option(
   label~ : String,
   disabled? : Bool = false,
 ) -> SelectOption {
-  { value, label, disabled }
+  { value, label, disabled, }
 }
 
 ///|
@@ -1001,8 +1001,8 @@ pub fn select(
           } else {
             let open = !current.open
             let active = select_resolve_active(options, current)
-            let next = { ..current, open, active }
-            let next_scope = { ..base_scope, model: next }
+            let next = { ..current, open, active, }
+            let next_scope = { ..base_scope, model: next, }
             (
               next,
               @cmd.batch([
@@ -1017,7 +1017,7 @@ pub fn select(
           } else if open {
             let active = select_resolve_active(options, current)
             (
-              { ..current, open: true, active },
+              { ..current, open: true, active, },
               @cmd.batch([
                 select_notify_bool(on_open_change, true),
                 if active >= 0 && active < options.length() {
@@ -1034,7 +1034,7 @@ pub fn select(
             )
           } else {
             (
-              { ..current, open: false },
+              { ..current, open: false, },
               select_notify_bool(on_open_change, false),
             )
           }
@@ -1050,7 +1050,7 @@ pub fn select(
             select_next_enabled(options, current.active, direction)
           }
           let open = true
-          let next = { ..current, open, active }
+          let next = { ..current, open, active, }
           (
             next,
             @cmd.batch([
@@ -1081,13 +1081,13 @@ pub fn select(
           } else if current.active == index {
             (current, @cmd.none)
           } else {
-            ({ ..current, active: index }, @cmd.none)
+            ({ ..current, active: index, }, @cmd.none)
           }
         SelectFirst => {
           let active = select_first_enabled(options, false)
           let opened = !current.open
           (
-            { ..current, open: true, active },
+            { ..current, open: true, active, },
             @cmd.batch([
               if active >= 0 && active < options.length() {
                 select_popup_cmd(
@@ -1111,7 +1111,7 @@ pub fn select(
           let active = select_first_enabled(options, true)
           let opened = !current.open
           (
-            { ..current, open: true, active },
+            { ..current, open: true, active, },
             @cmd.batch([
               if active >= 0 && active < options.length() {
                 select_popup_cmd(
@@ -1160,7 +1160,7 @@ pub fn select(
         SelectClose =>
           if current.open {
             (
-              { ..current, open: false },
+              { ..current, open: false, },
               @cmd.batch([
                 select_popup_cmd(id, Some(false), Some("select-trigger"), ""),
                 select_notify_bool(on_open_change, false),
@@ -1172,7 +1172,7 @@ pub fn select(
         SelectDismiss =>
           if current.open {
             (
-              { ..current, open: false },
+              { ..current, open: false, },
               @cmd.batch([
                 select_popup_cmd(id, Some(false), None, ""),
                 select_notify_bool(on_open_change, false),
@@ -1193,7 +1193,7 @@ pub fn select(
           let generation = current.search_generation + 1
           if current.open {
             (
-              { ..current, active, search, search_generation: generation },
+              { ..current, active, search, search_generation: generation, },
               @cmd.batch([
                 if matched >= 0 {
                   select_popup_cmd(
@@ -1230,14 +1230,14 @@ pub fn select(
             )
           } else {
             (
-              { ..current, search, search_generation: generation },
+              { ..current, search, search_generation: generation, },
               @cmd.delay(emit(SelectClearTypeahead(generation)), 700),
             )
           }
         }
         SelectClearTypeahead(generation) =>
           if generation == current.search_generation {
-            ({ ..current, search: "" }, @cmd.none)
+            ({ ..current, search: "", }, @cmd.none)
           } else {
             (current, @cmd.none)
           }

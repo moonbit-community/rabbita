@@ -16,7 +16,7 @@ struct RunningServer {
 ///|
 async fn artifact_digest(path : SourcePath) -> ArtifactDigest {
   let bytes = @fs.read_file(source_path_to_string(path)).binary()
-  { hash: bytes.hash(), length: bytes.length() }
+  { hash: bytes.hash(), length: bytes.length(), }
 }
 
 ///|
@@ -323,7 +323,7 @@ async fn fullstack_dev(
           group, layout, target, run_dir, server_artifact, digest, static_dir, port,
           dev_client,
         )
-        running = Some({ process, digest })
+        running = Some({ process, digest, })
       } else {
         log(
           "server", "Server artifact is unchanged; keeping the server running.",
@@ -353,12 +353,12 @@ async fn dev_project(
 
 ///|
 test "server restart depends on digest and process state" {
-  let digest : ArtifactDigest = { hash: 42, length: 10 }
+  let digest : ArtifactDigest = { hash: 42, length: 10, }
   inspect(server_needs_restart(None, false, digest), content="true")
   inspect(server_needs_restart(Some(digest), true, digest), content="false")
   inspect(server_needs_restart(Some(digest), false, digest), content="true")
   inspect(
-    server_needs_restart(Some(digest), true, { hash: 43, length: 10 }),
+    server_needs_restart(Some(digest), true, { hash: 43, length: 10, }),
     content="true",
   )
 }

@@ -354,7 +354,7 @@ fn load_shiki_highlight(
           highlighter,
           loaded_langs: Set([]),
           loaded_themes: Set([]),
-          config: Some({ lang, theme }),
+          config: Some({ lang, theme, }),
         }
         global_shiki_hl.val = Some(singleton)
         singleton
@@ -393,7 +393,7 @@ pub fn shiki_code(
   lang~ : Val[String],
   theme~ : Val[String],
 ) -> Val[Html] {
-  let config = lang.map2(theme, (lang, theme) => { lang, theme })
+  let config = lang.map2(theme, (lang, theme) => { lang, theme, })
   let hl = config.switch(config => {
     @rabbita.create_resource(inject => {
       load_shiki_highlight(config.lang, config.theme, inject)

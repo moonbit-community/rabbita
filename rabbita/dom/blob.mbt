@@ -40,7 +40,7 @@ pub extern "js" fn Blob::from_bytes(
 ///|
 #cfg(not(target="js"))
 pub fn Blob::from_bytes(bytes : Bytes, content_type : String) -> Blob {
-  { data: bytes, content_type }
+  { data: bytes, content_type, }
 }
 
 ///|

@@ -1480,7 +1480,7 @@ fn[C : @html.IsChildren] render_carousel_index(
   let max_index = carousel_index(count - 1, count)
   let emit = on_index_change.unwrap_or(Emit(_ => @cmd.none))
   render_carousel(
-    { index, count, max_index, loop_, orientation, emit },
+    { index, count, max_index, loop_, orientation, emit, },
     aria_label,
     id,
     class,
@@ -1519,7 +1519,7 @@ pub fn[C : @html.IsChildren] carousel(
   let (model, emit) = @rabbita.create_state_with_init(
     init=fn(emit) {
       (
-        { index: initial, max_index: initial_max },
+        { index: initial, max_index: initial_max, },
         carousel_sync_layout_cmd(root_id, emit),
       )
     },
@@ -1536,7 +1536,7 @@ pub fn[C : @html.IsChildren] carousel(
             @cmd.none
           }
           (
-            { ..current, index: next },
+            { ..current, index: next, },
             @cmd.batch([notify, carousel_sync_layout_cmd(root_id, emit)]),
           )
         }
@@ -1553,7 +1553,7 @@ pub fn[C : @html.IsChildren] carousel(
               @cmd.none
             }
             (
-              { index, max_index },
+              { index, max_index, },
               @cmd.batch([notify, carousel_sync_layout_cmd(root_id, emit)]),
             )
           }

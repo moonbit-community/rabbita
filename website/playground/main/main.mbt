@@ -270,8 +270,8 @@ fn update_example_load(
       sources.set(index, Some(body))
       { ..load, sources, }
     }
-    RepoCss => { ..load, css: Some(body) }
-    RepoMoonPkg => { ..load, moon_pkg: Some(body) }
+    RepoCss => { ..load, css: Some(body), }
+    RepoMoonPkg => { ..load, moon_pkg: Some(body), }
   }
 }
 
@@ -351,16 +351,16 @@ fn editor_focus_diagnostic_cmd(
 fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
   match msg {
     SelectTab(tab) => {
-      let next = { ..model, active_tab: tab }
+      let next = { ..model, active_tab: tab, }
       (editor_sync_cmd(emit, next), next)
     }
     FocusDiagnostic(diagnostic) => {
-      let next = { ..model, active_tab: Mbt }
+      let next = { ..model, active_tab: Mbt, }
       (editor_focus_diagnostic_cmd(emit, next, diagnostic), next)
     }
     TogglePackageMenu =>
-      (@rabbita.none, { ..model, package_menu_open: !model.package_menu_open })
-    ClosePackageMenu => (@rabbita.none, { ..model, package_menu_open: false })
+      (@rabbita.none, { ..model, package_menu_open: !model.package_menu_open, })
+    ClosePackageMenu => (@rabbita.none, { ..model, package_menu_open: false, })
     ExampleChanged(id) =>
       match example_by_id(model.examples, id) {
         Some(example) => {
@@ -446,7 +446,8 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
                       next,
                     )
                   }
-                  None => (@rabbita.none, { ..model, example_load: Some(load) })
+                  None =>
+                    (@rabbita.none, { ..model, example_load: Some(load), })
                 }
               }
               _ => (@rabbita.none, model)
@@ -654,11 +655,11 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
       )
     }
     HtmlChanged(source) => {
-      let next = { ..model, html: source, example_load: None }
+      let next = { ..model, html: source, example_load: None, }
       (@rabbita.batch([persist_cmd(next), preview_refresh_cmd(next)]), next)
     }
     CssChanged(source) => {
-      let next = { ..model, css: source, example_load: None }
+      let next = { ..model, css: source, example_load: None, }
       (@rabbita.batch([persist_cmd(next), preview_refresh_cmd(next)]), next)
     }
     MoonPkgChanged(source) => {
@@ -700,7 +701,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
           if js_result_ok(value) {
             (
               @rabbita.none,
-              { ..model, status: js_result_string(value, "status") },
+              { ..model, status: js_result_string(value, "status"), },
             )
           } else {
             (
@@ -713,7 +714,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
             )
           }
         Err(error) =>
-          (@rabbita.none, { ..model, status: "Share failed", log: "\{error}" })
+          (@rabbita.none, { ..model, status: "Share failed", log: "\{error}", })
       }
     RunRequested => {
       let token = model.run_id + 1

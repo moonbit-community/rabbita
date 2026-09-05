@@ -35,4 +35,4 @@ pub trait Host: Scheduler {
 /// more fragile.
 ///
 /// TODO: Report an error when the ambient host is `DummyHost`.
-pub let ambient_host : Ref[&Host] = Ref(DummyHost::{ stores: SlotMap() })
+pub let ambient_host : Ref[&Host] = Ref(DummyHost::{ stores: SlotMap(), })

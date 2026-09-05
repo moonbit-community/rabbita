@@ -896,7 +896,7 @@ fn command_update(
   match message {
     CommandSetQuery(query, active) =>
       (
-        { ..current, query, active },
+        { ..current, query, active, },
         @cmd.batch([
           command_notify_string(on_query_change, query),
           command_scroll_active(root_id, active),
@@ -912,7 +912,7 @@ fn command_update(
       if dialog && close_on_select && current.open && dialog_id is Some(_) {
         let generation = current.generation + 1
         (
-          { query: "", active: -1, open: false, generation },
+          { query: "", active: -1, open: false, generation, },
           @cmd.batch([
             selection,
             command_notify_string(on_query_change, ""),
@@ -950,7 +950,7 @@ fn command_update(
       if dialog && current.open && dialog_id is Some(_) {
         let generation = current.generation + 1
         (
-          { ..current, open: false, generation },
+          { ..current, open: false, generation, },
           @cmd.batch([
             command_notify_bool(on_open_change, false),
             @rabbita.delay(
@@ -961,7 +961,7 @@ fn command_update(
         )
       } else if !dialog && current.query != "" {
         (
-          { ..current, query: "", active: -1 },
+          { ..current, query: "", active: -1, },
           command_notify_string(on_query_change, ""),
         )
       } else {
@@ -1086,7 +1086,7 @@ pub fn command(
     command_surface(
       id,
       None,
-      { query: default_query, active: -1, open: true, generation: 0 },
+      { query: default_query, active: -1, open: true, generation: 0, },
       matcher,
       should_filter,
       false,
@@ -1400,7 +1400,7 @@ pub fn command_dialog(
   @rabbita.Val::constant(
     command_dialog_view(
       id,
-      { query: default_query, active: -1, open: default_open, generation: 0 },
+      { query: default_query, active: -1, open: default_open, generation: 0, },
       matcher,
       should_filter,
       close_on_escape,

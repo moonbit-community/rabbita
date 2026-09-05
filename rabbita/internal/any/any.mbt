@@ -8,7 +8,7 @@ priv struct Wrapper[T] {
 
 ///|
 pub fn[T] erase(x : T) -> Any {
-  unsafe_erase({ value: x })
+  unsafe_erase({ value: x, })
 }
 
 ///|

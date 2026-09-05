@@ -117,7 +117,7 @@ async fn invoke_text_request(
       }),
     ),
   )
-  let scheduler : TestScheduler = { origin_value: origin, commands: [cmd] }
+  let scheduler : TestScheduler = { origin_value: origin, commands: [cmd], }
   scheduler.run()
   result.unwrap()
 }

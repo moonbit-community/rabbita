@@ -545,7 +545,7 @@ struct HeroTabEntry {
 }
 
 ///|
-let hero_tabs : Array[HeroTabEntry] = [{ label: "Counter", src: code_counter }]
+let hero_tabs : Array[HeroTabEntry] = [{ label: "Counter", src: code_counter, }]
 
 ///|
 struct HeroViewModel {
@@ -581,7 +581,7 @@ fn dual_block(src : String, lang : String) -> Val[Html] {
 
 ///|
 fn hero() -> Val[Html] {
-  let (model, set_model) = @rabbita.create_variable({ hero_tab: 0 })
+  let (model, set_model) = @rabbita.create_variable({ hero_tab: 0, })
   model.switch(model => {
     let src = hero_tabs[model.hero_tab].src
     let code_block = dual_block(src, "moonbit")
@@ -619,7 +619,7 @@ fn hero() -> Val[Html] {
                 }
                 button(
                   class=cls,
-                  on_click=set_model(_ => { hero_tab: i }),
+                  on_click=set_model(_ => { hero_tab: i, }),
                   t.label,
                 )
               }),
@@ -716,13 +716,14 @@ fn comparison() -> Val[Html] {
   let (model, inject) = @rabbita.create_state_with_init(
     init=fn(inject) {
       (
-        { cmp_idx: 0, cmp_anim: false },
+        { cmp_idx: 0, cmp_anim: false, },
         @rabbita.delay(inject(NextComparison), 12000),
       )
     },
     update=fn(model, msg, inject) {
       match msg {
-        SelectComparison(i) => ({ cmp_idx: i, cmp_anim: !model.cmp_anim }, none)
+        SelectComparison(i) =>
+          ({ cmp_idx: i, cmp_anim: !model.cmp_anim, }, none)
         NextComparison =>
           (
             {
@@ -992,7 +993,7 @@ fn app() -> Val[Html] {
   })
   let (model, _) = @rabbita.create_state_with_input(
     input=chapters,
-    init=fn(_, _) { ({ page: Home }, none) },
+    init=fn(_, _) { ({ page: Home, }, none) },
     update=fn(model, chapters, msg, _) {
       let (cmd, model) = match msg {
         UrlRequest(req) =>
@@ -1008,7 +1009,7 @@ fn app() -> Val[Html] {
             }
             (
               scroll_cmd,
-              { page: Components(component_slug_from_path(url.path)) },
+              { page: Components(component_slug_from_path(url.path)), },
             )
           } else if is_tour_url(chapters, url.path) {
             let idx = chapter_idx_from_path(chapters, url.path)
@@ -1016,13 +1017,13 @@ fn app() -> Val[Html] {
               Some(frag) => scroll_to_heading(frag)
               None => @nav.scroll_to_top()
             }
-            (scroll_cmd, { page: Tour({ chapter_idx: idx }) })
+            (scroll_cmd, { page: Tour({ chapter_idx: idx, }), })
           } else {
             let cmd = match url.fragment {
               Some(frag) => scroll_to_heading(frag)
               None => @nav.scroll_to_top()
             }
-            (cmd, { page: Home })
+            (cmd, { page: Home, })
           }
       }
       (model, cmd)
@@ -1043,7 +1044,7 @@ fn app() -> Val[Html] {
       Tour(_) => NavTour
       Components(_) => NavComponents
     }
-    { theme, current }
+    { theme, current, }
   })
   let site_class_name = theme.map2(page, (theme, page) => {
     let theme_class = match theme {
@@ -1084,7 +1085,7 @@ fn app() -> Val[Html] {
               Tour(model) => model
               Home | Components(_) => init_tour
             }
-            { chapters, tour }
+            { chapters, tour, }
           }),
         )
     }

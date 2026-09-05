@@ -264,7 +264,7 @@ pub fn accordion_entry(
   content~ : @html.Html,
   disabled? : Bool = false,
 ) -> AccordionEntry {
-  { value, label, content, disabled }
+  { value, label, content, disabled, }
 }
 
 ///|

@@ -138,7 +138,7 @@ fn controls_view(
   set_theme : Emit[(String) -> String],
 ) -> Val[Html] {
   lang.map2(theme, (lang, theme) => {
-    let model : ControlsState = { lang, theme }
+    let model : ControlsState = { lang, theme, }
     div(class="controls", [
       div(class="control", [
         p(class="control-label", "Language"),

@@ -1013,7 +1013,7 @@ fn sidebar_contain_background(root : @dom.Element) -> Unit {
       attribute_filter=["data-mobile-state", "aria-hidden", "hidden"],
     )
   }
-  sidebar_modal_state.val = Some({ root, records, observer: Some(observer) })
+  sidebar_modal_state.val = Some({ root, records, observer: Some(observer), })
 }
 
 ///|
@@ -1272,7 +1272,7 @@ fn sidebar_sync_mobile_layers() -> Unit {
     let binding = if sidebar_mobile_layer_binding(layer) is Some(binding) {
       binding
     } else {
-      let binding : SidebarMobileLayerBinding = { layer, close_timer: None }
+      let binding : SidebarMobileLayerBinding = { layer, close_timer: None, }
       sidebar_mobile_layer_bindings.push(binding)
       binding
     }
@@ -1573,7 +1573,7 @@ fn sidebar_provider_state(
         ToggleSidebarCollapsed => {
           let next = !state.collapsed
           (
-            { ..state, collapsed: next },
+            { ..state, collapsed: next, },
             @cmd.batch([
               sidebar_emit_bool(on_collapsed_change, next),
               if next {
@@ -1589,7 +1589,7 @@ fn sidebar_provider_state(
             (state, @cmd.none)
           } else {
             (
-              { ..state, collapsed: next },
+              { ..state, collapsed: next, },
               @cmd.batch([
                 sidebar_emit_bool(on_collapsed_change, next),
                 if next {
@@ -1603,7 +1603,7 @@ fn sidebar_provider_state(
         ToggleSidebarMobile => {
           let next = !state.mobile_open
           (
-            { ..state, mobile_open: next },
+            { ..state, mobile_open: next, },
             sidebar_mobile_change_cmd(on_mobile_open_change, next),
           )
         }
@@ -1612,12 +1612,12 @@ fn sidebar_provider_state(
             (state, @cmd.none)
           } else {
             (
-              { ..state, mobile_open: next },
+              { ..state, mobile_open: next, },
               sidebar_mobile_change_cmd(on_mobile_open_change, next),
             )
           }
         CommitSidebarWidth(width) => {
-          let next = { ..state, collapsed: false, desktop_width: Some(width) }
+          let next = { ..state, collapsed: false, desktop_width: Some(width), }
           if next == state {
             (state, @cmd.none)
           } else {

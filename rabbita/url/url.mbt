@@ -124,5 +124,5 @@ pub fn parse(url : String) -> Url raise Error {
     (None, Some(f)) => Some(f.to_owned())
     (None, None) => None
   }
-  { protocol, host, port, path, query, fragment }
+  { protocol, host, port, path, query, fragment, }
 }

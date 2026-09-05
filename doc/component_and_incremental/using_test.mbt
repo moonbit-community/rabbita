@@ -15,8 +15,8 @@ test {
   ignore(todo_list)
   ignore(cached_panel)
   ignore(disposable_panel)
-  ignore(Dashboard::{ count: 0, status: "ready" })
-  ignore(Todo::{ id: 1, title: "Read", details: "Read the chapter" })
+  ignore(Dashboard::{ count: 0, status: "ready", })
+  ignore(Todo::{ id: 1, title: "Read", details: "Read the chapter", })
   let panels = [Overview, Preferences]
   ignore(panels)
 }

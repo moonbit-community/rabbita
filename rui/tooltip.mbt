@@ -570,7 +570,7 @@ fn tooltip_commit_native(
     if model.open {
       (model, @cmd.none)
     } else {
-      ({ ..model, open: true }, tooltip_notify_cmd(on_open_change, true))
+      ({ ..model, open: true, }, tooltip_notify_cmd(on_open_change, true))
     }
   } else {
     let next : TooltipModel = {
@@ -636,7 +636,7 @@ fn tooltip_update(
         // Trigger hover starts after the configured provider/root delay.
         0 => {
           let generation = current.generation + 1
-          let next = { ..current, trigger_hovered: true, generation }
+          let next = { ..current, trigger_hovered: true, generation, }
           if current.open {
             (next, @cmd.none)
           } else if wait <= 0 {
@@ -648,7 +648,7 @@ fn tooltip_update(
         // Trigger hover ends; popup hover can cancel this delayed close.
         1 => {
           let generation = current.generation + 1
-          let next = { ..current, trigger_hovered: false, generation }
+          let next = { ..current, trigger_hovered: false, generation, }
           if tooltip_is_active(next) || !next.open {
             (next, @cmd.none)
           } else if wait <= 0 {
@@ -668,7 +668,7 @@ fn tooltip_update(
         }
         3 => {
           let generation = current.generation + 1
-          let next = { ..current, trigger_focused: false, generation }
+          let next = { ..current, trigger_focused: false, generation, }
           if tooltip_is_active(next) || !next.open {
             (next, @cmd.none)
           } else if wait <= 0 {
@@ -706,7 +706,7 @@ fn tooltip_update(
           )
         6 => {
           let generation = current.generation + 1
-          let next = { ..current, content_hovered: false, generation }
+          let next = { ..current, content_hovered: false, generation, }
           if tooltip_is_active(next) || !next.open {
             (next, @cmd.none)
           } else if wait <= 0 {

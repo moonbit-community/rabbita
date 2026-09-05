@@ -91,7 +91,7 @@ pub fn[C : @html.IsChildren] message_scroller(
   children : (MessageScrollerScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let viewport_id = "\{id}-viewport"
-  let initial = { at_start: !default_at_end, at_end: default_at_end }
+  let initial = { at_start: !default_at_end, at_end: default_at_end, }
   let (position, emit) = @rabbita.create_state_with_init(
     init=emit => {
       (
@@ -102,7 +102,7 @@ pub fn[C : @html.IsChildren] message_scroller(
     update=(_, msg, _) => {
       (
         match msg {
-          SetScrollerPosition(at_start, at_end) => { at_start, at_end }
+          SetScrollerPosition(at_start, at_end) => { at_start, at_end, }
         },
         @cmd.none,
       )
@@ -110,7 +110,7 @@ pub fn[C : @html.IsChildren] message_scroller(
   )
   position.view(position => {
     render_message_scroller(
-      { viewport_id, position, emit },
+      { viewport_id, position, emit, },
       Some(id),
       class,
       title,
@@ -132,11 +132,11 @@ pub fn[C : @html.IsChildren] message_scroller(
   style? : Array[String] = [],
   children : (MessageScrollerScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
-  let position = { at_start: !default_at_end, at_end: default_at_end }
+  let position = { at_start: !default_at_end, at_end: default_at_end, }
   let emit = @cmd.Emit(_ => @cmd.none)
   @rabbita.Val::constant(
     render_message_scroller(
-      { viewport_id: "\{id}-viewport", position, emit },
+      { viewport_id: "\{id}-viewport", position, emit, },
       Some(id),
       class,
       title,

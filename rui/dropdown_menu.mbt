@@ -224,7 +224,7 @@ pub fn dropdown_menu(
             (current, @cmd.none)
           } else {
             (
-              { ..current, open, submenus: [] },
+              { ..current, open, submenus: [], },
               @cmd.batch([
                 if open {
                   @cmd.none
@@ -243,11 +243,11 @@ pub fn dropdown_menu(
             // the active index. Re-focusing from the subsequent render can
             // race a newer key press and leave focus and highlight on
             // different items, so the model update only owns roving state.
-            ({ ..current, active: index }, @cmd.none)
+            ({ ..current, active: index, }, @cmd.none)
           }
         DropdownToggleChecked(value) =>
           (
-            { ..current, checked: menu_toggle_value(current.checked, value) },
+            { ..current, checked: menu_toggle_value(current.checked, value), },
             @cmd.none,
           )
         DropdownSetRadio(group, value) =>
@@ -524,7 +524,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_radio_group(
     title,
     attrs,
     style,
-    children({ menu: scope.menu, group: value }),
+    children({ menu: scope.menu, group: value, }),
   )
 }
 
@@ -623,7 +623,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_sub(
     open,
     attrs,
     style,
-    children({ menu: scope.menu, key }),
+    children({ menu: scope.menu, key, }),
   )
 }
 

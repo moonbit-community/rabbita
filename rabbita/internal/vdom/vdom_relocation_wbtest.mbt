@@ -100,7 +100,7 @@ test "diffing unchanged keyed children does not reinsert DOM nodes" {
     ]),
   )
 
-  let scheduler = RelocationTestScheduler::{  }
+  let scheduler = RelocationTestScheduler::{ }
   let captured_link_listener : @dom.Listener = _ => ()
   ignore(
     diff_children(

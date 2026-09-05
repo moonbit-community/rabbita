@@ -63,9 +63,9 @@ fn update(model : Model, message : Msg, _ : Emit[Msg]) -> (Model, Cmd) {
         },
         @rabbita.none,
       )
-    UseOldTagger => ({ ..model, use_new_tagger: false }, @rabbita.none)
-    UseNewTagger => ({ ..model, use_new_tagger: true }, @rabbita.none)
-    Barrier => ({ ..model, barrier: model.barrier + 1 }, @rabbita.none)
+    UseOldTagger => ({ ..model, use_new_tagger: false, }, @rabbita.none)
+    UseNewTagger => ({ ..model, use_new_tagger: true, }, @rabbita.none)
+    Barrier => ({ ..model, barrier: model.barrier + 1, }, @rabbita.none)
   }
 }
 

@@ -116,7 +116,7 @@ fn calendar_days_in_month(year : Int, month : Int) -> Int {
 
 ///|
 fn calendar_first_of_month(date : CalendarDate) -> CalendarDate {
-  { year: date.year, month: date.month, day: 1 }
+  { year: date.year, month: date.month, day: 1, }
 }
 
 ///|
@@ -126,7 +126,7 @@ pub fn calendar_date(year~ : Int, month~ : Int, day~ : Int) -> CalendarDate {
   let year = calendar_clamp(year, 1, 9999)
   let month = calendar_clamp(month, 1, 12)
   let day = calendar_clamp(day, 1, calendar_days_in_month(year, month))
-  { year, month, day }
+  { year, month, day, }
 }
 
 ///|
@@ -389,7 +389,7 @@ fn calendar_initial_model(
     calendar_date(year=1970, month=1, day=1)
   }
   let focused = calendar_focus_target(visible, default_selected, today)
-  { visible, selected: default_selected, focused }
+  { visible, selected: default_selected, focused, }
 }
 
 ///|
@@ -1144,7 +1144,7 @@ fn calendar_update(
       let visible = calendar_shift_month(model.visible, delta)
       let focused = calendar_focus_target(visible, model.selected, today)
       (
-        { ..model, visible, focused },
+        { ..model, visible, focused, },
         calendar_emit_command(on_month_change, visible),
       )
     }
@@ -1154,16 +1154,16 @@ fn calendar_update(
       if visible != model.visible {
         commands.push(calendar_emit_command(on_month_change, visible))
       }
-      ({ visible, selected: Some(date), focused: date }, @cmd.batch(commands))
+      ({ visible, selected: Some(date), focused: date, }, @cmd.batch(commands))
     }
-    CalendarSetFocused(date) => ({ ..model, focused: date }, @cmd.none)
+    CalendarSetFocused(date) => ({ ..model, focused: date, }, @cmd.none)
     CalendarMoveFocus(date) => {
       let visible = calendar_first_of_month(date)
       let commands : Array[@cmd.Cmd] = [calendar_focus_day_cmd(root_id, date)]
       if visible != model.visible {
         commands.push(calendar_emit_command(on_month_change, visible))
       }
-      ({ ..model, visible, focused: date }, @cmd.batch(commands))
+      ({ ..model, visible, focused: date, }, @cmd.batch(commands))
     }
   }
 }

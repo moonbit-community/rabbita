@@ -236,7 +236,7 @@ fn[C : @html.IsChildren] render_radio_group(
       @cmd.none
     }
   })
-  let scope = { value, name, disabled, required, invalid, emit }
+  let scope = { value, name, disabled, required, invalid, emit, }
   let root_attrs = ui_attrs(attrs).data_set("value", value)
   if disabled {
     ignore(root_attrs.aria_disabled("true").data_set("disabled", ""))

@@ -20,9 +20,9 @@ priv enum ListMsg {
 ///|
 fn update_list(model : ListModel, message : ListMsg) -> ListModel {
   match message {
-    Reorder => { ..model, reversed: !model.reversed }
-    RemoveFirst => { ..model, has_first: false }
-    AddFirst => { ..model, has_first: true }
+    Reorder => { ..model, reversed: !model.reversed, }
+    RemoveFirst => { ..model, has_first: false, }
+    AddFirst => { ..model, has_first: true, }
   }
 }
 

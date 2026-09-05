@@ -118,7 +118,7 @@ fn calendar_multiple_initial_model(
 ) -> CalendarMultipleModel {
   let selected = calendar_normalize_dates(default_selected)
   let calendar = calendar_initial_model(default_month, selected.get(0), today)
-  { visible: calendar.visible, selected, focused: calendar.focused }
+  { visible: calendar.visible, selected, focused: calendar.focused, }
 }
 
 ///|
@@ -276,7 +276,7 @@ fn calendar_range_update(
       let selected = model.selected.map(range => range.start)
       let focused = calendar_focus_target(visible, selected, today)
       (
-        { ..model, visible, focused },
+        { ..model, visible, focused, },
         calendar_emit_command(on_month_change, visible),
       )
     }
@@ -290,18 +290,18 @@ fn calendar_range_update(
         commands.push(calendar_emit_command(on_month_change, visible))
       }
       (
-        { visible, selected: Some(selected), focused: date },
+        { visible, selected: Some(selected), focused: date, },
         @cmd.batch(commands),
       )
     }
-    CalendarRangeSetFocused(date) => ({ ..model, focused: date }, @cmd.none)
+    CalendarRangeSetFocused(date) => ({ ..model, focused: date, }, @cmd.none)
     CalendarRangeMoveFocus(date) => {
       let visible = calendar_first_of_month(date)
       let commands : Array[@cmd.Cmd] = [calendar_focus_day_cmd(root_id, date)]
       if visible != model.visible {
         commands.push(calendar_emit_command(on_month_change, visible))
       }
-      ({ ..model, visible, focused: date }, @cmd.batch(commands))
+      ({ ..model, visible, focused: date, }, @cmd.batch(commands))
     }
   }
 }
@@ -321,7 +321,7 @@ fn calendar_multiple_update(
       let visible = calendar_shift_month(model.visible, delta)
       let focused = calendar_focus_target(visible, model.selected.get(0), today)
       (
-        { ..model, visible, focused },
+        { ..model, visible, focused, },
         calendar_emit_command(on_month_change, visible),
       )
     }
@@ -334,16 +334,16 @@ fn calendar_multiple_update(
       if visible != model.visible {
         commands.push(calendar_emit_command(on_month_change, visible))
       }
-      ({ visible, selected, focused: date }, @cmd.batch(commands))
+      ({ visible, selected, focused: date, }, @cmd.batch(commands))
     }
-    CalendarMultipleSetFocused(date) => ({ ..model, focused: date }, @cmd.none)
+    CalendarMultipleSetFocused(date) => ({ ..model, focused: date, }, @cmd.none)
     CalendarMultipleMoveFocus(date) => {
       let visible = calendar_first_of_month(date)
       let commands : Array[@cmd.Cmd] = [calendar_focus_day_cmd(root_id, date)]
       if visible != model.visible {
         commands.push(calendar_emit_command(on_month_change, visible))
       }
-      ({ ..model, visible, focused: date }, @cmd.batch(commands))
+      ({ ..model, visible, focused: date, }, @cmd.batch(commands))
     }
   }
 }

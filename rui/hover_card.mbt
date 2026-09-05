@@ -210,7 +210,7 @@ fn bind_hover_card_events(id : String, dispatch : (Int, Int) -> Unit) -> Bool {
     binding.dispatch.val = dispatch
     return true
   }
-  let binding : HoverCardEventBinding = { root, dispatch: Ref(dispatch) }
+  let binding : HoverCardEventBinding = { root, dispatch: Ref(dispatch), }
   hover_card_event_bindings[id] = binding
   fn open_delay() -> Int {
     hover_card_config(trigger, root, "delay", "open-delay", 600)
@@ -351,7 +351,7 @@ fn hover_card_commit_native(
     if model.open {
       (model, @cmd.none)
     } else {
-      ({ ..model, open: true }, hover_card_notify_cmd(on_open_change, true))
+      ({ ..model, open: true, }, hover_card_notify_cmd(on_open_change, true))
     }
   } else {
     let next : HoverCardModel = {
