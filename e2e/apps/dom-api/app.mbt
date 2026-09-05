@@ -39,27 +39,27 @@ priv enum Msg {
 ///|
 fn update(model : Model, message : Msg) -> Model {
   match message {
-    RunNodes => { ..model, nodes: probe_nodes() }
-    RunCanvas => { ..model, canvas: probe_canvas() }
-    RunPlatform => { ..model, platform: probe_platform() }
-    RunDialogs => { ..model, dialogs: probe_dialogs() }
+    RunNodes => { ..model, nodes: probe_nodes(), }
+    RunCanvas => { ..model, canvas: probe_canvas(), }
+    RunPlatform => { ..model, platform: probe_platform(), }
+    RunDialogs => { ..model, dialogs: probe_dialogs(), }
     RunObservers => {
       probe_observers()
-      { ..model, observers: "running" }
+      { ..model, observers: "running", }
     }
     RunTimers => {
       probe_timers()
-      { ..model, timers: "running" }
+      { ..model, timers: "running", }
     }
     InstallEvents => {
       install_event_probes()
-      { ..model, events: "ready" }
+      { ..model, events: "ready", }
     }
     RunAsyncApis => {
       probe_async_apis()
-      { ..model, async_apis: "running" }
+      { ..model, async_apis: "running", }
     }
-    RunMedia => { ..model, media: probe_media() }
+    RunMedia => { ..model, media: probe_media(), }
     PushUrl => {
       @dom.window().push_url("/dom-api-pushed")
       model

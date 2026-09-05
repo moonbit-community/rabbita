@@ -167,7 +167,7 @@ fn capped_append(
 
 ///|
 fn with_listen_log(model : Model, line : String) -> Model {
-  { ..model, listen_log: capped_prepend(model.listen_log, line, 16) }
+  { ..model, listen_log: capped_prepend(model.listen_log, line, 16), }
 }
 
 ///|
@@ -179,7 +179,7 @@ fn with_transcript(
 ) -> Model {
   {
     ..model,
-    transcript: capped_append(model.transcript, { tone, label, body }, 24),
+    transcript: capped_append(model.transcript, { tone, label, body, }, 24),
   }
 }
 
@@ -290,33 +290,33 @@ fn decode_chat_message(raw : String) -> (String, String)? {
 fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
   match msg {
     UrlChanged(url) => {
-      let next = { ..model, url_input: url }
+      let next = { ..model, url_input: url, }
       let next = if model.listening {
-        { ..next, listen_status: "reconnecting" }
+        { ..next, listen_status: "reconnecting", }
       } else {
         next
       }
       (@rabbita.none, next)
     }
     ProtocolsChanged(protocols) => {
-      let next = { ..model, protocols_input: protocols }
+      let next = { ..model, protocols_input: protocols, }
       let next = if model.listening {
-        { ..next, listen_status: "reconnecting" }
+        { ..next, listen_status: "reconnecting", }
       } else {
         next
       }
       (@rabbita.none, next)
     }
     NicknameChanged(nickname) =>
-      (@rabbita.none, { ..model, nickname_input: nickname })
-    DraftChanged(draft) => (@rabbita.none, { ..model, draft_input: draft })
+      (@rabbita.none, { ..model, nickname_input: nickname, })
+    DraftChanged(draft) => (@rabbita.none, { ..model, draft_input: draft, })
     ToggleListen => {
       let url = normalized_url(model.url_input)
       if model.listening {
         (
           @rabbita.none,
           with_listen_log(
-            { ..model, listening: false, listen_status: "idle" },
+            { ..model, listening: false, listen_status: "idle", },
             "listen -> removed subscription",
           ),
         )
@@ -324,7 +324,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         (
           @rabbita.none,
           with_listen_log(
-            { ..model, listen_status: "missing url" },
+            { ..model, listen_status: "missing url", },
             "listen -> ignored because url is empty",
           ),
         )
@@ -332,13 +332,13 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         (
           @rabbita.none,
           with_listen_log(
-            { ..model, listening: true, listen_status: "connecting" },
+            { ..model, listening: true, listen_status: "connecting", },
             "listen -> install subscription for \{url}",
           ),
         )
       }
     }
-    ClearListenLog => (@rabbita.none, { ..model, listen_log: [] })
+    ClearListenLog => (@rabbita.none, { ..model, listen_log: [], })
     ListenOpened =>
       (
         @rabbita.none,
@@ -398,7 +398,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         (
           @rabbita.none,
           with_transcript(
-            { ..model, client_last_error: "client connect ignored: empty url" },
+            { ..model, client_last_error: "client connect ignored: empty url", },
             "error",
             "client",
             "connect ignored because url is empty",
@@ -448,7 +448,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         )
       } else {
         let sent_model = with_transcript(
-          { ..model, draft_input: "" },
+          { ..model, draft_input: "", },
           "self",
           normalized_nickname(model.nickname_input),
           text,
@@ -470,7 +470,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         )
       } else {
         let sent_model = with_transcript(
-          { ..model, draft_input: "" },
+          { ..model, draft_input: "", },
           "self",
           "raw",
           text,
@@ -482,7 +482,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
       }
     }
     ClientRefreshState => (refresh_state_cmd(emit), model)
-    ClearTranscript => (@rabbita.none, { ..model, transcript: [] })
+    ClearTranscript => (@rabbita.none, { ..model, transcript: [], })
     ClientSocketEvent(event) =>
       match event {
         Opened =>
@@ -549,7 +549,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
       (
         @rabbita.none,
         with_transcript(
-          { ..model, client_status: "error", client_last_error: message },
+          { ..model, client_status: "error", client_last_error: message, },
           "error",
           "client",
           message,
@@ -885,7 +885,7 @@ fn view(emit : Emit[Msg], model : Val[Model]) -> Val[Html] {
     client_socket_url: model.client_socket_url,
     client_state_note: model.client_state_note,
   })
-  let transcript = model.map(model => { transcript: model.transcript })
+  let transcript = model.map(model => { transcript: model.transcript, })
   let shared = shared_config_panel(emit, shared)
   let listen = listen_panel(emit, listen)
   let client = client_panel(emit, client)

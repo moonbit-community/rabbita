@@ -202,9 +202,9 @@ fn active_actions(emit : Emit[Msg], model : Model) -> Array[Html] {
 ///|
 fn update(_ : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
   match msg {
-    SelectTab(tab) => (@rabbita.none, { ..model, active_tab: tab })
-    Tick => (@rabbita.none, { ..model, tick_count: model.tick_count + 1 })
-    ToggleTicker => (@rabbita.none, { ..model, ticking: !model.ticking })
+    SelectTab(tab) => (@rabbita.none, { ..model, active_tab: tab, })
+    Tick => (@rabbita.none, { ..model, tick_count: model.tick_count + 1, })
+    ToggleTicker => (@rabbita.none, { ..model, ticking: !model.ticking, })
     ViewportChanged(viewport) =>
       (
         @rabbita.none,
@@ -332,7 +332,7 @@ fn output_view(tab : Val[Tab], model : Val[Model]) -> Val[Html] {
     model.map(model => {
       div(class="section") <| [
         p(class="section-title", "output"),
-        div(class="output") <| output_lines({ ..model, active_tab: tab }),
+        div(class="output") <| output_lines({ ..model, active_tab: tab, }),
       ]
     })
   })

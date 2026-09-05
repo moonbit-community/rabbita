@@ -207,7 +207,7 @@ fn resizable_handle_bounds(
   between : Int,
 ) -> ResizableHandleBounds {
   if between < 0 || between + 1 >= sizes.length() {
-    return { valid: false, value: 0, min: 0, max: 0 }
+    return { valid: false, value: 0, min: 0, max: 0, }
   }
   let left = sizes[between]
   let right = sizes[between + 1]
@@ -221,9 +221,9 @@ fn resizable_handle_bounds(
     pair_total - min_sizes[between + 1],
   )
   if minimum > maximum {
-    { valid: false, value: left, min: left, max: left }
+    { valid: false, value: left, min: left, max: left, }
   } else {
-    { valid: true, value: left, min: minimum, max: maximum }
+    { valid: true, value: left, min: minimum, max: maximum, }
   }
 }
 
@@ -488,7 +488,7 @@ fn bind_resizable_pointer(
     binding.resize = resize
     return
   }
-  let binding : ResizablePointerBinding = { root, resize, active: None }
+  let binding : ResizablePointerBinding = { root, resize, active: None, }
   resizable_pointer_bindings.push(binding)
   resizable_bind_pointer_listeners(binding)
 }
@@ -951,7 +951,7 @@ pub fn[C : @html.IsChildren] resizable_panel_group(
     title?,
     attrs?,
     style~,
-    group => children({ group, control_id: "\{id}-handle" }),
+    group => children({ group, control_id: "\{id}-handle", }),
   )
 }
 

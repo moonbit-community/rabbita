@@ -35,17 +35,17 @@ pub fn ArtifactPath::join_module_path(
   self : Self,
   mod : MooncakesPath,
 ) -> ArtifactPath {
-  { ..self, mod_path: Some(mod.to_string()) }
+  { ..self, mod_path: Some(mod.to_string()), }
 }
 
 ///|
 pub fn ArtifactPath::new(root : SourcePath) -> ArtifactPath {
-  { root, relative: "", mod_path: None }
+  { root, relative: "", mod_path: None, }
 }
 
 ///|
 pub fn ArtifactPath::join_relative(s1 : Self, s2 : String) -> ArtifactPath {
-  { ..s1, relative: Path::join(s1.relative, s2).0 }
+  { ..s1, relative: Path::join(s1.relative, s2).0, }
 }
 
 ///|

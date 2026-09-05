@@ -531,7 +531,7 @@ pub fn context_menu(
       match msg {
         ContextOpenAt(x, y, point_x, point_y) => {
           let next = {
-            menu: { ..current.menu, open: true, active: -1, submenus: [] },
+            menu: { ..current.menu, open: true, active: -1, submenus: [], },
             x,
             y,
             point_x,
@@ -558,7 +558,7 @@ pub fn context_menu(
             (current, @cmd.none)
           } else {
             (
-              { ..current, menu: { ..current.menu, open, submenus: [] } },
+              { ..current, menu: { ..current.menu, open, submenus: [], }, },
               @cmd.batch([
                 if open {
                   context_show_cmd(
@@ -588,7 +588,7 @@ pub fn context_menu(
             (current, @cmd.none)
           } else {
             (
-              { ..current, menu: { ..current.menu, open, submenus: [] } },
+              { ..current, menu: { ..current.menu, open, submenus: [], }, },
               @cmd.batch([
                 if open {
                   @cmd.none
@@ -604,7 +604,7 @@ pub fn context_menu(
             (current, @cmd.none)
           } else {
             (
-              { ..current, menu: { ..current.menu, active: index } },
+              { ..current, menu: { ..current.menu, active: index, }, },
               menu_focus_item_cmd(id + "-root", index),
             )
           }
@@ -636,7 +636,7 @@ pub fn context_menu(
             (current, @cmd.none)
           } else {
             (
-              { ..current, menu: { ..current.menu, submenus, } },
+              { ..current, menu: { ..current.menu, submenus, }, },
               menu_position_submenus_cmd(id + "-root"),
             )
           }
@@ -908,7 +908,7 @@ pub fn[C : @html.IsChildren] context_menu_radio_group(
     title,
     attrs,
     style,
-    children({ menu: scope.menu, group: value }),
+    children({ menu: scope.menu, group: value, }),
   )
 }
 
@@ -1007,7 +1007,7 @@ pub fn[C : @html.IsChildren] context_menu_sub(
     open,
     attrs,
     style,
-    children({ menu: scope.menu, key }),
+    children({ menu: scope.menu, key, }),
   )
 }
 

@@ -240,7 +240,7 @@ pub fn tab_entry(
   content~ : @html.Html,
   disabled? : Bool = false,
 ) -> TabEntry {
-  { value, label, icon, content, disabled }
+  { value, label, icon, content, disabled, }
 }
 
 ///|

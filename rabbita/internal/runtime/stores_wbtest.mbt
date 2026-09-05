@@ -28,7 +28,7 @@ fn cleanup_test_sub(on_unload : () -> Unit) -> @sub.Sub {
     Local,
     CleanupPayload("cleanup-test"),
     SubLoader((_, _) => {
-      Some({ unload: _ => on_unload(), update_tagger: _ => () })
+      Some({ unload: _ => on_unload(), update_tagger: _ => (), })
     }),
   )
 }

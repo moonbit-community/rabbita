@@ -11,7 +11,7 @@ pub fn combobox_option(
   label~ : String,
   disabled? : Bool = false,
 ) -> ComboboxOption {
-  { value, label, disabled }
+  { value, label, disabled, }
 }
 
 ///|
@@ -1482,7 +1482,7 @@ pub fn combobox(
             (current, @cmd.none)
           } else {
             (
-              { ..current, open: true, active: -1 },
+              { ..current, open: true, active: -1, },
               @cmd.batch([
                 combobox_popup_cmd(id, Some(true), false),
                 combobox_notify_open(on_open_change, true),
@@ -1500,7 +1500,7 @@ pub fn combobox(
               combobox_selected_input_value(options, current.values, multiple)
             }
             (
-              { ..current, open, query, active: -1 },
+              { ..current, open, query, active: -1, },
               @cmd.batch([
                 combobox_popup_cmd(id, Some(open), true),
                 if query != current.query {
@@ -1517,7 +1517,7 @@ pub fn combobox(
             (current, @cmd.none)
           } else if open {
             (
-              { ..current, open: true, active: -1 },
+              { ..current, open: true, active: -1, },
               combobox_notify_open(on_open_change, true),
             )
           } else {
@@ -1527,7 +1527,7 @@ pub fn combobox(
               multiple,
             )
             (
-              { ..current, open: false, query, active: -1 },
+              { ..current, open: false, query, active: -1, },
               @cmd.batch([
                 combobox_notify_open(on_open_change, false),
                 if query != current.query {
@@ -1544,7 +1544,7 @@ pub fn combobox(
             current.values.length() > 0
           let values = if clearing_selection { [] } else { current.values }
           (
-            { open: true, query, values, active: -1 },
+            { open: true, query, values, active: -1, },
             @cmd.batch([
               combobox_popup_cmd(id, Some(true), false),
               if current.open {
@@ -1577,7 +1577,7 @@ pub fn combobox(
             direction,
           )
           (
-            { ..current, open: true, active },
+            { ..current, open: true, active, },
             @cmd.batch([
               combobox_popup_cmd(id, Some(true), false),
               if current.open {
@@ -1608,7 +1608,7 @@ pub fn combobox(
           let active = combobox_first_match(options, filter_query, true)
           ({ ..current, active, }, @cmd.none)
         }
-        ComboboxHighlight(index) => ({ ..current, active: index }, @cmd.none)
+        ComboboxHighlight(index) => ({ ..current, active: index, }, @cmd.none)
         ComboboxChoose(requested_index) => {
           let index = if requested_index < 0 {
             current.active
@@ -1637,7 +1637,16 @@ pub fn combobox(
             let open = multiple
             let query = combobox_selected_input_value(options, values, multiple)
             (
-              { values, open, query, active: if multiple { index } else { -1 } },
+              {
+                values,
+                open,
+                query,
+                active: if multiple {
+                  index
+                } else {
+                  -1
+                },
+              },
               @cmd.batch([
                 combobox_notify_values(
                   on_value_change, on_values_change, values,
@@ -1670,7 +1679,7 @@ pub fn combobox(
         }
         ComboboxClear =>
           (
-            { ..current, values: [], query: "", active: -1 },
+            { ..current, values: [], query: "", active: -1, },
             @cmd.batch([
               combobox_notify_values(on_value_change, on_values_change, []),
               combobox_notify_query(on_query_change, ""),
@@ -1685,7 +1694,7 @@ pub fn combobox(
               multiple,
             )
             (
-              { ..current, open: false, query, active: -1 },
+              { ..current, open: false, query, active: -1, },
               @cmd.batch([
                 combobox_popup_cmd(id, Some(false), false),
                 combobox_notify_open(on_open_change, false),
@@ -1707,7 +1716,7 @@ pub fn combobox(
               multiple,
             )
             (
-              { ..current, open: false, query, active: -1 },
+              { ..current, open: false, query, active: -1, },
               @cmd.batch([
                 combobox_popup_cmd(id, Some(false), false),
                 combobox_notify_open(on_open_change, false),

@@ -35,12 +35,12 @@ fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
 ///|
 fn app() -> Val[Html] {
   let (model, _) = @rabbita.create_state(
-    { width: 0, height: 0 },
+    { width: 0, height: 0, },
     subscriptions~,
     update=fn(_, msg, _) {
       let model = match msg {
         ViewportChanged(viewport) =>
-          { width: viewport.width, height: viewport.height }
+          { width: viewport.width, height: viewport.height, }
       }
       (model, none)
     },

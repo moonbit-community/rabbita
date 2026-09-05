@@ -21,7 +21,7 @@ using @html {
 
 ///|
 test {
-  let model : Model = { count: 0 }
+  let model : Model = { count: 0, }
   ignore(model)
 
   ignore(Inc)

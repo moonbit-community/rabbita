@@ -356,7 +356,7 @@ fn tooltip_provider_mark_closed(provider : @dom.Element) -> Unit {
       return
     }
   }
-  tooltip_provider_closes.push({ element: provider, closed_at: Ref(now) })
+  tooltip_provider_closes.push({ element: provider, closed_at: Ref(now), })
 }
 
 ///|
@@ -948,7 +948,7 @@ fn floating_coordinates(
   } else {
     top = anchor.get_bottom() - floating_height + align_offset
   }
-  { side, left, top }
+  { side, left, top, }
 }
 
 ///|

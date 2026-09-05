@@ -125,7 +125,7 @@ pub fn Props::new(
   styles : Map[String, String],
   handlers : Map[String, (Event, &Scheduler) -> Unit],
 ) -> Props {
-  { handlers, attrs, styles, props }
+  { handlers, attrs, styles, props, }
 }
 
 ///|

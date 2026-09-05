@@ -278,7 +278,7 @@ pub fn input_otp(
   render? : (InputOtpScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let initial_value = otp_normalize(default_value, max_length)
-  let (model, emit) = @rabbita.create_state({ value: initial_value }, update=fn(
+  let (model, emit) = @rabbita.create_state({ value: initial_value, }, update=fn(
     model,
     msg,
     _,
@@ -301,7 +301,7 @@ pub fn input_otp(
   })
   model.view(model => {
     render_input_otp(
-      { model, max_length, invalid, disabled, input_id: id, emit },
+      { model, max_length, invalid, disabled, input_id: id, emit, },
       separator_after,
       aria_label,
       inputmode,
@@ -338,11 +338,11 @@ pub fn input_otp(
   render? : (InputOtpScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_value_change, on_complete))
-  let model = { value: otp_normalize(default_value, max_length) }
+  let model = { value: otp_normalize(default_value, max_length), }
   let emit = @cmd.Emit(_ => @cmd.none)
   @rabbita.Val::constant(
     render_input_otp(
-      { model, max_length, invalid, disabled, input_id: id, emit },
+      { model, max_length, invalid, disabled, input_id: id, emit, },
       separator_after,
       aria_label,
       inputmode,

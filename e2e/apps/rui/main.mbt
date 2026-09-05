@@ -659,7 +659,7 @@ fn fixture_update(
 ) -> (FixtureModel, Cmd) {
   match message {
     FixtureUrlChanged(url) =>
-      ({ route: fixture_route_from_path(url.path) }, @rabbita.none)
+      ({ route: fixture_route_from_path(url.path), }, @rabbita.none)
     FixtureUrlRequest(request) =>
       match request {
         Internal(url) => (model, @nav.push_url(url.to_string()))
@@ -867,7 +867,7 @@ fn fixture_missing_page(path : String) -> Val[Html] {
 ///|
 fn app() -> Val[Html] {
   let (model, _) = @rabbita.create_state(
-    { route: fixture_current_route() },
+    { route: fixture_current_route(), },
     update=fixture_update,
     subscriptions=fixture_subscriptions,
   )

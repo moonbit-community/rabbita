@@ -68,7 +68,7 @@ pub async fn Server::Server(
   if !silent {
     println("Server is running on http://127.0.0.1:\{port}")
   }
-  { app, port }
+  { app, port, }
 }
 
 ///|

@@ -320,7 +320,7 @@ fn slider_pointer_config(
   } else {
     0
   }
-  { min, max, step, gap: step * effective_steps }
+  { min, max, step, gap: step * effective_steps, }
 }
 
 ///|

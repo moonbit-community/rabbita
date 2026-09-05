@@ -755,7 +755,7 @@ pub fn menubar(
               active_value: Some(value),
               active_index: index,
               focus_index: index,
-              menu: { ..current.menu, open: true, active: -1, submenus: [] },
+              menu: { ..current.menu, open: true, active: -1, submenus: [], },
             }
             (
               next,
@@ -774,7 +774,7 @@ pub fn menubar(
             active_value: Some(value),
             active_index: index,
             focus_index: index,
-            menu: { ..current.menu, open: true, active: -1, submenus: [] },
+            menu: { ..current.menu, open: true, active: -1, submenus: [], },
           }
           (
             next,
@@ -803,7 +803,7 @@ pub fn menubar(
                 active_value: None,
                 active_index: -1,
                 focus_index: index,
-                menu: { ..current.menu, open: false, submenus: [] },
+                menu: { ..current.menu, open: false, submenus: [], },
               },
               @cmd.batch([
                 floating_set_open_cmd(menubar_content_id(id, index), false),
@@ -820,7 +820,7 @@ pub fn menubar(
               active_value: Some(value),
               active_index: index,
               focus_index: index,
-              menu: { ..current.menu, open: true, active: -1, submenus: [] },
+              menu: { ..current.menu, open: true, active: -1, submenus: [], },
             }
             (
               next,
@@ -845,7 +845,7 @@ pub fn menubar(
                 active_value: None,
                 active_index: -1,
                 focus_index: current.active_index,
-                menu: { ..current.menu, open: false, submenus: [] },
+                menu: { ..current.menu, open: false, submenus: [], },
               },
               @cmd.batch([
                 floating_set_open_cmd(
@@ -875,7 +875,7 @@ pub fn menubar(
                   active_value: Some(value),
                   active_index: index,
                   focus_index: index,
-                  menu: { ..current.menu, open: true },
+                  menu: { ..current.menu, open: true, },
                 },
                 @cmd.none,
               )
@@ -886,7 +886,7 @@ pub fn menubar(
                 active_value: None,
                 active_index: -1,
                 focus_index: index,
-                menu: { ..current.menu, open: false, submenus: [] },
+                menu: { ..current.menu, open: false, submenus: [], },
               },
               @cmd.batch([
                 menu_position_submenus_cmd(id + "-root"),
@@ -905,7 +905,7 @@ pub fn menubar(
             (current, @cmd.none)
           } else {
             (
-              { ..current, menu: { ..current.menu, active: index } },
+              { ..current, menu: { ..current.menu, active: index, }, },
               menu_focus_item_cmd(
                 id + "-root",
                 index,
@@ -941,12 +941,13 @@ pub fn menubar(
             (current, @cmd.none)
           } else {
             (
-              { ..current, menu: { ..current.menu, submenus, } },
+              { ..current, menu: { ..current.menu, submenus, }, },
               menu_position_submenus_cmd(id + "-root"),
             )
           }
         }
-        MenubarSetFocus(index) => ({ ..current, focus_index: index }, @cmd.none)
+        MenubarSetFocus(index) =>
+          ({ ..current, focus_index: index, }, @cmd.none)
       }
     },
   )
@@ -1313,7 +1314,7 @@ pub fn[C : @html.IsChildren] menubar_radio_group(
     None,
     attrs,
     style,
-    children({ menu: scope.menu, group: value }),
+    children({ menu: scope.menu, group: value, }),
   )
 }
 
@@ -1400,7 +1401,7 @@ pub fn[C : @html.IsChildren] menubar_sub(
     open,
     attrs,
     style,
-    children({ menu: scope.menu, key }),
+    children({ menu: scope.menu, key, }),
   )
 }
 

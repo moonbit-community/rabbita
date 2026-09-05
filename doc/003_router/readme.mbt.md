@@ -120,9 +120,9 @@ view function.
 ///|
 fn app() -> Val[Html] {
   let articles = from_array([
-    { id: "1", title: "Article 1", content: "content 1" },
-    { id: "2", title: "Article 2", content: "content 2" },
-    { id: "3", title: "Article 3", content: "content 3" },
+    { id: "1", title: "Article 1", content: "content 1", },
+    { id: "2", title: "Article 2", content: "content 2", },
+    { id: "3", title: "Article 3", content: "content 3", },
   ])
   let (route, _) = @rabbita.create_state(
     Home,

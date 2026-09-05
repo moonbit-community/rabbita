@@ -47,7 +47,7 @@ let default_handler : Op = {
 #internal(experimental, "This API is unstable and may change in the future.")
 pub fn Op::Op() -> Self {
   // copy the handler
-  { ..default_handler }
+  { ..default_handler, }
 }
 
 ///|

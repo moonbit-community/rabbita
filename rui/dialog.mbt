@@ -266,7 +266,7 @@ pub fn dialog(
   let (model, emit) = @rabbita.create_state_with_init(
     init=fn(emit) {
       (
-        { open: default_open, generation: 0 },
+        { open: default_open, generation: 0, },
         @cmd.batch([
           ui_dialog_bind(id, emit(RequestDialogClose)),
           if default_open {
@@ -283,7 +283,7 @@ pub fn dialog(
           if current.open {
             (current, @cmd.none)
           } else {
-            let next = { open: true, generation: current.generation + 1 }
+            let next = { open: true, generation: current.generation + 1, }
             (
               next,
               @cmd.batch([
@@ -296,7 +296,7 @@ pub fn dialog(
           if current.open {
             let generation = current.generation + 1
             (
-              { open: false, generation },
+              { open: false, generation, },
               @cmd.batch([
                 dialog_emit_or_none(on_open_change, false),
                 @rabbita.delay(
@@ -316,7 +316,7 @@ pub fn dialog(
           }
         DialogDidClose(value) =>
           (
-            { open: false, generation: current.generation + 1 },
+            { open: false, generation: current.generation + 1, },
             @cmd.batch([
               if current.open {
                 dialog_emit_or_none(on_open_change, false)

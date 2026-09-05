@@ -65,7 +65,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         guard self is BuiltinSub::Every(_, new_cmd) else { return }
         tagger.val = new_cmd
       }
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     AnimationFrame(cmd) => {
       let tagger = @ref.Ref(cmd)
@@ -92,7 +92,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         guard self is BuiltinSub::AnimationFrame(new_cmd) else { return }
         tagger.val = new_cmd
       }
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     Keydown(cmd) => {
       let tagger = @ref.Ref(cmd)
@@ -111,7 +111,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         tagger.val = new_cmd
       }
       @dom.document().as_event_target().add_event_listener("keydown", listener)
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     Keyup(cmd) => {
       let tagger = @ref.Ref(cmd)
@@ -130,7 +130,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         tagger.val = new_cmd
       }
       @dom.document().as_event_target().add_event_listener("keyup", listener)
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     MouseMove(cmd) => {
       let tagger = @ref.Ref(cmd)
@@ -151,7 +151,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
       @dom.document()
       .as_event_target()
       .add_event_listener("mousemove", listener)
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     Resize(cmd) => {
       let mut tagger = cmd
@@ -174,7 +174,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         tagger = new_cmd
       }
       @dom.window().as_event_target().add_event_listener("resize", listener)
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     Scroll(cmd) => {
       let mut tagger = cmd
@@ -192,7 +192,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         tagger = new_cmd
       }
       @dom.window().as_event_target().add_event_listener("scroll", listener)
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     UrlChanged(cmd) => {
       let mut tagger = cmd
@@ -222,7 +222,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         tagger = new_cmd
       }
       @dom.window().to_event_target().add_event_listener("popstate", listener)
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     UrlRequest(cmd) => {
       let mut tagger = cmd
@@ -246,7 +246,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         guard self is BuiltinSub::UrlRequest(new_cmd) else { return }
         tagger = new_cmd
       }
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     VisibilityChange(cmd) => {
       let mut tagger = cmd
@@ -265,7 +265,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
       @dom.document()
       .as_event_target()
       .add_event_listener("visibilitychange", listener)
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     _ => None
   }
@@ -292,7 +292,7 @@ fn builtin_sub_loader(payload : Error, scheduler : &Scheduler) -> RunningSub? {
         guard self is BuiltinSub::UrlChanged(new_cmd) else { return }
         tagger = new_cmd
       }
-      Some({ unload, update_tagger })
+      Some({ unload, update_tagger, })
     }
     _ => None
   }
@@ -343,9 +343,9 @@ fn keyboard_from_dom(event : @dom.KeyboardEvent) -> Keyboard {
 #cfg(target="js")
 fn mouse_from_dom(event : @dom.MouseEvent) -> Mouse {
   Mouse::new(
-    screen={ x: event.get_screen_x(), y: event.get_screen_y() },
-    offset={ x: event.get_offset_x(), y: event.get_offset_y() },
-    client={ x: event.get_client_x(), y: event.get_client_y() },
+    screen={ x: event.get_screen_x(), y: event.get_screen_y(), },
+    offset={ x: event.get_offset_x(), y: event.get_offset_y(), },
+    client={ x: event.get_client_x(), y: event.get_client_y(), },
   )
 }
 
@@ -354,7 +354,7 @@ fn mouse_from_dom(event : @dom.MouseEvent) -> Mouse {
 fn window_scroll() -> Scroll {
   let root = @dom.document().query_selector("html").unwrap()
   Scroll::new(
-    offset={ x: @dom.window().scroll_x(), y: @dom.window().scroll_y() },
+    offset={ x: @dom.window().scroll_x(), y: @dom.window().scroll_y(), },
     width=root.get_scroll_width(),
     height=root.get_scroll_height(),
   )

@@ -10,7 +10,7 @@ pub fn date_picker_preset(
   label~ : String,
   value~ : CalendarDate,
 ) -> DatePickerPreset {
-  { label, value }
+  { label, value, }
 }
 
 ///|
@@ -26,9 +26,9 @@ struct DateRange {
 /// boundaries are exchanged.
 pub fn date_range(start~ : CalendarDate, end? : CalendarDate) -> DateRange {
   if end is Some(end) && calendar_compare_dates(end, start) < 0 {
-    { start: end, end: Some(start) }
+    { start: end, end: Some(start), }
   } else {
-    { start, end }
+    { start, end, }
   }
 }
 
@@ -659,12 +659,12 @@ fn date_picker_update(
     DatePickerNavigate(delta) => {
       let visible = calendar_shift_month(current.visible, delta)
       let focused = calendar_focus_target(visible, current.value, today)
-      ({ ..current, visible, focused }, @cmd.none)
+      ({ ..current, visible, focused, }, @cmd.none)
     }
     DatePickerChoose(value) => {
       let visible = calendar_first_of_month(value)
       (
-        { open: false, visible, value: Some(value), focused: value },
+        { open: false, visible, value: Some(value), focused: value, },
         @cmd.batch([
           date_picker_notify(on_value_change, value),
           floating_set_open_cmd(id, false),
@@ -676,11 +676,11 @@ fn date_picker_update(
         ]),
       )
     }
-    DatePickerSetFocused(value) => ({ ..current, focused: value }, @cmd.none)
+    DatePickerSetFocused(value) => ({ ..current, focused: value, }, @cmd.none)
     DatePickerMoveFocus(value) => {
       let visible = calendar_first_of_month(value)
       (
-        { ..current, visible, focused: value },
+        { ..current, visible, focused: value, },
         calendar_focus_day_cmd(Some("\{id}-calendar"), value),
       )
     }
@@ -758,7 +758,7 @@ fn date_range_picker_update(
       let visible = calendar_shift_month(current.visible, delta)
       let selected = current.value.map(value => value.start)
       let focused = calendar_focus_target(visible, selected, today)
-      ({ ..current, visible, focused }, @cmd.none)
+      ({ ..current, visible, focused, }, @cmd.none)
     }
     DateRangePickerChoose(chosen) => {
       let (value, complete) = date_range_picker_next_value(
@@ -768,7 +768,7 @@ fn date_range_picker_update(
       let visible = date_range_picker_visible_for_date(current.visible, chosen)
       let open = !complete
       (
-        { open, visible, value: Some(value), focused: chosen },
+        { open, visible, value: Some(value), focused: chosen, },
         @cmd.batch([
           date_picker_notify(on_value_change, value),
           if complete {
@@ -785,14 +785,14 @@ fn date_range_picker_update(
       )
     }
     DateRangePickerSetFocused(value) =>
-      ({ ..current, focused: value }, @cmd.none)
+      ({ ..current, focused: value, }, @cmd.none)
     DateRangePickerMoveFocus(value) => {
       let visible = date_range_picker_visible_for_date(current.visible, value)
       let focus_calendar_id = date_range_picker_focus_calendar_id(
         id, visible, value,
       )
       (
-        { ..current, visible, focused: value },
+        { ..current, visible, focused: value, },
         calendar_focus_day_cmd(Some(focus_calendar_id), value),
       )
     }

@@ -7,7 +7,7 @@ struct Mouse {
 
 ///|
 pub fn Mouse::new(screen~ : Pos, offset~ : Pos, client~ : Pos) -> Self {
-  { screen, offset, client }
+  { screen, offset, client, }
 }
 
 ///|
@@ -128,7 +128,7 @@ struct Scroll {
 
 ///|
 pub fn Scroll::new(offset~ : Pos, width~ : Double, height~ : Double) -> Self {
-  { scroll_offset: offset, scroll_width: width, scroll_height: height }
+  { scroll_offset: offset, scroll_width: width, scroll_height: height, }
 }
 
 ///|

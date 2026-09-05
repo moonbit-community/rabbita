@@ -116,7 +116,7 @@ fn op_invoke(
               }
               old_entry.socket.close_quietly()
             }
-            connections[id] = { socket: created, listeners }
+            connections[id] = { socket: created, listeners, }
           }
           Err(message) =>
             if failed is Some(failed) {

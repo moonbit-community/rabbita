@@ -41,9 +41,9 @@ fn update(model : Model, message : Msg, _ : Emit[Msg]) -> (Model, Cmd) {
     ReplaceSecond => (model, @nav.replace_url("/second?from=replace"))
     GoBack => (model, @nav.back())
     GoForward => (model, @nav.forward())
-    Increment => ({ ..model, count: model.count + 1 }, @rabbita.none)
+    Increment => ({ ..model, count: model.count + 1, }, @rabbita.none)
     UrlChanged(url) =>
-      ({ ..model, location: location_label(url) }, @rabbita.none)
+      ({ ..model, location: location_label(url), }, @rabbita.none)
   }
 }
 
@@ -55,7 +55,7 @@ fn subscriptions(_ : Model, emit : Emit[Msg]) -> @sub.Sub {
 ///|
 fn app() -> Val[Html] {
   let (model, emit) = @rabbita.create_state(
-    { location: current_location(), count: 0 },
+    { location: current_location(), count: 0, },
     update~,
     subscriptions~,
   )

@@ -237,7 +237,7 @@ async fn resolve_project_layout(
       }
     }
   }
-  { root, browser_entry, server_entry, public_dir }
+  { root, browser_entry, server_entry, public_dir, }
 }
 
 ///|

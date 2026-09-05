@@ -2,9 +2,9 @@
 /// The demo data behind `GET /issues`; a real app would reach for a database
 /// here.
 let issues : Array[@app.Issue] = [
-  { content: "issue 1", status: "done" },
-  { content: "issue 2", status: "pending" },
-  { content: "issue 3", status: "pending" },
+  { content: "issue 1", status: "done", },
+  { content: "issue 2", status: "pending", },
+  { content: "issue 3", status: "pending", },
 ]
 
 ///|

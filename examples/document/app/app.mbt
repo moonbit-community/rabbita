@@ -2,19 +2,7 @@
 using @rabbita {type Val, type Resource, none, batch, create_resource}
 
 ///|
-using @html {
-  type Html,
-  title,
-  div,
-  h2,
-  button,
-  p,
-  ul,
-  li,
-  html,
-  body,
-  head,
-}
+using @html {type Html, title, div, h2, button, p, ul, li, html, body, head}
 
 ///|
 priv enum Msg {

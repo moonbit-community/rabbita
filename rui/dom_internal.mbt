@@ -180,7 +180,7 @@ fn ui_roving_context(
   if items.length() == 0 {
     None
   } else {
-    Some({ current, root, items })
+    Some({ current, root, items, })
   }
 }
 

@@ -17,7 +17,7 @@ struct VirtualFileSystem {
 ///|
 #as_free_fn
 pub fn VirtualFileSystem::new(map : Map[String, VirtualFs]) -> Self {
-  let self = { roots: Map([]) }
+  let self = { roots: Map([]), }
   for entry in map.iter() {
     let (path, node) = entry
     self.mount(path, node)

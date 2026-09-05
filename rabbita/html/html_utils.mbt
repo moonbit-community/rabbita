@@ -30,9 +30,9 @@ fn push_click(value : Cmd?, attrs : Attrs) -> Unit {
 #cfg(target="js")
 fn mouse_from_dom(event : @dom.MouseEvent) -> Mouse {
   Mouse::new(
-    screen={ x: event.get_screen_x(), y: event.get_screen_y() },
-    offset={ x: event.get_offset_x(), y: event.get_offset_y() },
-    client={ x: event.get_client_x(), y: event.get_client_y() },
+    screen={ x: event.get_screen_x(), y: event.get_screen_y(), },
+    offset={ x: event.get_offset_x(), y: event.get_offset_y(), },
+    client={ x: event.get_client_x(), y: event.get_client_y(), },
   )
 }
 
@@ -56,7 +56,7 @@ fn keyboard_from_dom(event : @dom.KeyboardEvent) -> Keyboard {
 #cfg(target="js")
 fn scroll_from_dom(element : @dom.Element) -> Scroll {
   Scroll::new(
-    offset={ x: element.get_scroll_left(), y: element.get_scroll_top() },
+    offset={ x: element.get_scroll_left(), y: element.get_scroll_top(), },
     width=element.get_scroll_width(),
     height=element.get_scroll_height(),
   )
