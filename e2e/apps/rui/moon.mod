@@ -3,8 +3,8 @@ name = "local/rabbita-e2e-rui"
 version = "0.1.0"
 
 import {
-  "Yoorkin/rui@0.1.1",
-  "moonbit-community/rabbita@0.15.4",
+  "Yoorkin/rui@0.1.2",
+  "moonbit-community/rabbita@0.15.6",
 }
 
 license = "Apache-2.0"
