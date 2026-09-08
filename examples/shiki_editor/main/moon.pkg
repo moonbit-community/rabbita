@@ -3,7 +3,6 @@ import {
   "moonbit-community/rabbita/js",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/dom",
-  "moonbitlang/core/env",
   "Yoorkin/shiki",
 }
 
