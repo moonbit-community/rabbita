@@ -150,7 +150,7 @@ fn initial_html() -> String {
 
 ///|
 fn split_lines(source : String) -> Array[String] {
-  let out = Array::new()
+  let out = Array()
   for line in source.split("\n") {
     let value = line.trim().to_owned()
     if value != "" {
