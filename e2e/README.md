@@ -16,12 +16,24 @@ Each application uses Warren's minimized root-package layout. The fixtures are:
 - `apps/subscriptions` on port `4307`
 - `apps/dom-api` on port `4308`
 - `apps/rui` on port `4309`
+- `apps/memo` on port `4310`
 
 The suite covers stable public behavior: state and message composition, forms
 and DOM events, incremental collection lifecycles, same-origin navigation,
 commands and asynchronous work, mocked HTTP, and subscription lifecycles. It
 also exercises the public DOM bindings against real browser objects. It does
 not assert ordering for batched or nested messages.
+
+`apps/memo` verifies memo compute counts, independent caches, custom hashes,
+event updates, and transitions between ordinary, fragment, and nested memo
+nodes, including removal and remounting. It also covers keyed fragment moves,
+empty fragment boundaries, and independent invalidation of nested memo caches. Run it with
+`npm test -- --project=memo-chromium`.
+Its components use `create_variable` for state and expose MoonBit render counters
+through DOM snapshots. Each snapshot has a reading number so tests wait for a
+fresh result without accessing JavaScript globals or adding FFI probes.
+For manual checks, `Toggle keyed trailing marker` removes the final sibling so
+keyed fragments can also move directly to the end of their container.
 
 `apps/rui` is a single-page showcase of the RUI (`Yoorkin/rui`) component
 library. One Playwright project drives it and the `rui.*.spec.ts` files cover

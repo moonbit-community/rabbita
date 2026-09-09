@@ -143,6 +143,10 @@ pub fn[C : IsChildren] mark(style? : Array[String], id? : String, class? : Strin
 
 pub fn[C : IsChildren] math(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
+pub fn[T : Hash] memo(T, (T) -> Html) -> Html
+
+pub fn[T] memo_by(T, (T) -> Html, by~ : (T) -> Int) -> Html
+
 pub fn[C : IsChildren] menu(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn meta(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, charset? : String, name? : String, content? : String, http_equiv? : String, attrs? : Attrs) -> Html

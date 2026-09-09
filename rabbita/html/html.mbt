@@ -2983,3 +2983,30 @@ pub fn[C : IsChildren] geolocation(
   push_id(id, attrs)
   VNode::elem("geolocation", attrs.to_props(), children)
 }
+
+///|
+/// Lazily render `value`, reusing the previously mounted subtree at this
+/// position while `Hash::hash(value)` stays the same.
+///
+/// The hash is the entire cache key: values are not compared for equality and
+/// changes to `compute` are not detected. Equal hashes must imply equivalent
+/// HTML and event handlers. Include every changing render dependency in `value`;
+/// a hash collision can otherwise leave stale content or handlers on screen.
+///
+/// In a full document, use this inside `head` or `body`; the structural `html`,
+/// `head`, and `body` nodes themselves must remain unwrapped.
+pub fn[T : Hash] memo(value : T, compute : (T) -> Html) -> Html {
+  VNode::thunk(Hash::hash(value), () => compute(value).0)
+}
+
+///|
+/// Like `memo`, but uses `by(value)` as the entire cache key and does not
+/// require `T` to implement `Hash`.
+///
+/// Equal keys must imply equivalent HTML and event handlers, including any
+/// state captured by `compute`. Changing only `compute` does not invalidate the
+/// cache. The subtree is computed again after removal and remounting.
+/// As with `memo`, do not wrap the structural `html`, `head`, or `body` nodes.
+pub fn[T] memo_by(value : T, compute : (T) -> Html, by~ : (T) -> Int) -> Html {
+  VNode::thunk(by(value), () => compute(value).0)
+}
