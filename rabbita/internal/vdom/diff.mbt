@@ -22,19 +22,37 @@ priv struct IProps {
 ///|
 #cfg(target="js")
 priv enum INode {
-  Elem(String, IProps, Children[INode], namespace_uri~ : String?, @dom.Element)
-  Text(String, @dom.Element)
-  Frag(Array[INode], @dom.Comment, @dom.Comment)
-  Thunk(Int, INode)
+  Elem(
+    String,
+    IProps,
+    Children[INode],
+    namespace_uri~ : String?,
+    @dom.Element,
+    VNode
+  )
+  Text(String, @dom.Element, VNode)
+  Frag(Array[INode], @dom.Comment, @dom.Comment, VNode)
+  Thunk(Int, INode, VNode)
+}
+
+///|
+#cfg(target="js")
+fn INode::vnode(self : Self) -> VNode {
+  match self {
+    Elem(_, _, _, _, vnode, ..)
+    | Text(_, _, vnode)
+    | Frag(_, _, _, vnode)
+    | Thunk(_, _, vnode) => vnode
+  }
 }
 
 ///|
 #cfg(target="js")
 fn INode::start(self : Self) -> @dom.Node {
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) => element.as_node()
-    Thunk(_, node) => node.start()
-    Frag(_, start, _) => start.as_node()
+    Elem(_, _, _, element, _, ..) | Text(_, element, _) => element.as_node()
+    Thunk(_, node, _) => node.start()
+    Frag(_, start, _, _) => start.as_node()
   }
 }
 
@@ -42,9 +60,9 @@ fn INode::start(self : Self) -> @dom.Node {
 #cfg(target="js")
 fn INode::end(self : Self) -> @dom.Node {
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) => element.as_node()
-    Thunk(_, node) => node.end()
-    Frag(_, _, end) => end.as_node()
+    Elem(_, _, _, element, _, ..) | Text(_, element, _) => element.as_node()
+    Thunk(_, node, _) => node.end()
+    Frag(_, _, end, _) => end.as_node()
   }
 }
 
@@ -65,10 +83,10 @@ fn INode::needs_relocation(
 #cfg(target="js")
 fn INode::remove(self : Self, parent : @dom.Node) -> Unit {
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) =>
+    Elem(_, _, _, element, _, ..) | Text(_, element, _) =>
       parent.remove_child(element.as_node())
-    Thunk(_, node) => node.remove(parent)
-    Frag(_, start, end) => {
+    Thunk(_, node, _) => node.remove(parent)
+    Frag(_, start, end, _) => {
       let start = start.as_node()
       let end = end.as_node()
       while start.get_next_sibling().to_option() is Some(node) &&
@@ -90,10 +108,10 @@ fn INode::relocate(
 ) -> Unit {
   guard self.needs_relocation(before) else { return }
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) =>
+    Elem(_, _, _, element, _, ..) | Text(_, element, _) =>
       parent.insert_before(element.as_node(), before)
-    Thunk(_, node) => node.relocate(parent, before)
-    Frag(_, start, end) => {
+    Thunk(_, node, _) => node.relocate(parent, before)
+    Frag(_, start, end, _) => {
       {
         guard! start.get_parent_node().to_option() is Some(a)
         guard! end.get_parent_node().to_option() is Some(b)
@@ -214,13 +232,13 @@ fn VNode::insert(
     Text(text) => {
       let element = @dom.document().create_text_node(text)
       parent.insert_before(element.as_node(), before)
-      Text(text, element)
+      Text(text, element, self)
     }
     Thunk(hash, render) => {
       let node = render().insert(
         scheduler, captured_link_listener, parent, before,
       )
-      Thunk(hash, node)
+      Thunk(hash, node, self)
     }
     Frag(children) => {
       let document = @dom.document()
@@ -238,7 +256,7 @@ fn VNode::insert(
       })
       fragment.append_child(end.as_node())
       parent.insert_before(fragment.as_node(), before)
-      Frag(children, start, end)
+      Frag(children, start, end, self)
     }
     Elem(tag, props, children, namespace_uri~) => {
       let rendered_tag = rendered_tag(tag)
@@ -259,7 +277,7 @@ fn VNode::insert(
       }
       reapply_child_sensitive_properties(element, tag, props.props)
       parent.insert_before(node, before)
-      Elem(tag, props, children, namespace_uri~, element)
+      Elem(tag, props, children, namespace_uri~, element, self)
     }
   }
 }
@@ -268,16 +286,16 @@ fn VNode::insert(
 #cfg(target="js")
 fn INode::to_vnode(self : Self) -> VNode {
   match self {
-    Elem(tag, mounted_props, children, namespace_uri~, _) =>
+    Elem(tag, mounted_props, children, namespace_uri~, _, _) =>
       Elem(
         tag,
         mounted_props.props,
         children.map(child => child.to_vnode()),
         namespace_uri~,
       )
-    Text(text, _) => Text(text)
-    Frag(children, _, _) => Frag(children.map(child => child.to_vnode()))
-    Thunk(_, node) => node.to_vnode()
+    Text(text, _, _) => Text(text)
+    Frag(children, _, _, _) => Frag(children.map(child => child.to_vnode()))
+    Thunk(_, node, _) => node.to_vnode()
   }
 }
 
@@ -386,8 +404,8 @@ pub fn VDom::initialize(
         props,
         Array(
           [
-            Elem("head", head_props, head_children, ..),
-            Elem("body", body_props, body_children, ..),
+            Elem("head", head_props, head_children, ..) as head_vnode,
+            Elem("body", body_props, body_children, ..) as body_vnode,
           ]
         ),
         namespace_uri=None
@@ -404,7 +422,14 @@ pub fn VDom::initialize(
           scheduler,
           captured_link_listener,
         )
-        INode::Elem("head", props, children, namespace_uri=None, element)
+        INode::Elem(
+          "head",
+          props,
+          children,
+          namespace_uri=None,
+          element,
+          head_vnode,
+        )
       }
       let body = {
         let element = @dom.document().get_body().unwrap().as_element()
@@ -417,7 +442,14 @@ pub fn VDom::initialize(
           scheduler,
           captured_link_listener,
         )
-        INode::Elem("body", props, children, namespace_uri=None, element)
+        INode::Elem(
+          "body",
+          props,
+          children,
+          namespace_uri=None,
+          element,
+          body_vnode,
+        )
       }
 
       let html = @dom.document().get_document_element().unwrap()
@@ -430,6 +462,7 @@ pub fn VDom::initialize(
         Array([head, body]),
         html,
         namespace_uri=None,
+        vnode,
       )
       VDom::{ target_element: None, inode, captured_link_listener, }
     }
@@ -459,6 +492,9 @@ fn diff_document(
   container? : @dom.Element,
   captured_link_listener~ : @dom.Listener,
 ) -> INode {
+  if physical_equal(old.vnode(), new) {
+    return old
+  }
   match (container, old, new) {
     (
       None,
@@ -467,20 +503,21 @@ fn diff_document(
         old_props,
         Array(
           [
-            Elem("head", old_head_props, old_head_children, head_element, ..),
-            Elem("body", old_body_props, old_body_children, body_element, ..),
+            Elem("head", old_head_props, old_head_children, head_element, _, ..),
+            Elem("body", old_body_props, old_body_children, body_element, _, ..),
           ]
         ),
         html_element,
-        namespace_uri=None
+        namespace_uri=None,
+        _
       ),
       Elem(
         "html",
         new_props,
         Array(
           [
-            Elem("head", new_head_props, new_head_children, ..),
-            Elem("body", new_body_props, new_body_children, ..),
+            Elem("head", new_head_props, new_head_children, ..) as head_vnode,
+            Elem("body", new_body_props, new_body_children, ..) as body_vnode,
           ]
         ),
         namespace_uri=None
@@ -499,7 +536,14 @@ fn diff_document(
           head_element.as_node(),
           null(),
         )
-        INode::Elem("head", props, children, namespace_uri=None, head_element)
+        INode::Elem(
+          "head",
+          props,
+          children,
+          namespace_uri=None,
+          head_element,
+          head_vnode,
+        )
       }
       let body = {
         let props = diff_props(
@@ -513,9 +557,23 @@ fn diff_document(
           body_element.as_node(),
           null(),
         )
-        INode::Elem("body", props, children, namespace_uri=None, body_element)
+        INode::Elem(
+          "body",
+          props,
+          children,
+          namespace_uri=None,
+          body_element,
+          body_vnode,
+        )
       }
-      Elem("html", props, Array([head, body]), html_element, namespace_uri=None)
+      Elem(
+        "html",
+        props,
+        Array([head, body]),
+        html_element,
+        namespace_uri=None,
+        new,
+      )
     }
     (Some(container), old, new) =>
       diff_node(
@@ -541,9 +599,12 @@ fn diff_node(
   parent : @dom.Node,
   anchor : @js.Nullable[@dom.Node],
 ) -> INode {
+  if physical_equal(old.vnode(), new) {
+    return old
+  }
   match (old, new) {
     (
-      Elem(tag1, props1, children1, namespace_uri=ns1, element),
+      Elem(tag1, props1, children1, namespace_uri=ns1, element, _),
       Elem(tag2, props2, children2, namespace_uri=ns2),
     ) =>
       if tag1 != tag2 || ns1 != ns2 {
@@ -560,15 +621,15 @@ fn diff_node(
           null(),
         )
         reapply_child_sensitive_properties(element, tag2, props.props)
-        Elem(tag2, props, children, namespace_uri=ns2, element)
+        Elem(tag2, props, children, namespace_uri=ns2, element, new)
       }
-    (Text(text1, element), Text(text2)) => {
+    (Text(text1, element, _), Text(text2)) => {
       if text1 != text2 {
         element.set_node_value(@js.Nullable::from_option(Some(text2)))
       }
-      Text(text2, element)
+      Text(text2, element, new)
     }
-    (Frag(children1, start, end), Frag(children2)) => {
+    (Frag(children1, start, end, _), Frag(children2)) => {
       let children = diff_children(
         Array(children1),
         Array(children2),
@@ -578,9 +639,9 @@ fn diff_node(
         nullable(end.as_node()),
       )
       guard! children is Array(children)
-      Frag(children, start, end)
+      Frag(children, start, end, new)
     }
-    (Thunk(hash1, node) as old, Thunk(hash2, render)) =>
+    (Thunk(hash1, node, _) as old, Thunk(hash2, render)) =>
       if hash1 == hash2 {
         old
       } else {
@@ -588,7 +649,7 @@ fn diff_node(
         let node = diff_node(
           node, vnode, scheduler, captured_link_listener, parent, anchor,
         )
-        Thunk(hash2, node)
+        Thunk(hash2, node, new)
       }
     (_, _) => {
       old.remove(parent)
