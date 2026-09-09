@@ -107,8 +107,9 @@ fn INode::relocate(
         parent.insert_before(node, anchor)
         anchor = nullable(node)
       }
-      parent.insert_before(end, before)
+      // For an empty fragment, anchor equals before: keep start before end.
       parent.insert_before(start, anchor)
+      parent.insert_before(end, before)
     }
   }
 }

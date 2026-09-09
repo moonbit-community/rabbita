@@ -61,6 +61,11 @@ fn is_html_void_element(tag : String) -> Bool {
 }
 
 ///|
+pub fn VNode::thunk(hash : Int, f : () -> VNode) -> VNode {
+  VNode::Thunk(hash, f)
+}
+
+///|
 pub fn VNode::elem(
   tag : String,
   props : Props,
