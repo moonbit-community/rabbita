@@ -1,6 +1,8 @@
 import {
   "moonbit-community/rabbita",
   "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/dom",
+  "moonbit-community/rabbita/svg",
 }
 
 supported_targets = "js"

@@ -18,13 +18,14 @@ fn app() -> Val[Html] {
       Decrement => count - 1
     }
   })
+  let actions = div(class="actions") <| [
+    button(on_click=emit(Decrement), "-"),
+    button(on_click=emit(Increment), "+"),
+  ]
   count.view(count => {
     div(class="app") <| [
       h1("\{count}"),
-      div(class="actions") <| [
-        button(on_click=emit(Decrement), "-"),
-        button(on_click=emit(Increment), "+"),
-      ],
+      actions,
     ]
   })
 }
