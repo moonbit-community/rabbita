@@ -1,4 +1,6 @@
 import {
+  "moonbitlang/core/buffer",
+  "moonbitlang/core/encoding/utf8",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita",
   "hackwaly/moonback/middlewares/unstable_static" @static,
@@ -10,3 +12,9 @@ import {
 }
 
 supported_targets = "native+wasm"
+
+import {
+  "moonbitlang/core/test",
+  "moonbitlang/async",
+  "moonbitlang/async/http",
+} for "wbtest"

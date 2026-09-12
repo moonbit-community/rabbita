@@ -157,6 +157,12 @@ fn warren_cli() -> @argparse.Command {
           ),
           OptionArg("dist", about="Build output directory. Default: ./dist."),
         ],
+        flags=[
+          FlagArg(
+            "bundle",
+            about="Embed all static assets in a native executable. Defaults the server target to native.",
+          ),
+        ],
         about="Build browser and optional server release artifacts.",
       ),
       Command(
@@ -233,6 +239,7 @@ async fn run_cli() -> Unit {
       dev_project(layout, server_target, port, direct)
     }
     "build" => {
+      let bundle = submatches.flags.get("bundle") is Some(true)
       let layout = if mbtx_entry is Some(raw) {
         resolve_mbtx_layout(root, raw, option_value(submatches, "public-dir"))
       } else {
@@ -244,8 +251,12 @@ async fn run_cli() -> Unit {
         )
       }
       let target_raw = option_value(submatches, "server-target")
-      let server_target = parse_server_target(target_raw)
-      if target_raw is Some(_) && layout.server_entry is None {
+      let server_target = if bundle {
+        parse_server_target(Some(target_raw.unwrap_or("native")))
+      } else {
+        parse_server_target(target_raw)
+      }
+      if target_raw is Some(_) && layout.server_entry is None && !bundle {
         fail("--server-target requires a server entry.")
       }
       let dist = resolve_dist_dir(
@@ -259,7 +270,7 @@ async fn run_cli() -> Unit {
         layout.server_entry,
         layout.public_dir,
       )
-      build_project(layout, server_target, dist)
+      build_project(layout, server_target, dist, bundle~)
     }
     "new" =>
       match submatches.values.get("dir_name") {

@@ -90,7 +90,12 @@ async fn ensure_clean_dir(path : SourcePath) -> Unit {
 
 ///|
 async fn copy_dir_contents(src : SourcePath, dst : SourcePath) -> Unit {
-  for entry in @fs.readdir(source_path_to_string(src), sort=true) {
+  for
+    entry in @fs.readdir(
+      source_path_to_string(src),
+      include_hidden=true,
+      sort=true,
+    ) {
     copy(src=src.join(entry), dst=dst.join(entry))
   }
 }
@@ -338,8 +343,11 @@ async fn copy_server_artifact(
   artifact : SourcePath,
   destination : SourcePath,
   target : ServerTarget,
+  output_name? : String,
 ) -> SourcePath {
-  let basename = Path::basename(source_path_to_string(artifact)).to_owned()
+  let basename = output_name.unwrap_or(
+    Path::basename(source_path_to_string(artifact)).to_owned(),
+  )
   let output = destination.join(basename)
   guard !@fs.exists(source_path_to_string(output)) else {
     fail(
@@ -372,7 +380,12 @@ async fn build_project(
   layout : ProjectLayout,
   server_target : ServerTarget,
   dist : SourcePath,
+  bundle? : Bool = false,
 ) -> Unit {
+  if bundle {
+    build_bundle(layout, server_target, dist)
+    return
+  }
   ensure_clean_dir(dist)
   let browser_artifact = run_build_only(
     layout.root,

@@ -102,6 +102,85 @@ command for starting the copied artifact, for example:
 cd /absolute/path/to/dist && moon run server.wasm
 ```
 
+## Single-executable bundles
+
+```sh
+warren build --bundle
+warren build page.mbtx --bundle
+warren build --bundle --browser-entry main --dist output
+```
+
+`--bundle` selects a native release build. An explicit `--server-target wasm`
+is rejected. The build embeds the final `index.js`, `index.html`, and every
+file in `public/`, including nested and hidden files, CSS, images, and fonts.
+Only the executable is placed in `dist/`; it can serve these resources from
+any working directory without Warren, Moon, or a separate static directory.
+This packages static resources, not external libraries or other runtime data
+used by application code. Native executables target the build machine's OS
+and architecture.
+
+Files are encoded as MoonBit byte-string constants and served directly from
+memory. Large files use chunks to stay within compiler source-line limits.
+Their original bytes are preserved; resources are neither base64-encoded nor
+extracted at startup. The HTML still loads `/index.js` through its normal
+script URL. Symlinks and special files in bundle inputs are rejected.
+
+For a browser-only project (including `.mbtx`), Warren generates a small
+static HTTP server.
+It defaults to `127.0.0.1:4300`; use `WARREN_HOST` and `WARREN_PORT` to configure
+it at runtime. It supports GET/HEAD, MIME types, and directory `index.html`
+pages. Unknown paths return 404; there is no automatic SPA history fallback.
+
+### Existing server entries
+
+An existing server keeps its startup logic, port configuration, SSR, and API
+routes. Add `warren_assets.mbt` to the server entry package and commit this
+empty implementation:
+
+```moonbit
+///|
+fn warren_assets() -> Map[String, Bytes] {
+  {}
+}
+```
+
+Pass its result to the new `assets` parameter of `rabbita/server.Server`:
+
+```moonbit
+let server = @rabbita_server.Server(
+  api~,
+  port=3000,
+  dist=@path.Path("./dist"),
+  assets=warren_assets(),
+  component?,
+)
+```
+
+`examples/document/cmd/server` demonstrates this integration:
+
+```sh
+warren -C examples/document build --browser-entry main --bundle
+```
+
+In production a non-empty asset map replaces disk static serving. An empty
+map preserves the ordinary `dist` behavior. In development the server uses
+Warren's live files. A supplied SSR `component` still owns `/`; embedded
+`/index.html` remains accessible directly. Static assets take precedence over
+matching application routes; missing assets fall through to the application.
+
+Other HTTP frameworks can consume the same `Map[String, Bytes]`, whose keys
+are absolute URL paths such as `/index.js`. The server must actually use this
+map; Warren cannot automatically integrate arbitrary request handlers.
+
+Warren compiles a temporary sibling copy of the server entry with a generated
+`warren_assets.mbt`. It does not edit the original stub or package manifest.
+Imports retain their module/workspace context; entry-local files and relative
+references to neighboring files are preserved. Custom build rules that
+hard-code the original entry's package path need to accommodate the copied
+entry. The temporary source is cleaned up on success and failure. Browser
+and server compilation finish before the previous `dist/` is replaced, so a
+compilation failure retains the previous bundle.
+
 ## New project
 
 The bundled templates predate the `cmd/browser` convention, so their entry is

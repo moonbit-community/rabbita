@@ -5,7 +5,7 @@ pub async fn copy(src~ : SourcePath, dst~ : SourcePath) -> Unit {
   guard @fs.exists(src_str) else { fail("Source path does not exist: \{src}") }
   if @fs.kind(src_str) is Directory {
     @fs.mkdir(dst_str, permission=0o755, recursive=true)
-    for entry in @fs.readdir(src_str, sort=true) {
+    for entry in @fs.readdir(src_str, include_hidden=true, sort=true) {
       copy(src=src.join(entry), dst=dst.join(entry))
     }
   } else {
