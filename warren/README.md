@@ -119,8 +119,9 @@ This packages static resources, not external libraries or other runtime data
 used by application code. Native executables target the build machine's OS
 and architecture.
 
-Files are encoded as MoonBit byte-string constants and served directly from
-memory. Large files use chunks to stay within compiler source-line limits.
+Files are encoded as MoonBit byte constants and served directly from
+memory. Large files use multiline `Bytes` literals to stay within compiler
+source-line limits without allocating and rebuilding their contents at startup.
 Their original bytes are preserved; resources are neither base64-encoded nor
 extracted at startup. The HTML still loads `/index.js` through its normal
 script URL. Symlinks and special files in bundle inputs are rejected.

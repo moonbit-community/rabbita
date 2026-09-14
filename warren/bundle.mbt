@@ -54,21 +54,20 @@ fn bundle_bytes_literal(bytes : Bytes) -> String {
 ///|
 fn bundle_bytes_expression(bytes : Bytes) -> String {
   guard bytes.length() > 4096 else { bundle_bytes_literal(bytes) }
+  // A multiline Bytes literal compiles to static storage, without rebuilding
+  // the resource on the heap. Keep source lines short for large binary files.
   let out = StringBuilder()
-  out.write_string("{\n      let chunks : Array[Bytes] = [\n")
-  for start = 0; start < bytes.length(); start = start + 4096 {
-    let end = if start + 4096 < bytes.length() {
-      start + 4096
-    } else {
-      bytes.length()
+  out.write_string("[\n")
+  for i, byte in bytes {
+    if i % 4096 == 0 {
+      out.write_string("      ")
     }
-    out.write_string(
-      "        \{bundle_bytes_literal(bytes[start:end].to_owned())},\n",
-    )
+    out.write_string("0x\{byte.to_hex()}, ")
+    if i % 4096 == 4095 {
+      out.write_string("\n")
+    }
   }
-  out.write_string(
-    "      ]\n      Bytes::makei(\{bytes.length()}, i => chunks[i / 4096][i % 4096])\n    }",
-  )
+  out.write_string("\n    ]")
   out.to_string()
 }
 
