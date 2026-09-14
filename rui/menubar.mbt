@@ -1031,6 +1031,9 @@ pub fn menubar(
     .role("menubar")
     .aria_orientation("horizontal")
   ignore(element_attrs.aria_label(aria_label))
+  if default_value is Some(value) {
+    ignore(element_attrs.data_set("value", value))
+  }
   @rabbita.Val::constant(
     @html.div(
       style=ui_styles(

@@ -1,6 +1,6 @@
 name = "Yoorkin/rui"
 
-version = "0.1.2"
+version = "0.1.3"
 
 import {
   "moonbit-community/rabbita@0.15.6",
