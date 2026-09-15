@@ -1,6 +1,10 @@
 ///|
 test "bundle paths normalize separators and reject invalid paths" {
   @test.assert_eq(asset_request_path("/a//./b"), Some("/a/b"))
+  @test.assert_eq(
+    asset_request_path("/图/%e5%AD%97%20%2B%25.txt"),
+    Some("/图/字 +%.txt"),
+  )
   for
     path in [
       "/../a", "/%2e%2e/a", "/a/%2E%2E/b", "/a%5Cb", "/%00", "/%ff", "/%", "/%0",

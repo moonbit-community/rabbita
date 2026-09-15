@@ -31,33 +31,17 @@ fn asset_content_type(path : String) -> String {
 }
 
 ///|
-fn asset_hex_digit(byte : Byte) -> Int? {
-  match byte.to_int() {
-    n if n >= 48 && n <= 57 => Some(n - 48)
-    n if n >= 65 && n <= 70 => Some(n - 65 + 10)
-    n if n >= 97 && n <= 102 => Some(n - 97 + 10)
-    _ => None
-  }
-}
-
-///|
 fn asset_request_path(raw : String) -> String? {
-  let raw = raw.split("?").collect()[0].to_owned()
-  let bytes = @utf8.encode(raw)
+  let raw = raw.split_once("?").map_or(raw, pair => pair.0.to_owned())
   let decoded = @buffer.Buffer()
-  for i = 0 {
-    guard i < bytes.length() else { break }
-    if bytes[i] == b'%' {
-      guard i + 2 < bytes.length() &&
-        asset_hex_digit(bytes[i + 1]) is Some(high) &&
-        asset_hex_digit(bytes[i + 2]) is Some(low) else {
-        return None
-      }
-      decoded.write_byte((high * 16 + low).to_byte())
-      continue i + 3
+  for i, part in raw.split("%").collect() {
+    if i == 0 {
+      decoded.write_string_utf8(part)
     } else {
-      decoded.write_byte(bytes[i])
-      continue i + 1
+      guard part.length() >= 2 else { return None }
+      let byte = @hex.decode(part[:2]) catch { _ => return None }
+      decoded.write_bytes(byte)
+      decoded.write_string_utf8(part[2:])
     }
   }
   let path = @utf8.decode(decoded.to_bytes(), ignore_bom=true) catch {

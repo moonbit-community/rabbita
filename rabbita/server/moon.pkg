@@ -1,5 +1,6 @@
 import {
   "moonbitlang/core/buffer",
+  "moonbitlang/core/encoding/hex",
   "moonbitlang/core/encoding/utf8",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita",

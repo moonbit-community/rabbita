@@ -36,24 +36,8 @@ async fn validate_bundle_tree(dir : SourcePath) -> Unit {
 }
 
 ///|
-fn bundle_bytes_literal(bytes : Bytes) -> String {
-  let out = StringBuilder()
-  out.write_string("b\"")
-  for byte in bytes {
-    match byte.to_int() {
-      34 => out.write_string("\\\"")
-      92 => out.write_string("\\\\")
-      value if value >= 32 && value <= 126 => out.write_char(byte.to_char())
-      _ => out.write_string("\\x\{byte.to_hex()}")
-    }
-  }
-  out.write_string("\"")
-  out.to_string()
-}
-
-///|
 fn bundle_bytes_expression(bytes : Bytes) -> String {
-  guard bytes.length() > 4096 else { bundle_bytes_literal(bytes) }
+  guard bytes.length() > 4096 else { bytes.to_string() }
   // A multiline Bytes literal compiles to static storage, without rebuilding
   // the resource on the heap. Keep source lines short for large binary files.
   let out = StringBuilder()
