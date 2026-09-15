@@ -127,7 +127,7 @@ extracted at startup. The HTML still loads `/index.js` through its normal
 script URL. Symlinks and special files in bundle inputs are rejected.
 
 For a browser-only project (including `.mbtx`), Warren generates a small
-static HTTP server.
+static HTTP server using Moonback 0.8.3's `from_assets()` middleware.
 It defaults to `127.0.0.1:4300`; use `WARREN_HOST` and `WARREN_PORT` to configure
 it at runtime. It supports GET/HEAD, MIME types, and directory `index.html`
 pages. Unknown paths return 404; there is no automatic SPA history fallback.
@@ -172,6 +172,11 @@ matching application routes; missing assets fall through to the application.
 Other HTTP frameworks can consume the same `Map[String, Bytes]`, whose keys
 are absolute URL paths such as `/index.js`. The server must actually use this
 map; Warren cannot automatically integrate arbitrary request handlers.
+
+Moonback applications can pass the map directly to
+`@static.from_assets(warren_assets(), rewrite_trailing_slash_index=true)`
+from `moonbitlang/moonback/middlewares/unstable_static` (Moonback 0.8.3 or later).
+Rabbita's `Server(assets=...)` uses this middleware internally.
 
 Warren compiles a temporary sibling copy of the server entry with a generated
 `warren_assets.mbt`. It does not edit the original stub or package manifest.

@@ -101,7 +101,19 @@ fn page_service(
 
   ctx => {
     if assets is Some(files) {
-      ctx.add_middleware(bundled_assets(files, serve_root=component is None))
+      let static = @static.from_assets(files, rewrite_trailing_slash_index=true)
+      ctx.add_middleware(
+        @moonback.Middleware(next => {
+          let serve = (static.0)(next)
+          (req, res) => {
+            if component is Some(_) && req.path == "/" {
+              next(req, res)
+            } else {
+              serve(req, res)
+            }
+          }
+        }),
+      )
     } else if dist is Some(dir) {
       ctx.add_middleware(@static.new(root=dir.to_string()))
     }
