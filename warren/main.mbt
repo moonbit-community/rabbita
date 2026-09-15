@@ -176,7 +176,7 @@ fn warren_cli() -> @argparse.Command {
         options=[
           OptionArg(
             "template",
-            about="Project template to use. Default: default. Available: default, minimized.",
+            about="Project template to use. Default: default. Available: default, minimized, server.",
           ),
         ],
         about="Create a minimal Rabbita project.",

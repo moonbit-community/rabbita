@@ -132,11 +132,27 @@ It defaults to `127.0.0.1:4300`; use `WARREN_HOST` and `WARREN_PORT` to configur
 it at runtime. It supports GET/HEAD, MIME types, and directory `index.html`
 pages. Unknown paths return 404; there is no automatic SPA history fallback.
 
-### Existing server entries
+### New projects with a server
 
-An existing server keeps its startup logic, port configuration, SSR, and API
-routes. Add `warren_assets.mbt` to the server entry package and commit this
-empty implementation:
+```sh
+warren new my-app --template server
+cd my-app
+warren dev --server-target native
+warren build --bundle
+```
+
+The server template includes `cmd/browser`, a Moonback server in `cmd/server`,
+and `public/`. It already provides the resource entry and connects it to
+`from_assets()`, so no manual asset setup is needed. Ordinary Moon builds use
+the included resource stub; Warren supplies the embedded resources for bundle
+builds. Keep the generated source files in version control.
+
+### Migrating existing server entries
+
+Existing projects do not need to be recreated from a template. A server keeps
+its startup logic, port configuration, SSR, and API routes. For projects not
+created from the server template, add `warren_assets.mbt` to the server entry
+package and commit this empty implementation:
 
 ```moonbit
 ///|
@@ -189,8 +205,15 @@ compilation failure retains the previous bundle.
 
 ## New project
 
-The bundled templates predate the `cmd/browser` convention, so their entry is
-explicit:
+For a frontend and Moonback server with bundle support already configured:
+
+```sh
+warren new my-app --template server
+cd my-app
+warren dev --server-target native
+```
+
+The `default` browser-only template uses an explicit `main` entry:
 
 ```sh
 warren new my-app

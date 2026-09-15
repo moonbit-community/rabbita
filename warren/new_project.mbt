@@ -38,6 +38,28 @@ let minimized_template_dir : TemplateEntry = Dir("", [
 ])
 
 ///|
+let server_template_dir : TemplateEntry = Dir("", [
+  File("moon.mod", templates.server.moon_mod),
+  File("README.md", templates.server.readme_md),
+  File(".gitignore", templates.server.gitignore),
+  Dir("cmd", [
+    Dir("browser", [
+      File("moon.pkg", templates.default.main.moon_pkg),
+      File("main.mbt", templates.server.browser_main_mbt),
+    ]),
+    Dir("server", [
+      File("moon.pkg", templates.server.moon_pkg),
+      File("main.mbt", templates.server.main_mbt),
+      File("warren_assets.mbt", templates.server.warren_assets_mbt),
+    ]),
+  ]),
+  Dir("public", [
+    File("styles.css", templates.default.public.styles_css),
+    File("index.html", templates.default.public.index_html),
+  ]),
+])
+
+///|
 fn render_new_project_file(content : String, project_name : String) -> String {
   let content = content.split(new_project_name_placeholder).join(project_name)
   let content = content.split(rabbita_version_placeholder).join(rabbita_version)
@@ -121,9 +143,10 @@ async fn new_project(
   let template_dir = match template_name {
     "default" => default_template_dir
     "minimized" => minimized_template_dir
+    "server" => server_template_dir
     _ =>
       fail(
-        "Unknown template `\{template_name}`. Available templates: default, minimized.",
+        "Unknown template `\{template_name}`. Available templates: default, minimized, server.",
       )
   }
   guard is_valid_project_name(project_name) else {
@@ -164,8 +187,13 @@ async fn new_project(
   println("")
   println("Next steps:")
   println("  cd \{target_dir}")
-  let browser_entry = if template_name == "default" { "main" } else { "." }
-  println("  warren dev --browser-entry \{browser_entry}")
+  if template_name == "server" {
+    println("  warren dev --server-target native")
+    println("  warren build --bundle")
+  } else {
+    let browser_entry = if template_name == "default" { "main" } else { "." }
+    println("  warren dev --browser-entry \{browser_entry}")
+  }
 }
 
 ///|

@@ -7,7 +7,7 @@ async fn validate_bundle(layout : ProjectLayout, target : ServerTarget) -> Unit 
     let stub = source_path_to_string(entry.join("warren_assets.mbt"))
     guard @fs.exists(stub) && @fs.kind(stub, follow_symlink=false) is Regular else {
       fail(
-        "Bundle server entries must provide warren_assets.mbt defining `fn warren_assets() -> Map[String, Bytes] { {} }` and pass its result to their static resource handler. See `warren` README.",
+        "Server entry is not configured for bundling: missing warren_assets.mbt. For new projects use `warren new <name> --template server`; for existing projects follow the server migration steps in Warren's README.",
       )
     }
   }
