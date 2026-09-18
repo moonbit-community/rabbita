@@ -1,5 +1,5 @@
 ///|
-extern "js" fn load_shiki() -> @js.Promise =
+extern "js" fn load_shiki() -> @js.Promise[@js.Value] =
   #| (async () => {
   #|   const [
   #|     { createHighlighterCore },
@@ -20,7 +20,7 @@ extern "js" fn load_shiki() -> @js.Promise =
 extern "js" fn load_langs(
   highlighter : @js.Value,
   langs : FixedArray[String],
-) -> @js.Promise =
+) -> @js.Promise[Unit] =
   #| (hl, langs) =>
   #|   hl.loadLanguage(
   #|     ...langs.map(lang =>
@@ -32,7 +32,7 @@ extern "js" fn load_langs(
 extern "js" fn load_themes(
   highlighter : @js.Value,
   themes : FixedArray[String],
-) -> @js.Promise =
+) -> @js.Promise[Unit] =
   #| (hl, themes) =>
   #|   hl.loadTheme(
   #|     ...themes.map(theme =>
@@ -224,15 +224,11 @@ impl Eq for Singleton with fn equal(a, b) {
 let global_shiki_hl : Ref[Singleton?] = Ref(None)
 
 ///|
-#cfg(target="js")
-fn async_run(f : async () -> Unit noraise) -> Unit = "%async.run"
-
-///|
 pub fn initialize(
   langs~ : FixedArray[String],
   themes~ : FixedArray[String],
 ) -> Unit {
-  async_run(() => {
+  @js.Promise::from_async(() => {
     try {
       let singleton = match global_shiki_hl.val {
         Some(s) => s
@@ -251,14 +247,14 @@ pub fn initialize(
           singleton
         }
       }
-      try load_langs(singleton.highlighter, langs).wait() |> ignore catch {
+      load_langs(singleton.highlighter, langs).wait() catch {
         e => fail("shiki load langs failed: \{e}")
       }
       for lang in langs {
         singleton.loaded_langs.add(lang)
       }
 
-      try load_themes(singleton.highlighter, themes).wait() |> ignore catch {
+      load_themes(singleton.highlighter, themes).wait() catch {
         e => fail("shiki load themes failed: \{e}")
       }
       for theme in themes {
@@ -269,6 +265,7 @@ pub fn initialize(
       e => println(e)
     }
   })
+  |> ignore
 }
 
 ///|
@@ -298,13 +295,13 @@ pub async fn initialize_static(
       singleton
     }
   }
-  try load_langs(singleton.highlighter, langs).wait() |> ignore catch {
+  load_langs(singleton.highlighter, langs).wait() catch {
     e => fail("shiki load langs failed: \{e}")
   }
   for lang in langs {
     singleton.loaded_langs.add(lang)
   }
-  try load_themes(singleton.highlighter, themes).wait() |> ignore catch {
+  load_themes(singleton.highlighter, themes).wait() catch {
     e => fail("shiki load themes failed: \{e}")
   }
   for theme in themes {
@@ -361,12 +358,12 @@ fn load_shiki_highlight(
       }
     }
     if !singleton.loaded_langs.contains(lang) {
-      try load_langs(singleton.highlighter, [lang]).wait() |> ignore catch {
+      load_langs(singleton.highlighter, [lang]).wait() catch {
         e => fail("shiki load langs failed: \{e}")
       }
     }
     if !singleton.loaded_themes.contains(theme) {
-      try load_themes(singleton.highlighter, [theme]).wait() |> ignore catch {
+      load_themes(singleton.highlighter, [theme]).wait() catch {
         e => fail("shiki load themes failed: \{e}")
       }
     }

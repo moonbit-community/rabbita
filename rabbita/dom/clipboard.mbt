@@ -20,27 +20,13 @@ pub impl @js.Cast for Clipboard with fn from(value) {
 }
 
 // TODO: support ClipboardItem
-//
-// ///|
-// pub extern type ClipboardItem
-
-// ///|
-// pub extern "js" fn Clipboard::write(
-//   self : Clipboard,
-//   data : FixedArray[ClipboardItem]
-// ) =
-//   #| (self,data) => self.write(data)
-
-// ///|
-// pub extern "js" fn Clipboard::read(self : Clipboard) -> @js.Promise =
-//   #| (self) => self.read()
 
 ///|
 #cfg(target="js")
 pub extern "js" fn Clipboard::write_text(
   self : Clipboard,
   text : String,
-) -> @js.Promise =
+) -> @js.Promise[Unit] =
   #| (self, text) => {
   #|   const writeText = self && self.writeText
   #|   if (typeof writeText === 'function') {
@@ -55,7 +41,9 @@ pub extern "js" fn Clipboard::write_text(
 
 ///|
 #cfg(target="js")
-pub extern "js" fn Clipboard::read_text(self : Clipboard) -> @js.Promise =
+pub extern "js" fn Clipboard::read_text(
+  self : Clipboard,
+) -> @js.Promise[String] =
   #| (self) => {
   #|   const readText = self && self.readText
   #|   if (typeof readText === 'function') {

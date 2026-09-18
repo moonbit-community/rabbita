@@ -34,7 +34,7 @@ fn on_invoke(
 
 ///|
 #cfg(target="js")
-extern "js" fn set_timeout(ms : Int) -> @js_async.Promise[Int] =
+extern "js" fn set_timeout(ms : Int) -> @js.Promise[Int] =
   #| ms => new Promise(resolve => { setTimeout(() => resolve(0), ms) })
 
 ///|

@@ -85,9 +85,7 @@ fn HydrationHost::drain_task_with_transcript(host : Self) -> Unit {
         None => ()
         Ready(cmd) => self.queue_command(cmd)
         Async(f) =>
-          @js_async.Promise::from_async(() => {
-            Scheduler::queue_command(self, f())
-          })
+          @js.Promise::from_async(() => Scheduler::queue_command(self, f()))
           |> ignore
         AfterLayout(f) => self.after_render_queue.push(f)
         LegacyEffect(Immediately, f) => f(self)

@@ -5,10 +5,10 @@ using @rabbita {type Cmd, type Emit, type Html, type Val}
 using @html {button, div, h1, p}
 
 ///|
-extern "js" fn resolved(value : String) -> @js.Promise = "(value) => Promise.resolve(value)"
+extern "js" fn resolved(value : String) -> @js.Promise[String] = "(value) => Promise.resolve(value)"
 
 ///|
-extern "js" fn rejected() -> @js.Promise = "() => Promise.reject(new Error('expected failure'))"
+extern "js" fn rejected() -> @js.Promise[String] = "() => Promise.reject(new Error('expected failure'))"
 
 ///|
 priv struct Model {
@@ -48,7 +48,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
       (
         { ..model, performed: "running", },
         @rabbita.perform(value => emit(PerformFinished(value)), async fn() noraise {
-          resolved("performed").wait().cast() catch {
+          resolved("performed").wait() catch {
             _ => "unexpected failure"
           }
         }),
@@ -58,7 +58,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
       (
         { ..model, attempted: "running", },
         @rabbita.attempt(result => emit(AttemptFinished(result)), async fn() {
-          rejected().wait().cast()
+          rejected().wait()
         }),
       )
     AttemptFinished(result) =>
@@ -96,7 +96,7 @@ fn app() -> Val[Html] {
           batch_b: false,
         },
         @rabbita.perform(value => emit(Initialized(value)), async fn() noraise {
-          resolved("ready").wait().cast() catch {
+          resolved("ready").wait() catch {
             _ => "unexpected failure"
           }
         }),

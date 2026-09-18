@@ -2,7 +2,7 @@
 extern "js" fn compile_mbt_promise(
   source : String,
   moon_pkg : String,
-) -> @js.Promise =
+) -> @js.Promise[@js.Value] =
   #| (source, moonPkg) => {
   #|   const started = performance.now()
   #|   return import('./support/compiler.js?v=assets-4')
@@ -32,7 +32,7 @@ extern "js" fn compile_mbt_promise(
   #| }
 
 ///|
-extern "js" fn load_assets_promise() -> @js.Promise =
+extern "js" fn load_assets_promise() -> @js.Promise[@js.Value] =
   #| () => {
   #|   return import('./support/compiler.js?v=assets-4')
   #|     .then(async ({ loadManifest }) => {
@@ -181,7 +181,7 @@ extern "js" fn save_source_promise(
   html : String,
   css : String,
   moon_pkg : String,
-) -> @js.Promise =
+) -> @js.Promise[@js.Value] =
   #| (example, mbt, html, css, moonPkg) =>
   #|   globalThis.RabbitaPlaygroundShare.saveSource(example, mbt, html, css, moonPkg)
 
@@ -192,6 +192,6 @@ extern "js" fn share_source_promise(
   html : String,
   css : String,
   moon_pkg : String,
-) -> @js.Promise =
+) -> @js.Promise[@js.Value] =
   #| (example, mbt, html, css, moonPkg) =>
   #|   globalThis.RabbitaPlaygroundShare.shareSource(example, mbt, html, css, moonPkg)

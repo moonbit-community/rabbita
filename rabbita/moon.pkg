@@ -14,7 +14,6 @@ import {
   "moonbit-community/rabbita/internal/slotmap",
   "moonbitlang/core/immut/vector",
   "moonbitlang/async",
-  "moonbitlang/async/js_async",
 }
 
 import {
