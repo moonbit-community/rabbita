@@ -8,6 +8,10 @@ import {
   "moonbitlang/core/debug",
 } for "test"
 
+// Imports are used only by JS declarations and tests.
+
+warnings = "-unused_package"
+
 options(
   targets: { "*": [ "js" ] },
 )

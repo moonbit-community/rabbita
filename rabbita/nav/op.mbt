@@ -93,29 +93,29 @@ fn op_invoke(
     }
     NavScrollToPos(x, y, behavior) =>
       AfterLayout(() => {
-        @dom.window().scroll_to(x, y, behavior=behavior.to_string())
+        @dom.window().scroll_to(x, y, behavior=Show::to_string(behavior))
         @cmd.none
       })
     NavScrollByPos(x, y, behavior) =>
       AfterLayout(() => {
-        @dom.window().scroll_by(x, y, behavior=behavior.to_string())
+        @dom.window().scroll_by(x, y, behavior=Show::to_string(behavior))
         @cmd.none
       })
     NavScrollTo(element, behavior) =>
       AfterLayout(() => {
         if @dom.document().get_element_by_id(element).to_option() is Some(node) {
-          node.scroll_into_view(behavior=behavior.to_string())
+          node.scroll_into_view(behavior=Show::to_string(behavior))
         }
         @cmd.none
       })
     NavScrollToTop(behavior) =>
       AfterLayout(() => {
-        @dom.window().scroll_to_top(behavior=behavior.to_string())
+        @dom.window().scroll_to_top(behavior=Show::to_string(behavior))
         @cmd.none
       })
     NavScrollToBottom(behavior) =>
       AfterLayout(() => {
-        @dom.window().scroll_to_bottom(behavior=behavior.to_string())
+        @dom.window().scroll_to_bottom(behavior=Show::to_string(behavior))
         @cmd.none
       })
     _ => raise Unhandled

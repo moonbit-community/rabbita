@@ -94,7 +94,7 @@ fn BrowserHost::request_task(self : Self) -> Unit {
         Unhandled => ()
       } noraise {
         None => ()
-        Ready(cmd) => self.queue_command(cmd)
+        Ready(cmd) => Scheduler::queue_command(self, cmd)
         Async(f) =>
           @js.Promise::from_async(() => Scheduler::queue_command(self, f()))
           |> ignore

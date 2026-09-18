@@ -8,5 +8,5 @@ pub(all) enum Variant {
 
 ///|
 pub impl Show for Variant with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }

@@ -53,7 +53,7 @@ pub async fn SSRHost::SSRHost(
     }
     (host, ambient_host.protect(host, builder))
   })
-  errdefer host.cleanup()
+  errdefer Host::cleanup(host)
   let cmd = Context::inject_url_changed(host, host.origin + host.path)
   Scheduler::queue_command(host, cmd)
 
@@ -80,8 +80,9 @@ async fn SSRHost::drain_task(host : Self) -> Unit {
             Unhandled => ()
           } noraise {
             None => ()
-            Ready(cmd) => host.queue_command(cmd)
-            Async(f) => group.spawn_bg(() => host.queue_command(f()))
+            Ready(cmd) => Scheduler::queue_command(host, cmd)
+            Async(f) =>
+              group.spawn_bg(() => Scheduler::queue_command(host, f()))
             LegacyEffect(Immediately, f) => f(host)
             AfterLayout(_) | LegacyEffect(AfterRender, _) => ()
           }
@@ -93,7 +94,7 @@ async fn SSRHost::drain_task(host : Self) -> Unit {
           } noraise {
             key => host.transcript[key] = value
           }
-          host.queue_command(cmd)
+          Scheduler::queue_command(host, cmd)
         }
         Async(f) =>
           group.spawn_bg(() => {
