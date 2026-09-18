@@ -35,6 +35,13 @@ fresh result without accessing JavaScript globals or adding FFI probes.
 For manual checks, `Toggle keyed trailing marker` removes the final sibling so
 keyed fragments can also move directly to the end of their container.
 
+The `memo.physical-*.spec.ts` cases cover shared VNode references for elements,
+text, fragments, and thunks, including `A → A → B → B → A` updates, equal content
+with different references, tag/namespace changes, keyed moves, and remounting.
+They also check container roots and hydration against pre-rendered HTML with
+existing or missing fragment markers. Element style-read probes distinguish a
+skipped diff from a diff that leaves the DOM unchanged.
+
 `apps/rui` is a single-page showcase of the RUI (`Yoorkin/rui`) component
 library. One Playwright project drives it and the `rui.*.spec.ts` files cover
 representative user-visible behavior per component: disclosure open/close,

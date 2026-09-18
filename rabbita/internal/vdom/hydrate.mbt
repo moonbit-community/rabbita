@@ -156,6 +156,7 @@ fn hydrate_existing_element(
   scheduler : &Scheduler,
   captured_link_listener : @dom.Listener,
   allow_skip_children~ : Bool,
+  vnode : VNode,
 ) -> INode {
   let mounted_props = insert_props(
     element, tag, props, scheduler, captured_link_listener,
@@ -180,7 +181,7 @@ fn hydrate_existing_element(
     mounted
   }
   reapply_child_sensitive_properties(element, tag, mounted_props.props)
-  Elem(tag, mounted_props, mounted_children, namespace_uri~, element)
+  Elem(tag, mounted_props, mounted_children, namespace_uri~, element, vnode)
 }
 
 ///|
@@ -193,6 +194,7 @@ fn hydrate_fragment(
   current : @dom.Node?,
   boundary~ : @dom.Node?,
   allow_skip~ : Bool,
+  vnode : VNode,
 ) -> (INode, @dom.Node?) {
   fn find_fragment_start(current : @dom.Node?) -> @dom.Comment? {
     let mut current = current
@@ -252,15 +254,10 @@ fn hydrate_fragment(
       end
     }
     let children = if mounted is Array(children) { children } else { [] }
-    (Frag(children, start, end), end.get_next_sibling().to_option())
+    (Frag(children, start, end, vnode), end.get_next_sibling().to_option())
   } else {
     recover_mismatch(
-      Frag(children),
-      scheduler,
-      captured_link_listener,
-      parent,
-      current,
-      boundary,
+      vnode, scheduler, captured_link_listener, parent, current, boundary,
     )
   }
 }
@@ -287,7 +284,7 @@ fn hydrate_node(
         boundary~,
         allow_skip~,
       )
-      (Thunk(hash, inode), next)
+      (Thunk(hash, inode, vnode), next)
     }
     Frag(children) =>
       hydrate_fragment(
@@ -298,6 +295,7 @@ fn hydrate_node(
         current,
         boundary~,
         allow_skip~,
+        vnode,
       )
     Text(text) =>
       if find_hydratable(vnode, current, boundary, allow_skip~) is Some(node) {
@@ -305,7 +303,7 @@ fn hydrate_node(
           node.set_node_value(nullable(text))
         }
         let element : @dom.Element = @js.Value::cast_from(node).cast()
-        (Text(text, element), node.get_next_sibling().to_option())
+        (Text(text, element, vnode), node.get_next_sibling().to_option())
       } else {
         recover_mismatch(
           vnode, scheduler, captured_link_listener, parent, current, boundary,
@@ -323,6 +321,7 @@ fn hydrate_node(
           scheduler,
           captured_link_listener,
           allow_skip_children=false,
+          vnode,
         )
         (inode, node.get_next_sibling().to_option())
       } else {
@@ -405,13 +404,13 @@ fn hydrate_root(
             head_props,
             head_children,
             namespace_uri=head_namespace_uri
-          ),
+          ) as head_vnode,
           Elem(
             "body",
             body_props,
             body_children,
             namespace_uri=body_namespace_uri
-          ),
+          ) as body_vnode,
         ]
       ),
       ..
@@ -432,6 +431,7 @@ fn hydrate_root(
         scheduler,
         captured_link_listener,
         allow_skip_children=true,
+        head_vnode,
       )
       let body = hydrate_existing_element(
         "body",
@@ -442,8 +442,16 @@ fn hydrate_root(
         scheduler,
         captured_link_listener,
         allow_skip_children=true,
+        body_vnode,
       )
-      Elem("html", html_props, Array([head, body]), html, namespace_uri=None)
+      Elem(
+        "html",
+        html_props,
+        Array([head, body]),
+        html,
+        namespace_uri=None,
+        vnode,
+      )
     }
     _ => panic()
   }

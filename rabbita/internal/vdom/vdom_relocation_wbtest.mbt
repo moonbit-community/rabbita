@@ -89,8 +89,8 @@ test "diffing unchanged keyed children does not reinsert DOM nodes" {
   parent..append_child(first.as_node()).append_child(second.as_node())
   let old : Children[INode] = Map(
     Map::from_array([
-      ("first", INode::Text("first", first)),
-      ("second", INode::Text("second", second)),
+      ("first", INode::Text("first", first, VNode::text("first"))),
+      ("second", INode::Text("second", second, VNode::text("second"))),
     ]),
   )
   let new : Children[VNode] = Map(
@@ -125,7 +125,10 @@ test "relocate inserts a DOM node when its position differs" {
   let second = document.create_text_node("second")
   parent..append_child(first.as_node()).append_child(second.as_node())
 
-  INode::Text("first", first).relocate(parent.as_node(), null())
+  INode::Text("first", first, VNode::text("first")).relocate(
+    parent.as_node(),
+    null(),
+  )
 
   assert_eq(parent.get_attribute("data-insert-count"), Some("1"))
 }
