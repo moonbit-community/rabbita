@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('resizable handle exposes a native range with the initial size', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const group = page.locator('#fixture-resizable');
   const handle = page.locator('#fixture-resizable-handle');
@@ -13,7 +13,7 @@ test('resizable handle exposes a native range with the initial size', async ({ p
 });
 
 test('resizable keyboard moves the panel boundary and clamps at the bounds', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const group = page.locator('#fixture-resizable');
   const handle = page.locator('#fixture-resizable-handle');

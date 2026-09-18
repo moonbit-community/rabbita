@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('three-panel resizable group updates adjacent panels and preserves the third', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-resizable-group');
   const root = section.locator('#fixture-resizable-group');
@@ -22,7 +22,7 @@ test('three-panel resizable group updates adjacent panels and preserves the thir
 });
 
 test('resizable pointer drag changes real panel geometry and emits sizes', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-resizable-group');
   const handle = section.locator('[data-slot="resizable-handle"][data-between="0"]');
@@ -45,7 +45,7 @@ test('resizable pointer drag changes real panel geometry and emits sizes', async
 });
 
 test('managed scroll areas expose measured scrollbars and respond to keyboard scrolling', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const vertical = page.locator('#fixture-scroll-area');
   const verticalViewport = page.locator('#fixture-scroll-area-viewport');

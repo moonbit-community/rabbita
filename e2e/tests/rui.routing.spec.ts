@@ -7,12 +7,12 @@ test('fixture navigation switches pages inside the SPA and follows history', asy
   await page.getByRole('link', { name: 'Forms' }).click();
   await expect(page).toHaveURL(/\/forms$/);
   await expect(page.locator('#fixture-route-title')).toHaveText('Forms');
-  await expect(page.getByRole('radiogroup', { name: 'Billing cycle' })).toBeVisible();
+  await expect(page.getByText('This is the Forms route.')).toBeVisible();
 
   await page.getByRole('link', { name: 'Modals' }).click();
   await expect(page).toHaveURL(/\/modals$/);
   await expect(page.locator('#fixture-route-title')).toHaveText('Modals');
-  await expect(page.getByRole('button', { name: 'Open drawer' })).toBeVisible();
+  await expect(page.getByText('This is the Modals route.')).toBeVisible();
 
   await page.goBack();
   await expect(page).toHaveURL(/\/forms$/);

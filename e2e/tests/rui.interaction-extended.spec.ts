@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('multiple combobox removes chips and keeps the popup open while adding values', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-combobox-multiple');
   const input = section.getByRole('combobox', { name: 'Search options' });
@@ -28,7 +28,7 @@ test('multiple combobox removes chips and keeps the popup open while adding valu
 });
 
 test('multi-thumb slider reports keyboard changes and commits without crossing', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-slider-values');
   const lower = section.getByRole('slider', { name: 'Fixture budget 1' });
@@ -55,7 +55,7 @@ test('multi-thumb slider reports keyboard changes and commits without crossing',
 });
 
 test('slider pointer interaction moves the nearest thumb and reports a commit', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-slider-values');
   const root = section.locator('#fixture-slider-values-root');

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('command filters by keywords, skips disabled options, and reports selection', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-command');
   const input = section.getByRole('combobox', { name: 'Search commands' });
@@ -35,7 +35,7 @@ test('command filters by keywords, skips disabled options, and reports selection
 });
 
 test('command exposes an empty result state for unmatched input', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-command');
   await section.getByRole('combobox', { name: 'Search commands' }).fill('missing');
@@ -46,7 +46,7 @@ test('command exposes an empty result state for unmatched input', async ({ page 
 });
 
 test('command dialog restores focus on Escape and closes after keyboard selection', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-command-dialog');
   const trigger = section.getByRole('button', { name: 'Open fixture palette' });

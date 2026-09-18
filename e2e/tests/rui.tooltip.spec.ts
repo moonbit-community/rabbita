@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('tooltip opens on hover and closes when the pointer leaves', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Hover for tooltip' });
   const tooltip = page.getByRole('tooltip', { name: 'Tooltip body content' });
@@ -15,12 +15,12 @@ test('tooltip opens on hover and closes when the pointer leaves', async ({ page 
 });
 
 test('tooltip opens on keyboard focus and closes on Escape', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Hover for tooltip' });
   const tooltip = page.getByRole('tooltip', { name: 'Tooltip body content' });
 
-  await page.getByRole('button', { name: 'Open popover' }).focus();
+  await expect(trigger).toBeVisible();
   await page.keyboard.press('Tab');
   await expect(trigger).toBeFocused();
   await expect(tooltip).toBeVisible();
@@ -30,7 +30,7 @@ test('tooltip opens on keyboard focus and closes on Escape', async ({ page }) =>
 });
 
 test('hover card opens on trigger hover and closes after leaving', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByText('Hover profile', { exact: true });
   const body = page.getByText('Native MoonBit components with incremental state.');

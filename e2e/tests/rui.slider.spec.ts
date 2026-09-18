@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('slider is a native range with the configured value', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const slider = page.getByRole('slider', { name: 'Fixture slider' });
   await expect(slider).toHaveValue('30');
@@ -11,7 +11,7 @@ test('slider is a native range with the configured value', async ({ page }) => {
 });
 
 test('slider arrow keys step through the range and clamp at the ends', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const slider = page.getByRole('slider', { name: 'Fixture slider' });
   await slider.focus();

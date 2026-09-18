@@ -1,0 +1,9 @@
+import {
+  "local/rabbita-e2e-rui/fixture",
+  "moonbit-community/rabbita",
+  "Yoorkin/rui",
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")

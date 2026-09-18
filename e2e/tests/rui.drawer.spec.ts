@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('drawer opens, traps focus, and closes on Escape', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open drawer' });
   const dialog = page.getByRole('dialog', { name: 'Drawer title' });
@@ -57,7 +57,7 @@ test('drawer opens, traps focus, and closes on Escape', async ({ page }) => {
 });
 
 test('drawer closes from the footer button and from the overlay', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open drawer' });
   const dialog = page.getByRole('dialog', { name: 'Drawer title' });

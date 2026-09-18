@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('form fields keep labels, descriptions, controlled values, and submit output', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const name = page.getByRole('textbox', { name: 'Display name' });
   const site = page.getByRole('textbox', { name: 'Workspace URL' });
@@ -26,11 +26,11 @@ test('form fields keep labels, descriptions, controlled values, and submit outpu
 
   await page.getByRole('button', { name: 'Save fixture profile' }).click();
   await expect(output).toHaveText('submitted:Grace Hopper|compiler-lab|Ready for launch');
-  await expect(page).toHaveURL(/\/forms$/);
+  await expect(page).toHaveURL(/\/$/);
 });
 
 test('native select reports changes and preserves its disabled value', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const select = page.getByRole('combobox', { name: 'Access scope' });
   const disabled = page.getByRole('combobox', { name: 'Environment' });
@@ -47,7 +47,7 @@ test('native select reports changes and preserves its disabled value', async ({ 
 });
 
 test('input OTP reports edits and completion while disabled code stays immutable', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const otp = page.getByRole('textbox', { name: 'Fixture verification code' });
   const disabled = page.getByRole('textbox', {

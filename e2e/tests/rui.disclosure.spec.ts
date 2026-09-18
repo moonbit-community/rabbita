@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('single accordion owns one expanded panel and can collapse it', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const keyboard = page.getByRole('button', { name: 'Keyboard interaction' });
   const state = page.getByRole('button', { name: 'Owned state' });
@@ -23,7 +23,7 @@ test('single accordion owns one expanded panel and can collapse it', async ({ pa
 });
 
 test('accordion keyboard navigation skips disabled triggers', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const keyboard = page.getByRole('button', { name: 'Keyboard interaction' });
   const state = page.getByRole('button', { name: 'Owned state' });
@@ -42,7 +42,7 @@ test('accordion keyboard navigation skips disabled triggers', async ({ page }) =
 });
 
 test('multiple accordion keeps independent panels expanded', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const first = page.getByRole('button', { name: 'First independent panel' });
   const second = page.getByRole('button', { name: 'Second independent panel' });
@@ -56,7 +56,7 @@ test('multiple accordion keeps independent panels expanded', async ({ page }) =>
 });
 
 test('collapsible toggles through click and keyboard while disabled stays closed', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Advanced settings' });
   const disabled = page.getByRole('button', { name: 'Unavailable settings' });
@@ -75,7 +75,7 @@ test('collapsible toggles through click and keyboard while disabled stays closed
 });
 
 test('horizontal and vertical tabs select with their orientation keys', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const horizontal = page.getByRole('tablist', { name: 'Fixture workflow' });
   const preview = horizontal.getByRole('tab', { name: 'Preview' });

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('checkbox resolves mixed state and toggles with click and Space', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const checkbox = page.getByRole('checkbox', { name: 'Accept fixture policy' });
   const mixed = page.getByRole('checkbox', { name: 'Select all fixture items' });
@@ -22,7 +22,7 @@ test('checkbox resolves mixed state and toggles with click and Space', async ({ 
 });
 
 test('switch toggles through pointer and keyboard while disabled stays checked', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const toggle = page.getByRole('switch', { name: 'Enable fixture previews' });
   const disabled = page.getByRole('switch', { name: 'Managed fixture backups' });
@@ -39,7 +39,7 @@ test('switch toggles through pointer and keyboard while disabled stays checked',
 });
 
 test('toggle exposes pressed state for pointer and keyboard activation', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const toggle = page.getByRole('button', { name: 'Pin fixture release' });
   await expect(toggle).toHaveAttribute('aria-pressed', 'false');
@@ -51,7 +51,7 @@ test('toggle exposes pressed state for pointer and keyboard activation', async (
 });
 
 test('single toggle group keeps one value and skips its disabled item', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const group = page.getByRole('group', { name: 'Fixture layout' });
   const list = group.getByRole('button', { name: 'List' });
@@ -70,7 +70,7 @@ test('single toggle group keeps one value and skips its disabled item', async ({
 });
 
 test('multiple toggle group changes values independently', async ({ page }) => {
-  await page.goto('/layout');
+  await page.goto('/');
 
   const group = page.getByRole('group', { name: 'Fixture formatting' });
   const bold = group.getByRole('button', { name: 'Bold' });

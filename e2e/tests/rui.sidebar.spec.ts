@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 const sidebarRoot = '#fixture-sidebar-root';
 
 test('sidebar collapses and expands through the trigger', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const root = page.locator(sidebarRoot);
   const trigger = page.getByRole('button', { name: 'Toggle sidebar' });
@@ -16,7 +16,7 @@ test('sidebar collapses and expands through the trigger', async ({ page }) => {
 });
 
 test('collapsed icon sidebar opens a tooltip on hover', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   await page.getByRole('button', { name: 'Toggle sidebar' }).click();
   await expect(page.locator(sidebarRoot)).toHaveAttribute('data-state', 'collapsed');
@@ -34,7 +34,7 @@ test('collapsed icon sidebar opens a tooltip on hover', async ({ page }) => {
 });
 
 test('sidebar rail drag resizes without collapsing', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const root = page.locator(sidebarRoot);
   const rail = page.getByRole('button', { name: 'Resize sidebar' });
@@ -56,7 +56,7 @@ test('sidebar rail drag resizes without collapsing', async ({ page }) => {
 });
 
 test('mobile sidebar traps focus, closes on Escape, and restores its trigger', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-sidebar-mobile');
   const trigger = section.locator('[data-slot="sidebar-trigger"]');
@@ -83,7 +83,7 @@ test('mobile sidebar traps focus, closes on Escape, and restores its trigger', a
 });
 
 test('mobile sidebar overlay dismisses the sheet', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-sidebar-mobile');
   const trigger = section.locator('[data-slot="sidebar-trigger"]');

@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const isCI = Boolean(process.env.CI);
-const apps = [
+const mainApps = [
   { name: 'counter', port: 4300 },
   { name: 'state-and-messages', port: 4301 },
   { name: 'forms-and-events', port: 4302 },
@@ -11,9 +11,52 @@ const apps = [
   { name: 'http', port: 4306 },
   { name: 'subscriptions', port: 4307 },
   { name: 'dom-api', port: 4308 },
-  { name: 'rui', port: 4309 },
   { name: 'memo', port: 4310 },
 ] as const;
+const ruiFixtures = [
+  'calendar',
+  'carousel',
+  'command',
+  'context-menu',
+  'controls',
+  'data-table',
+  'dialogs',
+  'disclosure',
+  'drawer',
+  'forms',
+  'interaction-extended',
+  'layout-extended',
+  'menu',
+  'message-scroller',
+  'navigation-menu',
+  'popover',
+  'radio',
+  'resizable',
+  'routing',
+  'select-combobox',
+  'semantic-components',
+  'sidebar',
+  'slider',
+  'toast',
+  'tooltip',
+] as const;
+const apps = [
+  ...mainApps.map(({ name, port }) => ({
+    name,
+    port,
+    testMatch: [`**/${name}.spec.ts`, `**/${name}.*.spec.ts`],
+    command: `warren -C ./apps/${name} dev --browser-entry . --direct --port ${port}`,
+  })),
+  ...ruiFixtures.map((fixture, index) => {
+    const port = 4320 + index;
+    return {
+      name: `rui-${fixture}`,
+      port,
+      testMatch: `**/rui.${fixture}.spec.ts`,
+      command: `warren -C ./apps/rui dev --browser-entry ./${fixture} --direct --port ${port}`,
+    };
+  }),
+];
 const appUrl = (port: number) => `http://127.0.0.1:${port}`;
 
 export default defineConfig({
@@ -31,16 +74,16 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },
-  projects: apps.map(({ name, port }) => ({
+  projects: apps.map(({ name, port, testMatch }) => ({
     name: `${name}-chromium`,
-    testMatch: `**/${name}*.spec.ts`,
+    testMatch,
     use: {
       ...devices['Desktop Chrome'],
       baseURL: appUrl(port),
     },
   })),
-  webServer: apps.map(({ name, port }) => ({
-    command: `warren -C ./apps/${name} dev --browser-entry . --direct --port ${port}`,
+  webServer: apps.map(({ command, port }) => ({
+    command,
     url: appUrl(port),
     reuseExistingServer: !isCI,
     timeout: 120_000,

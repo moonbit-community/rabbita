@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('modal dialog traps focus, closes on Escape, and restores its trigger', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open modal dialog' });
   const dialog = page.getByRole('dialog', { name: 'Edit fixture profile' });
@@ -23,7 +23,7 @@ test('modal dialog traps focus, closes on Escape, and restores its trigger', asy
 });
 
 test('non-modal dialog leaves surrounding controls focusable', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open non-modal dialog' });
   const dialog = page.getByRole('dialog', { name: 'Non-modal fixture' });
@@ -42,7 +42,7 @@ test('non-modal dialog leaves surrounding controls focusable', async ({ page }) 
 });
 
 test('alert dialog cancel and action close and restore focus', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Delete fixture' });
   const dialog = page.getByRole('alertdialog', { name: 'Delete this fixture?' });
@@ -61,7 +61,7 @@ test('alert dialog cancel and action close and restore focus', async ({ page }) 
 });
 
 test('sheet exposes its placement and restores focus after dismissal', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open settings sheet' });
   const dialog = page.getByRole('dialog', { name: 'Fixture settings' });

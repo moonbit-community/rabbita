@@ -797,12 +797,13 @@ const UiInteractionCss : String =
   #|    --rui-toggle-shadow:0 0 0 3px color-mix(in oklab,var(--rui-ring,oklch(0.708 0 0)) 50%,transparent),var(--rui-toggle-base-shadow,0 0 #0000);
   #|    outline:none;
   #|  }
-  #|  :where([role^="menuitem"],[data-slot="select-item"],[data-slot="combobox-item"],[data-slot="command-item"]):not([aria-disabled="true"]):where(:focus,[data-highlighted="true"],[data-selected="true"]) {
+  #|  :where([role^="menuitem"]):not([aria-disabled="true"]):focus-visible,
+  #|  :where([data-slot="select-item"],[data-slot="combobox-item"],[data-slot="command-item"]):not([aria-disabled="true"]):where(:focus,[data-highlighted="true"],[data-selected="true"]) {
   #|    --rui-menu-item-bg:var(--rui-accent,oklch(0.97 0 0));
   #|    --rui-menu-item-fg:var(--rui-accent-foreground,oklch(0.205 0 0));
   #|    outline:none;
   #|  }
-  #|  :where([role^="menuitem"])[data-variant="destructive"]:not([aria-disabled="true"]):where(:focus,[data-highlighted="true"]) {
+  #|  :where([role^="menuitem"])[data-variant="destructive"]:not([aria-disabled="true"]):focus-visible {
   #|    --rui-menu-item-bg:var(--rui-destructive-subtle,oklch(0.577 0.245 27.325 / 0.1));
   #|    --rui-menu-item-fg:var(--rui-destructive,oklch(0.577 0.245 27.325));
   #|  }
