@@ -9,7 +9,7 @@ pub(all) enum UrlRequest {
 
 ///|
 pub impl Show for UrlRequest with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }
 
 ///|
@@ -34,7 +34,7 @@ pub(all) struct Url {
 
 ///|
 pub impl Show for Url with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }
 
 ///|
@@ -46,7 +46,7 @@ pub(all) enum Protocol {
 
 ///|
 pub impl Show for Protocol with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }
 
 ///|

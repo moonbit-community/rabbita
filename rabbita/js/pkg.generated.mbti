@@ -2,27 +2,18 @@
 package "moonbit-community/rabbita/js"
 
 import {
+  "moonbitlang/async/js_async",
   "moonbitlang/core/json",
 }
 
 // Values
-pub async fn[T] async_all(FixedArray[async () -> T]) -> JsArray[T]
-
 pub let async_iterator : Symbol
-
-pub fn async_run(async () -> Unit noraise) -> Unit
-
-pub fn async_test(async () -> Unit) -> Unit
 
 pub let globalThis : Value
 
 pub let iterator : Symbol
 
 pub fn require(String, keys? : Array[String]) -> Value
-
-pub fn[T, E : Error] spawn_detach(async () -> T raise E) -> Unit
-
-pub async fn[T, E : Error] suspend(((T) -> Unit, (E) -> Unit) -> Unit) -> T raise E
 
 // Errors
 pub suberror Error_ {
@@ -78,12 +69,6 @@ pub fn[T] Optional::is_undefined(Self[T]) -> Bool
 pub fn[T] Optional::to_option(Self[T]) -> T?
 pub fn[T] Optional::undefined() -> Self[T]
 pub fn[T] Optional::unwrap(Self[T]) -> T
-
-#external
-pub type Promise
-pub fn Promise::all(FixedArray[Self]) -> Self
-pub fn[T] Promise::unsafe_new(async () -> T) -> Self
-pub async fn Promise::wait(Self) -> Value
 
 type Symbol
 pub fn Symbol::make() -> Self
@@ -210,6 +195,7 @@ pub impl Show for Value
 pub impl @json.FromJson for Value
 
 // Type aliases
+pub using @js_async {type Promise}
 
 // Traits
 pub(open) trait Cast {

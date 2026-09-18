@@ -84,7 +84,7 @@ pub fn custom_cmd(
 /// Create a command that runs an effectful async function
 #cfg(target="js")
 pub fn effect(f : async () -> Unit noraise) -> Cmd {
-  custom_cmd(_ => @js.async_run(() => f()))
+  custom_cmd(_ => @js.Promise::from_async(() => f()) |> ignore)
 }
 
 ///|
@@ -94,7 +94,9 @@ pub fn effect(f : async () -> Unit noraise) -> Cmd {
 /// command by `msg` and scheduled back into the update loop.
 #cfg(target="js")
 pub fn[A] perform(msg : (A) -> Cmd, f : async () -> A noraise) -> Cmd {
-  custom_cmd(scheduler => @js.async_run(() => scheduler.add(msg(f()))))
+  custom_cmd(scheduler => {
+    @js.Promise::from_async(() => scheduler.add(msg(f()))) |> ignore
+  })
 }
 
 ///|
@@ -107,7 +109,7 @@ pub fn[A, E : Error] attempt(
   f : async () -> A raise E,
 ) -> Cmd {
   custom_cmd(scheduler => {
-    @js.async_run(() => {
+    @js.Promise::from_async(() => {
       let msg = try f() catch {
         e => msg(Err(e))
       } noraise {
@@ -115,5 +117,6 @@ pub fn[A, E : Error] attempt(
       }
       scheduler.add(msg)
     })
+    |> ignore
   })
 }

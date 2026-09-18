@@ -32,7 +32,7 @@ fn probe_async_apis() -> Unit {
   record(failures, blob.get_size() == 6, "blob_size")
   record(failures, blob.get_type() == "text/plain", "blob_type")
   record(failures, slice.get_size() == 3, "blob_slice")
-  @js.async_run(() => {
+  @js.Promise::from_async(() => {
     try {
       let text = blob.text()
       let bytes = blob.bytes()
@@ -43,8 +43,8 @@ fn probe_async_apis() -> Unit {
         @dom.IsEventTarget::to_clipboard(clipboard) is Some(_),
         "clipboard_conversion",
       )
-      ignore(clipboard.write_text("rabbit clipboard").wait())
-      let clipboard_text = clipboard.read_text().wait().to_string()
+      clipboard.write_text("rabbit clipboard").wait()
+      let clipboard_text = clipboard.read_text().wait()
       record(failures, text == "rabbit", "blob_text")
       record(failures, bytes == b"rabbit", "blob_bytes")
       record(failures, sliced_text == "abb", "blob_slice_text")
@@ -61,6 +61,7 @@ fn probe_async_apis() -> Unit {
     io_done[0] = true
     update_result()
   })
+  |> ignore
 
   let socket_url = "ws://127.0.0.1:4308/dom-api-echo"
   let direct_socket = @dom.WebSocket::new(socket_url)

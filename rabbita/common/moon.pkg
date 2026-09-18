@@ -1,6 +1,5 @@
 import {
   "moonbitlang/core/debug",
-  "moonbitlang/core/ref",
   "moonbit-community/rabbita/internal/key",
 }
 

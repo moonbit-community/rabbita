@@ -3,6 +3,7 @@ package "moonbit-community/rabbita/dom"
 
 import {
   "moonbit-community/rabbita/js",
+  "moonbitlang/async/js_async",
 }
 
 // Values
@@ -165,8 +166,8 @@ pub impl @js.Cast for CanvasRenderingContext2D
 
 #external
 pub type Clipboard
-pub fn Clipboard::read_text(Self) -> @js.Promise
-pub fn Clipboard::write_text(Self, String) -> @js.Promise
+pub fn Clipboard::read_text(Self) -> @js_async.Promise[String]
+pub fn Clipboard::write_text(Self, String) -> @js_async.Promise[Unit]
 pub impl IsEventTarget for Clipboard
 pub impl @js.Cast for Clipboard
 

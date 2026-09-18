@@ -64,23 +64,23 @@ pub fn Blob::slice(self : Self, start : Int, end_? : @js.Optional[Int]) -> Blob 
 
 ///|
 #cfg(target="js")
-extern "js" fn Blob::text_ffi(self : Self) -> @js.Promise = "(self) => self.text()"
+extern "js" fn Blob::text_ffi(self : Self) -> @js.Promise[String] = "(self) => self.text()"
 
 ///|
 #cfg(target="js")
 pub async fn Blob::text(self : Self) -> String {
-  self.text_ffi().wait().cast()
+  self.text_ffi().wait()
 }
 
 ///|
 #cfg(target="js")
-extern "js" fn Blob::bytes_ffi(self : Self) -> @js.Promise =
+extern "js" fn Blob::bytes_ffi(self : Self) -> @js.Promise[Bytes] =
   #| (self) => self.arrayBuffer().then((buffer) => new Uint8Array(buffer))
 
 ///|
 #cfg(target="js")
 pub async fn Blob::bytes(self : Self) -> Bytes {
-  self.bytes_ffi().wait().cast()
+  self.bytes_ffi().wait()
 }
 
 ///|

@@ -12,7 +12,7 @@ pub struct CloseInfo {
 
 ///|
 pub impl Show for CloseInfo with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }
 
 ///|
@@ -26,7 +26,7 @@ pub(all) enum Event {
 
 ///|
 pub impl Show for Event with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }
 
 ///|
@@ -71,7 +71,7 @@ pub(all) enum ReadyState {
 
 ///|
 pub impl Show for ReadyState with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }
 
 ///|
@@ -87,5 +87,5 @@ pub struct Snapshot {
 
 ///|
 pub impl Show for Snapshot with fn output(self, buf) {
-  Show::output(self.to_repr(), buf)
+  Show::output(@debug.Debug::to_repr(self), buf)
 }

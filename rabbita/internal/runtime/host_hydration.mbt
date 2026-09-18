@@ -83,11 +83,9 @@ fn HydrationHost::drain_task_with_transcript(host : Self) -> Unit {
         Unhandled => ()
       } noraise {
         None => ()
-        Ready(cmd) => self.queue_command(cmd)
+        Ready(cmd) => Scheduler::queue_command(self, cmd)
         Async(f) =>
-          @js_async.Promise::from_async(() => {
-            Scheduler::queue_command(self, f())
-          })
+          @js.Promise::from_async(() => Scheduler::queue_command(self, f()))
           |> ignore
         AfterLayout(f) => self.after_render_queue.push(f)
         LegacyEffect(Immediately, f) => f(self)
@@ -105,7 +103,7 @@ fn HydrationHost::drain_task_with_transcript(host : Self) -> Unit {
         .get(key)
         .unwrap_or_error(@cmd.HydrateExn::Fallback)
       let cmd = runner.resume_(extension, json, host)
-      self.queue_command(cmd)
+      Scheduler::queue_command(self, cmd)
     } catch {
       @cmd.Unhandled::Unhandled
       | @cmd.HydrateExn::Unhandled
@@ -117,12 +115,12 @@ fn HydrationHost::drain_task_with_transcript(host : Self) -> Unit {
 
 ///|
 pub impl Host for HydrationHost with fn cleanup(self) {
-  self.browser.cleanup()
+  Host::cleanup(self.browser)
 }
 
 ///|
 pub impl Scheduler for HydrationHost with fn queue_command(self, cmd) {
-  self.browser.queue_command(cmd)
+  Scheduler::queue_command(self.browser, cmd)
 }
 
 ///|
@@ -130,7 +128,7 @@ pub impl Scheduler for HydrationHost with fn set_url_changed_injector(
   self,
   injector,
 ) {
-  self.browser.set_url_changed_injector(injector)
+  Scheduler::set_url_changed_injector(self.browser, injector)
 }
 
 ///|
@@ -138,20 +136,20 @@ pub impl Scheduler for HydrationHost with fn set_url_request_injector(
   self,
   injector,
 ) {
-  self.browser.set_url_request_injector(injector)
+  Scheduler::set_url_request_injector(self.browser, injector)
 }
 
 ///|
 pub impl Context for HydrationHost with fn get_origin(self) {
-  self.browser.get_origin()
+  Context::get_origin(self.browser)
 }
 
 ///|
 pub impl Context for HydrationHost with fn inject_url_changed(self, url) {
-  self.browser.inject_url_changed(url)
+  Context::inject_url_changed(self.browser, url)
 }
 
 ///|
 pub impl Context for HydrationHost with fn inject_url_request(self, url) {
-  self.browser.inject_url_request(url)
+  Context::inject_url_request(self.browser, url)
 }

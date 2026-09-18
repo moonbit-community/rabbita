@@ -31,7 +31,6 @@ fn op_invoke(
           match item {
             Text(text) =>
               @dom.window().navigator().clipboard().write_text(text).wait()
-              |> ignore
           }
           if copied is Some(message) {
             message
@@ -49,10 +48,7 @@ fn op_invoke(
       })
     ClipboardPaste(pasted, failed) =>
       Async(() => {
-        try
-          @dom.window().navigator().clipboard().read_text().wait()
-          |> @js.Value::cast()
-        catch {
+        try @dom.window().navigator().clipboard().read_text().wait() catch {
           error if failed is Some(to_message) => to_message(error.to_string())
           _ => @cmd.none
         } noraise {

@@ -94,11 +94,9 @@ fn BrowserHost::request_task(self : Self) -> Unit {
         Unhandled => ()
       } noraise {
         None => ()
-        Ready(cmd) => self.queue_command(cmd)
+        Ready(cmd) => Scheduler::queue_command(self, cmd)
         Async(f) =>
-          @js_async.Promise::from_async(() => {
-            Scheduler::queue_command(self, f())
-          })
+          @js.Promise::from_async(() => Scheduler::queue_command(self, f()))
           |> ignore
         AfterLayout(f) => self.after_render_queue.push(f)
         LegacyEffect(Immediately, f) => f(self)
