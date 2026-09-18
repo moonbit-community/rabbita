@@ -325,6 +325,8 @@ pub fn[C : @html.IsChildren] dialog_title(DialogScope, id? : String, class? : St
 
 pub fn[C : @html.IsChildren] dialog_trigger(DialogScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
+pub fn[Input : Eq] dialog_with_input(id~ : String, input~ : @rabbita.Val[Input], default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (DialogScope, Input) -> @html.Html) -> @rabbita.Val[@html.Html]
+
 pub fn[C : @html.IsChildren] direction(direction? : TextDirection, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn drawer(id~ : String, default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (DrawerScope) -> @html.Html) -> @rabbita.Val[@html.Html]

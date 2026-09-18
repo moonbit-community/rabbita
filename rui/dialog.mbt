@@ -1,5 +1,6 @@
 ///|
-/// Explicit scope passed by [`dialog`] to its compound parts.
+/// Explicit scope passed by [`dialog`] and [`dialog_with_input`] to their
+/// compound parts.
 ///
 /// Rabbita does not need a global component context here: the opaque scope
 /// carries the component-local state and commands without exposing them to
@@ -253,7 +254,8 @@ fn dialog_close_icon(scope : DialogScope, label : String) -> @html.Html {
 /// dialogs use `showModal()` for inert background, focus containment, and
 /// native Escape behavior. With `modal=false`, the page stays interactive and
 /// Rabbita dismisses only the top non-modal layer.
-#cfg(target="js")
+///
+/// For content derived from an incremental value, use [`dialog_with_input`].
 pub fn dialog(
   id~ : String,
   default_open? : Bool = false,
@@ -263,8 +265,41 @@ pub fn dialog(
   on_close? : @cmd.Emit[String],
   children : (DialogScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
+  dialog_with_input(
+    id~,
+    input=@rabbita.Val::constant(()),
+    default_open~,
+    modal~,
+    close_on_escape~,
+    on_open_change?,
+    on_close?,
+    (scope, _) => children(scope),
+  )
+}
+
+///|
+/// Own dialog state while rendering content from another incremental value.
+///
+/// Create this component once per dialog session, outside a render callback.
+/// Input changes re-render the content without resetting the dialog's open
+/// state or pending close transition. The builder can use the same compound
+/// parts as [`dialog`]. `default_open` only specifies the initial state.
+///
+/// On native targets the initial dialog scope is combined with the input,
+/// without running browser effects.
+#cfg(target="js")
+pub fn[Input : Eq] dialog_with_input(
+  id~ : String,
+  input~ : @rabbita.Val[Input],
+  default_open? : Bool = false,
+  modal? : Bool = true,
+  close_on_escape? : Bool = true,
+  on_open_change? : @cmd.Emit[Bool],
+  on_close? : @cmd.Emit[String],
+  children : (DialogScope, Input) -> @html.Html,
+) -> @rabbita.Val[@html.Html] {
   let (model, emit) = @rabbita.create_state_with_init(
-    init=fn(emit) {
+    init=emit => {
       (
         { open: default_open, generation: 0, },
         @cmd.batch([
@@ -277,7 +312,7 @@ pub fn dialog(
         ]),
       )
     },
-    update=fn(current, message, emit) {
+    update=(current, message, emit) => {
       match message {
         OpenDialog =>
           if current.open {
@@ -329,7 +364,7 @@ pub fn dialog(
       }
     },
   )
-  model.view(model => {
+  model.view2(input, (model, input) => {
     let scope : DialogScope = {
       id,
       open: model.open,
@@ -347,20 +382,21 @@ pub fn dialog(
       modal,
       close_on_escape,
     }
-    children(scope)
+    children(scope, input)
   })
 }
 
 ///|
 #cfg(not(target="js"))
-pub fn dialog(
+pub fn[Input : Eq] dialog_with_input(
   id~ : String,
+  input~ : @rabbita.Val[Input],
   default_open? : Bool = false,
   modal? : Bool = true,
   close_on_escape? : Bool = true,
   on_open_change? : @cmd.Emit[Bool],
   on_close? : @cmd.Emit[String],
-  children : (DialogScope) -> @html.Html,
+  children : (DialogScope, Input) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_open_change, on_close))
   let scope : DialogScope = {
@@ -374,7 +410,7 @@ pub fn dialog(
     modal,
     close_on_escape,
   }
-  @rabbita.Val::constant(children(scope))
+  input.view(input => children(scope, input))
 }
 
 ///|
