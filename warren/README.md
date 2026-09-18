@@ -199,8 +199,10 @@ Warren compiles a temporary sibling copy of the server entry with a generated
 Imports retain their module/workspace context; entry-local files and relative
 references to neighboring files are preserved. Custom build rules that
 hard-code the original entry's package path need to accommodate the copied
-entry. The temporary source is cleaned up on success and failure. Browser
-and server compilation finish before the previous `dist/` is replaced, so a
+entry. Server compilation writes to a temporary build directory; both the
+temporary source and build artifacts are cleaned up on success and failure.
+Browser compilation continues to use the normal build cache. Browser and
+server compilation finish before the previous `dist/` is replaced, so a
 compilation failure retains the previous bundle.
 
 ## New project

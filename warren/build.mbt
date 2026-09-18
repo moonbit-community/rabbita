@@ -114,10 +114,15 @@ fn build_only_args(
   entry : SourcePath,
   target : String,
   release : Bool,
+  target_dir? : SourcePath,
 ) -> Array[String] {
   let args = ["run", "--build-only", "--target", target]
   if release {
     args.push("--release")
+  }
+  if target_dir is Some(dir) {
+    args.push("--target-dir")
+    args.push(source_path_to_string(dir))
   }
   args.push(moon_entry(project_root, entry))
   args
@@ -150,8 +155,9 @@ async fn run_build_only(
   entry : SourcePath,
   target : String,
   release : Bool,
+  target_dir? : SourcePath,
 ) -> SourcePath {
-  let args = build_only_args(project_root, entry, target, release)
+  let args = build_only_args(project_root, entry, target, release, target_dir?)
   log("build", "Running `moon \{args.join(" ")}`")
   let (code, stdout, stderr) = @process.collect_output(
     "moon",

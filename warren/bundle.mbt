@@ -131,6 +131,8 @@ async fn build_bundle(
   let temp_string = @fs.tmpdir(prefix="warren-bundle")
   defer @fs.rmdir(temp_string, recursive=true)
   let temp = SourcePath::new(temp_string)
+  // Keep generated server artifacts under the same success/failure cleanup.
+  let target_dir = temp.join("build")
   let browser_artifact = run_build_only(
     layout.root,
     layout.browser_entry,
@@ -166,7 +168,13 @@ async fn build_bundle(
       create_mode=CreateOrTruncate,
       permission=0o600,
     )
-    let artifact = run_build_only(layout.root, staging, "native", true)
+    let artifact = run_build_only(
+      layout.root,
+      staging,
+      "native",
+      true,
+      target_dir~,
+    )
     let artifact_name = Path::basename(source_path_to_string(artifact)).to_owned()
     let entry_name = Path::basename(source_path_to_string(entry)).to_owned()
     let output_name = if artifact_name.has_prefix(unique_name) {
@@ -184,7 +192,13 @@ async fn build_bundle(
       create_mode=CreateOrTruncate,
       permission=0o600,
     )
-    let artifact = run_build_only(layout.root, entry, "native", true)
+    let artifact = run_build_only(
+      layout.root,
+      entry,
+      "native",
+      true,
+      target_dir~,
+    )
     ensure_clean_dir(dist)
     ignore(copy_server_artifact(artifact, dist, Native))
   }
