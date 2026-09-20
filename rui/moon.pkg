@@ -9,11 +9,6 @@ import {
   "moonbitlang/core/string",
 }
 
-// The async test runner is used by the native and Wasm SSR tests.
-import {
-  "moonbitlang/async",
-} for "test"
-
 supported_targets = "js+native+wasm"
 
 formatter(ignore: [ "README.mbt.md" ])
