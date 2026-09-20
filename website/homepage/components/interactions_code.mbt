@@ -1409,26 +1409,38 @@ fn ig_sidebar_code(call : String) -> String {
 
 ///|
 const IgAlertDialogDefaultCode : String =
-  #|@rui.alert_dialog(id="showcase-alert-dialog-default", scope => {
-  #|  @html.fragment([
-  #|    @rui.alert_dialog_trigger(scope, variant=@rui.Outline, "Archive project"),
-  #|    @rui.alert_dialog_portal([
-  #|      @rui.alert_dialog_content(scope, [
-  #|        @rui.alert_dialog_header([
-  #|          @rui.alert_dialog_title(scope, "Archive this project?"),
-  #|          @rui.alert_dialog_description(
-  #|            scope,
-  #|            "You can restore an archived project later from workspace settings.",
-  #|          ),
-  #|        ]),
-  #|        @rui.alert_dialog_footer([
-  #|          @rui.alert_dialog_cancel(scope, "Cancel"),
-  #|          @rui.alert_dialog_action(scope, "Archive"),
-  #|        ]),
+  #|@html.fragment([
+  #|  @rui.button(
+  #|    variant=@rui.Outline,
+  #|    on_click=@dialog.show("showcase-alert-dialog-default"),
+  #|    "Archive project",
+  #|  ),
+  #|  @rui.alert_dialog(
+  #|    id="showcase-alert-dialog-default",
+  #|    attrs=@html.Attrs::build()
+  #|      .aria_labelledby("showcase-alert-dialog-default-title")
+  #|      .aria_describedby("showcase-alert-dialog-default-description"),
+  #|    [
+  #|      @rui.alert_dialog_header([
+  #|        @rui.alert_dialog_title(
+  #|          id="showcase-alert-dialog-default-title",
+  #|          "Archive this project?",
+  #|        ),
+  #|        @rui.alert_dialog_description(
+  #|          id="showcase-alert-dialog-default-description",
+  #|          "You can restore an archived project later from workspace settings.",
+  #|        ),
   #|      ]),
-  #|    ]),
-  #|  ])
-  #|})
+  #|      @html.form(
+  #|        method_="dialog",
+  #|        @rui.alert_dialog_footer([
+  #|          @rui.alert_dialog_cancel("Cancel"),
+  #|          @rui.alert_dialog_action("Archive"),
+  #|        ]),
+  #|      ),
+  #|    ],
+  #|  ),
+  #|])
 
 ///|
 const IgAlertDialogDestructiveCode : String =
@@ -1457,34 +1469,39 @@ const IgAlertDialogDestructiveCode : String =
   #|  )
   #|}
   #|
-  #|@rui.alert_dialog(
-  #|  id="showcase-alert-dialog",
-  #|  scope => {
-  #|    @html.fragment([
-  #|      @rui.alert_dialog_trigger(
-  #|        scope,
-  #|        variant=@rui.Destructive,
-  #|        "Delete snapshot",
-  #|      ),
-  #|      @rui.alert_dialog_portal([
-  #|        @rui.alert_dialog_content(scope, [
-  #|          @rui.alert_dialog_header([
-  #|            @rui.alert_dialog_media(alert_triangle_icon()),
-  #|            @rui.alert_dialog_title(scope, "Delete this snapshot?"),
-  #|            @rui.alert_dialog_description(
-  #|              scope,
-  #|              "This removes the saved state permanently.",
-  #|            ),
-  #|          ]),
-  #|          @rui.alert_dialog_footer([
-  #|            @rui.alert_dialog_cancel(scope, "Cancel"),
-  #|            @rui.alert_dialog_action(scope, "Delete"),
-  #|          ]),
-  #|        ]),
+  #|@html.fragment([
+  #|  @rui.button(
+  #|    variant=@rui.Destructive,
+  #|    on_click=@dialog.show("showcase-alert-dialog"),
+  #|    "Delete snapshot",
+  #|  ),
+  #|  @rui.alert_dialog(
+  #|    id="showcase-alert-dialog",
+  #|    attrs=@html.Attrs::build()
+  #|      .aria_labelledby("showcase-alert-dialog-title")
+  #|      .aria_describedby("showcase-alert-dialog-description"),
+  #|    [
+  #|      @rui.alert_dialog_header([
+  #|        @rui.alert_dialog_media(alert_triangle_icon()),
+  #|        @rui.alert_dialog_title(
+  #|          id="showcase-alert-dialog-title",
+  #|          "Delete this snapshot?",
+  #|        ),
+  #|        @rui.alert_dialog_description(
+  #|          id="showcase-alert-dialog-description",
+  #|          "This removes the saved state permanently.",
+  #|        ),
   #|      ]),
-  #|    ])
-  #|  },
-  #|)
+  #|      @html.form(
+  #|        method_="dialog",
+  #|        @rui.alert_dialog_footer([
+  #|          @rui.alert_dialog_cancel("Cancel"),
+  #|          @rui.alert_dialog_action("Delete"),
+  #|        ]),
+  #|      ),
+  #|    ],
+  #|  ),
+  #|])
 
 ///|
 const IgDialogSharedCode : String =
@@ -1494,15 +1511,23 @@ const IgDialogSharedCode : String =
   #|  trigger_variant : @rui.ButtonVariant,
   #|  trigger_label : String,
   #|) -> @rabbita.Val[@html.Html] {
-  #|  @rui.dialog(id~, modal~, scope => {
+  #|  @rabbita.Val::constant(
   #|    @html.fragment([
-  #|      @rui.dialog_trigger(scope, variant=trigger_variant, trigger_label),
-  #|      @rui.dialog_portal([
-  #|        @rui.dialog_content(scope, show_close=true, [
+  #|      @rui.button(
+  #|        variant=trigger_variant,
+  #|        on_click=@dialog.show(id, modal~),
+  #|        trigger_label,
+  #|      ),
+  #|      @rui.dialog(
+  #|        id~,
+  #|        attrs=@html.Attrs::build()
+  #|          .aria_labelledby(id + "-title")
+  #|          .aria_describedby(id + "-description"),
+  #|        [
   #|          @rui.dialog_header([
-  #|            @rui.dialog_title(scope, trigger_label),
+  #|            @rui.dialog_title(id=id + "-title", trigger_label),
   #|            @rui.dialog_description(
-  #|              scope,
+  #|              id=id + "-description",
   #|              if modal {
   #|                "Focus stays inside this modal surface until it closes."
   #|              } else {
@@ -1510,15 +1535,20 @@ const IgDialogSharedCode : String =
   #|              },
   #|            ),
   #|          ]),
-  #|          @html.div(style=["display:flex;flex-direction:column;gap:1rem"], [
-  #|            @rui.label(for_=id + "-name", "Display name"),
-  #|            @rui.input(id=id + "-name", value="Rabbita team"),
-  #|          ]),
-  #|          @rui.dialog_footer(@rui.dialog_close(scope, "Save changes")),
-  #|        ]),
-  #|      ]),
-  #|    ])
-  #|  })
+  #|          @html.form(
+  #|            method_="dialog",
+  #|            [
+  #|              @html.div(style=["display:flex;flex-direction:column;gap:1rem"], [
+  #|                @rui.label(for_=id + "-name", "Display name"),
+  #|                @rui.input(id=id + "-name", value="Rabbita team"),
+  #|              ]),
+  #|              @rui.dialog_footer(@rui.button(type_="submit", "Save changes")),
+  #|            ],
+  #|          ),
+  #|        ],
+  #|      ),
+  #|    ]),
+  #|  )
   #|}
   #|
 
@@ -2727,28 +2757,34 @@ const IgSheetSharedCode : String =
   #|  id : String,
   #|  side : @rui.SheetSide,
   #|  trigger_label : String,
-  #|) -> @rabbita.Val[@html.Html] {
-  #|  @rui.sheet(id~, scope => {
-  #|    @html.fragment([
-  #|      @rui.sheet_trigger(scope, variant=@rui.Outline, trigger_label),
-  #|      @rui.sheet_content(scope, side~, [
+  #|) -> @html.Html {
+  #|  @html.fragment([
+  #|    @rui.button(variant=@rui.Outline, on_click=@dialog.show(id), trigger_label),
+  #|    @rui.sheet(
+  #|      id~,
+  #|      side~,
+  #|      attrs=@html.Attrs::build()
+  #|        .aria_labelledby(id + "-title")
+  #|        .aria_describedby(id + "-description"),
+  #|      [
   #|        @rui.sheet_header([
-  #|          @rui.sheet_title(scope, trigger_label),
+  #|          @rui.sheet_title(id=id + "-title", trigger_label),
   #|          @rui.sheet_description(
-  #|            scope,
+  #|            id=id + "-description",
   #|            "Placement changes while focus and dismissal behavior stay consistent.",
   #|          ),
   #|        ]),
-  #|        @html.div(style=["display:flex;flex-direction:column;gap:1rem"], [
-  #|          @rui.label(for_=id + "-email", "Notification email"),
-  #|          @rui.input(id=id + "-email", value="team@example.com"),
+  #|        @html.form(method_="dialog", [
+  #|          @html.div(style=["display:flex;flex-direction:column;gap:1rem"], [
+  #|            @rui.label(for_=id + "-email", "Notification email"),
+  #|            @rui.input(id=id + "-email", value="team@example.com"),
+  #|          ]),
+  #|          @rui.sheet_footer(@rui.button(type_="submit", "Save settings")),
   #|        ]),
-  #|        @rui.sheet_footer(@rui.sheet_close(scope, "Save settings")),
-  #|      ]),
-  #|    ])
-  #|  })
+  #|      ],
+  #|    ),
+  #|  ])
   #|}
-  #|
 
 ///|
 const IgSheetTopCallCode : String =

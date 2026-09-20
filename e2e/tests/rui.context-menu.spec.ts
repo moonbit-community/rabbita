@@ -24,7 +24,7 @@ async function expectStableFocus(locator: Locator) {
 }
 
 test('context menu opens on right click and activates a normal item', async ({ page }) => {
-  await page.goto('/menus');
+  await page.goto('/');
 
   const target = page.locator('[data-slot="context-menu-trigger"]');
   const menu = page.getByRole('menu', { name: 'Fixture canvas menu' });
@@ -42,7 +42,7 @@ test('context menu opens on right click and activates a normal item', async ({ p
 });
 
 test('context menu checkbox and radio items retain owned state', async ({ page }) => {
-  await page.goto('/menus');
+  await page.goto('/');
 
   const target = page.locator('[data-slot="context-menu-trigger"]');
   const menu = page.getByRole('menu', { name: 'Fixture canvas menu' });
@@ -69,7 +69,7 @@ test('context menu checkbox and radio items retain owned state', async ({ page }
 });
 
 test('context menu keyboard navigation skips disabled items and opens submenu', async ({ page }) => {
-  await page.goto('/menus');
+  await page.goto('/');
 
   const target = page.locator('[data-slot="context-menu-trigger"]');
   await target.focus();

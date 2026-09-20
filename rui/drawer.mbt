@@ -9,7 +9,7 @@ pub(all) enum DrawerDirection {
 
 ///|
 /// Explicit compound-component scope created by [`drawer`].
-struct DrawerScope(DialogScope)
+struct DrawerScope(DialogController)
 
 ///|
 const DrawerPositionerStyle : String = "position:fixed;inset:0;z-index:51;display:flex;overflow:hidden;pointer-events:none"
@@ -391,7 +391,7 @@ fn drawer_handle_style(direction : DrawerDirection) -> String {
 }
 
 ///|
-fn drawer_close_icon(scope : DialogScope, label : String) -> @html.Html {
+fn drawer_close_icon(scope : DialogController, label : String) -> @html.Html {
   dialog_control_button(
     slot="drawer-close",
     command=scope.close_command,
@@ -426,7 +426,7 @@ pub fn drawer(
   on_close? : @cmd.Emit[String],
   children : (DrawerScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
-  dialog(
+  stateful_dialog(
     id~,
     default_open~,
     modal~,

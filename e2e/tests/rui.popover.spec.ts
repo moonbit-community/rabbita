@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('popover opens with dialog semantics and closes from its close button', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open popover' });
   const dialog = page.getByRole('dialog', { name: 'Popover title' });
@@ -22,7 +22,7 @@ test('popover opens with dialog semantics and closes from its close button', asy
 });
 
 test('popover closes on Escape', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open popover' });
   const dialog = page.getByRole('dialog', { name: 'Popover title' });
@@ -36,7 +36,7 @@ test('popover closes on Escape', async ({ page }) => {
 });
 
 test('popover closes on an outside pointer press', async ({ page }) => {
-  await page.goto('/modals');
+  await page.goto('/');
 
   const trigger = page.getByRole('button', { name: 'Open popover' });
   const dialog = page.getByRole('dialog', { name: 'Popover title' });

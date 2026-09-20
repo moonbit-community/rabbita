@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('navigation menu opens its viewport on hover', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const platform = page.getByRole('button', { name: 'Platform' });
   const viewport = page.locator('[data-slot="navigation-menu-viewport"]');
@@ -17,7 +17,7 @@ test('navigation menu opens its viewport on hover', async ({ page }) => {
 });
 
 test('navigation menu switches content when hovering another item', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const platform = page.getByRole('button', { name: 'Platform' });
   const resources = page.getByRole('button', { name: 'Resources' });
@@ -34,7 +34,7 @@ test('navigation menu switches content when hovering another item', async ({ pag
 });
 
 test('navigation menu toggles on keyboard activation and closes on Escape', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const platform = page.getByRole('button', { name: 'Platform' });
   const viewport = page.locator('[data-slot="navigation-menu-viewport"]');
@@ -56,7 +56,7 @@ test('navigation menu toggles on keyboard activation and closes on Escape', asyn
 });
 
 test('navigation menu roves triggers and moves into content with ArrowDown', async ({ page }) => {
-  await page.goto('/disclosure');
+  await page.goto('/');
 
   const platform = page.getByRole('button', { name: 'Platform' });
   const resources = page.getByRole('button', { name: 'Resources' });

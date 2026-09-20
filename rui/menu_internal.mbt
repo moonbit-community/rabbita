@@ -54,9 +54,6 @@ const MenuItemInsetStyle : String = "padding-inline-start:2rem"
 const MenuItemDestructiveStyle : String = "--rui-menu-item-base-fg:var(--rui-destructive,oklch(0.577 0.245 27.325))"
 
 ///|
-const MenuItemHighlightedStyle : String = "--rui-menu-item-base-bg:var(--rui-accent,oklch(0.97 0 0));--rui-menu-item-base-fg:var(--rui-accent-foreground,oklch(0.205 0 0))"
-
-///|
 const MenuLabelStyle : String = "padding:0.375rem 0.5rem;font-size:0.75rem;line-height:1rem;font-weight:500;color:var(--rui-muted-foreground,oklch(0.556 0 0))"
 
 ///|
@@ -688,7 +685,6 @@ fn bind_menu_surface(
   root.add_event_listener("pointermove", event => {
     guard event.target().to_element() is Some(target) else { return }
     let item = target.closest("[data-menu-index]")
-    menu_send_active(binding, item)
     if item is Some(item) {
       if item.get_attribute("data-submenu-key").unwrap_or("") != "" &&
         ui_element_is_enabled(item) {
@@ -1631,11 +1627,6 @@ fn[C : @html.IsChildren] menu_item_surface(
         },
         if destructive {
           MenuItemDestructiveStyle
-        } else {
-          ""
-        },
-        if highlighted {
-          MenuItemHighlightedStyle
         } else {
           ""
         },

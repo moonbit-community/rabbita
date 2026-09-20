@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('message scroller jump controls track both scroll edges', async ({ page }) => {
-  await page.goto('/feedback');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-message-scroller');
   const viewport = section.locator('#fixture-message-scroller-viewport');

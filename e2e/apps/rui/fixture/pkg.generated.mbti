@@ -1,0 +1,20 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "local/rabbita-e2e-rui/fixture"
+
+import {
+  "moonbit-community/rabbita",
+  "moonbit-community/rabbita/html",
+}
+
+// Values
+pub fn mount(String, () -> @rabbita.Val[@html.Html]) -> Unit
+
+pub fn section(String, String, Array[@html.Html]) -> @html.Html
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

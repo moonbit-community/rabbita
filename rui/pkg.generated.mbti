@@ -27,15 +27,13 @@ pub fn[C : @html.IsChildren] alert_action(id? : String, class? : String, title? 
 
 pub fn[C : @html.IsChildren] alert_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn alert_dialog(id~ : String, default_open? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (AlertDialogScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+pub fn[C : @html.IsChildren] alert_dialog(id? : String, class? : String, title? : String, hidden? : Bool, open? : Bool, closedby? : String, on_close? : @cmd.Emit[String], on_cancel? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] alert_dialog_action(AlertDialogScope, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] alert_dialog_action(disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, value? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] alert_dialog_cancel(AlertDialogScope, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] alert_dialog_cancel(disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, value? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] alert_dialog_content(AlertDialogScope, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] alert_dialog_description(AlertDialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] alert_dialog_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] alert_dialog_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
@@ -43,13 +41,7 @@ pub fn[C : @html.IsChildren] alert_dialog_header(id? : String, class? : String, 
 
 pub fn[C : @html.IsChildren] alert_dialog_media(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn alert_dialog_overlay(AlertDialogScope, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
-
-pub fn alert_dialog_portal(Array[@html.Html]) -> @html.Html
-
-pub fn[C : @html.IsChildren] alert_dialog_title(AlertDialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] alert_dialog_trigger(AlertDialogScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] alert_dialog_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] alert_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
@@ -305,27 +297,15 @@ pub fn date_range(start~ : CalendarDate, end? : CalendarDate) -> DateRange
 
 pub fn date_range_picker(id~ : String, default_value? : DateRange, default_month? : CalendarDate, today? : CalendarDate, default_open? : Bool, show_outside_days? : Bool, placeholder? : String, disabled? : Bool, invalid? : Bool, aria_label? : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int, align_offset? : Int, format_value? : (DateRange) -> String, on_value_change? : @cmd.Emit[DateRange], on_open_change? : @cmd.Emit[Bool], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], calendar_attrs? : @html.Attrs, calendar_style? : Array[String], day_attrs? : @html.Attrs, day_style? : Array[String]) -> @rabbita.Val[@html.Html]
 
-pub fn dialog(id~ : String, default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (DialogScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+pub fn[C : @html.IsChildren] dialog(id? : String, class? : String, title? : String, hidden? : Bool, open? : Bool, closedby? : String, show_close? : Bool, close_label? : String, on_close? : @cmd.Emit[String], on_cancel? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] dialog_close(DialogScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] dialog_content(DialogScope, close_on_overlay? : Bool, show_close? : Bool, close_label? : String, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] dialog_description(DialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] dialog_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] dialog_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] dialog_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn dialog_overlay(DialogScope, close_on_overlay? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
-
-pub fn dialog_portal(Array[@html.Html]) -> @html.Html
-
-pub fn[C : @html.IsChildren] dialog_title(DialogScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] dialog_trigger(DialogScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[Input : Eq] dialog_with_input(id~ : String, input~ : @rabbita.Val[Input], default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (DialogScope, Input) -> @html.Html) -> @rabbita.Val[@html.Html]
+pub fn[C : @html.IsChildren] dialog_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] direction(direction? : TextDirection, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
@@ -669,21 +649,15 @@ pub fn select_value(scope~ : SelectScope, id? : String, class? : String, title? 
 
 pub fn separator(orientation? : SeparatorOrientation, decorative? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], slot? : String) -> @html.Html
 
-pub fn sheet(id~ : String, default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (SheetScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+pub fn[C : @html.IsChildren] sheet(id? : String, class? : String, title? : String, hidden? : Bool, side? : SheetSide, open? : Bool, closedby? : String, show_close? : Bool, close_label? : String, on_close? : @cmd.Emit[String], on_cancel? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] sheet_close(SheetScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] sheet_content(SheetScope, side? : SheetSide, close_on_overlay? : Bool, show_close? : Bool, close_label? : String, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] sheet_description(SheetScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] sheet_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] sheet_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] sheet_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] sheet_title(SheetScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] sheet_trigger(SheetScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] sheet_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] sidebar(SidebarScope, side? : SidebarSide, variant? : SidebarVariant, collapsible? : SidebarCollapsible, mobile? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], C) -> @html.Html
 
@@ -859,8 +833,6 @@ pub(all) enum AccordionType {
   Multiple
 } derive(Eq, @debug.Debug)
 
-type AlertDialogScope
-
 pub(all) enum AlertVariant {
   Default
   Destructive
@@ -999,8 +971,6 @@ type DatePickerPreset derive(Eq, @debug.Debug)
 type DateRange derive(Eq, @debug.Debug)
 pub fn DateRange::end(Self) -> CalendarDate?
 pub fn DateRange::start(Self) -> CalendarDate
-
-type DialogScope
 
 pub(all) enum DrawerDirection {
   DrawerTop
@@ -1143,8 +1113,6 @@ pub(all) enum SeparatorOrientation {
   Horizontal
   Vertical
 } derive(Eq, @debug.Debug)
-
-type SheetScope
 
 pub(all) enum SheetSide {
   SheetTop

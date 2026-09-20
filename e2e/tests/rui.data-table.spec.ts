@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('data table filters rows, reports its query, and renders an empty state', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-data-table');
   const table = section.getByRole('table', { name: 'Fixture payments' });
@@ -21,7 +21,7 @@ test('data table filters rows, reports its query, and renders an empty state', a
 });
 
 test('data table sorts, paginates, and clamps pagination controls', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-data-table');
   const table = section.getByRole('table', { name: 'Fixture payments' });
@@ -45,7 +45,7 @@ test('data table sorts, paginates, and clamps pagination controls', async ({ pag
 });
 
 test('data table reports row selection and toggles column visibility', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-data-table');
   const table = section.getByRole('table', { name: 'Fixture payments' });

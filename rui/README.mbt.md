@@ -32,23 +32,25 @@ component's DOM structure, state model, or interaction policy.
 
 ## Reactive dialog content
 
-Use `dialog_with_input` when a dialog displays changing application data or a
-stateful child component. Build the dialog once and pass a `Val` as `input`;
-the builder receives the current input alongside the usual `DialogScope`.
-Input changes update the contents while preserving the dialog's open state,
-focus behavior, and pending close transition. `default_open` is an initial
-value, not a controlled open property.
+Render `dialog` inside a `Val::map` or `Val::view` when its contents depend on
+changing application data. The browser owns the dialog's open state, so content
+updates do not reset it. Keep the dialog at a stable position with the same ID,
+and leave `open` unset when opening it with a command. The trigger is an ordinary
+button outside the dialog; import `moonbit-community/rabbita/dialog` as `@dialog`
+to use `@dialog.show`.
 
 ```mbt nocheck
 fn profile_dialog() -> @rabbita.Val[@html.Html] {
   let (name, set_name) = @rabbita.create_variable("Rabbita team")
-  @rui.dialog_with_input(id="profile", input=name, (scope, name) => {
+  name.map(name => {
     @html.fragment([
-      @rui.dialog_trigger(scope, "Edit profile"),
-      @rui.dialog_portal([
-        @rui.dialog_content(scope, described=false, [
+      @rui.button(on_click=@dialog.show("profile"), "Edit profile"),
+      @rui.dialog(
+        id="profile",
+        attrs=@html.Attrs::build().aria_labelledby("profile-title"),
+        [
           @rui.dialog_header([
-            @rui.dialog_title(scope, "Edit profile"),
+            @rui.dialog_title(id="profile-title", "Edit profile"),
           ]),
           @rui.label(for_="profile-name", "Display name"),
           @rui.input(
@@ -57,9 +59,14 @@ fn profile_dialog() -> @rabbita.Val[@html.Html] {
             on_input=set_name.map(value => _ => value),
           ),
           @html.p("Hello, \{name}!"),
-          @rui.dialog_footer(@rui.dialog_close(scope, "Done")),
-        ]),
-      ]),
+          @rui.dialog_footer(
+            @html.form(
+              method_="dialog",
+              @rui.button(type_="submit", "Done"),
+            ),
+          ),
+        ],
+      ),
     ])
   })
 }

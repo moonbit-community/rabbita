@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 const calendarSection = '#fixture-section-calendar';
 
 test('calendar marks today and the selected day', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator(calendarSection);
   const grid = section.getByRole('grid');
@@ -15,7 +15,7 @@ test('calendar marks today and the selected day', async ({ page }) => {
 });
 
 test('calendar selection moves with clicks and focus moves with arrows', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator(calendarSection);
   const day16 = section.locator('[data-slot="calendar-day-button"][data-day="2026-07-16"]');
@@ -33,7 +33,7 @@ test('calendar selection moves with clicks and focus moves with arrows', async (
 });
 
 test('date picker opens a popup calendar and commits a chosen day', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const trigger = page.locator('#fixture-date-picker-trigger');
   await expect(trigger).toHaveText('July 16, 2026');
@@ -52,7 +52,7 @@ test('date picker opens a popup calendar and commits a chosen day', async ({ pag
 });
 
 test('date picker closes on Escape without changing the value', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const trigger = page.locator('#fixture-date-picker-trigger');
   await trigger.click();
@@ -64,7 +64,7 @@ test('date picker closes on Escape without changing the value', async ({ page })
 });
 
 test('date picker preset commits its date and closes the popup', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const trigger = page.locator('#fixture-date-picker-trigger');
   await trigger.click();
@@ -76,7 +76,7 @@ test('date picker preset commits its date and closes the popup', async ({ page }
 });
 
 test('range calendar starts a new range and normalizes reversed boundaries', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-calendar-range');
   const calendar = section.locator('#fixture-calendar-range');
@@ -100,7 +100,7 @@ test('range calendar starts a new range and normalizes reversed boundaries', asy
 });
 
 test('multiple calendar independently toggles selected dates', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-calendar-multiple');
   const calendar = section.locator('#fixture-calendar-multiple');
@@ -121,7 +121,7 @@ test('multiple calendar independently toggles selected dates', async ({ page }) 
 });
 
 test('date range picker stays open for the first boundary and commits the second', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-date-range-picker');
   const trigger = section.locator('#fixture-date-range-picker-trigger');

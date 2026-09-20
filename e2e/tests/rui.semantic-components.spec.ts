@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('alert, buttons, and attachment expose roles, disabled state, and real actions', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-semantic-actions');
   const output = section.locator('#fixture-semantic-actions-output');
@@ -29,7 +29,7 @@ test('alert, buttons, and attachment expose roles, disabled state, and real acti
 });
 
 test('avatar load state, fallback state, aspect ratio, and RTL direction are observable', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-semantic-media');
   const loaded = section.locator('#fixture-avatar-loaded');
@@ -49,7 +49,7 @@ test('avatar load state, fallback state, aspect ratio, and RTL direction are obs
 });
 
 test('breadcrumb and pagination expose link targets and current-page semantics', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-semantic-navigation');
   const breadcrumb = section.getByRole('navigation', { name: 'Fixture breadcrumb' });
@@ -78,7 +78,7 @@ test('breadcrumb and pagination expose link targets and current-page semantics',
 });
 
 test('card, empty, item, message, and bubble keep their public compound structure', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-semantic-compositions');
   await expect(section.locator('#fixture-card [data-slot="card-title"]')).toHaveText(
@@ -100,7 +100,7 @@ test('card, empty, item, message, and bubble keep their public compound structur
 });
 
 test('table, chart, and progress expose native data semantics and clamped values', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-semantic-data');
   const table = section.getByRole('table', { name: 'Fixture build matrix' });
@@ -123,7 +123,7 @@ test('table, chart, and progress expose native data semantics and clamped values
 });
 
 test('typography, keyboard hints, separator, skeleton, spinner, and theme render semantics', async ({ page }) => {
-  await page.goto('/data');
+  await page.goto('/');
 
   const section = page.locator('#fixture-section-semantic-status');
   await expect(section.getByRole('heading', { name: 'Fixture typography', level: 2 })).toBeVisible();

@@ -255,6 +255,13 @@ fn push_action(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
+fn push_method(value : String?, attrs : Attrs) -> Unit {
+  if value is Some(v) {
+    ignore(attrs.method_(v))
+  }
+}
+
+///|
 fn push_name(value : String?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("name", v))

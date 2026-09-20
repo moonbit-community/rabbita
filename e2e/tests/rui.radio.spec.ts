@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('radio group exposes the group and keeps a single checked item', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const group = page.getByRole('radiogroup', { name: 'Billing cycle' });
   await expect(group).toBeVisible();
@@ -20,7 +20,7 @@ test('radio group exposes the group and keeps a single checked item', async ({ p
 });
 
 test('radio group arrow keys move the selection', async ({ page }) => {
-  await page.goto('/forms');
+  await page.goto('/');
 
   const monthly = page.getByRole('radio', { name: 'Monthly' });
   const annual = page.getByRole('radio', { name: 'Annual' });
