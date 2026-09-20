@@ -58,6 +58,42 @@ jobs:
           moon fmt .
           git diff --exit-code
 
+  rui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [js, native, wasm]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MoonBit
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Update MoonBit dependencies
+        run: moon update
+
+      - name: Check RUI
+        run: moon check rui --target ${{ matrix.target }}
+
+      - name: Test RUI
+        run: moon test rui --target ${{ matrix.target }}
+
+      - name: Check RUI interfaces and formatting
+        if: matrix.target == 'js'
+        run: |
+          moon info rui --target js
+          moon fmt rui --check
+          git diff --exit-code
+
   e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 20

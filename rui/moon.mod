@@ -1,6 +1,6 @@
 name = "Yoorkin/rui"
 
-version = "0.1.4"
+version = "0.1.5"
 
 import {
   "moonbit-community/rabbita@0.16.1",
@@ -20,4 +20,4 @@ description = "Self-contained Vega-style UI components for Rabbita"
 
 preferred_target = "js"
 
-supported_targets = "js+native"
+supported_targets = "js+native+wasm"

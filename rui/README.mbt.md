@@ -24,6 +24,17 @@ overlays, menus, and feedback. Exact APIs and copyable examples are available
 in the [showcase](https://moonbit-community.github.io/rabbita/components/) and
 the generated `pkg.generated.mbti` interface.
 
+## Backends
+
+RUI supports `js`, `native`, and `wasm`. Use `js` for interactive browser
+applications. The `native` and `wasm` backends render HTML on the server through
+Rabbita's `App::render`, preserving component defaults and markup. Browser-only
+event handlers and commands are inactive during server rendering; serve the
+JavaScript client alongside the HTML to enable interaction.
+
+With Warren, use `warren build --server-target wasm` to build a Wasm server and
+the JavaScript browser entry.
+
 ## Customization
 
 Use `--rui-*` theme tokens, component `style` parameters, and `attrs` for normal
