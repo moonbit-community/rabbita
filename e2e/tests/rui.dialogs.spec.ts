@@ -7,9 +7,13 @@ test('modal dialog traps focus, closes on Escape, and restores its trigger', asy
   const dialog = page.getByRole('dialog', { name: 'Edit fixture profile' });
   const input = page.getByRole('textbox', { name: 'Display name' });
 
+  await expect(dialog).toBeHidden();
   await trigger.click();
   await expect(dialog).toBeVisible();
-  await expect(dialog).toHaveAttribute('aria-modal', 'true');
+  await expect(dialog).toHaveJSProperty('open', true);
+  expect(await dialog.evaluate((element) => element.matches(':modal'))).toBe(true);
+  await expect(input).toBeFocused();
+  await trigger.focus();
   await expect(input).toBeFocused();
 
   await page.keyboard.press('Escape');
@@ -18,6 +22,48 @@ test('modal dialog traps focus, closes on Escape, and restores its trigger', asy
 
   await trigger.click();
   await dialog.getByRole('button', { name: 'Save dialog' }).click();
+  await expect(dialog).toBeHidden();
+  await expect(page.locator('#fixture-dialog-modal')).toHaveJSProperty('returnValue', 'saved');
+  await expect(page.locator('#fixture-dialog-status')).toHaveText('saved');
+  await expect(trigger).toBeFocused();
+});
+
+test('caller updates preserve the native open state and closing reports its result', async ({ page }) => {
+  await page.goto('/');
+
+  const trigger = page.getByRole('button', { name: 'Open modal dialog' });
+  const dialog = page.getByRole('dialog', { name: 'Edit fixture profile' });
+  const status = page.locator('#fixture-dialog-status');
+
+  await trigger.click();
+  await dialog.getByRole('button', { name: 'Update caller state' }).click();
+  await expect(status).toHaveText('Updated');
+  await expect(dialog).toHaveJSProperty('open', true);
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Save dialog' }).click();
+  await expect(status).toHaveText('saved');
+  await expect(dialog).toBeHidden();
+
+  await trigger.click();
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Close', exact: true }).click();
+  await expect(dialog).toBeHidden();
+});
+
+test('dialog uses native backdrop dismissal and its default close form', async ({ page }) => {
+  await page.goto('/');
+
+  const trigger = page.getByRole('button', { name: 'Open modal dialog' });
+  const dialog = page.getByRole('dialog', { name: 'Edit fixture profile' });
+
+  await trigger.click();
+  await expect(dialog).toBeVisible();
+  await page.mouse.click(5, 5);
+  await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
+
+  await trigger.click();
+  await dialog.getByRole('button', { name: 'Close', exact: true }).click();
   await expect(dialog).toBeHidden();
   await expect(trigger).toBeFocused();
 });
@@ -32,7 +78,7 @@ test('non-modal dialog leaves surrounding controls focusable', async ({ page }) 
   await trigger.click();
   await expect(dialog).toBeVisible();
   await expect(dialog).not.toHaveAttribute('aria-modal', 'true');
-  await expect(dialog).toHaveAttribute('data-modal', 'false');
+  expect(await dialog.evaluate((element) => element.matches(':modal'))).toBe(false);
   await outside.focus();
   await expect(outside).toBeFocused();
   await expect(dialog).toBeVisible();

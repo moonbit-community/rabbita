@@ -1,6 +1,7 @@
 import {
   "local/rabbita-e2e-rui/fixture",
   "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/dialog",
   "moonbit-community/rabbita",
   "Yoorkin/rui",
 }

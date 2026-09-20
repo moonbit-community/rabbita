@@ -1,6 +1,6 @@
 ///|
 /// Explicit scope passed by [`alert_dialog`] to its compound parts.
-struct AlertDialogScope(DialogScope)
+struct AlertDialogScope(DialogController)
 
 ///|
 const AlertDialogContentStyle : String = "width:min(100%,32rem)"
@@ -11,7 +11,7 @@ const AlertDialogMediaStyle : String = "display:inline-flex;width:4rem;height:4r
 ///|
 /// Create a stateful alert dialog.
 ///
-/// Unlike [`dialog_content`], [`alert_dialog_content`] does not dismiss on an
+/// Unlike [`dialog`], [`alert_dialog_content`] does not dismiss on an
 /// overlay click and does not render an implicit close icon. A deliberate
 /// action or cancel control is therefore always visible in normal use.
 pub fn alert_dialog(
@@ -22,7 +22,7 @@ pub fn alert_dialog(
   on_close? : @cmd.Emit[String],
   children : (AlertDialogScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
-  dialog(
+  stateful_dialog(
     id~,
     default_open~,
     modal=true,

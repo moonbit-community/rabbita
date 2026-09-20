@@ -1220,15 +1220,23 @@ fn ig_dialog_variant(
   trigger_variant : @rui.ButtonVariant,
   trigger_label : String,
 ) -> @rabbita.Val[@html.Html] {
-  @rui.dialog(id~, modal~, scope => {
+  @rabbita.Val::constant(
     @html.fragment([
-      @rui.dialog_trigger(scope, variant=trigger_variant, trigger_label),
-      @rui.dialog_portal([
-        @rui.dialog_content(scope, show_close=true, [
+      @rui.button(
+        variant=trigger_variant,
+        on_click=@dialog.show(id, modal~),
+        trigger_label,
+      ),
+      @rui.dialog(
+        id~,
+        attrs=@html.Attrs::build()
+          .aria_labelledby(id + "-title")
+          .aria_describedby(id + "-description"),
+        [
           @rui.dialog_header([
-            @rui.dialog_title(scope, trigger_label),
+            @rui.dialog_title(id=id + "-title", trigger_label),
             @rui.dialog_description(
-              scope,
+              id=id + "-description",
               if modal {
                 "Focus stays inside this modal surface until it closes."
               } else {
@@ -1236,15 +1244,17 @@ fn ig_dialog_variant(
               },
             ),
           ]),
-          @html.div(style=[StackStyle], [
-            @rui.label(for_=id + "-name", "Display name"),
-            @rui.input(id=id + "-name", value="Rabbita team"),
+          @html.form(attrs=@html.Attrs::build().method_("dialog"), [
+            @html.div(style=[StackStyle], [
+              @rui.label(for_=id + "-name", "Display name"),
+              @rui.input(id=id + "-name", value="Rabbita team"),
+            ]),
+            @rui.dialog_footer(@rui.button(type_="submit", "Save changes")),
           ]),
-          @rui.dialog_footer(@rui.dialog_close(scope, "Save changes")),
-        ]),
-      ]),
-    ])
-  })
+        ],
+      ),
+    ]),
+  )
 }
 
 ///|

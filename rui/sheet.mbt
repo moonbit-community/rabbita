@@ -9,7 +9,7 @@ pub(all) enum SheetSide {
 
 ///|
 /// Explicit compound-component scope created by [`sheet`].
-struct SheetScope(DialogScope)
+struct SheetScope(DialogController)
 
 ///|
 const SheetPositionerStyle : String = "position:fixed;inset:0;z-index:51;display:flex;overflow:hidden;pointer-events:none"
@@ -75,7 +75,7 @@ fn sheet_motion_style(side : SheetSide, open : Bool) -> String {
 }
 
 ///|
-fn sheet_close_icon(scope : DialogScope, label : String) -> @html.Html {
+fn sheet_close_icon(scope : DialogController, label : String) -> @html.Html {
   let close_attrs = @html.Attrs::build()
     .data_set("rui-close-icon", "")
     .data_set("state", dialog_state_value(scope.open))
@@ -109,7 +109,7 @@ pub fn sheet(
   on_close? : @cmd.Emit[String],
   children : (SheetScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
-  dialog(
+  stateful_dialog(
     id~,
     default_open~,
     modal~,
