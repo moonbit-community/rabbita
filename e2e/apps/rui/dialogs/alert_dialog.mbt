@@ -1,24 +1,35 @@
 ///|
-fn alert_dialog_fixture() -> Val[Html] {
-  @rui.alert_dialog(id="fixture-alert-dialog", scope => {
-    fragment([
-      @rui.alert_dialog_trigger(scope, variant=Destructive, "Delete fixture"),
-      @rui.alert_dialog_portal([
-        @rui.alert_dialog_content(scope, [
-          @rui.alert_dialog_header([
-            @rui.alert_dialog_title(scope, "Delete this fixture?"),
-            @rui.alert_dialog_description(
-              scope, "This action cannot be undone.",
-            ),
-          ]),
-          @rui.alert_dialog_footer([
-            @rui.alert_dialog_cancel(scope, "Cancel deletion"),
-            @rui.alert_dialog_action(scope, "Confirm deletion"),
-          ]),
+fn alert_dialog_fixture() -> Html {
+  @fixture.section("fixture-section-alert-dialog", "Alert dialog", [
+    @rui.button(
+      variant=Destructive,
+      on_click=@dialog.show("fixture-alert-dialog"),
+      "Delete fixture",
+    ),
+    @rui.alert_dialog(
+      id="fixture-alert-dialog",
+      attrs=@html.Attrs::build()
+        .aria_labelledby("fixture-alert-dialog-title")
+        .aria_describedby("fixture-alert-dialog-description"),
+      [
+        @rui.alert_dialog_header([
+          @rui.alert_dialog_title(
+            id="fixture-alert-dialog-title",
+            "Delete this fixture?",
+          ),
+          @rui.alert_dialog_description(
+            id="fixture-alert-dialog-description",
+            "This action cannot be undone.",
+          ),
         ]),
-      ]),
-    ])
-  }).map(dialog => {
-    @fixture.section("fixture-section-alert-dialog", "Alert dialog", [dialog])
-  })
+        @html.form(
+          method_="dialog",
+          @rui.alert_dialog_footer([
+            @rui.alert_dialog_cancel(value="cancel", "Cancel deletion"),
+            @rui.alert_dialog_action(value="confirm", "Confirm deletion"),
+          ]),
+        ),
+      ],
+    ),
+  ])
 }

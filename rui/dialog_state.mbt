@@ -1,5 +1,5 @@
 ///|
-// Internal controller for alert dialogs, sheets, and drawers.
+// Internal controller retained for drawers.
 priv struct DialogController {
   id : String
   open : Bool
@@ -39,9 +39,6 @@ const DialogOverlayStyle : String = "position:fixed;inset:0;z-index:50;backgroun
 
 ///|
 const DialogPositionerStyle : String = "position:fixed;inset:0;z-index:51;display:grid;place-items:center;overflow-y:auto;padding:1rem;pointer-events:none"
-
-///|
-const DialogContentStyle : String = "position:relative;display:grid;width:min(100%,32rem);max-height:calc(100vh - 2rem);gap:1rem;overflow-y:auto;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));padding:1.5rem;color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 16px 48px rgb(0 0 0 / 0.18);opacity:var(--rui-dialog-content-opacity,1);transform:var(--rui-dialog-content-transform,translateY(0) scale(1));pointer-events:auto;transition:opacity 200ms ease,transform 200ms ease"
 
 ///|
 fn DialogController::title_id(self : DialogController) -> String {

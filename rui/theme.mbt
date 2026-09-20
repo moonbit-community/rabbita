@@ -49,14 +49,6 @@ const UiInteractionCss : String =
   #|  from { opacity:1; }
   #|  to { opacity:0; }
   #|}
-  #|@keyframes rui-sheet-enter {
-  #|  from { opacity:0;transform:var(--rui-sheet-closed-transform); }
-  #|  to { opacity:1;transform:translate3d(0,0,0); }
-  #|}
-  #|@keyframes rui-sheet-exit {
-  #|  from { opacity:1;transform:translate3d(0,0,0); }
-  #|  to { opacity:0;transform:var(--rui-sheet-closed-transform); }
-  #|}
   #|@keyframes rui-drawer-enter {
   #|  from { opacity:0;transform:var(--rui-drawer-closed-transform); }
   #|  to { opacity:1;transform:translate3d(0,0,0); }
@@ -69,10 +61,10 @@ const UiInteractionCss : String =
   #|  :where([hidden]:not([hidden="until-found"])) {
   #|    display:none !important;
   #|  }
-  #|  :where([data-slot="sheet-overlay"],[data-slot="drawer-overlay"])[data-state="open"] {
+  #|  :where([data-slot="drawer-overlay"])[data-state="open"] {
   #|    animation:rui-edge-overlay-enter 200ms ease-out;
   #|  }
-  #|  :where([data-slot="sheet-overlay"],[data-slot="drawer-overlay"])[data-state="closed"] {
+  #|  :where([data-slot="drawer-overlay"])[data-state="closed"] {
   #|    animation:rui-edge-overlay-exit 200ms ease-in;
   #|  }
   #|  :where([data-slot="input"],[data-slot="input-group-control"],[data-slot="textarea"])::placeholder {
@@ -236,24 +228,24 @@ const UiInteractionCss : String =
   #|  [data-slot="command-group"]:not(:has([data-slot="command-item"]:not([hidden]))) {
   #|    display:none !important;
   #|  }
-  #|  dialog[data-slot="dialog"] {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"]) {
   #|    opacity:0;
-  #|    transform:translateY(-0.5rem) scale(0.95);
+  #|    transform:var(--rui-dialog-closed-transform,translateY(-0.5rem) scale(0.95));
   #|    transition:opacity 200ms ease,transform 200ms ease,display 200ms allow-discrete,overlay 200ms allow-discrete;
   #|  }
-  #|  dialog[data-slot="dialog"][open] {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open] {
   #|    opacity:1;
   #|    transform:translateY(0) scale(1);
   #|  }
-  #|  dialog[data-slot="dialog"]::backdrop {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])::backdrop {
   #|    background:var(--rui-dialog-backdrop,rgb(0 0 0 / 0.5));
   #|    opacity:0;
   #|    transition:opacity 200ms ease,display 200ms allow-discrete,overlay 200ms allow-discrete;
   #|  }
-  #|  dialog[data-slot="dialog"][open]::backdrop {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open]::backdrop {
   #|    opacity:1;
   #|  }
-  #|  dialog:where([data-slot="alert-dialog-native"],[data-slot="sheet-native"],[data-slot="drawer-native"],[data-slot="command-dialog-native"],[data-slot="popover-content"])::backdrop {
+  #|  dialog:where([data-slot="drawer-native"],[data-slot="command-dialog-native"],[data-slot="popover-content"])::backdrop {
   #|    background:transparent;
   #|  }
   #|  :where([data-slot="sidebar-trigger"],[data-slot="sidebar-menu-button"],[data-slot="sidebar-menu-sub-button"],[data-slot="sidebar-group-action"],[data-slot="sidebar-menu-action"],[data-slot="dialog-close"],[data-slot="sheet-close"],[data-slot="drawer-close"]) svg {
@@ -491,11 +483,11 @@ const UiInteractionCss : String =
   #|    pointer-events:none !important;
   #|  }
   #|  @starting-style {
-  #|    dialog[data-slot="dialog"][open] {
+  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open] {
   #|      opacity:0;
-  #|      transform:translateY(-0.5rem) scale(0.95);
+  #|      transform:var(--rui-dialog-closed-transform,translateY(-0.5rem) scale(0.95));
   #|    }
-  #|    dialog[data-slot="dialog"][open]::backdrop {
+  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open]::backdrop {
   #|      opacity:0;
   #|    }
   #|    [data-slot="sidebar-mobile-layer"]:popover-open [data-slot="sidebar-overlay"][data-state="open"] {
@@ -519,10 +511,10 @@ const UiInteractionCss : String =
   #|      opacity:0 !important;
   #|      transform:scale(0.95) !important;
   #|    }
-  #|    :where([data-slot="alert-dialog-overlay"],[data-slot="command-dialog-overlay"])[data-state="open"] {
+  #|    :where([data-slot="command-dialog-overlay"])[data-state="open"] {
   #|      opacity:0 !important;
   #|    }
-  #|    :where([data-slot="alert-dialog-content"],[data-slot="command-dialog-content"])[data-state="open"] {
+  #|    :where([data-slot="command-dialog-content"])[data-state="open"] {
   #|      opacity:0 !important;
   #|      transform:translateY(-0.5rem) scale(0.95) !important;
   #|    }
@@ -996,8 +988,8 @@ const UiInteractionCss : String =
   #|      background-image:none !important;
   #|      -webkit-text-fill-color:currentColor !important;
   #|    }
-  #|    dialog[data-slot="dialog"], dialog[data-slot="dialog"]::backdrop,
-  #|    :where([data-slot="accordion-content"],[data-slot="collapsible-content"],[data-slot="carousel-track"],[data-slot="toast"],[data-slot="alert-dialog-overlay"],[data-slot="alert-dialog-content"],[data-slot="sheet-overlay"],[data-slot="sheet-content"],[data-slot="drawer-overlay"],[data-slot="drawer-content"],[data-slot="command-dialog-overlay"],[data-slot="command-dialog-content"],[data-slot="sidebar-mobile-layer"],[data-slot="sidebar-shell"],[data-slot="sidebar"],[data-slot="sidebar-overlay"],[data-slot="sidebar-group-label"],[data-slot="sidebar-inset"]) {
+  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"]), dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])::backdrop,
+  #|    :where([data-slot="accordion-content"],[data-slot="collapsible-content"],[data-slot="carousel-track"],[data-slot="toast"],[data-slot="drawer-overlay"],[data-slot="drawer-content"],[data-slot="command-dialog-overlay"],[data-slot="command-dialog-content"],[data-slot="sidebar-mobile-layer"],[data-slot="sidebar-shell"],[data-slot="sidebar"],[data-slot="sidebar-overlay"],[data-slot="sidebar-group-label"],[data-slot="sidebar-inset"]) {
   #|      animation:none !important;
   #|      transition-duration:0.01ms !important;
   #|      transition-delay:0s !important;
