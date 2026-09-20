@@ -1507,7 +1507,7 @@ fn ig_command_component(
   dialog_html : @html.Html,
 ) -> @html.Html {
   showcase_component_demos(
-    "Command",
+    "Command Box",
     "Inline and dialog listboxes share active-descendant navigation.",
     [
       showcase_demo_section(
@@ -1731,7 +1731,7 @@ fn ig_overlay_page(selected : String) -> @rabbita.Val[@html.Html] {
       ],
     ),
   ])
-  let command_view = @rui.command(
+  let command_box_view = @rui.command_box(
     id="showcase-command",
     style=[IgCommandStyle],
     scope => {
@@ -1767,9 +1767,6 @@ fn ig_overlay_page(selected : String) -> @rabbita.Val[@html.Html] {
   let command_dialog_view = @rui.command_dialog(
     id="showcase-command-dialog",
     aria_label="Command palette",
-    trigger=scope => {
-      @rui.command_dialog_trigger(scope~, variant=Outline, "Open palette")
-    },
     scope => {
       @html.fragment([
         @rui.command_input(scope~, placeholder="Type a command…"),
@@ -1788,7 +1785,16 @@ fn ig_overlay_page(selected : String) -> @rabbita.Val[@html.Html] {
         ]),
       ])
     },
-  )
+  ).map(dialog => {
+    @html.fragment([
+      @rui.button(
+        variant=Outline,
+        on_click=@dialog.show("showcase-command-dialog"),
+        "Open palette",
+      ),
+      dialog,
+    ])
+  })
   let context_menu_actions_view = @rui.context_menu(
     id="showcase-context-menu-actions",
     scope => {
@@ -2209,7 +2215,7 @@ fn ig_overlay_page(selected : String) -> @rabbita.Val[@html.Html] {
     showcase_static_page(@html.nothing)
   }
   let command_component = if selected == "" || selected == "command" {
-    command_view.view2(command_dialog_view, ig_command_component)
+    command_box_view.view2(command_dialog_view, ig_command_component)
   } else {
     showcase_static_page(@html.nothing)
   }

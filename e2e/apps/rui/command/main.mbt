@@ -6,8 +6,24 @@ using @html {fragment, span}
 
 ///|
 fn app() -> Val[Html] {
-  command_fixture().map2(command_dialog_fixture(), fn(command, command_dialog) {
-    fragment([command, command_dialog])
+  let base = command_fixture().map2(command_dialog_fixture(), fn(
+    command,
+    dialog,
+  ) {
+    fragment([command, dialog])
+  })
+  let persistent = command_dialog_options_fixture(
+    "fixture-command-persistent",
+    "Persistent palette",
+    close_on_select=false,
+  )
+  let cancel = command_dialog_options_fixture(
+    "fixture-command-cancel",
+    "Cancel palette",
+    prevent_cancel=true,
+  )
+  base.map3(persistent, cancel, fn(base, persistent, cancel) {
+    fragment([base, persistent, cancel])
   })
 }
 

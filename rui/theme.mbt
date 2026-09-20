@@ -206,21 +206,21 @@ const UiInteractionCss : String =
   #|  [data-slot="command-group"]:not(:has([data-slot="command-item"]:not([hidden]))) {
   #|    display:none !important;
   #|  }
-  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"]) {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"]) {
   #|    opacity:0;
   #|    transform:var(--rui-dialog-closed-transform,translateY(-0.5rem) scale(0.95));
   #|    transition:opacity 200ms ease,transform 200ms ease,display 200ms allow-discrete,overlay 200ms allow-discrete;
   #|  }
-  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open] {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"])[open] {
   #|    opacity:1;
   #|    transform:translateY(0) scale(1);
   #|  }
-  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])::backdrop {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"])::backdrop {
   #|    background:var(--rui-dialog-backdrop,rgb(0 0 0 / 0.5));
   #|    opacity:0;
   #|    transition:opacity 200ms ease,display 200ms allow-discrete,overlay 200ms allow-discrete;
   #|  }
-  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open]::backdrop {
+  #|  dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"])[open]::backdrop {
   #|    opacity:1;
   #|  }
   #|  dialog[data-slot="drawer"] {
@@ -262,7 +262,12 @@ const UiInteractionCss : String =
   #|      --rui-drawer-header-align:left;
   #|    }
   #|  }
-  #|  dialog:where([data-slot="command-dialog-native"],[data-slot="popover-content"])::backdrop {
+  #|  dialog[data-slot="command-dialog"]::backdrop {
+  #|    background:var(--rui-dialog-backdrop,rgb(0 0 0 / 0.1));
+  #|    -webkit-backdrop-filter:blur(4px);
+  #|    backdrop-filter:blur(4px);
+  #|  }
+  #|  dialog[data-slot="popover-content"]::backdrop {
   #|    background:transparent;
   #|  }
   #|  :where([data-slot="sidebar-trigger"],[data-slot="sidebar-menu-button"],[data-slot="sidebar-menu-sub-button"],[data-slot="sidebar-group-action"],[data-slot="sidebar-menu-action"],[data-slot="dialog-close"],[data-slot="sheet-close"]) svg {
@@ -506,11 +511,11 @@ const UiInteractionCss : String =
   #|    dialog[data-slot="drawer"][open]::backdrop {
   #|      opacity:0;
   #|    }
-  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open] {
+  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"])[open] {
   #|      opacity:0;
   #|      transform:var(--rui-dialog-closed-transform,translateY(-0.5rem) scale(0.95));
   #|    }
-  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"])[open]::backdrop {
+  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"])[open]::backdrop {
   #|      opacity:0;
   #|    }
   #|    [data-slot="sidebar-mobile-layer"]:popover-open [data-slot="sidebar-overlay"][data-state="open"] {
@@ -533,13 +538,6 @@ const UiInteractionCss : String =
   #|      visibility:hidden !important;
   #|      opacity:0 !important;
   #|      transform:scale(0.95) !important;
-  #|    }
-  #|    :where([data-slot="command-dialog-overlay"])[data-state="open"] {
-  #|      opacity:0 !important;
-  #|    }
-  #|    :where([data-slot="command-dialog-content"])[data-state="open"] {
-  #|      opacity:0 !important;
-  #|      transform:translateY(-0.5rem) scale(0.95) !important;
   #|    }
   #|    :where([data-slot="toaster"],[data-slot="sonner"])[data-position^="top"] > [data-slot="toast"][data-state="open"] {
   #|      opacity:0 !important;
@@ -1011,8 +1009,8 @@ const UiInteractionCss : String =
   #|      background-image:none !important;
   #|      -webkit-text-fill-color:currentColor !important;
   #|    }
-  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="drawer"]), dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="drawer"])::backdrop,
-  #|    :where([data-slot="accordion-content"],[data-slot="collapsible-content"],[data-slot="carousel-track"],[data-slot="toast"],[data-slot="command-dialog-overlay"],[data-slot="command-dialog-content"],[data-slot="sidebar-mobile-layer"],[data-slot="sidebar-shell"],[data-slot="sidebar"],[data-slot="sidebar-overlay"],[data-slot="sidebar-group-label"],[data-slot="sidebar-inset"]) {
+  #|    dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"],[data-slot="drawer"]), dialog:where([data-slot="dialog"],[data-slot="alert-dialog"],[data-slot="sheet"],[data-slot="command-dialog"],[data-slot="drawer"])::backdrop,
+  #|    :where([data-slot="accordion-content"],[data-slot="collapsible-content"],[data-slot="carousel-track"],[data-slot="toast"],[data-slot="sidebar-mobile-layer"],[data-slot="sidebar-shell"],[data-slot="sidebar"],[data-slot="sidebar-overlay"],[data-slot="sidebar-group-label"],[data-slot="sidebar-inset"]) {
   #|      animation:none !important;
   #|      transition-duration:0.01ms !important;
   #|      transition-delay:0s !important;

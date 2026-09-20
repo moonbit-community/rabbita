@@ -1922,7 +1922,7 @@ const IgContextMenuRadioCode : String =
 
 ///|
 const IgCommandInlineCode : String =
-  #|@rui.command(
+  #|@rui.command_box(
   #|  id="showcase-command",
   #|  style=["max-width:none;border:1px solid var(--rui-border);border-radius:var(--rui-radius);box-shadow:none"],
   #|  scope => {
@@ -1959,9 +1959,6 @@ const IgCommandDialogCode : String =
   #|@rui.command_dialog(
   #|  id="showcase-command-dialog",
   #|  aria_label="Command palette",
-  #|  trigger=scope => {
-  #|    @rui.command_dialog_trigger(scope~, variant=@rui.Outline, "Open palette")
-  #|  },
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.command_input(scope~, placeholder="Type a command…"),
@@ -1980,7 +1977,14 @@ const IgCommandDialogCode : String =
   #|      ]),
   #|    ])
   #|  },
-  #|)
+  #|).map(dialog => @html.fragment([
+  #|  @rui.button(
+  #|    variant=@rui.Outline,
+  #|    on_click=@dialog.show("showcase-command-dialog"),
+  #|    "Open palette",
+  #|  ),
+  #|  dialog,
+  #|]))
 
 ///|
 const IgDropdownMenuBasicCode : String =

@@ -24,7 +24,7 @@ let showcase_page_entries : Array[ShowcasePageEntry] = [
   { slug: "checkbox", title: "Checkbox", },
   { slug: "collapsible", title: "Collapsible", },
   { slug: "combobox", title: "Combobox", },
-  { slug: "command", title: "Command", },
+  { slug: "command", title: "Command Box", },
   { slug: "context-menu", title: "Context Menu", },
   { slug: "data-table", title: "Data Table", },
   { slug: "date-picker", title: "Date Picker", },
