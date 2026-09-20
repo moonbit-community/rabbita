@@ -1244,7 +1244,7 @@ fn ig_dialog_variant(
               },
             ),
           ]),
-          @html.form(attrs=@html.Attrs::build().method_("dialog"), [
+          @html.form(method_="dialog", [
             @html.div(style=[StackStyle], [
               @rui.label(for_=id + "-name", "Display name"),
               @rui.input(id=id + "-name", value="Rabbita team"),

@@ -87,7 +87,7 @@ pub fn[C : IsChildren] figure(style? : Array[String], id? : String, class? : Str
 
 pub fn[C : IsChildren] footer(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn[C : IsChildren] form(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, action? : String, name? : String, on_submit? : @cmd.Cmd, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] form(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, action? : String, method_? : String, name? : String, on_submit? : @cmd.Cmd, attrs? : Attrs, C) -> Html
 
 pub fn fragment(Array[Html]) -> Html
 

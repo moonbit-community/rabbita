@@ -1519,7 +1519,7 @@ const IgDialogSharedCode : String =
   #|            ),
   #|          ]),
   #|          @html.form(
-  #|            attrs=@html.Attrs::build().method_("dialog"),
+  #|            method_="dialog",
   #|            [
   #|              @html.div(style=["display:flex;flex-direction:column;gap:1rem"], [
   #|                @rui.label(for_=id + "-name", "Display name"),

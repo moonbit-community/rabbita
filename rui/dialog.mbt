@@ -45,7 +45,7 @@ pub fn[C : @html.IsChildren] dialog(
       @html.div(style=[UiBoxSizing, "display:contents"], children),
       if show_close {
         @html.form(
-          attrs=@html.Attrs::build().method_("dialog"),
+          method_="dialog",
           style=["position:absolute;top:1rem;inset-inline-end:1rem"],
           button(
             variant=Ghost,

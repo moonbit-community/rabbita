@@ -4,7 +4,7 @@ version = "0.1.0"
 
 import {
   "Yoorkin/rui@0.1.3",
-  "moonbit-community/rabbita@0.15.6",
+  "moonbit-community/rabbita@0.16.1",
 }
 
 license = "Apache-2.0"

@@ -61,7 +61,7 @@ fn profile_dialog() -> @rabbita.Val[@html.Html] {
           @html.p("Hello, \{name}!"),
           @rui.dialog_footer(
             @html.form(
-              attrs=@html.Attrs::build().method_("dialog"),
+              method_="dialog",
               @rui.button(type_="submit", "Done"),
             ),
           ),

@@ -1332,6 +1332,7 @@ pub(all) enum InputType {
 ///
 /// `on_submit` will call `prevent_default()` before dispatching the command.
 /// If you need the browser default behavior, use `attrs` with `Attrs::on_submit`.
+/// Use `method_="dialog"` without `on_submit` to close the containing dialog.
 pub fn[C : IsChildren] form(
   style? : Array[String] = [],
   id? : String,
@@ -1339,6 +1340,7 @@ pub fn[C : IsChildren] form(
   title? : String,
   hidden? : Bool,
   action? : String,
+  method_? : String,
   name? : String,
   on_submit? : Cmd,
   attrs? : Attrs,
@@ -1348,6 +1350,7 @@ pub fn[C : IsChildren] form(
   push_title(title, attrs)
   push_hidden(hidden, attrs)
   push_action(action, attrs)
+  push_method(method_, attrs)
   push_name(name, attrs)
   push_submit(on_submit, attrs)
   push_style(style, attrs)

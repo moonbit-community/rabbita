@@ -26,7 +26,7 @@ fn dialog_fixture() -> Val[Html] {
             "Update the profile and save the dialog.",
           ),
         ],
-        @html.form(attrs=@html.Attrs::build().method_("dialog")) <| [
+        @html.form(method_="dialog") <| [
           div(style=["display:grid;gap:0.5rem"], [
             @rui.label(for_="fixture-dialog-name", "Display name"),
             @rui.input(id="fixture-dialog-name", value="Rabbita team"),
@@ -63,7 +63,7 @@ fn dialog_fixture() -> Val[Html] {
           ]),
           @rui.dialog_footer(
             @html.form(
-              attrs=@html.Attrs::build().method_("dialog"),
+              method_="dialog",
               @rui.button(type_="submit", "Close non-modal"),
             ),
           ),
