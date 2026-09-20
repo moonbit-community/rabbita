@@ -20,7 +20,8 @@ fn app() -> Val[Html] {
     handler_b: 0,
   }
   let (model, emit) = @rabbita.create_pure_state(initial, update~)
-  model.view(model => {
+  let properties = property_removal_fixture()
+  model.view2(properties, (model, properties) => {
     let field_attrs = @html.Attrs::build()
       .on_focus(_ => emit(Focused))
       .on_blur(_ => emit(Blurred))
@@ -75,6 +76,7 @@ fn app() -> Val[Html] {
       button(attrs=composed_attrs, "Run composed handlers"),
       p(id="handler-a", "handler a: \{model.handler_a}"),
       p(id="handler-b", "handler b: \{model.handler_b}"),
+      properties,
     ]
   })
 }

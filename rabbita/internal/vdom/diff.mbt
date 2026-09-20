@@ -635,9 +635,13 @@ fn diff_props(
       parent.set_attribute(key, value2)
     }
   }
-  for key, _ in old.props.props {
+  for key, value in old.props.props {
     if !new.props.contains(key) {
-      parent.remove_property(key)
+      // remove_property only deletes own JS properties, leaving native DOM state
+      // exposed by prototype accessors unchanged. Use Elm's reset convention:
+      // assign "" for strings and null otherwise.
+      let reset = if value is String(_) { nullable("") } else { null() }
+      parent.set_property(key, @js.Value::cast_from(reset))
     }
   }
   for key, value2 in new.props {

@@ -23,6 +23,11 @@ commands and asynchronous work, mocked HTTP, and subscription lifecycles. It
 also exercises the public DOM bindings against real browser objects. It does
 not assert ordering for batched or nested messages.
 
+`apps/forms-and-events` also covers omitted DOM properties: native boolean state,
+input/textarea/select values, and custom properties follow Elm's empty-string/null
+reset convention. The tests verify node reuse, explicit updates, re-adding
+properties, and preservation of user edits while a property remains omitted.
+
 `apps/memo` verifies memo compute counts, independent caches, custom hashes,
 event updates, and transitions between ordinary, fragment, and nested memo
 nodes, including removal and remounting. It also covers keyed fragment moves,
