@@ -9,6 +9,6 @@ import {
   "moonbitlang/core/string",
 }
 
-supported_targets = "js+native"
+supported_targets = "js+native+wasm"
 
 formatter(ignore: [ "README.mbt.md" ])
