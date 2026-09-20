@@ -309,27 +309,15 @@ pub fn[C : @html.IsChildren] dialog_title(id? : String, class? : String, title? 
 
 pub fn[C : @html.IsChildren] direction(direction? : TextDirection, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn drawer(id~ : String, default_open? : Bool, modal? : Bool, close_on_escape? : Bool, on_open_change? : @cmd.Emit[Bool], on_close? : @cmd.Emit[String], (DrawerScope) -> @html.Html) -> @rabbita.Val[@html.Html]
+pub fn[C : @html.IsChildren] drawer(id? : String, class? : String, title? : String, hidden? : Bool, direction? : DrawerDirection, swipe_area? : Int, open? : Bool, closedby? : String, on_close? : @cmd.Emit[String], on_cancel? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] drawer_close(DrawerScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] drawer_content(DrawerScope, direction? : DrawerDirection, close_on_overlay? : Bool, show_handle? : Bool, show_close? : Bool, close_label? : String, described? : Bool, aria_label? : String, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], overlay_attrs? : @html.Attrs, overlay_style? : Array[String], native_attrs? : @html.Attrs, native_style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] drawer_description(DrawerScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] drawer_description(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] drawer_footer(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn drawer_handle(direction? : DrawerDirection, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
-
 pub fn[C : @html.IsChildren] drawer_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn drawer_overlay(DrawerScope, close_on_overlay? : Bool, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
-
-pub fn drawer_portal(Array[@html.Html]) -> @html.Html
-
-pub fn[C : @html.IsChildren] drawer_title(DrawerScope, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn[C : @html.IsChildren] drawer_trigger(DrawerScope, variant? : ButtonVariant, size? : ButtonSize, disabled? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] drawer_title(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn dropdown_menu(id~ : String, default_open? : Bool, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_open_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], (DropdownMenuScope) -> @html.Html) -> @rabbita.Val[@html.Html]
 
@@ -1044,8 +1032,6 @@ pub(all) enum DrawerDirection {
 pub fn DrawerDirection::equal(Self, Self) -> Bool
 pub fn DrawerDirection::not_equal(Self, Self) -> Bool
 pub fn DrawerDirection::to_repr(Self) -> @debug.Repr
-
-type DrawerScope
 
 type DropdownMenuRadioGroupScope
 

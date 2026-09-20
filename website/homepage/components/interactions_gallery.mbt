@@ -1262,30 +1262,39 @@ fn ig_drawer_variant(
   id : String,
   direction : @rui.DrawerDirection,
   trigger_label : String,
-) -> @rabbita.Val[@html.Html] {
-  @rui.drawer(id~, scope => {
-    @html.fragment([
-      @rui.drawer_trigger(scope, variant=Outline, trigger_label),
-      @rui.drawer_portal([
-        @rui.drawer_content(
-          scope,
-          direction~,
-          show_handle=true,
-          show_close=true,
-          [
-            @rui.drawer_header([
-              @rui.drawer_title(scope, trigger_label),
-              @rui.drawer_description(
-                scope, "The direction controls placement, motion, and handle orientation.",
-              ),
-            ]),
-            @html.div(style=[IgDemoSurfaceStyle], "All checks passed"),
-            @rui.drawer_footer(@rui.drawer_close(scope, "Close")),
-          ],
+) -> @html.Html {
+  @html.fragment([
+    @rui.button(variant=Outline, on_click=@dialog.show(id), trigger_label),
+    @rui.drawer(
+      id~,
+      direction~,
+      swipe_area=50,
+      attrs=@html.Attrs::build()
+        .aria_labelledby(id + "-title")
+        .aria_describedby(id + "-description"),
+      [
+        @rui.drawer_header([
+          @rui.drawer_title(id=id + "-title", trigger_label),
+          @rui.drawer_description(
+            id=id + "-description",
+            "Drag beside the drawer to dismiss, or use the close button below.",
+          ),
+        ]),
+        @html.div(style=[IgDemoSurfaceStyle], "All checks passed"),
+        @rui.drawer_footer(
+          @html.form(
+            method_="dialog",
+            @rui.button(
+              variant=Outline,
+              type_="submit",
+              style=["width:100%"],
+              "Close",
+            ),
+          ),
         ),
-      ]),
-    ])
-  })
+      ],
+    ),
+  ])
 }
 
 ///|
@@ -1466,26 +1475,26 @@ fn ig_drawer_component(
 ) -> @html.Html {
   showcase_component_demos(
     "Drawer",
-    "Placement controls motion, edge geometry, and handle orientation.",
+    "Floating panels can be dismissed by dragging the backdrop beside their inner edge.",
     [
       showcase_demo_section(
         "Top",
-        "A horizontal handle accompanies motion from the top edge.",
+        "Drag the backdrop just below the panel to dismiss it upward.",
         showcase_demo_stage(top_html, ig_drawer_code(IgDrawerTopCallCode)),
       ),
       showcase_demo_section(
         "Right",
-        "A vertical handle accompanies motion from the right edge.",
+        "Drag the backdrop just left of the panel to dismiss it rightward.",
         showcase_demo_stage(right_html, ig_drawer_code(IgDrawerRightCallCode)),
       ),
       showcase_demo_section(
         "Bottom",
-        "A horizontal handle accompanies motion from the bottom edge.",
+        "Drag the backdrop just above the panel to dismiss it downward.",
         showcase_demo_stage(bottom_html, ig_drawer_code(IgDrawerBottomCallCode)),
       ),
       showcase_demo_section(
         "Left",
-        "A vertical handle accompanies motion from the left edge.",
+        "Drag the backdrop just right of the panel to dismiss it leftward.",
         showcase_demo_stage(left_html, ig_drawer_code(IgDrawerLeftCallCode)),
       ),
     ],
@@ -2210,8 +2219,10 @@ fn ig_overlay_page(selected : String) -> @rabbita.Val[@html.Html] {
     showcase_static_page(@html.nothing)
   }
   let drawer_component = if selected == "" || selected == "drawer" {
-    drawer_top_view.view4(
-      drawer_right_view, drawer_bottom_view, drawer_left_view, ig_drawer_component,
+    showcase_static_page(
+      ig_drawer_component(
+        drawer_top_view, drawer_right_view, drawer_bottom_view, drawer_left_view,
+      ),
     )
   } else {
     showcase_static_page(@html.nothing)
