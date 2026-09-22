@@ -3,7 +3,7 @@ import {
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/dialog",
   "moonbit-community/rabbita",
-  "Yoorkin/rui",
+  "moonbit-community/rui",
 }
 
 supported_targets = "js"

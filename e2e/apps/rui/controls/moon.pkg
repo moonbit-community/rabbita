@@ -2,7 +2,7 @@ import {
   "local/rabbita-e2e-rui/fixture",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita",
-  "Yoorkin/rui",
+  "moonbit-community/rui",
 }
 
 supported_targets = "js"

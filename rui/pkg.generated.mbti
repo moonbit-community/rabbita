@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "Yoorkin/rui"
+package "moonbit-community/rui"
 
 import {
   "moonbit-community/rabbita",
