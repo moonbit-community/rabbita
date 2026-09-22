@@ -6,10 +6,22 @@ pub(all) enum ItemVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend ItemVariant with Debug::{to_repr}
+
+///|
+pub extend ItemVariant with Eq::{equal, not_equal}
+
+///|
 pub(all) enum ItemSize {
   ItemDefaultSize
   ItemSm
 } derive(Debug, Eq)
+
+///|
+pub extend ItemSize with Debug::{to_repr}
+
+///|
+pub extend ItemSize with Eq::{equal, not_equal}
 
 ///|
 pub(all) enum ItemMediaVariant {
@@ -17,6 +29,12 @@ pub(all) enum ItemMediaVariant {
   ItemMediaIcon
   ItemMediaImage
 } derive(Debug, Eq)
+
+///|
+pub extend ItemMediaVariant with Debug::{to_repr}
+
+///|
+pub extend ItemMediaVariant with Eq::{equal, not_equal}
 
 ///|
 const ItemGroupStyle : String = "display:flex;flex-direction:column"

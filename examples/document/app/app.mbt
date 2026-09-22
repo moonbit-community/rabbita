@@ -18,6 +18,15 @@ pub(all) struct Issue {
 } derive(FromJson, ToJson, Eq)
 
 ///|
+pub extend Issue with FromJson::{from_json}
+
+///|
+pub extend Issue with ToJson::{to_json}
+
+///|
+pub extend Issue with Eq::{equal, not_equal}
+
+///|
 /// The whole page, `<html>` element included: the server renders it as the
 /// response document and the browser hydrates the very same tree.
 pub fn view() -> Val[Html] {

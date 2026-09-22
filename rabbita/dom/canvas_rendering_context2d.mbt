@@ -18,6 +18,10 @@ pub impl @js.Cast for CanvasRenderingContext2D with fn into(value) {
 
 ///|
 #cfg(target="js")
+pub extend CanvasRenderingContext2D with @js.Cast::{from, into}
+
+///|
+#cfg(target="js")
 pub impl @js.Cast for CanvasRenderingContext2D with fn from(value) {
   @js.Value::cast_from(value)
 }

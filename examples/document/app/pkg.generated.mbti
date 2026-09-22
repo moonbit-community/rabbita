@@ -17,6 +17,10 @@ pub(all) struct Issue {
   content : String
   status : String
 } derive(Eq, ToJson, @json.FromJson)
+pub fn Issue::equal(Self, Self) -> Bool
+pub fn Issue::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn Issue::not_equal(Self, Self) -> Bool
+pub fn Issue::to_json(Self) -> Json
 
 // Type aliases
 

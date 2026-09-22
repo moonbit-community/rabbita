@@ -22,6 +22,9 @@ pub impl Show for ScrollBehavior with fn output(self, buf) {
 }
 
 ///|
+pub extend ScrollBehavior with Show::{output, to_string}
+
+///|
 /// Create a command to scroll the window to a specific position.
 pub fn scroll_to_pos(
   x : Double,

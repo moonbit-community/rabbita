@@ -6,6 +6,12 @@ pub(all) enum ChartIndicator {
 } derive(Debug, Eq)
 
 ///|
+pub extend ChartIndicator with Debug::{to_repr}
+
+///|
+pub extend ChartIndicator with Eq::{equal, not_equal}
+
+///|
 const ChartContentsCarrierStyle : String = "display:contents"
 
 ///|

@@ -31,20 +31,101 @@ pub fn window() -> Window
 
 // Types and methods
 type Animation
+pub fn Animation::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Animation::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn Animation::as_event_target(Self) -> EventTarget
+pub fn Animation::dispatch_event(Self, Event) -> Unit
 pub fn Animation::finish(Self) -> Unit
+pub fn Animation::from(Self) -> @js.Value
+pub fn Animation::into(@js.Value) -> Self?
+pub fn Animation::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Animation::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn Animation::to_clipboard(Self) -> Clipboard?
+pub fn Animation::to_comment(Self) -> Comment?
+pub fn Animation::to_document(Self) -> Document?
+pub fn Animation::to_document_fragment(Self) -> DocumentFragment?
+pub fn Animation::to_element(Self) -> Element?
+pub fn Animation::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Animation::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Animation::to_html_element(Self) -> HTMLElement?
+pub fn Animation::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Animation::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Animation::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Animation::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Animation::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn Animation::to_node(Self) -> Node?
+pub fn Animation::to_svg_element(Self) -> SVGElement?
+pub fn Animation::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Animation::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Animation::to_text(Self) -> Text?
+pub fn Animation::to_window(Self) -> Window?
 pub impl IsEventTarget for Animation
 pub impl @js.Cast for Animation
 
 type AnimationEvent
+pub fn AnimationEvent::as_event(Self) -> Event
+pub fn AnimationEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn AnimationEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn AnimationEvent::from(Self) -> @js.Value
 pub fn AnimationEvent::get_animation_name(Self) -> String
+pub fn AnimationEvent::get_default_prevented(Self) -> Bool
 pub fn AnimationEvent::get_elapsed_time(Self) -> Double
 pub fn AnimationEvent::get_pseudo_element(Self) -> String
+pub fn AnimationEvent::get_time_stamp(Self) -> Double
+pub fn AnimationEvent::into(@js.Value) -> Self?
+pub fn AnimationEvent::prevent_default(Self) -> Unit
+pub fn AnimationEvent::stop_immediate_propagation(Self) -> Unit
+pub fn AnimationEvent::stop_propagation(Self) -> Unit
+pub fn AnimationEvent::target(Self) -> EventTarget
+pub fn AnimationEvent::to_animation_event(Self) -> Self?
+pub fn AnimationEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn AnimationEvent::to_blob_event(Self) -> BlobEvent?
+pub fn AnimationEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn AnimationEvent::to_close_event(Self) -> CloseEvent?
+pub fn AnimationEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn AnimationEvent::to_custom_event(Self) -> CustomEvent?
+pub fn AnimationEvent::to_drag_event(Self) -> DragEvent?
+pub fn AnimationEvent::to_focus_event(Self) -> FocusEvent?
+pub fn AnimationEvent::to_input_event(Self) -> InputEvent?
+pub fn AnimationEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn AnimationEvent::to_message_event(Self) -> MessageEvent?
+pub fn AnimationEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn AnimationEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn AnimationEvent::to_ui_event(Self) -> UIEvent?
+pub fn AnimationEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for AnimationEvent
 pub impl @js.Cast for AnimationEvent
 
 type AudioTrackList
 
 type BeforeUnloadEvent
+pub fn BeforeUnloadEvent::as_event(Self) -> Event
+pub fn BeforeUnloadEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn BeforeUnloadEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn BeforeUnloadEvent::from(Self) -> @js.Value
+pub fn BeforeUnloadEvent::get_default_prevented(Self) -> Bool
+pub fn BeforeUnloadEvent::get_time_stamp(Self) -> Double
+pub fn BeforeUnloadEvent::into(@js.Value) -> Self?
+pub fn BeforeUnloadEvent::prevent_default(Self) -> Unit
+pub fn BeforeUnloadEvent::stop_immediate_propagation(Self) -> Unit
+pub fn BeforeUnloadEvent::stop_propagation(Self) -> Unit
+pub fn BeforeUnloadEvent::target(Self) -> EventTarget
+pub fn BeforeUnloadEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn BeforeUnloadEvent::to_before_unload_event(Self) -> Self?
+pub fn BeforeUnloadEvent::to_blob_event(Self) -> BlobEvent?
+pub fn BeforeUnloadEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn BeforeUnloadEvent::to_close_event(Self) -> CloseEvent?
+pub fn BeforeUnloadEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn BeforeUnloadEvent::to_custom_event(Self) -> CustomEvent?
+pub fn BeforeUnloadEvent::to_drag_event(Self) -> DragEvent?
+pub fn BeforeUnloadEvent::to_focus_event(Self) -> FocusEvent?
+pub fn BeforeUnloadEvent::to_input_event(Self) -> InputEvent?
+pub fn BeforeUnloadEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn BeforeUnloadEvent::to_message_event(Self) -> MessageEvent?
+pub fn BeforeUnloadEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn BeforeUnloadEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn BeforeUnloadEvent::to_ui_event(Self) -> UIEvent?
+pub fn BeforeUnloadEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for BeforeUnloadEvent
 pub impl @js.Cast for BeforeUnloadEvent
 
@@ -57,9 +138,36 @@ pub fn Blob::slice(Self, Int, end_? : @js.Optional[Int]) -> Self
 pub async fn Blob::text(Self) -> String
 
 type BlobEvent
+pub fn BlobEvent::as_event(Self) -> Event
+pub fn BlobEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn BlobEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn BlobEvent::from(Self) -> @js.Value
 pub fn BlobEvent::get_data(Self) -> Blob
+pub fn BlobEvent::get_default_prevented(Self) -> Bool
+pub fn BlobEvent::get_time_stamp(Self) -> Double
 pub fn BlobEvent::get_timecode(Self) -> Double
+pub fn BlobEvent::into(@js.Value) -> Self?
 pub fn BlobEvent::new() -> Self
+pub fn BlobEvent::prevent_default(Self) -> Unit
+pub fn BlobEvent::stop_immediate_propagation(Self) -> Unit
+pub fn BlobEvent::stop_propagation(Self) -> Unit
+pub fn BlobEvent::target(Self) -> EventTarget
+pub fn BlobEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn BlobEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn BlobEvent::to_blob_event(Self) -> Self?
+pub fn BlobEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn BlobEvent::to_close_event(Self) -> CloseEvent?
+pub fn BlobEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn BlobEvent::to_custom_event(Self) -> CustomEvent?
+pub fn BlobEvent::to_drag_event(Self) -> DragEvent?
+pub fn BlobEvent::to_focus_event(Self) -> FocusEvent?
+pub fn BlobEvent::to_input_event(Self) -> InputEvent?
+pub fn BlobEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn BlobEvent::to_message_event(Self) -> MessageEvent?
+pub fn BlobEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn BlobEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn BlobEvent::to_ui_event(Self) -> UIEvent?
+pub fn BlobEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for BlobEvent
 pub impl @js.Cast for BlobEvent
 
@@ -69,6 +177,7 @@ pub fn CSS::supports(String, String) -> Bool
 type CSSRule
 
 type CSSStyleDeclaration
+pub fn CSSStyleDeclaration::from(Self) -> @js.Value
 #alias("_[_]")
 pub fn CSSStyleDeclaration::get(Self, String) -> String
 pub fn CSSStyleDeclaration::get_css_float(Self) -> String
@@ -77,6 +186,7 @@ pub fn CSSStyleDeclaration::get_length(Self) -> Int
 pub fn CSSStyleDeclaration::get_parent_rule(Self) -> CSSRule?
 pub fn CSSStyleDeclaration::get_property_priority(Self, String) -> String
 pub fn CSSStyleDeclaration::get_property_value(Self, String) -> String
+pub fn CSSStyleDeclaration::into(@js.Value) -> Self?
 pub fn CSSStyleDeclaration::item(Self, Int) -> String
 pub fn CSSStyleDeclaration::remove_property(Self, String) -> String
 #alias("_[_]=_")
@@ -89,6 +199,8 @@ pub impl @js.Cast for CSSStyleDeclaration
 
 type CanvasGradient
 pub fn CanvasGradient::add_color_stop(Self, Double, String) -> Unit
+pub fn CanvasGradient::from(Self) -> @js.Value
+pub fn CanvasGradient::into(@js.Value) -> Self?
 pub impl @js.Cast for CanvasGradient
 
 type CanvasLineCap
@@ -96,6 +208,8 @@ type CanvasLineCap
 type CanvasLineJoin
 
 type CanvasPattern
+pub fn CanvasPattern::from(Self) -> @js.Value
+pub fn CanvasPattern::into(@js.Value) -> Self?
 pub fn CanvasPattern::set_transform(Self, @js.Optional[DOMMatrix2DInit]) -> Unit
 pub impl @js.Cast for CanvasPattern
 
@@ -121,6 +235,7 @@ pub fn CanvasRenderingContext2D::fill(Self, fill_rule? : String) -> Unit
 pub fn CanvasRenderingContext2D::fill_path(Self, Path2D, fill_rule? : String) -> Unit
 pub fn CanvasRenderingContext2D::fill_rect(Self, Double, Double, Double, Double) -> Unit
 pub fn CanvasRenderingContext2D::fill_text(Self, String, Double, Double, max_width? : @js.Optional[Double]) -> Unit
+pub fn CanvasRenderingContext2D::from(Self) -> @js.Value
 pub fn CanvasRenderingContext2D::get_fill_style(Self) -> @js.Union3[String, CanvasGradient, CanvasPattern]
 pub fn CanvasRenderingContext2D::get_font(Self) -> String
 pub fn CanvasRenderingContext2D::get_image_data(Self, Double, Double, Double, Double, settings? : @js.Optional[ImageDataSettings]) -> ImageData
@@ -130,6 +245,7 @@ pub fn CanvasRenderingContext2D::get_line_join(Self) -> CanvasLineJoin
 pub fn CanvasRenderingContext2D::get_line_with(Self) -> Double
 pub fn CanvasRenderingContext2D::get_stroke_style(Self) -> @js.Union3[String, CanvasGradient, CanvasPattern]
 pub fn CanvasRenderingContext2D::image_smoothing_enabled(Self) -> Bool
+pub fn CanvasRenderingContext2D::into(@js.Value) -> Self?
 pub fn CanvasRenderingContext2D::is_context_lost(Self) -> Bool
 pub fn CanvasRenderingContext2D::is_point_in_path(Self, Double, Double, fill_rule? : String) -> Bool
 pub fn CanvasRenderingContext2D::is_point_in_path_with_path(Self, Path2D, Double, Double, fill_rule? : String) -> Bool
@@ -166,39 +282,221 @@ pub impl @js.Cast for CanvasRenderingContext2D
 
 #external
 pub type Clipboard
+pub fn Clipboard::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Clipboard::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn Clipboard::as_event_target(Self) -> EventTarget
+pub fn Clipboard::dispatch_event(Self, Event) -> Unit
+pub fn Clipboard::from(Self) -> @js.Value
+pub fn Clipboard::into(@js.Value) -> Self?
 pub fn Clipboard::read_text(Self) -> @js_async.Promise[String]
+pub fn Clipboard::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Clipboard::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn Clipboard::to_clipboard(Self) -> Self?
+pub fn Clipboard::to_comment(Self) -> Comment?
+pub fn Clipboard::to_document(Self) -> Document?
+pub fn Clipboard::to_document_fragment(Self) -> DocumentFragment?
+pub fn Clipboard::to_element(Self) -> Element?
+pub fn Clipboard::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Clipboard::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Clipboard::to_html_element(Self) -> HTMLElement?
+pub fn Clipboard::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Clipboard::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Clipboard::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Clipboard::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Clipboard::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn Clipboard::to_node(Self) -> Node?
+pub fn Clipboard::to_svg_element(Self) -> SVGElement?
+pub fn Clipboard::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Clipboard::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Clipboard::to_text(Self) -> Text?
+pub fn Clipboard::to_window(Self) -> Window?
 pub fn Clipboard::write_text(Self, String) -> @js_async.Promise[Unit]
 pub impl IsEventTarget for Clipboard
 pub impl @js.Cast for Clipboard
 
 type ClipboardEvent
+pub fn ClipboardEvent::as_event(Self) -> Event
 pub fn ClipboardEvent::clipboard_data(Self) -> DataTransfer
+pub fn ClipboardEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn ClipboardEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn ClipboardEvent::from(Self) -> @js.Value
+pub fn ClipboardEvent::get_default_prevented(Self) -> Bool
+pub fn ClipboardEvent::get_time_stamp(Self) -> Double
+pub fn ClipboardEvent::into(@js.Value) -> Self?
+pub fn ClipboardEvent::prevent_default(Self) -> Unit
+pub fn ClipboardEvent::stop_immediate_propagation(Self) -> Unit
+pub fn ClipboardEvent::stop_propagation(Self) -> Unit
+pub fn ClipboardEvent::target(Self) -> EventTarget
+pub fn ClipboardEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn ClipboardEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn ClipboardEvent::to_blob_event(Self) -> BlobEvent?
+pub fn ClipboardEvent::to_clipboard_event(Self) -> Self?
+pub fn ClipboardEvent::to_close_event(Self) -> CloseEvent?
+pub fn ClipboardEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn ClipboardEvent::to_custom_event(Self) -> CustomEvent?
+pub fn ClipboardEvent::to_drag_event(Self) -> DragEvent?
+pub fn ClipboardEvent::to_focus_event(Self) -> FocusEvent?
+pub fn ClipboardEvent::to_input_event(Self) -> InputEvent?
+pub fn ClipboardEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn ClipboardEvent::to_message_event(Self) -> MessageEvent?
+pub fn ClipboardEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn ClipboardEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn ClipboardEvent::to_ui_event(Self) -> UIEvent?
+pub fn ClipboardEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for ClipboardEvent
 pub impl @js.Cast for ClipboardEvent
 
 type CloseEvent
+pub fn CloseEvent::as_event(Self) -> Event
+pub fn CloseEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn CloseEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn CloseEvent::from(Self) -> @js.Value
 pub fn CloseEvent::get_code(Self) -> Int
+pub fn CloseEvent::get_default_prevented(Self) -> Bool
 pub fn CloseEvent::get_reason(Self) -> String
+pub fn CloseEvent::get_time_stamp(Self) -> Double
 pub fn CloseEvent::get_was_clean(Self) -> Bool
+pub fn CloseEvent::into(@js.Value) -> Self?
+pub fn CloseEvent::prevent_default(Self) -> Unit
+pub fn CloseEvent::stop_immediate_propagation(Self) -> Unit
+pub fn CloseEvent::stop_propagation(Self) -> Unit
+pub fn CloseEvent::target(Self) -> EventTarget
+pub fn CloseEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn CloseEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn CloseEvent::to_blob_event(Self) -> BlobEvent?
+pub fn CloseEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn CloseEvent::to_close_event(Self) -> Self?
+pub fn CloseEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn CloseEvent::to_custom_event(Self) -> CustomEvent?
+pub fn CloseEvent::to_drag_event(Self) -> DragEvent?
+pub fn CloseEvent::to_focus_event(Self) -> FocusEvent?
+pub fn CloseEvent::to_input_event(Self) -> InputEvent?
+pub fn CloseEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn CloseEvent::to_message_event(Self) -> MessageEvent?
+pub fn CloseEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn CloseEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn CloseEvent::to_ui_event(Self) -> UIEvent?
+pub fn CloseEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for CloseEvent
 pub impl @js.Cast for CloseEvent
 
 type Comment
+pub fn Comment::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Comment::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn Comment::append_child(Self, Node) -> Unit
+pub fn Comment::as_event_target(Self) -> EventTarget
+pub fn Comment::as_node(Self) -> Node
+pub fn Comment::contains(Self, Node) -> Bool
+pub fn Comment::dispatch_event(Self, Event) -> Unit
+pub fn Comment::from(Self) -> @js.Value
+pub fn Comment::get_child(Self, Int) -> Node
+pub fn Comment::get_child_count(Self) -> Int
+pub fn Comment::get_first_child(Self) -> Node
+pub fn Comment::get_is_connected(Self) -> Bool
+pub fn Comment::get_last_child(Self) -> Node
+pub fn Comment::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn Comment::get_node_name(Self) -> String
+pub fn Comment::get_node_type(Self) -> Int
+pub fn Comment::get_node_value(Self) -> String
+pub fn Comment::get_parent_element(Self) -> Element?
+pub fn Comment::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn Comment::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn Comment::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn Comment::into(@js.Value) -> Self?
+pub fn Comment::is_same_node(Self, Node) -> Bool
+pub fn Comment::remove_child(Self, Node) -> Unit
+pub fn Comment::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Comment::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn Comment::replace_child(Self, Node, Node) -> Unit
+pub fn Comment::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn Comment::to_clipboard(Self) -> Clipboard?
+pub fn Comment::to_comment(Self) -> Self?
+pub fn Comment::to_document(Self) -> Document?
+pub fn Comment::to_document_fragment(Self) -> DocumentFragment?
+pub fn Comment::to_element(Self) -> Element?
+pub fn Comment::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Comment::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Comment::to_html_element(Self) -> HTMLElement?
+pub fn Comment::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Comment::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Comment::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Comment::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Comment::to_html_video_element(Self) -> HTMLVideoElement?
 pub fn Comment::to_node(Self) -> Node
+pub fn Comment::to_svg_element(Self) -> SVGElement?
+pub fn Comment::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Comment::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Comment::to_text(Self) -> Text?
+pub fn Comment::to_window(Self) -> Window?
 pub impl IsEventTarget for Comment
 pub impl IsNode for Comment
 pub impl @js.Cast for Comment
 
 type CompositionEvent
+pub fn CompositionEvent::as_event(Self) -> Event
+pub fn CompositionEvent::as_ui_event(Self) -> UIEvent
+pub fn CompositionEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn CompositionEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn CompositionEvent::from(Self) -> @js.Value
 pub fn CompositionEvent::get_data(Self) -> String
+pub fn CompositionEvent::get_default_prevented(Self) -> Bool
+pub fn CompositionEvent::get_time_stamp(Self) -> Double
+pub fn CompositionEvent::into(@js.Value) -> Self?
 pub fn CompositionEvent::new() -> Self
+pub fn CompositionEvent::prevent_default(Self) -> Unit
+pub fn CompositionEvent::stop_immediate_propagation(Self) -> Unit
+pub fn CompositionEvent::stop_propagation(Self) -> Unit
+pub fn CompositionEvent::target(Self) -> EventTarget
+pub fn CompositionEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn CompositionEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn CompositionEvent::to_blob_event(Self) -> BlobEvent?
+pub fn CompositionEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn CompositionEvent::to_close_event(Self) -> CloseEvent?
+pub fn CompositionEvent::to_composition_event(Self) -> Self?
+pub fn CompositionEvent::to_custom_event(Self) -> CustomEvent?
+pub fn CompositionEvent::to_drag_event(Self) -> DragEvent?
+pub fn CompositionEvent::to_focus_event(Self) -> FocusEvent?
+pub fn CompositionEvent::to_input_event(Self) -> InputEvent?
+pub fn CompositionEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn CompositionEvent::to_message_event(Self) -> MessageEvent?
+pub fn CompositionEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn CompositionEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn CompositionEvent::to_ui_event(Self) -> UIEvent?
+pub fn CompositionEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for CompositionEvent
 pub impl IsUIEvent for CompositionEvent
 pub impl @js.Cast for CompositionEvent
 
 type CustomEvent
+pub fn CustomEvent::as_event(Self) -> Event
+pub fn CustomEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn CustomEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn CustomEvent::from(Self) -> @js.Value
+pub fn CustomEvent::get_default_prevented(Self) -> Bool
 pub fn CustomEvent::get_detail(Self) -> @js.Value
+pub fn CustomEvent::get_time_stamp(Self) -> Double
+pub fn CustomEvent::into(@js.Value) -> Self?
 pub fn CustomEvent::new(String, detail? : @js.Optional[@js.Value]) -> Self
+pub fn CustomEvent::prevent_default(Self) -> Unit
+pub fn CustomEvent::stop_immediate_propagation(Self) -> Unit
+pub fn CustomEvent::stop_propagation(Self) -> Unit
+pub fn CustomEvent::target(Self) -> EventTarget
+pub fn CustomEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn CustomEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn CustomEvent::to_blob_event(Self) -> BlobEvent?
+pub fn CustomEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn CustomEvent::to_close_event(Self) -> CloseEvent?
+pub fn CustomEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn CustomEvent::to_custom_event(Self) -> Self?
+pub fn CustomEvent::to_drag_event(Self) -> DragEvent?
+pub fn CustomEvent::to_focus_event(Self) -> FocusEvent?
+pub fn CustomEvent::to_input_event(Self) -> InputEvent?
+pub fn CustomEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn CustomEvent::to_message_event(Self) -> MessageEvent?
+pub fn CustomEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn CustomEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn CustomEvent::to_ui_event(Self) -> UIEvent?
+pub fn CustomEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for CustomEvent
 pub impl @js.Cast for CustomEvent
 
@@ -248,13 +546,18 @@ pub fn DataTransferItemList::length(Self) -> Int
 pub fn DataTransferItemList::remove(Self, Int) -> Unit
 
 type Document
+pub fn Document::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Document::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn Document::as_event_target(Self) -> EventTarget
 pub fn Document::create_comment(Self, String) -> Comment
 pub fn Document::create_document_fragment(Self) -> DocumentFragment
 pub fn Document::create_element(Self, String) -> Element
 pub fn Document::create_element_ns(Self, String, String, on_namespace_error? : (DOMException) -> Element, on_invalid_character_error? : (DOMException) -> Element) -> Element
 pub fn Document::create_text_node(Self, String) -> Element
+pub fn Document::dispatch_event(Self, Event) -> Unit
 pub fn Document::element_from_point(Self, Double, Double) -> Element?
 pub fn Document::elements_from_point(Self, Double, Double) -> FixedArray[Element]
+pub fn Document::from(Self) -> @js.Value
 pub fn Document::get_active_element(Self) -> Element?
 pub fn Document::get_body(Self) -> HTMLElement?
 pub fn Document::get_document_element(Self) -> Element?
@@ -265,20 +568,136 @@ pub fn Document::get_elements_by_tag_name(Self, String) -> HTMLCollection
 pub fn Document::get_elements_by_tag_name_ns(Self, String, String) -> HTMLCollection
 pub fn Document::get_head(Self) -> HTMLElement?
 pub fn Document::hidden(Self) -> Bool
+pub fn Document::into(@js.Value) -> Self?
 pub fn Document::query_selector(Self, String) -> @js.Nullable[Element]
 pub fn Document::query_selector_all(Self, String) -> NodeList[Element]
+pub fn Document::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Document::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn Document::to_clipboard(Self) -> Clipboard?
+pub fn Document::to_comment(Self) -> Comment?
+pub fn Document::to_document(Self) -> Self?
+pub fn Document::to_document_fragment(Self) -> DocumentFragment?
+pub fn Document::to_element(Self) -> Element?
+pub fn Document::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Document::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Document::to_html_element(Self) -> HTMLElement?
+pub fn Document::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Document::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Document::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Document::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Document::to_html_video_element(Self) -> HTMLVideoElement?
 pub fn Document::to_node(Self) -> Node
+pub fn Document::to_svg_element(Self) -> SVGElement?
+pub fn Document::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Document::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Document::to_text(Self) -> Text?
+pub fn Document::to_window(Self) -> Window?
 pub impl IsEventTarget for Document
 pub impl @js.Cast for Document
 
 type DocumentFragment
+pub fn DocumentFragment::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn DocumentFragment::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn DocumentFragment::append_child(Self, Node) -> Unit
+pub fn DocumentFragment::as_event_target(Self) -> EventTarget
+pub fn DocumentFragment::as_node(Self) -> Node
+pub fn DocumentFragment::contains(Self, Node) -> Bool
+pub fn DocumentFragment::dispatch_event(Self, Event) -> Unit
+pub fn DocumentFragment::from(Self) -> @js.Value
+pub fn DocumentFragment::get_child(Self, Int) -> Node
+pub fn DocumentFragment::get_child_count(Self) -> Int
+pub fn DocumentFragment::get_first_child(Self) -> Node
+pub fn DocumentFragment::get_is_connected(Self) -> Bool
+pub fn DocumentFragment::get_last_child(Self) -> Node
+pub fn DocumentFragment::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn DocumentFragment::get_node_name(Self) -> String
+pub fn DocumentFragment::get_node_type(Self) -> Int
+pub fn DocumentFragment::get_node_value(Self) -> String
+pub fn DocumentFragment::get_parent_element(Self) -> Element?
+pub fn DocumentFragment::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn DocumentFragment::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn DocumentFragment::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn DocumentFragment::into(@js.Value) -> Self?
+pub fn DocumentFragment::is_same_node(Self, Node) -> Bool
+pub fn DocumentFragment::remove_child(Self, Node) -> Unit
+pub fn DocumentFragment::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn DocumentFragment::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn DocumentFragment::replace_child(Self, Node, Node) -> Unit
+pub fn DocumentFragment::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn DocumentFragment::to_clipboard(Self) -> Clipboard?
+pub fn DocumentFragment::to_comment(Self) -> Comment?
+pub fn DocumentFragment::to_document(Self) -> Document?
+pub fn DocumentFragment::to_document_fragment(Self) -> Self?
+pub fn DocumentFragment::to_element(Self) -> Element?
+pub fn DocumentFragment::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn DocumentFragment::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn DocumentFragment::to_html_element(Self) -> HTMLElement?
+pub fn DocumentFragment::to_html_image_element(Self) -> HTMLImageElement?
+pub fn DocumentFragment::to_html_input_element(Self) -> HTMLInputElement?
+pub fn DocumentFragment::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn DocumentFragment::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn DocumentFragment::to_html_video_element(Self) -> HTMLVideoElement?
 pub fn DocumentFragment::to_node(Self) -> Node
+pub fn DocumentFragment::to_svg_element(Self) -> SVGElement?
+pub fn DocumentFragment::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn DocumentFragment::to_svg_image_element(Self) -> SVGImageElement?
+pub fn DocumentFragment::to_text(Self) -> Text?
+pub fn DocumentFragment::to_window(Self) -> Window?
 pub impl IsEventTarget for DocumentFragment
 pub impl IsNode for DocumentFragment
 pub impl @js.Cast for DocumentFragment
 
 type DragEvent
+pub fn DragEvent::as_event(Self) -> Event
+pub fn DragEvent::as_mouse_event(Self) -> MouseEvent
+pub fn DragEvent::as_ui_event(Self) -> UIEvent
+pub fn DragEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn DragEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn DragEvent::from(Self) -> @js.Value
+pub fn DragEvent::get_alt_key(Self) -> Bool
+pub fn DragEvent::get_button(Self) -> Int
+pub fn DragEvent::get_buttons(Self) -> Int
+pub fn DragEvent::get_client_x(Self) -> Double
+pub fn DragEvent::get_client_y(Self) -> Double
+pub fn DragEvent::get_ctrl_key(Self) -> Bool
 pub fn DragEvent::get_data_transfer(Self) -> DataTransfer
+pub fn DragEvent::get_default_prevented(Self) -> Bool
+pub fn DragEvent::get_meta_key(Self) -> Bool
+pub fn DragEvent::get_modifier_state(Self, String) -> Bool
+pub fn DragEvent::get_movement_x(Self) -> Double
+pub fn DragEvent::get_movement_y(Self) -> Double
+pub fn DragEvent::get_offset_x(Self) -> Double
+pub fn DragEvent::get_offset_y(Self) -> Double
+pub fn DragEvent::get_page_x(Self) -> Double
+pub fn DragEvent::get_page_y(Self) -> Double
+pub fn DragEvent::get_related_target(Self) -> EventTarget?
+pub fn DragEvent::get_screen_x(Self) -> Double
+pub fn DragEvent::get_screen_y(Self) -> Double
+pub fn DragEvent::get_shift_key(Self) -> Bool
+pub fn DragEvent::get_time_stamp(Self) -> Double
+pub fn DragEvent::get_x(Self) -> Double
+pub fn DragEvent::get_y(Self) -> Double
+pub fn DragEvent::into(@js.Value) -> Self?
+pub fn DragEvent::prevent_default(Self) -> Unit
+pub fn DragEvent::stop_immediate_propagation(Self) -> Unit
+pub fn DragEvent::stop_propagation(Self) -> Unit
+pub fn DragEvent::target(Self) -> EventTarget
+pub fn DragEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn DragEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn DragEvent::to_blob_event(Self) -> BlobEvent?
+pub fn DragEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn DragEvent::to_close_event(Self) -> CloseEvent?
+pub fn DragEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn DragEvent::to_custom_event(Self) -> CustomEvent?
+pub fn DragEvent::to_drag_event(Self) -> Self?
+pub fn DragEvent::to_focus_event(Self) -> FocusEvent?
+pub fn DragEvent::to_input_event(Self) -> InputEvent?
+pub fn DragEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn DragEvent::to_message_event(Self) -> MessageEvent?
+pub fn DragEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn DragEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn DragEvent::to_ui_event(Self) -> UIEvent?
+pub fn DragEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for DragEvent
 pub impl IsMouseEvent for DragEvent
 pub impl IsUIEvent for DragEvent
@@ -287,6 +706,85 @@ pub impl @js.Cast for DragEvent
 type EditContext
 
 type Element
+pub fn Element::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Element::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn Element::append_child(Self, Node) -> Unit
+pub fn Element::as_element(Self) -> Self
+pub fn Element::as_event_target(Self) -> EventTarget
+pub fn Element::as_node(Self) -> Node
+pub fn Element::closest(Self, String) -> Self?
+pub fn Element::contains(Self, Node) -> Bool
+pub fn Element::dispatch_event(Self, Event) -> Unit
+pub fn Element::from(Self) -> @js.Value
+pub fn Element::get_animations(Self) -> FixedArray[Animation]
+pub fn Element::get_attribute(Self, String) -> String?
+pub fn Element::get_bounding_client_rect(Self) -> DOMRect
+pub fn Element::get_child(Self, Int) -> Node
+pub fn Element::get_child_count(Self) -> Int
+pub fn Element::get_children(Self) -> HTMLCollection
+pub fn Element::get_client_height(Self) -> Double
+pub fn Element::get_client_left(Self) -> Double
+pub fn Element::get_client_rects(Self) -> DOMRectList
+pub fn Element::get_client_top(Self) -> Double
+pub fn Element::get_client_width(Self) -> Double
+pub fn Element::get_first_child(Self) -> Node
+pub fn Element::get_is_connected(Self) -> Bool
+pub fn Element::get_last_child(Self) -> Node
+pub fn Element::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn Element::get_node_name(Self) -> String
+pub fn Element::get_node_type(Self) -> Int
+pub fn Element::get_node_value(Self) -> String
+pub fn Element::get_parent_element(Self) -> Self?
+pub fn Element::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn Element::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn Element::get_property(Self, String) -> @js.Optional[String]
+pub fn Element::get_scroll_height(Self) -> Double
+pub fn Element::get_scroll_left(Self) -> Double
+pub fn Element::get_scroll_top(Self) -> Double
+pub fn Element::get_scroll_width(Self) -> Double
+pub fn Element::has_attribute(Self, String) -> Bool
+pub fn Element::has_pointer_capture(Self, Int) -> Bool
+pub fn Element::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn Element::into(@js.Value) -> Self?
+pub fn Element::is_same_node(Self, Node) -> Bool
+pub fn Element::matches(Self, String) -> Bool
+pub fn Element::query_selector(Self, String) -> Self?
+pub fn Element::query_selector_all(Self, String) -> NodeList[Self]
+pub fn Element::release_pointer_capture(Self, Int) -> Unit
+pub fn Element::remove_attribute(Self, String) -> Unit
+pub fn Element::remove_child(Self, Node) -> Unit
+pub fn Element::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Element::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn Element::remove_property(Self, String) -> Unit
+pub fn Element::replace_child(Self, Node, Node) -> Unit
+pub fn Element::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn Element::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn Element::set_attribute(Self, String, String) -> Unit
+pub fn Element::set_inner_html(Self, String) -> Unit
+pub fn Element::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn Element::set_pointer_capture(Self, Int) -> Unit
+pub fn Element::set_property(Self, String, @js.Value) -> Unit
+pub fn Element::set_scroll_left(Self, Double) -> Unit
+pub fn Element::set_scroll_top(Self, Double) -> Unit
+pub fn Element::to_clipboard(Self) -> Clipboard?
+pub fn Element::to_comment(Self) -> Comment?
+pub fn Element::to_document(Self) -> Document?
+pub fn Element::to_document_fragment(Self) -> DocumentFragment?
+pub fn Element::to_element(Self) -> Self?
+pub fn Element::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Element::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Element::to_html_element(Self) -> HTMLElement?
+pub fn Element::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Element::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Element::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Element::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Element::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn Element::to_node(Self) -> Node?
+pub fn Element::to_svg_element(Self) -> SVGElement?
+pub fn Element::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Element::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Element::to_text(Self) -> Text?
+pub fn Element::to_window(Self) -> Window?
 pub impl IsElement for Element
 pub impl IsEventTarget for Element
 pub impl IsNode for Element
@@ -295,16 +793,98 @@ pub impl @js.Cast for Element
 type ElementInternals
 
 type Event
+pub fn Event::as_event(Self) -> Self
+pub fn Event::composed_path(Self) -> FixedArray[EventTarget]
+pub fn Event::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn Event::from(Self) -> @js.Value
+pub fn Event::get_default_prevented(Self) -> Bool
+pub fn Event::get_time_stamp(Self) -> Double
+pub fn Event::into(@js.Value) -> Self?
 pub fn Event::new(String, bubbles? : Bool, cancelable? : Bool, composed? : Bool) -> Self
+pub fn Event::prevent_default(Self) -> Unit
+pub fn Event::stop_immediate_propagation(Self) -> Unit
+pub fn Event::stop_propagation(Self) -> Unit
+pub fn Event::target(Self) -> EventTarget
+pub fn Event::to_animation_event(Self) -> AnimationEvent?
+pub fn Event::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn Event::to_blob_event(Self) -> BlobEvent?
+pub fn Event::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn Event::to_close_event(Self) -> CloseEvent?
+pub fn Event::to_composition_event(Self) -> CompositionEvent?
+pub fn Event::to_custom_event(Self) -> CustomEvent?
+pub fn Event::to_drag_event(Self) -> DragEvent?
+pub fn Event::to_focus_event(Self) -> FocusEvent?
+pub fn Event::to_input_event(Self) -> InputEvent?
+pub fn Event::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn Event::to_message_event(Self) -> MessageEvent?
+pub fn Event::to_mouse_event(Self) -> MouseEvent?
+pub fn Event::to_pointer_event(Self) -> PointerEvent?
+pub fn Event::to_ui_event(Self) -> UIEvent?
+pub fn Event::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for Event
 pub impl @js.Cast for Event
 
 type EventTarget
+pub fn EventTarget::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn EventTarget::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn EventTarget::as_event_target(Self) -> Self
+pub fn EventTarget::dispatch_event(Self, Event) -> Unit
+pub fn EventTarget::from(Self) -> @js.Value
+pub fn EventTarget::into(@js.Value) -> Self?
+pub fn EventTarget::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn EventTarget::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn EventTarget::to_clipboard(Self) -> Clipboard?
+pub fn EventTarget::to_comment(Self) -> Comment?
+pub fn EventTarget::to_document(Self) -> Document?
+pub fn EventTarget::to_document_fragment(Self) -> DocumentFragment?
+pub fn EventTarget::to_element(Self) -> Element?
+pub fn EventTarget::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn EventTarget::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn EventTarget::to_html_element(Self) -> HTMLElement?
+pub fn EventTarget::to_html_image_element(Self) -> HTMLImageElement?
+pub fn EventTarget::to_html_input_element(Self) -> HTMLInputElement?
+pub fn EventTarget::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn EventTarget::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn EventTarget::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn EventTarget::to_node(Self) -> Node?
+pub fn EventTarget::to_svg_element(Self) -> SVGElement?
+pub fn EventTarget::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn EventTarget::to_svg_image_element(Self) -> SVGImageElement?
+pub fn EventTarget::to_text(Self) -> Text?
+pub fn EventTarget::to_window(Self) -> Window?
 pub impl IsEventTarget for EventTarget
 pub impl @js.Cast for EventTarget
 
 type FocusEvent
+pub fn FocusEvent::as_event(Self) -> Event
+pub fn FocusEvent::as_ui_event(Self) -> UIEvent
+pub fn FocusEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn FocusEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn FocusEvent::from(Self) -> @js.Value
+pub fn FocusEvent::get_default_prevented(Self) -> Bool
+pub fn FocusEvent::get_time_stamp(Self) -> Double
+pub fn FocusEvent::into(@js.Value) -> Self?
+pub fn FocusEvent::prevent_default(Self) -> Unit
 pub fn FocusEvent::related_target(Self) -> EventTarget?
+pub fn FocusEvent::stop_immediate_propagation(Self) -> Unit
+pub fn FocusEvent::stop_propagation(Self) -> Unit
+pub fn FocusEvent::target(Self) -> EventTarget
+pub fn FocusEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn FocusEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn FocusEvent::to_blob_event(Self) -> BlobEvent?
+pub fn FocusEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn FocusEvent::to_close_event(Self) -> CloseEvent?
+pub fn FocusEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn FocusEvent::to_custom_event(Self) -> CustomEvent?
+pub fn FocusEvent::to_drag_event(Self) -> DragEvent?
+pub fn FocusEvent::to_focus_event(Self) -> Self?
+pub fn FocusEvent::to_input_event(Self) -> InputEvent?
+pub fn FocusEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn FocusEvent::to_message_event(Self) -> MessageEvent?
+pub fn FocusEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn FocusEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn FocusEvent::to_ui_event(Self) -> UIEvent?
+pub fn FocusEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for FocusEvent
 pub impl IsUIEvent for FocusEvent
 pub impl @js.Cast for FocusEvent
@@ -312,9 +892,155 @@ pub impl @js.Cast for FocusEvent
 type GPUCanvasContext
 
 type HTMLCanvasElement
+pub fn HTMLCanvasElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLCanvasElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn HTMLCanvasElement::append_child(Self, Node) -> Unit
+pub fn HTMLCanvasElement::as_element(Self) -> Element
+pub fn HTMLCanvasElement::as_event_target(Self) -> EventTarget
+pub fn HTMLCanvasElement::as_html_element(Self) -> HTMLElement
+pub fn HTMLCanvasElement::as_node(Self) -> Node
+pub fn HTMLCanvasElement::attach_internals(Self) -> ElementInternals
+pub fn HTMLCanvasElement::blur(Self) -> Unit
+pub fn HTMLCanvasElement::click(Self) -> Unit
+pub fn HTMLCanvasElement::closest(Self, String) -> Element?
+pub fn HTMLCanvasElement::contains(Self, Node) -> Bool
+pub fn HTMLCanvasElement::dispatch_event(Self, Event) -> Unit
+pub fn HTMLCanvasElement::focus(Self) -> Unit
+pub fn HTMLCanvasElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
+pub fn HTMLCanvasElement::from(Self) -> @js.Value
+pub fn HTMLCanvasElement::get_access_key(Self) -> String
+pub fn HTMLCanvasElement::get_access_key_label(Self) -> String
+pub fn HTMLCanvasElement::get_anchor_element(Self) -> Element?
+pub fn HTMLCanvasElement::get_animations(Self) -> FixedArray[Animation]
+pub fn HTMLCanvasElement::get_attribute(Self, String) -> String?
+pub fn HTMLCanvasElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn HTMLCanvasElement::get_auto_capitalize(Self) -> String
+pub fn HTMLCanvasElement::get_auto_correct(Self) -> Bool
+pub fn HTMLCanvasElement::get_auto_focus(Self) -> Bool
+pub fn HTMLCanvasElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn HTMLCanvasElement::get_child(Self, Int) -> Node
+pub fn HTMLCanvasElement::get_child_count(Self) -> Int
+pub fn HTMLCanvasElement::get_children(Self) -> HTMLCollection
+pub fn HTMLCanvasElement::get_client_height(Self) -> Double
+pub fn HTMLCanvasElement::get_client_left(Self) -> Double
+pub fn HTMLCanvasElement::get_client_rects(Self) -> DOMRectList
+pub fn HTMLCanvasElement::get_client_top(Self) -> Double
+pub fn HTMLCanvasElement::get_client_width(Self) -> Double
+pub fn HTMLCanvasElement::get_content_editable(Self) -> String
 pub fn HTMLCanvasElement::get_context(Self, String) -> @js.Union5[CanvasRenderingContext2D, ImageBitmapRenderingContext, WebGLRenderingContext, WebGL2RenderingContext, GPUCanvasContext]
+pub fn HTMLCanvasElement::get_dataset(Self) -> DOMStringMap
+pub fn HTMLCanvasElement::get_dir(Self) -> String
+pub fn HTMLCanvasElement::get_draggable(Self) -> Bool
+pub fn HTMLCanvasElement::get_edit_context(Self) -> EditContext?
+pub fn HTMLCanvasElement::get_enter_key_hint(Self) -> String
+pub fn HTMLCanvasElement::get_first_child(Self) -> Node
 pub fn HTMLCanvasElement::get_height(Self) -> Int
+pub fn HTMLCanvasElement::get_hidden(Self) -> @js.Value
+pub fn HTMLCanvasElement::get_inert(Self) -> Bool
+pub fn HTMLCanvasElement::get_inner_text(Self) -> String
+pub fn HTMLCanvasElement::get_input_mode(Self) -> String
+pub fn HTMLCanvasElement::get_is_connected(Self) -> Bool
+pub fn HTMLCanvasElement::get_is_content_editable(Self) -> Bool
+pub fn HTMLCanvasElement::get_lang(Self) -> String
+pub fn HTMLCanvasElement::get_last_child(Self) -> Node
+pub fn HTMLCanvasElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLCanvasElement::get_node_name(Self) -> String
+pub fn HTMLCanvasElement::get_node_type(Self) -> Int
+pub fn HTMLCanvasElement::get_node_value(Self) -> String
+pub fn HTMLCanvasElement::get_nonce(Self) -> String
+pub fn HTMLCanvasElement::get_offset_height(Self) -> Double
+pub fn HTMLCanvasElement::get_offset_left(Self) -> Double
+pub fn HTMLCanvasElement::get_offset_parent(Self) -> Element?
+pub fn HTMLCanvasElement::get_offset_top(Self) -> Double
+pub fn HTMLCanvasElement::get_offset_width(Self) -> Double
+pub fn HTMLCanvasElement::get_outer_text(Self) -> String
+pub fn HTMLCanvasElement::get_parent_element(Self) -> Element?
+pub fn HTMLCanvasElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn HTMLCanvasElement::get_popover(Self) -> String?
+pub fn HTMLCanvasElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLCanvasElement::get_property(Self, String) -> @js.Optional[String]
+pub fn HTMLCanvasElement::get_scroll_height(Self) -> Double
+pub fn HTMLCanvasElement::get_scroll_left(Self) -> Double
+pub fn HTMLCanvasElement::get_scroll_top(Self) -> Double
+pub fn HTMLCanvasElement::get_scroll_width(Self) -> Double
+pub fn HTMLCanvasElement::get_spellcheck(Self) -> Bool
+pub fn HTMLCanvasElement::get_style(Self) -> CSSStyleDeclaration
+pub fn HTMLCanvasElement::get_tab_index(Self) -> Int
+pub fn HTMLCanvasElement::get_title(Self) -> String
+pub fn HTMLCanvasElement::get_translate(Self) -> Bool
+pub fn HTMLCanvasElement::get_virtual_keyboard_policy(Self) -> String
 pub fn HTMLCanvasElement::get_width(Self) -> Int
+pub fn HTMLCanvasElement::get_writing_suggestions(Self) -> String
+pub fn HTMLCanvasElement::has_attribute(Self, String) -> Bool
+pub fn HTMLCanvasElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLCanvasElement::hide_popover(Self) -> Unit
+pub fn HTMLCanvasElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn HTMLCanvasElement::into(@js.Value) -> Self?
+pub fn HTMLCanvasElement::is_same_node(Self, Node) -> Bool
+pub fn HTMLCanvasElement::matches(Self, String) -> Bool
+pub fn HTMLCanvasElement::query_selector(Self, String) -> Element?
+pub fn HTMLCanvasElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn HTMLCanvasElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLCanvasElement::remove_attribute(Self, String) -> Unit
+pub fn HTMLCanvasElement::remove_child(Self, Node) -> Unit
+pub fn HTMLCanvasElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLCanvasElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn HTMLCanvasElement::remove_property(Self, String) -> Unit
+pub fn HTMLCanvasElement::replace_child(Self, Node, Node) -> Unit
+pub fn HTMLCanvasElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn HTMLCanvasElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn HTMLCanvasElement::set_access_key(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLCanvasElement::set_auto_capitalize(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_auto_correct(Self, Bool) -> Unit
+pub fn HTMLCanvasElement::set_auto_focus(Self, Bool) -> Unit
+pub fn HTMLCanvasElement::set_content_editable(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_dir(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_draggable(Self, Bool) -> Unit
+pub fn HTMLCanvasElement::set_edit_context(Self, EditContext?) -> Unit
+pub fn HTMLCanvasElement::set_enter_key_hint(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_hidden(Self, @js.Value) -> Unit
+pub fn HTMLCanvasElement::set_inert(Self, Bool) -> Unit
+pub fn HTMLCanvasElement::set_inner_html(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_inner_text(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_input_mode(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_lang(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn HTMLCanvasElement::set_nonce(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_outer_text(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLCanvasElement::set_popover(Self, String?) -> Unit
+pub fn HTMLCanvasElement::set_property(Self, String, @js.Value) -> Unit
+pub fn HTMLCanvasElement::set_scroll_left(Self, Double) -> Unit
+pub fn HTMLCanvasElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLCanvasElement::set_spellcheck(Self, Bool) -> Unit
+pub fn HTMLCanvasElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
+pub fn HTMLCanvasElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLCanvasElement::set_title(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_translate(Self, Bool) -> Unit
+pub fn HTMLCanvasElement::set_virtual_keyboard_policy(Self, String) -> Unit
+pub fn HTMLCanvasElement::set_writing_suggestions(Self, String) -> Unit
+pub fn HTMLCanvasElement::show_popover(Self) -> Unit
+pub fn HTMLCanvasElement::to_clipboard(Self) -> Clipboard?
+pub fn HTMLCanvasElement::to_comment(Self) -> Comment?
+pub fn HTMLCanvasElement::to_document(Self) -> Document?
+pub fn HTMLCanvasElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn HTMLCanvasElement::to_element(Self) -> Element?
+pub fn HTMLCanvasElement::to_html_canvas_element(Self) -> Self?
+pub fn HTMLCanvasElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn HTMLCanvasElement::to_html_element(Self) -> HTMLElement?
+pub fn HTMLCanvasElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn HTMLCanvasElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn HTMLCanvasElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn HTMLCanvasElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn HTMLCanvasElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn HTMLCanvasElement::to_node(Self) -> Node?
+pub fn HTMLCanvasElement::to_svg_element(Self) -> SVGElement?
+pub fn HTMLCanvasElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn HTMLCanvasElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn HTMLCanvasElement::to_text(Self) -> Text?
+pub fn HTMLCanvasElement::to_window(Self) -> Window?
+pub fn HTMLCanvasElement::toggle_popover(Self, Bool?) -> Bool
 pub impl IsElement for HTMLCanvasElement
 pub impl IsEventTarget for HTMLCanvasElement
 pub impl IsHtmlElement for HTMLCanvasElement
@@ -329,12 +1055,158 @@ pub fn HTMLCollection::length(Self) -> Int
 pub fn HTMLCollection::named_item(Self, String) -> @js.Nullable[Element]
 
 type HTMLDialogElement
+pub fn HTMLDialogElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLDialogElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn HTMLDialogElement::append_child(Self, Node) -> Unit
+pub fn HTMLDialogElement::as_element(Self) -> Element
+pub fn HTMLDialogElement::as_event_target(Self) -> EventTarget
+pub fn HTMLDialogElement::as_html_element(Self) -> HTMLElement
+pub fn HTMLDialogElement::as_node(Self) -> Node
+pub fn HTMLDialogElement::attach_internals(Self) -> ElementInternals
+pub fn HTMLDialogElement::blur(Self) -> Unit
+pub fn HTMLDialogElement::click(Self) -> Unit
 pub fn HTMLDialogElement::close(Self, return_value? : @js.Optional[String]) -> Unit
+pub fn HTMLDialogElement::closest(Self, String) -> Element?
+pub fn HTMLDialogElement::contains(Self, Node) -> Bool
+pub fn HTMLDialogElement::dispatch_event(Self, Event) -> Unit
+pub fn HTMLDialogElement::focus(Self) -> Unit
+pub fn HTMLDialogElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
+pub fn HTMLDialogElement::from(Self) -> @js.Value
+pub fn HTMLDialogElement::get_access_key(Self) -> String
+pub fn HTMLDialogElement::get_access_key_label(Self) -> String
+pub fn HTMLDialogElement::get_anchor_element(Self) -> Element?
+pub fn HTMLDialogElement::get_animations(Self) -> FixedArray[Animation]
+pub fn HTMLDialogElement::get_attribute(Self, String) -> String?
+pub fn HTMLDialogElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn HTMLDialogElement::get_auto_capitalize(Self) -> String
+pub fn HTMLDialogElement::get_auto_correct(Self) -> Bool
+pub fn HTMLDialogElement::get_auto_focus(Self) -> Bool
+pub fn HTMLDialogElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn HTMLDialogElement::get_child(Self, Int) -> Node
+pub fn HTMLDialogElement::get_child_count(Self) -> Int
+pub fn HTMLDialogElement::get_children(Self) -> HTMLCollection
+pub fn HTMLDialogElement::get_client_height(Self) -> Double
+pub fn HTMLDialogElement::get_client_left(Self) -> Double
+pub fn HTMLDialogElement::get_client_rects(Self) -> DOMRectList
+pub fn HTMLDialogElement::get_client_top(Self) -> Double
+pub fn HTMLDialogElement::get_client_width(Self) -> Double
+pub fn HTMLDialogElement::get_content_editable(Self) -> String
+pub fn HTMLDialogElement::get_dataset(Self) -> DOMStringMap
+pub fn HTMLDialogElement::get_dir(Self) -> String
+pub fn HTMLDialogElement::get_draggable(Self) -> Bool
+pub fn HTMLDialogElement::get_edit_context(Self) -> EditContext?
+pub fn HTMLDialogElement::get_enter_key_hint(Self) -> String
+pub fn HTMLDialogElement::get_first_child(Self) -> Node
+pub fn HTMLDialogElement::get_hidden(Self) -> @js.Value
+pub fn HTMLDialogElement::get_inert(Self) -> Bool
+pub fn HTMLDialogElement::get_inner_text(Self) -> String
+pub fn HTMLDialogElement::get_input_mode(Self) -> String
+pub fn HTMLDialogElement::get_is_connected(Self) -> Bool
+pub fn HTMLDialogElement::get_is_content_editable(Self) -> Bool
+pub fn HTMLDialogElement::get_lang(Self) -> String
+pub fn HTMLDialogElement::get_last_child(Self) -> Node
+pub fn HTMLDialogElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLDialogElement::get_node_name(Self) -> String
+pub fn HTMLDialogElement::get_node_type(Self) -> Int
+pub fn HTMLDialogElement::get_node_value(Self) -> String
+pub fn HTMLDialogElement::get_nonce(Self) -> String
+pub fn HTMLDialogElement::get_offset_height(Self) -> Double
+pub fn HTMLDialogElement::get_offset_left(Self) -> Double
+pub fn HTMLDialogElement::get_offset_parent(Self) -> Element?
+pub fn HTMLDialogElement::get_offset_top(Self) -> Double
+pub fn HTMLDialogElement::get_offset_width(Self) -> Double
+pub fn HTMLDialogElement::get_outer_text(Self) -> String
+pub fn HTMLDialogElement::get_parent_element(Self) -> Element?
+pub fn HTMLDialogElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn HTMLDialogElement::get_popover(Self) -> String?
+pub fn HTMLDialogElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLDialogElement::get_property(Self, String) -> @js.Optional[String]
+pub fn HTMLDialogElement::get_scroll_height(Self) -> Double
+pub fn HTMLDialogElement::get_scroll_left(Self) -> Double
+pub fn HTMLDialogElement::get_scroll_top(Self) -> Double
+pub fn HTMLDialogElement::get_scroll_width(Self) -> Double
+pub fn HTMLDialogElement::get_spellcheck(Self) -> Bool
+pub fn HTMLDialogElement::get_style(Self) -> CSSStyleDeclaration
+pub fn HTMLDialogElement::get_tab_index(Self) -> Int
+pub fn HTMLDialogElement::get_title(Self) -> String
+pub fn HTMLDialogElement::get_translate(Self) -> Bool
+pub fn HTMLDialogElement::get_virtual_keyboard_policy(Self) -> String
+pub fn HTMLDialogElement::get_writing_suggestions(Self) -> String
+pub fn HTMLDialogElement::has_attribute(Self, String) -> Bool
+pub fn HTMLDialogElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLDialogElement::hide_popover(Self) -> Unit
+pub fn HTMLDialogElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn HTMLDialogElement::into(@js.Value) -> Self?
+pub fn HTMLDialogElement::is_same_node(Self, Node) -> Bool
+pub fn HTMLDialogElement::matches(Self, String) -> Bool
 pub fn HTMLDialogElement::open(Self) -> Bool
+pub fn HTMLDialogElement::query_selector(Self, String) -> Element?
+pub fn HTMLDialogElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn HTMLDialogElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLDialogElement::remove_attribute(Self, String) -> Unit
+pub fn HTMLDialogElement::remove_child(Self, Node) -> Unit
+pub fn HTMLDialogElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLDialogElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn HTMLDialogElement::remove_property(Self, String) -> Unit
+pub fn HTMLDialogElement::replace_child(Self, Node, Node) -> Unit
 pub fn HTMLDialogElement::request_close(Self, return_value? : @js.Optional[String]) -> Unit
 pub fn HTMLDialogElement::return_value(Self) -> String
+pub fn HTMLDialogElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn HTMLDialogElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn HTMLDialogElement::set_access_key(Self, String) -> Unit
+pub fn HTMLDialogElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLDialogElement::set_auto_capitalize(Self, String) -> Unit
+pub fn HTMLDialogElement::set_auto_correct(Self, Bool) -> Unit
+pub fn HTMLDialogElement::set_auto_focus(Self, Bool) -> Unit
+pub fn HTMLDialogElement::set_content_editable(Self, String) -> Unit
+pub fn HTMLDialogElement::set_dir(Self, String) -> Unit
+pub fn HTMLDialogElement::set_draggable(Self, Bool) -> Unit
+pub fn HTMLDialogElement::set_edit_context(Self, EditContext?) -> Unit
+pub fn HTMLDialogElement::set_enter_key_hint(Self, String) -> Unit
+pub fn HTMLDialogElement::set_hidden(Self, @js.Value) -> Unit
+pub fn HTMLDialogElement::set_inert(Self, Bool) -> Unit
+pub fn HTMLDialogElement::set_inner_html(Self, String) -> Unit
+pub fn HTMLDialogElement::set_inner_text(Self, String) -> Unit
+pub fn HTMLDialogElement::set_input_mode(Self, String) -> Unit
+pub fn HTMLDialogElement::set_lang(Self, String) -> Unit
+pub fn HTMLDialogElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn HTMLDialogElement::set_nonce(Self, String) -> Unit
+pub fn HTMLDialogElement::set_outer_text(Self, String) -> Unit
+pub fn HTMLDialogElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLDialogElement::set_popover(Self, String?) -> Unit
+pub fn HTMLDialogElement::set_property(Self, String, @js.Value) -> Unit
+pub fn HTMLDialogElement::set_scroll_left(Self, Double) -> Unit
+pub fn HTMLDialogElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLDialogElement::set_spellcheck(Self, Bool) -> Unit
+pub fn HTMLDialogElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
+pub fn HTMLDialogElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLDialogElement::set_title(Self, String) -> Unit
+pub fn HTMLDialogElement::set_translate(Self, Bool) -> Unit
+pub fn HTMLDialogElement::set_virtual_keyboard_policy(Self, String) -> Unit
+pub fn HTMLDialogElement::set_writing_suggestions(Self, String) -> Unit
 pub fn HTMLDialogElement::show(Self) -> Unit
 pub fn HTMLDialogElement::show_modal(Self) -> Unit
+pub fn HTMLDialogElement::show_popover(Self) -> Unit
+pub fn HTMLDialogElement::to_clipboard(Self) -> Clipboard?
+pub fn HTMLDialogElement::to_comment(Self) -> Comment?
+pub fn HTMLDialogElement::to_document(Self) -> Document?
+pub fn HTMLDialogElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn HTMLDialogElement::to_element(Self) -> Element?
+pub fn HTMLDialogElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn HTMLDialogElement::to_html_dialog_element(Self) -> Self?
+pub fn HTMLDialogElement::to_html_element(Self) -> HTMLElement?
+pub fn HTMLDialogElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn HTMLDialogElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn HTMLDialogElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn HTMLDialogElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn HTMLDialogElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn HTMLDialogElement::to_node(Self) -> Node?
+pub fn HTMLDialogElement::to_svg_element(Self) -> SVGElement?
+pub fn HTMLDialogElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn HTMLDialogElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn HTMLDialogElement::to_text(Self) -> Text?
+pub fn HTMLDialogElement::to_window(Self) -> Window?
+pub fn HTMLDialogElement::toggle_popover(Self, Bool?) -> Bool
 pub impl IsElement for HTMLDialogElement
 pub impl IsEventTarget for HTMLDialogElement
 pub impl IsHtmlElement for HTMLDialogElement
@@ -342,6 +1214,152 @@ pub impl IsNode for HTMLDialogElement
 pub impl @js.Cast for HTMLDialogElement
 
 type HTMLElement
+pub fn HTMLElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn HTMLElement::append_child(Self, Node) -> Unit
+pub fn HTMLElement::as_element(Self) -> Element
+pub fn HTMLElement::as_event_target(Self) -> EventTarget
+pub fn HTMLElement::as_html_element(Self) -> Self
+pub fn HTMLElement::as_node(Self) -> Node
+pub fn HTMLElement::attach_internals(Self) -> ElementInternals
+pub fn HTMLElement::blur(Self) -> Unit
+pub fn HTMLElement::click(Self) -> Unit
+pub fn HTMLElement::closest(Self, String) -> Element?
+pub fn HTMLElement::contains(Self, Node) -> Bool
+pub fn HTMLElement::dispatch_event(Self, Event) -> Unit
+pub fn HTMLElement::focus(Self) -> Unit
+pub fn HTMLElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
+pub fn HTMLElement::from(Self) -> @js.Value
+pub fn HTMLElement::get_access_key(Self) -> String
+pub fn HTMLElement::get_access_key_label(Self) -> String
+pub fn HTMLElement::get_anchor_element(Self) -> Element?
+pub fn HTMLElement::get_animations(Self) -> FixedArray[Animation]
+pub fn HTMLElement::get_attribute(Self, String) -> String?
+pub fn HTMLElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn HTMLElement::get_auto_capitalize(Self) -> String
+pub fn HTMLElement::get_auto_correct(Self) -> Bool
+pub fn HTMLElement::get_auto_focus(Self) -> Bool
+pub fn HTMLElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn HTMLElement::get_child(Self, Int) -> Node
+pub fn HTMLElement::get_child_count(Self) -> Int
+pub fn HTMLElement::get_children(Self) -> HTMLCollection
+pub fn HTMLElement::get_client_height(Self) -> Double
+pub fn HTMLElement::get_client_left(Self) -> Double
+pub fn HTMLElement::get_client_rects(Self) -> DOMRectList
+pub fn HTMLElement::get_client_top(Self) -> Double
+pub fn HTMLElement::get_client_width(Self) -> Double
+pub fn HTMLElement::get_content_editable(Self) -> String
+pub fn HTMLElement::get_dataset(Self) -> DOMStringMap
+pub fn HTMLElement::get_dir(Self) -> String
+pub fn HTMLElement::get_draggable(Self) -> Bool
+pub fn HTMLElement::get_edit_context(Self) -> EditContext?
+pub fn HTMLElement::get_enter_key_hint(Self) -> String
+pub fn HTMLElement::get_first_child(Self) -> Node
+pub fn HTMLElement::get_hidden(Self) -> @js.Value
+pub fn HTMLElement::get_inert(Self) -> Bool
+pub fn HTMLElement::get_inner_text(Self) -> String
+pub fn HTMLElement::get_input_mode(Self) -> String
+pub fn HTMLElement::get_is_connected(Self) -> Bool
+pub fn HTMLElement::get_is_content_editable(Self) -> Bool
+pub fn HTMLElement::get_lang(Self) -> String
+pub fn HTMLElement::get_last_child(Self) -> Node
+pub fn HTMLElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLElement::get_node_name(Self) -> String
+pub fn HTMLElement::get_node_type(Self) -> Int
+pub fn HTMLElement::get_node_value(Self) -> String
+pub fn HTMLElement::get_nonce(Self) -> String
+pub fn HTMLElement::get_offset_height(Self) -> Double
+pub fn HTMLElement::get_offset_left(Self) -> Double
+pub fn HTMLElement::get_offset_parent(Self) -> Element?
+pub fn HTMLElement::get_offset_top(Self) -> Double
+pub fn HTMLElement::get_offset_width(Self) -> Double
+pub fn HTMLElement::get_outer_text(Self) -> String
+pub fn HTMLElement::get_parent_element(Self) -> Element?
+pub fn HTMLElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn HTMLElement::get_popover(Self) -> String?
+pub fn HTMLElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLElement::get_property(Self, String) -> @js.Optional[String]
+pub fn HTMLElement::get_scroll_height(Self) -> Double
+pub fn HTMLElement::get_scroll_left(Self) -> Double
+pub fn HTMLElement::get_scroll_top(Self) -> Double
+pub fn HTMLElement::get_scroll_width(Self) -> Double
+pub fn HTMLElement::get_spellcheck(Self) -> Bool
+pub fn HTMLElement::get_style(Self) -> CSSStyleDeclaration
+pub fn HTMLElement::get_tab_index(Self) -> Int
+pub fn HTMLElement::get_title(Self) -> String
+pub fn HTMLElement::get_translate(Self) -> Bool
+pub fn HTMLElement::get_virtual_keyboard_policy(Self) -> String
+pub fn HTMLElement::get_writing_suggestions(Self) -> String
+pub fn HTMLElement::has_attribute(Self, String) -> Bool
+pub fn HTMLElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLElement::hide_popover(Self) -> Unit
+pub fn HTMLElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn HTMLElement::into(@js.Value) -> Self?
+pub fn HTMLElement::is_same_node(Self, Node) -> Bool
+pub fn HTMLElement::matches(Self, String) -> Bool
+pub fn HTMLElement::query_selector(Self, String) -> Element?
+pub fn HTMLElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn HTMLElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLElement::remove_attribute(Self, String) -> Unit
+pub fn HTMLElement::remove_child(Self, Node) -> Unit
+pub fn HTMLElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn HTMLElement::remove_property(Self, String) -> Unit
+pub fn HTMLElement::replace_child(Self, Node, Node) -> Unit
+pub fn HTMLElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn HTMLElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn HTMLElement::set_access_key(Self, String) -> Unit
+pub fn HTMLElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLElement::set_auto_capitalize(Self, String) -> Unit
+pub fn HTMLElement::set_auto_correct(Self, Bool) -> Unit
+pub fn HTMLElement::set_auto_focus(Self, Bool) -> Unit
+pub fn HTMLElement::set_content_editable(Self, String) -> Unit
+pub fn HTMLElement::set_dir(Self, String) -> Unit
+pub fn HTMLElement::set_draggable(Self, Bool) -> Unit
+pub fn HTMLElement::set_edit_context(Self, EditContext?) -> Unit
+pub fn HTMLElement::set_enter_key_hint(Self, String) -> Unit
+pub fn HTMLElement::set_hidden(Self, @js.Value) -> Unit
+pub fn HTMLElement::set_inert(Self, Bool) -> Unit
+pub fn HTMLElement::set_inner_html(Self, String) -> Unit
+pub fn HTMLElement::set_inner_text(Self, String) -> Unit
+pub fn HTMLElement::set_input_mode(Self, String) -> Unit
+pub fn HTMLElement::set_lang(Self, String) -> Unit
+pub fn HTMLElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn HTMLElement::set_nonce(Self, String) -> Unit
+pub fn HTMLElement::set_outer_text(Self, String) -> Unit
+pub fn HTMLElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLElement::set_popover(Self, String?) -> Unit
+pub fn HTMLElement::set_property(Self, String, @js.Value) -> Unit
+pub fn HTMLElement::set_scroll_left(Self, Double) -> Unit
+pub fn HTMLElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLElement::set_spellcheck(Self, Bool) -> Unit
+pub fn HTMLElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
+pub fn HTMLElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLElement::set_title(Self, String) -> Unit
+pub fn HTMLElement::set_translate(Self, Bool) -> Unit
+pub fn HTMLElement::set_virtual_keyboard_policy(Self, String) -> Unit
+pub fn HTMLElement::set_writing_suggestions(Self, String) -> Unit
+pub fn HTMLElement::show_popover(Self) -> Unit
+pub fn HTMLElement::to_clipboard(Self) -> Clipboard?
+pub fn HTMLElement::to_comment(Self) -> Comment?
+pub fn HTMLElement::to_document(Self) -> Document?
+pub fn HTMLElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn HTMLElement::to_element(Self) -> Element?
+pub fn HTMLElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn HTMLElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn HTMLElement::to_html_element(Self) -> Self?
+pub fn HTMLElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn HTMLElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn HTMLElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn HTMLElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn HTMLElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn HTMLElement::to_node(Self) -> Node?
+pub fn HTMLElement::to_svg_element(Self) -> SVGElement?
+pub fn HTMLElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn HTMLElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn HTMLElement::to_text(Self) -> Text?
+pub fn HTMLElement::to_window(Self) -> Window?
+pub fn HTMLElement::toggle_popover(Self, Bool?) -> Bool
 pub impl IsElement for HTMLElement
 pub impl IsEventTarget for HTMLElement
 pub impl IsHtmlElement for HTMLElement
@@ -349,38 +1367,184 @@ pub impl IsNode for HTMLElement
 pub impl @js.Cast for HTMLElement
 
 type HTMLImageElement
+pub fn HTMLImageElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLImageElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn HTMLImageElement::append_child(Self, Node) -> Unit
+pub fn HTMLImageElement::as_element(Self) -> Element
+pub fn HTMLImageElement::as_event_target(Self) -> EventTarget
+pub fn HTMLImageElement::as_html_element(Self) -> HTMLElement
+pub fn HTMLImageElement::as_node(Self) -> Node
+pub fn HTMLImageElement::attach_internals(Self) -> ElementInternals
+pub fn HTMLImageElement::blur(Self) -> Unit
+pub fn HTMLImageElement::click(Self) -> Unit
+pub fn HTMLImageElement::closest(Self, String) -> Element?
+pub fn HTMLImageElement::contains(Self, Node) -> Bool
+pub fn HTMLImageElement::dispatch_event(Self, Event) -> Unit
+pub fn HTMLImageElement::focus(Self) -> Unit
+pub fn HTMLImageElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
+pub fn HTMLImageElement::from(Self) -> @js.Value
+pub fn HTMLImageElement::get_access_key(Self) -> String
+pub fn HTMLImageElement::get_access_key_label(Self) -> String
 pub fn HTMLImageElement::get_alt(Self) -> String
+pub fn HTMLImageElement::get_anchor_element(Self) -> Element?
+pub fn HTMLImageElement::get_animations(Self) -> FixedArray[Animation]
+pub fn HTMLImageElement::get_attribute(Self, String) -> String?
+pub fn HTMLImageElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn HTMLImageElement::get_auto_capitalize(Self) -> String
+pub fn HTMLImageElement::get_auto_correct(Self) -> Bool
+pub fn HTMLImageElement::get_auto_focus(Self) -> Bool
+pub fn HTMLImageElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn HTMLImageElement::get_child(Self, Int) -> Node
+pub fn HTMLImageElement::get_child_count(Self) -> Int
+pub fn HTMLImageElement::get_children(Self) -> HTMLCollection
+pub fn HTMLImageElement::get_client_height(Self) -> Double
+pub fn HTMLImageElement::get_client_left(Self) -> Double
+pub fn HTMLImageElement::get_client_rects(Self) -> DOMRectList
+pub fn HTMLImageElement::get_client_top(Self) -> Double
+pub fn HTMLImageElement::get_client_width(Self) -> Double
 pub fn HTMLImageElement::get_complete(Self) -> Bool
+pub fn HTMLImageElement::get_content_editable(Self) -> String
 pub fn HTMLImageElement::get_cross_origin(Self) -> String
 pub fn HTMLImageElement::get_current_src(Self) -> String
+pub fn HTMLImageElement::get_dataset(Self) -> DOMStringMap
 pub fn HTMLImageElement::get_decoding(Self) -> String
+pub fn HTMLImageElement::get_dir(Self) -> String
+pub fn HTMLImageElement::get_draggable(Self) -> Bool
+pub fn HTMLImageElement::get_edit_context(Self) -> EditContext?
+pub fn HTMLImageElement::get_enter_key_hint(Self) -> String
+pub fn HTMLImageElement::get_first_child(Self) -> Node
 pub fn HTMLImageElement::get_height(Self) -> Double
+pub fn HTMLImageElement::get_hidden(Self) -> @js.Value
+pub fn HTMLImageElement::get_inert(Self) -> Bool
+pub fn HTMLImageElement::get_inner_text(Self) -> String
+pub fn HTMLImageElement::get_input_mode(Self) -> String
+pub fn HTMLImageElement::get_is_connected(Self) -> Bool
+pub fn HTMLImageElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLImageElement::get_is_map(Self) -> Bool
+pub fn HTMLImageElement::get_lang(Self) -> String
+pub fn HTMLImageElement::get_last_child(Self) -> Node
 pub fn HTMLImageElement::get_loading(Self) -> String
 pub fn HTMLImageElement::get_natural_height(Self) -> Double
 pub fn HTMLImageElement::get_natural_width(Self) -> Double
+pub fn HTMLImageElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLImageElement::get_node_name(Self) -> String
+pub fn HTMLImageElement::get_node_type(Self) -> Int
+pub fn HTMLImageElement::get_node_value(Self) -> String
+pub fn HTMLImageElement::get_nonce(Self) -> String
+pub fn HTMLImageElement::get_offset_height(Self) -> Double
+pub fn HTMLImageElement::get_offset_left(Self) -> Double
+pub fn HTMLImageElement::get_offset_parent(Self) -> Element?
+pub fn HTMLImageElement::get_offset_top(Self) -> Double
+pub fn HTMLImageElement::get_offset_width(Self) -> Double
+pub fn HTMLImageElement::get_outer_text(Self) -> String
+pub fn HTMLImageElement::get_parent_element(Self) -> Element?
+pub fn HTMLImageElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn HTMLImageElement::get_popover(Self) -> String?
+pub fn HTMLImageElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLImageElement::get_property(Self, String) -> @js.Optional[String]
 pub fn HTMLImageElement::get_referrer_policy(Self) -> String
+pub fn HTMLImageElement::get_scroll_height(Self) -> Double
+pub fn HTMLImageElement::get_scroll_left(Self) -> Double
+pub fn HTMLImageElement::get_scroll_top(Self) -> Double
+pub fn HTMLImageElement::get_scroll_width(Self) -> Double
 pub fn HTMLImageElement::get_sizes(Self) -> String
+pub fn HTMLImageElement::get_spellcheck(Self) -> Bool
 pub fn HTMLImageElement::get_src(Self) -> String
 pub fn HTMLImageElement::get_srcset(Self) -> String
+pub fn HTMLImageElement::get_style(Self) -> CSSStyleDeclaration
+pub fn HTMLImageElement::get_tab_index(Self) -> Int
+pub fn HTMLImageElement::get_title(Self) -> String
+pub fn HTMLImageElement::get_translate(Self) -> Bool
 pub fn HTMLImageElement::get_use_map(Self) -> String
+pub fn HTMLImageElement::get_virtual_keyboard_policy(Self) -> String
 pub fn HTMLImageElement::get_width(Self) -> Double
+pub fn HTMLImageElement::get_writing_suggestions(Self) -> String
 pub fn HTMLImageElement::get_x(Self) -> Double
 pub fn HTMLImageElement::get_y(Self) -> Double
+pub fn HTMLImageElement::has_attribute(Self, String) -> Bool
+pub fn HTMLImageElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLImageElement::hide_popover(Self) -> Unit
+pub fn HTMLImageElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn HTMLImageElement::into(@js.Value) -> Self?
+pub fn HTMLImageElement::is_same_node(Self, Node) -> Bool
+pub fn HTMLImageElement::matches(Self, String) -> Bool
 pub fn HTMLImageElement::new() -> Self
 pub fn HTMLImageElement::new_with_size(Double, Double) -> Self
+pub fn HTMLImageElement::query_selector(Self, String) -> Element?
+pub fn HTMLImageElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn HTMLImageElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLImageElement::remove_attribute(Self, String) -> Unit
+pub fn HTMLImageElement::remove_child(Self, Node) -> Unit
+pub fn HTMLImageElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLImageElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn HTMLImageElement::remove_property(Self, String) -> Unit
+pub fn HTMLImageElement::replace_child(Self, Node, Node) -> Unit
+pub fn HTMLImageElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn HTMLImageElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn HTMLImageElement::set_access_key(Self, String) -> Unit
 pub fn HTMLImageElement::set_alt(Self, String) -> Unit
+pub fn HTMLImageElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLImageElement::set_auto_capitalize(Self, String) -> Unit
+pub fn HTMLImageElement::set_auto_correct(Self, Bool) -> Unit
+pub fn HTMLImageElement::set_auto_focus(Self, Bool) -> Unit
+pub fn HTMLImageElement::set_content_editable(Self, String) -> Unit
 pub fn HTMLImageElement::set_cross_origin(Self, String) -> Unit
 pub fn HTMLImageElement::set_decoding(Self, String) -> Unit
+pub fn HTMLImageElement::set_dir(Self, String) -> Unit
+pub fn HTMLImageElement::set_draggable(Self, Bool) -> Unit
+pub fn HTMLImageElement::set_edit_context(Self, EditContext?) -> Unit
+pub fn HTMLImageElement::set_enter_key_hint(Self, String) -> Unit
 pub fn HTMLImageElement::set_height(Self, Double) -> Unit
+pub fn HTMLImageElement::set_hidden(Self, @js.Value) -> Unit
+pub fn HTMLImageElement::set_inert(Self, Bool) -> Unit
+pub fn HTMLImageElement::set_inner_html(Self, String) -> Unit
+pub fn HTMLImageElement::set_inner_text(Self, String) -> Unit
+pub fn HTMLImageElement::set_input_mode(Self, String) -> Unit
 pub fn HTMLImageElement::set_is_map(Self, Bool) -> Unit
+pub fn HTMLImageElement::set_lang(Self, String) -> Unit
 pub fn HTMLImageElement::set_loading(Self, String) -> Unit
+pub fn HTMLImageElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn HTMLImageElement::set_nonce(Self, String) -> Unit
+pub fn HTMLImageElement::set_outer_text(Self, String) -> Unit
+pub fn HTMLImageElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLImageElement::set_popover(Self, String?) -> Unit
+pub fn HTMLImageElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLImageElement::set_referrer_policy(Self, String) -> Unit
+pub fn HTMLImageElement::set_scroll_left(Self, Double) -> Unit
+pub fn HTMLImageElement::set_scroll_top(Self, Double) -> Unit
 pub fn HTMLImageElement::set_sizes(Self, String) -> Unit
+pub fn HTMLImageElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLImageElement::set_src(Self, String) -> Unit
 pub fn HTMLImageElement::set_srcset(Self, String) -> Unit
+pub fn HTMLImageElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
+pub fn HTMLImageElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLImageElement::set_title(Self, String) -> Unit
+pub fn HTMLImageElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLImageElement::set_use_map(Self, String) -> Unit
+pub fn HTMLImageElement::set_virtual_keyboard_policy(Self, String) -> Unit
 pub fn HTMLImageElement::set_width(Self, Double) -> Unit
+pub fn HTMLImageElement::set_writing_suggestions(Self, String) -> Unit
+pub fn HTMLImageElement::show_popover(Self) -> Unit
+pub fn HTMLImageElement::to_clipboard(Self) -> Clipboard?
+pub fn HTMLImageElement::to_comment(Self) -> Comment?
+pub fn HTMLImageElement::to_document(Self) -> Document?
+pub fn HTMLImageElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn HTMLImageElement::to_element(Self) -> Element?
+pub fn HTMLImageElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn HTMLImageElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn HTMLImageElement::to_html_element(Self) -> HTMLElement?
+pub fn HTMLImageElement::to_html_image_element(Self) -> Self?
+pub fn HTMLImageElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn HTMLImageElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn HTMLImageElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn HTMLImageElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn HTMLImageElement::to_node(Self) -> Node?
+pub fn HTMLImageElement::to_svg_element(Self) -> SVGElement?
+pub fn HTMLImageElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn HTMLImageElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn HTMLImageElement::to_text(Self) -> Text?
+pub fn HTMLImageElement::to_window(Self) -> Window?
+pub fn HTMLImageElement::toggle_popover(Self, Bool?) -> Bool
 pub impl IsElement for HTMLImageElement
 pub impl IsEventTarget for HTMLImageElement
 pub impl IsHtmlElement for HTMLImageElement
@@ -388,7 +1552,153 @@ pub impl IsNode for HTMLImageElement
 pub impl @js.Cast for HTMLImageElement
 
 type HTMLInputElement
+pub fn HTMLInputElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLInputElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn HTMLInputElement::append_child(Self, Node) -> Unit
+pub fn HTMLInputElement::as_element(Self) -> Element
+pub fn HTMLInputElement::as_event_target(Self) -> EventTarget
+pub fn HTMLInputElement::as_html_element(Self) -> HTMLElement
+pub fn HTMLInputElement::as_node(Self) -> Node
+pub fn HTMLInputElement::attach_internals(Self) -> ElementInternals
+pub fn HTMLInputElement::blur(Self) -> Unit
+pub fn HTMLInputElement::click(Self) -> Unit
+pub fn HTMLInputElement::closest(Self, String) -> Element?
+pub fn HTMLInputElement::contains(Self, Node) -> Bool
+pub fn HTMLInputElement::dispatch_event(Self, Event) -> Unit
+pub fn HTMLInputElement::focus(Self) -> Unit
+pub fn HTMLInputElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
+pub fn HTMLInputElement::from(Self) -> @js.Value
+pub fn HTMLInputElement::get_access_key(Self) -> String
+pub fn HTMLInputElement::get_access_key_label(Self) -> String
+pub fn HTMLInputElement::get_anchor_element(Self) -> Element?
+pub fn HTMLInputElement::get_animations(Self) -> FixedArray[Animation]
+pub fn HTMLInputElement::get_attribute(Self, String) -> String?
+pub fn HTMLInputElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn HTMLInputElement::get_auto_capitalize(Self) -> String
+pub fn HTMLInputElement::get_auto_correct(Self) -> Bool
+pub fn HTMLInputElement::get_auto_focus(Self) -> Bool
+pub fn HTMLInputElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn HTMLInputElement::get_child(Self, Int) -> Node
+pub fn HTMLInputElement::get_child_count(Self) -> Int
+pub fn HTMLInputElement::get_children(Self) -> HTMLCollection
+pub fn HTMLInputElement::get_client_height(Self) -> Double
+pub fn HTMLInputElement::get_client_left(Self) -> Double
+pub fn HTMLInputElement::get_client_rects(Self) -> DOMRectList
+pub fn HTMLInputElement::get_client_top(Self) -> Double
+pub fn HTMLInputElement::get_client_width(Self) -> Double
+pub fn HTMLInputElement::get_content_editable(Self) -> String
+pub fn HTMLInputElement::get_dataset(Self) -> DOMStringMap
+pub fn HTMLInputElement::get_dir(Self) -> String
+pub fn HTMLInputElement::get_draggable(Self) -> Bool
+pub fn HTMLInputElement::get_edit_context(Self) -> EditContext?
+pub fn HTMLInputElement::get_enter_key_hint(Self) -> String
+pub fn HTMLInputElement::get_first_child(Self) -> Node
+pub fn HTMLInputElement::get_hidden(Self) -> @js.Value
+pub fn HTMLInputElement::get_inert(Self) -> Bool
+pub fn HTMLInputElement::get_inner_text(Self) -> String
+pub fn HTMLInputElement::get_input_mode(Self) -> String
+pub fn HTMLInputElement::get_is_connected(Self) -> Bool
+pub fn HTMLInputElement::get_is_content_editable(Self) -> Bool
+pub fn HTMLInputElement::get_lang(Self) -> String
+pub fn HTMLInputElement::get_last_child(Self) -> Node
+pub fn HTMLInputElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLInputElement::get_node_name(Self) -> String
+pub fn HTMLInputElement::get_node_type(Self) -> Int
+pub fn HTMLInputElement::get_node_value(Self) -> String
+pub fn HTMLInputElement::get_nonce(Self) -> String
+pub fn HTMLInputElement::get_offset_height(Self) -> Double
+pub fn HTMLInputElement::get_offset_left(Self) -> Double
+pub fn HTMLInputElement::get_offset_parent(Self) -> Element?
+pub fn HTMLInputElement::get_offset_top(Self) -> Double
+pub fn HTMLInputElement::get_offset_width(Self) -> Double
+pub fn HTMLInputElement::get_outer_text(Self) -> String
+pub fn HTMLInputElement::get_parent_element(Self) -> Element?
+pub fn HTMLInputElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn HTMLInputElement::get_popover(Self) -> String?
+pub fn HTMLInputElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLInputElement::get_property(Self, String) -> @js.Optional[String]
+pub fn HTMLInputElement::get_scroll_height(Self) -> Double
+pub fn HTMLInputElement::get_scroll_left(Self) -> Double
+pub fn HTMLInputElement::get_scroll_top(Self) -> Double
+pub fn HTMLInputElement::get_scroll_width(Self) -> Double
+pub fn HTMLInputElement::get_spellcheck(Self) -> Bool
+pub fn HTMLInputElement::get_style(Self) -> CSSStyleDeclaration
+pub fn HTMLInputElement::get_tab_index(Self) -> Int
+pub fn HTMLInputElement::get_title(Self) -> String
+pub fn HTMLInputElement::get_translate(Self) -> Bool
+pub fn HTMLInputElement::get_virtual_keyboard_policy(Self) -> String
+pub fn HTMLInputElement::get_writing_suggestions(Self) -> String
+pub fn HTMLInputElement::has_attribute(Self, String) -> Bool
+pub fn HTMLInputElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLInputElement::hide_popover(Self) -> Unit
+pub fn HTMLInputElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn HTMLInputElement::into(@js.Value) -> Self?
+pub fn HTMLInputElement::is_same_node(Self, Node) -> Bool
+pub fn HTMLInputElement::matches(Self, String) -> Bool
+pub fn HTMLInputElement::query_selector(Self, String) -> Element?
+pub fn HTMLInputElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn HTMLInputElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLInputElement::remove_attribute(Self, String) -> Unit
+pub fn HTMLInputElement::remove_child(Self, Node) -> Unit
+pub fn HTMLInputElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLInputElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn HTMLInputElement::remove_property(Self, String) -> Unit
+pub fn HTMLInputElement::replace_child(Self, Node, Node) -> Unit
+pub fn HTMLInputElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn HTMLInputElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn HTMLInputElement::set_access_key(Self, String) -> Unit
+pub fn HTMLInputElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLInputElement::set_auto_capitalize(Self, String) -> Unit
+pub fn HTMLInputElement::set_auto_correct(Self, Bool) -> Unit
+pub fn HTMLInputElement::set_auto_focus(Self, Bool) -> Unit
+pub fn HTMLInputElement::set_content_editable(Self, String) -> Unit
+pub fn HTMLInputElement::set_dir(Self, String) -> Unit
+pub fn HTMLInputElement::set_draggable(Self, Bool) -> Unit
+pub fn HTMLInputElement::set_edit_context(Self, EditContext?) -> Unit
+pub fn HTMLInputElement::set_enter_key_hint(Self, String) -> Unit
+pub fn HTMLInputElement::set_hidden(Self, @js.Value) -> Unit
+pub fn HTMLInputElement::set_inert(Self, Bool) -> Unit
+pub fn HTMLInputElement::set_inner_html(Self, String) -> Unit
+pub fn HTMLInputElement::set_inner_text(Self, String) -> Unit
+pub fn HTMLInputElement::set_input_mode(Self, String) -> Unit
+pub fn HTMLInputElement::set_lang(Self, String) -> Unit
+pub fn HTMLInputElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn HTMLInputElement::set_nonce(Self, String) -> Unit
+pub fn HTMLInputElement::set_outer_text(Self, String) -> Unit
+pub fn HTMLInputElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLInputElement::set_popover(Self, String?) -> Unit
+pub fn HTMLInputElement::set_property(Self, String, @js.Value) -> Unit
+pub fn HTMLInputElement::set_scroll_left(Self, Double) -> Unit
+pub fn HTMLInputElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLInputElement::set_spellcheck(Self, Bool) -> Unit
+pub fn HTMLInputElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
+pub fn HTMLInputElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLInputElement::set_title(Self, String) -> Unit
+pub fn HTMLInputElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLInputElement::set_value(Self, String) -> Unit
+pub fn HTMLInputElement::set_virtual_keyboard_policy(Self, String) -> Unit
+pub fn HTMLInputElement::set_writing_suggestions(Self, String) -> Unit
+pub fn HTMLInputElement::show_popover(Self) -> Unit
+pub fn HTMLInputElement::to_clipboard(Self) -> Clipboard?
+pub fn HTMLInputElement::to_comment(Self) -> Comment?
+pub fn HTMLInputElement::to_document(Self) -> Document?
+pub fn HTMLInputElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn HTMLInputElement::to_element(Self) -> Element?
+pub fn HTMLInputElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn HTMLInputElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn HTMLInputElement::to_html_element(Self) -> HTMLElement?
+pub fn HTMLInputElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn HTMLInputElement::to_html_input_element(Self) -> Self?
+pub fn HTMLInputElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn HTMLInputElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn HTMLInputElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn HTMLInputElement::to_node(Self) -> Node?
+pub fn HTMLInputElement::to_svg_element(Self) -> SVGElement?
+pub fn HTMLInputElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn HTMLInputElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn HTMLInputElement::to_text(Self) -> Text?
+pub fn HTMLInputElement::to_window(Self) -> Window?
+pub fn HTMLInputElement::toggle_popover(Self, Bool?) -> Bool
 pub fn HTMLInputElement::value(Self) -> String
 pub impl IsElement for HTMLInputElement
 pub impl IsEventTarget for HTMLInputElement
@@ -397,6 +1707,208 @@ pub impl IsNode for HTMLInputElement
 pub impl @js.Cast for HTMLInputElement
 
 type HTMLMediaElement
+pub fn HTMLMediaElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLMediaElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn HTMLMediaElement::add_text_track(Self, String, String?, String?) -> TextTrack
+pub fn HTMLMediaElement::append_child(Self, Node) -> Unit
+pub fn HTMLMediaElement::as_element(Self) -> Element
+pub fn HTMLMediaElement::as_event_target(Self) -> EventTarget
+pub fn HTMLMediaElement::as_html_element(Self) -> HTMLElement
+pub fn HTMLMediaElement::as_html_media_element(Self) -> Self
+pub fn HTMLMediaElement::as_node(Self) -> Node
+pub fn HTMLMediaElement::attach_internals(Self) -> ElementInternals
+pub fn HTMLMediaElement::blur(Self) -> Unit
+pub fn HTMLMediaElement::can_play_type(Self, String) -> String
+pub fn HTMLMediaElement::capture_stream(Self) -> MediaStream
+pub fn HTMLMediaElement::click(Self) -> Unit
+pub fn HTMLMediaElement::closest(Self, String) -> Element?
+pub fn HTMLMediaElement::contains(Self, Node) -> Bool
+pub fn HTMLMediaElement::dispatch_event(Self, Event) -> Unit
+pub fn HTMLMediaElement::fast_seek(Self, Double) -> Unit
+pub fn HTMLMediaElement::focus(Self) -> Unit
+pub fn HTMLMediaElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
+pub fn HTMLMediaElement::from(Self) -> @js.Value
+pub fn HTMLMediaElement::get_access_key(Self) -> String
+pub fn HTMLMediaElement::get_access_key_label(Self) -> String
+pub fn HTMLMediaElement::get_anchor_element(Self) -> Element?
+pub fn HTMLMediaElement::get_animations(Self) -> FixedArray[Animation]
+pub fn HTMLMediaElement::get_attribute(Self, String) -> String?
+pub fn HTMLMediaElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn HTMLMediaElement::get_audio_tracks(Self) -> AudioTrackList
+pub fn HTMLMediaElement::get_auto_capitalize(Self) -> String
+pub fn HTMLMediaElement::get_auto_correct(Self) -> Bool
+pub fn HTMLMediaElement::get_auto_focus(Self) -> Bool
+pub fn HTMLMediaElement::get_autoplay(Self) -> Bool
+pub fn HTMLMediaElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn HTMLMediaElement::get_buffered(Self) -> TimeRanges
+pub fn HTMLMediaElement::get_child(Self, Int) -> Node
+pub fn HTMLMediaElement::get_child_count(Self) -> Int
+pub fn HTMLMediaElement::get_children(Self) -> HTMLCollection
+pub fn HTMLMediaElement::get_client_height(Self) -> Double
+pub fn HTMLMediaElement::get_client_left(Self) -> Double
+pub fn HTMLMediaElement::get_client_rects(Self) -> DOMRectList
+pub fn HTMLMediaElement::get_client_top(Self) -> Double
+pub fn HTMLMediaElement::get_client_width(Self) -> Double
+pub fn HTMLMediaElement::get_content_editable(Self) -> String
+pub fn HTMLMediaElement::get_controls(Self) -> Bool
+pub fn HTMLMediaElement::get_controls_list(Self) -> DOMTokenList
+pub fn HTMLMediaElement::get_cross_origin(Self) -> String?
+pub fn HTMLMediaElement::get_current_src(Self) -> String
+pub fn HTMLMediaElement::get_current_time(Self) -> Double
+pub fn HTMLMediaElement::get_dataset(Self) -> DOMStringMap
+pub fn HTMLMediaElement::get_default_muted(Self) -> Bool
+pub fn HTMLMediaElement::get_default_playback_rate(Self) -> Double
+pub fn HTMLMediaElement::get_dir(Self) -> String
+pub fn HTMLMediaElement::get_disable_remote_playback(Self) -> Bool
+pub fn HTMLMediaElement::get_draggable(Self) -> Bool
+pub fn HTMLMediaElement::get_duration(Self) -> Double
+pub fn HTMLMediaElement::get_edit_context(Self) -> EditContext?
+pub fn HTMLMediaElement::get_ended(Self) -> Bool
+pub fn HTMLMediaElement::get_enter_key_hint(Self) -> String
+pub fn HTMLMediaElement::get_error(Self) -> MediaError?
+pub fn HTMLMediaElement::get_first_child(Self) -> Node
+pub fn HTMLMediaElement::get_hidden(Self) -> @js.Value
+pub fn HTMLMediaElement::get_inert(Self) -> Bool
+pub fn HTMLMediaElement::get_inner_text(Self) -> String
+pub fn HTMLMediaElement::get_input_mode(Self) -> String
+pub fn HTMLMediaElement::get_is_connected(Self) -> Bool
+pub fn HTMLMediaElement::get_is_content_editable(Self) -> Bool
+pub fn HTMLMediaElement::get_lang(Self) -> String
+pub fn HTMLMediaElement::get_last_child(Self) -> Node
+pub fn HTMLMediaElement::get_loop(Self) -> Bool
+pub fn HTMLMediaElement::get_media_keys(Self) -> MediaKeys?
+pub fn HTMLMediaElement::get_muted(Self) -> Bool
+pub fn HTMLMediaElement::get_network_state(Self) -> Int
+pub fn HTMLMediaElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLMediaElement::get_node_name(Self) -> String
+pub fn HTMLMediaElement::get_node_type(Self) -> Int
+pub fn HTMLMediaElement::get_node_value(Self) -> String
+pub fn HTMLMediaElement::get_nonce(Self) -> String
+pub fn HTMLMediaElement::get_offset_height(Self) -> Double
+pub fn HTMLMediaElement::get_offset_left(Self) -> Double
+pub fn HTMLMediaElement::get_offset_parent(Self) -> Element?
+pub fn HTMLMediaElement::get_offset_top(Self) -> Double
+pub fn HTMLMediaElement::get_offset_width(Self) -> Double
+pub fn HTMLMediaElement::get_outer_text(Self) -> String
+pub fn HTMLMediaElement::get_parent_element(Self) -> Element?
+pub fn HTMLMediaElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn HTMLMediaElement::get_paused(Self) -> Bool
+pub fn HTMLMediaElement::get_playback_rate(Self) -> Double
+pub fn HTMLMediaElement::get_played(Self) -> TimeRanges
+pub fn HTMLMediaElement::get_popover(Self) -> String?
+pub fn HTMLMediaElement::get_preload(Self) -> String
+pub fn HTMLMediaElement::get_preserves_pitch(Self) -> Bool
+pub fn HTMLMediaElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLMediaElement::get_property(Self, String) -> @js.Optional[String]
+pub fn HTMLMediaElement::get_ready_state(Self) -> Int
+pub fn HTMLMediaElement::get_remote(Self) -> RemotePlayback
+pub fn HTMLMediaElement::get_scroll_height(Self) -> Double
+pub fn HTMLMediaElement::get_scroll_left(Self) -> Double
+pub fn HTMLMediaElement::get_scroll_top(Self) -> Double
+pub fn HTMLMediaElement::get_scroll_width(Self) -> Double
+pub fn HTMLMediaElement::get_seekable(Self) -> TimeRanges
+pub fn HTMLMediaElement::get_seeking(Self) -> Bool
+pub fn HTMLMediaElement::get_sink_id(Self) -> String
+pub fn HTMLMediaElement::get_spellcheck(Self) -> Bool
+pub fn HTMLMediaElement::get_src(Self) -> String
+pub fn HTMLMediaElement::get_src_object(Self) -> @js.Value?
+pub fn HTMLMediaElement::get_style(Self) -> CSSStyleDeclaration
+pub fn HTMLMediaElement::get_tab_index(Self) -> Int
+pub fn HTMLMediaElement::get_text_tracks(Self) -> TextTrackList
+pub fn HTMLMediaElement::get_title(Self) -> String
+pub fn HTMLMediaElement::get_translate(Self) -> Bool
+pub fn HTMLMediaElement::get_video_tracks(Self) -> VideoTrackList
+pub fn HTMLMediaElement::get_virtual_keyboard_policy(Self) -> String
+pub fn HTMLMediaElement::get_volume(Self) -> Double
+pub fn HTMLMediaElement::get_writing_suggestions(Self) -> String
+pub fn HTMLMediaElement::has_attribute(Self, String) -> Bool
+pub fn HTMLMediaElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLMediaElement::hide_popover(Self) -> Unit
+pub fn HTMLMediaElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn HTMLMediaElement::into(@js.Value) -> Self?
+pub fn HTMLMediaElement::is_same_node(Self, Node) -> Bool
+pub fn HTMLMediaElement::load(Self) -> Unit
+pub fn HTMLMediaElement::matches(Self, String) -> Bool
+pub fn HTMLMediaElement::pause(Self) -> Unit
+pub fn HTMLMediaElement::query_selector(Self, String) -> Element?
+pub fn HTMLMediaElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn HTMLMediaElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLMediaElement::remove_attribute(Self, String) -> Unit
+pub fn HTMLMediaElement::remove_child(Self, Node) -> Unit
+pub fn HTMLMediaElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLMediaElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn HTMLMediaElement::remove_property(Self, String) -> Unit
+pub fn HTMLMediaElement::replace_child(Self, Node, Node) -> Unit
+pub fn HTMLMediaElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn HTMLMediaElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn HTMLMediaElement::seek_to_next_frame(Self) -> Unit
+pub fn HTMLMediaElement::set_access_key(Self, String) -> Unit
+pub fn HTMLMediaElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLMediaElement::set_auto_capitalize(Self, String) -> Unit
+pub fn HTMLMediaElement::set_auto_correct(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_auto_focus(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_autoplay(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_content_editable(Self, String) -> Unit
+pub fn HTMLMediaElement::set_controls(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_cross_origin(Self, String?) -> Unit
+pub fn HTMLMediaElement::set_current_time(Self, Double) -> Unit
+pub fn HTMLMediaElement::set_default_muted(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_default_playback_rate(Self, Double) -> Unit
+pub fn HTMLMediaElement::set_dir(Self, String) -> Unit
+pub fn HTMLMediaElement::set_disable_remote_playback(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_draggable(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_edit_context(Self, EditContext?) -> Unit
+pub fn HTMLMediaElement::set_enter_key_hint(Self, String) -> Unit
+pub fn HTMLMediaElement::set_hidden(Self, @js.Value) -> Unit
+pub fn HTMLMediaElement::set_inert(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_inner_html(Self, String) -> Unit
+pub fn HTMLMediaElement::set_inner_text(Self, String) -> Unit
+pub fn HTMLMediaElement::set_input_mode(Self, String) -> Unit
+pub fn HTMLMediaElement::set_lang(Self, String) -> Unit
+pub fn HTMLMediaElement::set_loop(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_muted(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn HTMLMediaElement::set_nonce(Self, String) -> Unit
+pub fn HTMLMediaElement::set_outer_text(Self, String) -> Unit
+pub fn HTMLMediaElement::set_playback_rate(Self, Double) -> Unit
+pub fn HTMLMediaElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLMediaElement::set_popover(Self, String?) -> Unit
+pub fn HTMLMediaElement::set_preload(Self, String) -> Unit
+pub fn HTMLMediaElement::set_preserves_pitch(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_property(Self, String, @js.Value) -> Unit
+pub fn HTMLMediaElement::set_scroll_left(Self, Double) -> Unit
+pub fn HTMLMediaElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLMediaElement::set_spellcheck(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_src(Self, String) -> Unit
+pub fn HTMLMediaElement::set_src_object(Self, @js.Value?) -> Unit
+pub fn HTMLMediaElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
+pub fn HTMLMediaElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLMediaElement::set_title(Self, String) -> Unit
+pub fn HTMLMediaElement::set_translate(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_virtual_keyboard_policy(Self, String) -> Unit
+pub fn HTMLMediaElement::set_volume(Self, Double) -> Unit
+pub fn HTMLMediaElement::set_writing_suggestions(Self, String) -> Unit
+pub fn HTMLMediaElement::show_popover(Self) -> Unit
+pub fn HTMLMediaElement::to_clipboard(Self) -> Clipboard?
+pub fn HTMLMediaElement::to_comment(Self) -> Comment?
+pub fn HTMLMediaElement::to_document(Self) -> Document?
+pub fn HTMLMediaElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn HTMLMediaElement::to_element(Self) -> Element?
+pub fn HTMLMediaElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn HTMLMediaElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn HTMLMediaElement::to_html_element(Self) -> HTMLElement?
+pub fn HTMLMediaElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn HTMLMediaElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn HTMLMediaElement::to_html_media_element(Self) -> Self?
+pub fn HTMLMediaElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn HTMLMediaElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn HTMLMediaElement::to_node(Self) -> Node?
+pub fn HTMLMediaElement::to_svg_element(Self) -> SVGElement?
+pub fn HTMLMediaElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn HTMLMediaElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn HTMLMediaElement::to_text(Self) -> Text?
+pub fn HTMLMediaElement::to_window(Self) -> Window?
+pub fn HTMLMediaElement::toggle_popover(Self, Bool?) -> Bool
 pub impl IsElement for HTMLMediaElement
 pub impl IsEventTarget for HTMLMediaElement
 pub impl IsHTMLMediaElement for HTMLMediaElement
@@ -408,6 +1920,208 @@ type HTMLSelectElement
 pub fn HTMLSelectElement::value(Self) -> String
 
 type HTMLVideoElement
+pub fn HTMLVideoElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLVideoElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn HTMLVideoElement::add_text_track(Self, String, String?, String?) -> TextTrack
+pub fn HTMLVideoElement::append_child(Self, Node) -> Unit
+pub fn HTMLVideoElement::as_element(Self) -> Element
+pub fn HTMLVideoElement::as_event_target(Self) -> EventTarget
+pub fn HTMLVideoElement::as_html_element(Self) -> HTMLElement
+pub fn HTMLVideoElement::as_html_media_element(Self) -> HTMLMediaElement
+pub fn HTMLVideoElement::as_node(Self) -> Node
+pub fn HTMLVideoElement::attach_internals(Self) -> ElementInternals
+pub fn HTMLVideoElement::blur(Self) -> Unit
+pub fn HTMLVideoElement::can_play_type(Self, String) -> String
+pub fn HTMLVideoElement::capture_stream(Self) -> MediaStream
+pub fn HTMLVideoElement::click(Self) -> Unit
+pub fn HTMLVideoElement::closest(Self, String) -> Element?
+pub fn HTMLVideoElement::contains(Self, Node) -> Bool
+pub fn HTMLVideoElement::dispatch_event(Self, Event) -> Unit
+pub fn HTMLVideoElement::fast_seek(Self, Double) -> Unit
+pub fn HTMLVideoElement::focus(Self) -> Unit
+pub fn HTMLVideoElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
+pub fn HTMLVideoElement::from(Self) -> @js.Value
+pub fn HTMLVideoElement::get_access_key(Self) -> String
+pub fn HTMLVideoElement::get_access_key_label(Self) -> String
+pub fn HTMLVideoElement::get_anchor_element(Self) -> Element?
+pub fn HTMLVideoElement::get_animations(Self) -> FixedArray[Animation]
+pub fn HTMLVideoElement::get_attribute(Self, String) -> String?
+pub fn HTMLVideoElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn HTMLVideoElement::get_audio_tracks(Self) -> AudioTrackList
+pub fn HTMLVideoElement::get_auto_capitalize(Self) -> String
+pub fn HTMLVideoElement::get_auto_correct(Self) -> Bool
+pub fn HTMLVideoElement::get_auto_focus(Self) -> Bool
+pub fn HTMLVideoElement::get_autoplay(Self) -> Bool
+pub fn HTMLVideoElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn HTMLVideoElement::get_buffered(Self) -> TimeRanges
+pub fn HTMLVideoElement::get_child(Self, Int) -> Node
+pub fn HTMLVideoElement::get_child_count(Self) -> Int
+pub fn HTMLVideoElement::get_children(Self) -> HTMLCollection
+pub fn HTMLVideoElement::get_client_height(Self) -> Double
+pub fn HTMLVideoElement::get_client_left(Self) -> Double
+pub fn HTMLVideoElement::get_client_rects(Self) -> DOMRectList
+pub fn HTMLVideoElement::get_client_top(Self) -> Double
+pub fn HTMLVideoElement::get_client_width(Self) -> Double
+pub fn HTMLVideoElement::get_content_editable(Self) -> String
+pub fn HTMLVideoElement::get_controls(Self) -> Bool
+pub fn HTMLVideoElement::get_controls_list(Self) -> DOMTokenList
+pub fn HTMLVideoElement::get_cross_origin(Self) -> String?
+pub fn HTMLVideoElement::get_current_src(Self) -> String
+pub fn HTMLVideoElement::get_current_time(Self) -> Double
+pub fn HTMLVideoElement::get_dataset(Self) -> DOMStringMap
+pub fn HTMLVideoElement::get_default_muted(Self) -> Bool
+pub fn HTMLVideoElement::get_default_playback_rate(Self) -> Double
+pub fn HTMLVideoElement::get_dir(Self) -> String
+pub fn HTMLVideoElement::get_disable_remote_playback(Self) -> Bool
+pub fn HTMLVideoElement::get_draggable(Self) -> Bool
+pub fn HTMLVideoElement::get_duration(Self) -> Double
+pub fn HTMLVideoElement::get_edit_context(Self) -> EditContext?
+pub fn HTMLVideoElement::get_ended(Self) -> Bool
+pub fn HTMLVideoElement::get_enter_key_hint(Self) -> String
+pub fn HTMLVideoElement::get_error(Self) -> MediaError?
+pub fn HTMLVideoElement::get_first_child(Self) -> Node
+pub fn HTMLVideoElement::get_hidden(Self) -> @js.Value
+pub fn HTMLVideoElement::get_inert(Self) -> Bool
+pub fn HTMLVideoElement::get_inner_text(Self) -> String
+pub fn HTMLVideoElement::get_input_mode(Self) -> String
+pub fn HTMLVideoElement::get_is_connected(Self) -> Bool
+pub fn HTMLVideoElement::get_is_content_editable(Self) -> Bool
+pub fn HTMLVideoElement::get_lang(Self) -> String
+pub fn HTMLVideoElement::get_last_child(Self) -> Node
+pub fn HTMLVideoElement::get_loop(Self) -> Bool
+pub fn HTMLVideoElement::get_media_keys(Self) -> MediaKeys?
+pub fn HTMLVideoElement::get_muted(Self) -> Bool
+pub fn HTMLVideoElement::get_network_state(Self) -> Int
+pub fn HTMLVideoElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLVideoElement::get_node_name(Self) -> String
+pub fn HTMLVideoElement::get_node_type(Self) -> Int
+pub fn HTMLVideoElement::get_node_value(Self) -> String
+pub fn HTMLVideoElement::get_nonce(Self) -> String
+pub fn HTMLVideoElement::get_offset_height(Self) -> Double
+pub fn HTMLVideoElement::get_offset_left(Self) -> Double
+pub fn HTMLVideoElement::get_offset_parent(Self) -> Element?
+pub fn HTMLVideoElement::get_offset_top(Self) -> Double
+pub fn HTMLVideoElement::get_offset_width(Self) -> Double
+pub fn HTMLVideoElement::get_outer_text(Self) -> String
+pub fn HTMLVideoElement::get_parent_element(Self) -> Element?
+pub fn HTMLVideoElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn HTMLVideoElement::get_paused(Self) -> Bool
+pub fn HTMLVideoElement::get_playback_rate(Self) -> Double
+pub fn HTMLVideoElement::get_played(Self) -> TimeRanges
+pub fn HTMLVideoElement::get_popover(Self) -> String?
+pub fn HTMLVideoElement::get_preload(Self) -> String
+pub fn HTMLVideoElement::get_preserves_pitch(Self) -> Bool
+pub fn HTMLVideoElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn HTMLVideoElement::get_property(Self, String) -> @js.Optional[String]
+pub fn HTMLVideoElement::get_ready_state(Self) -> Int
+pub fn HTMLVideoElement::get_remote(Self) -> RemotePlayback
+pub fn HTMLVideoElement::get_scroll_height(Self) -> Double
+pub fn HTMLVideoElement::get_scroll_left(Self) -> Double
+pub fn HTMLVideoElement::get_scroll_top(Self) -> Double
+pub fn HTMLVideoElement::get_scroll_width(Self) -> Double
+pub fn HTMLVideoElement::get_seekable(Self) -> TimeRanges
+pub fn HTMLVideoElement::get_seeking(Self) -> Bool
+pub fn HTMLVideoElement::get_sink_id(Self) -> String
+pub fn HTMLVideoElement::get_spellcheck(Self) -> Bool
+pub fn HTMLVideoElement::get_src(Self) -> String
+pub fn HTMLVideoElement::get_src_object(Self) -> @js.Value?
+pub fn HTMLVideoElement::get_style(Self) -> CSSStyleDeclaration
+pub fn HTMLVideoElement::get_tab_index(Self) -> Int
+pub fn HTMLVideoElement::get_text_tracks(Self) -> TextTrackList
+pub fn HTMLVideoElement::get_title(Self) -> String
+pub fn HTMLVideoElement::get_translate(Self) -> Bool
+pub fn HTMLVideoElement::get_video_tracks(Self) -> VideoTrackList
+pub fn HTMLVideoElement::get_virtual_keyboard_policy(Self) -> String
+pub fn HTMLVideoElement::get_volume(Self) -> Double
+pub fn HTMLVideoElement::get_writing_suggestions(Self) -> String
+pub fn HTMLVideoElement::has_attribute(Self, String) -> Bool
+pub fn HTMLVideoElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLVideoElement::hide_popover(Self) -> Unit
+pub fn HTMLVideoElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn HTMLVideoElement::into(@js.Value) -> Self?
+pub fn HTMLVideoElement::is_same_node(Self, Node) -> Bool
+pub fn HTMLVideoElement::load(Self) -> Unit
+pub fn HTMLVideoElement::matches(Self, String) -> Bool
+pub fn HTMLVideoElement::pause(Self) -> Unit
+pub fn HTMLVideoElement::query_selector(Self, String) -> Element?
+pub fn HTMLVideoElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn HTMLVideoElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLVideoElement::remove_attribute(Self, String) -> Unit
+pub fn HTMLVideoElement::remove_child(Self, Node) -> Unit
+pub fn HTMLVideoElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn HTMLVideoElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn HTMLVideoElement::remove_property(Self, String) -> Unit
+pub fn HTMLVideoElement::replace_child(Self, Node, Node) -> Unit
+pub fn HTMLVideoElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn HTMLVideoElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn HTMLVideoElement::seek_to_next_frame(Self) -> Unit
+pub fn HTMLVideoElement::set_access_key(Self, String) -> Unit
+pub fn HTMLVideoElement::set_attribute(Self, String, String) -> Unit
+pub fn HTMLVideoElement::set_auto_capitalize(Self, String) -> Unit
+pub fn HTMLVideoElement::set_auto_correct(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_auto_focus(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_autoplay(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_content_editable(Self, String) -> Unit
+pub fn HTMLVideoElement::set_controls(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_cross_origin(Self, String?) -> Unit
+pub fn HTMLVideoElement::set_current_time(Self, Double) -> Unit
+pub fn HTMLVideoElement::set_default_muted(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_default_playback_rate(Self, Double) -> Unit
+pub fn HTMLVideoElement::set_dir(Self, String) -> Unit
+pub fn HTMLVideoElement::set_disable_remote_playback(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_draggable(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_edit_context(Self, EditContext?) -> Unit
+pub fn HTMLVideoElement::set_enter_key_hint(Self, String) -> Unit
+pub fn HTMLVideoElement::set_hidden(Self, @js.Value) -> Unit
+pub fn HTMLVideoElement::set_inert(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_inner_html(Self, String) -> Unit
+pub fn HTMLVideoElement::set_inner_text(Self, String) -> Unit
+pub fn HTMLVideoElement::set_input_mode(Self, String) -> Unit
+pub fn HTMLVideoElement::set_lang(Self, String) -> Unit
+pub fn HTMLVideoElement::set_loop(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_muted(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn HTMLVideoElement::set_nonce(Self, String) -> Unit
+pub fn HTMLVideoElement::set_outer_text(Self, String) -> Unit
+pub fn HTMLVideoElement::set_playback_rate(Self, Double) -> Unit
+pub fn HTMLVideoElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLVideoElement::set_popover(Self, String?) -> Unit
+pub fn HTMLVideoElement::set_preload(Self, String) -> Unit
+pub fn HTMLVideoElement::set_preserves_pitch(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_property(Self, String, @js.Value) -> Unit
+pub fn HTMLVideoElement::set_scroll_left(Self, Double) -> Unit
+pub fn HTMLVideoElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLVideoElement::set_spellcheck(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_src(Self, String) -> Unit
+pub fn HTMLVideoElement::set_src_object(Self, @js.Value?) -> Unit
+pub fn HTMLVideoElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
+pub fn HTMLVideoElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLVideoElement::set_title(Self, String) -> Unit
+pub fn HTMLVideoElement::set_translate(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_virtual_keyboard_policy(Self, String) -> Unit
+pub fn HTMLVideoElement::set_volume(Self, Double) -> Unit
+pub fn HTMLVideoElement::set_writing_suggestions(Self, String) -> Unit
+pub fn HTMLVideoElement::show_popover(Self) -> Unit
+pub fn HTMLVideoElement::to_clipboard(Self) -> Clipboard?
+pub fn HTMLVideoElement::to_comment(Self) -> Comment?
+pub fn HTMLVideoElement::to_document(Self) -> Document?
+pub fn HTMLVideoElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn HTMLVideoElement::to_element(Self) -> Element?
+pub fn HTMLVideoElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn HTMLVideoElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn HTMLVideoElement::to_html_element(Self) -> HTMLElement?
+pub fn HTMLVideoElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn HTMLVideoElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn HTMLVideoElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn HTMLVideoElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn HTMLVideoElement::to_html_video_element(Self) -> Self?
+pub fn HTMLVideoElement::to_node(Self) -> Node?
+pub fn HTMLVideoElement::to_svg_element(Self) -> SVGElement?
+pub fn HTMLVideoElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn HTMLVideoElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn HTMLVideoElement::to_text(Self) -> Text?
+pub fn HTMLVideoElement::to_window(Self) -> Window?
+pub fn HTMLVideoElement::toggle_popover(Self, Bool?) -> Bool
 pub impl IsElement for HTMLVideoElement
 pub impl IsEventTarget for HTMLVideoElement
 pub impl IsHTMLMediaElement for HTMLVideoElement
@@ -416,6 +2130,8 @@ pub impl IsNode for HTMLVideoElement
 pub impl @js.Cast for HTMLVideoElement
 
 type ImageBitmap
+pub fn ImageBitmap::from(Self) -> @js.Value
+pub fn ImageBitmap::into(@js.Value) -> Self?
 pub impl @js.Cast for ImageBitmap
 
 type ImageBitmapRenderingContext
@@ -432,9 +2148,37 @@ type ImageDataSettings
 pub fn ImageDataSettings::new(String) -> Self
 
 type InputEvent
+pub fn InputEvent::as_event(Self) -> Event
+pub fn InputEvent::as_ui_event(Self) -> UIEvent
+pub fn InputEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn InputEvent::current_target(Self) -> @js.Nullable[EventTarget]
 pub fn InputEvent::data(Self) -> String
+pub fn InputEvent::from(Self) -> @js.Value
+pub fn InputEvent::get_default_prevented(Self) -> Bool
+pub fn InputEvent::get_time_stamp(Self) -> Double
 pub fn InputEvent::input_type(Self) -> String
+pub fn InputEvent::into(@js.Value) -> Self?
 pub fn InputEvent::is_composing(Self) -> Bool
+pub fn InputEvent::prevent_default(Self) -> Unit
+pub fn InputEvent::stop_immediate_propagation(Self) -> Unit
+pub fn InputEvent::stop_propagation(Self) -> Unit
+pub fn InputEvent::target(Self) -> EventTarget
+pub fn InputEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn InputEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn InputEvent::to_blob_event(Self) -> BlobEvent?
+pub fn InputEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn InputEvent::to_close_event(Self) -> CloseEvent?
+pub fn InputEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn InputEvent::to_custom_event(Self) -> CustomEvent?
+pub fn InputEvent::to_drag_event(Self) -> DragEvent?
+pub fn InputEvent::to_focus_event(Self) -> FocusEvent?
+pub fn InputEvent::to_input_event(Self) -> Self?
+pub fn InputEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn InputEvent::to_message_event(Self) -> MessageEvent?
+pub fn InputEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn InputEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn InputEvent::to_ui_event(Self) -> UIEvent?
+pub fn InputEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for InputEvent
 pub impl IsUIEvent for InputEvent
 pub impl @js.Cast for InputEvent
@@ -449,14 +2193,42 @@ type IntersectionObserverEntry
 
 type KeyboardEvent
 pub fn KeyboardEvent::alt_key(Self) -> Bool
+pub fn KeyboardEvent::as_event(Self) -> Event
+pub fn KeyboardEvent::as_ui_event(Self) -> UIEvent
 pub fn KeyboardEvent::code(Self) -> String
+pub fn KeyboardEvent::composed_path(Self) -> FixedArray[EventTarget]
 pub fn KeyboardEvent::ctrl_key(Self) -> Bool
+pub fn KeyboardEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn KeyboardEvent::from(Self) -> @js.Value
+pub fn KeyboardEvent::get_default_prevented(Self) -> Bool
+pub fn KeyboardEvent::get_time_stamp(Self) -> Double
+pub fn KeyboardEvent::into(@js.Value) -> Self?
 pub fn KeyboardEvent::is_composing(Self) -> Bool
 pub fn KeyboardEvent::key(Self) -> String
 pub fn KeyboardEvent::location(Self) -> Int
 pub fn KeyboardEvent::meta_key(Self) -> Bool
+pub fn KeyboardEvent::prevent_default(Self) -> Unit
 pub fn KeyboardEvent::repeat(Self) -> Bool
 pub fn KeyboardEvent::shift_key(Self) -> Bool
+pub fn KeyboardEvent::stop_immediate_propagation(Self) -> Unit
+pub fn KeyboardEvent::stop_propagation(Self) -> Unit
+pub fn KeyboardEvent::target(Self) -> EventTarget
+pub fn KeyboardEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn KeyboardEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn KeyboardEvent::to_blob_event(Self) -> BlobEvent?
+pub fn KeyboardEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn KeyboardEvent::to_close_event(Self) -> CloseEvent?
+pub fn KeyboardEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn KeyboardEvent::to_custom_event(Self) -> CustomEvent?
+pub fn KeyboardEvent::to_drag_event(Self) -> DragEvent?
+pub fn KeyboardEvent::to_focus_event(Self) -> FocusEvent?
+pub fn KeyboardEvent::to_input_event(Self) -> InputEvent?
+pub fn KeyboardEvent::to_keyboard_event(Self) -> Self?
+pub fn KeyboardEvent::to_message_event(Self) -> MessageEvent?
+pub fn KeyboardEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn KeyboardEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn KeyboardEvent::to_ui_event(Self) -> UIEvent?
+pub fn KeyboardEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for KeyboardEvent
 pub impl IsUIEvent for KeyboardEvent
 pub impl @js.Cast for KeyboardEvent
@@ -466,19 +2238,122 @@ type MediaError
 type MediaKeys
 
 type MediaQueryList
+pub fn MediaQueryList::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn MediaQueryList::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn MediaQueryList::as_event_target(Self) -> EventTarget
+pub fn MediaQueryList::dispatch_event(Self, Event) -> Unit
+pub fn MediaQueryList::from(Self) -> @js.Value
 pub fn MediaQueryList::get_matches(Self) -> Bool
+pub fn MediaQueryList::into(@js.Value) -> Self?
+pub fn MediaQueryList::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn MediaQueryList::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn MediaQueryList::to_clipboard(Self) -> Clipboard?
+pub fn MediaQueryList::to_comment(Self) -> Comment?
+pub fn MediaQueryList::to_document(Self) -> Document?
+pub fn MediaQueryList::to_document_fragment(Self) -> DocumentFragment?
+pub fn MediaQueryList::to_element(Self) -> Element?
+pub fn MediaQueryList::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn MediaQueryList::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn MediaQueryList::to_html_element(Self) -> HTMLElement?
+pub fn MediaQueryList::to_html_image_element(Self) -> HTMLImageElement?
+pub fn MediaQueryList::to_html_input_element(Self) -> HTMLInputElement?
+pub fn MediaQueryList::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn MediaQueryList::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn MediaQueryList::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn MediaQueryList::to_node(Self) -> Node?
+pub fn MediaQueryList::to_svg_element(Self) -> SVGElement?
+pub fn MediaQueryList::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn MediaQueryList::to_svg_image_element(Self) -> SVGImageElement?
+pub fn MediaQueryList::to_text(Self) -> Text?
+pub fn MediaQueryList::to_window(Self) -> Window?
 pub impl IsEventTarget for MediaQueryList
 pub impl @js.Cast for MediaQueryList
 
 type MediaStream
 
 type MessageEvent
+pub fn MessageEvent::as_event(Self) -> Event
+pub fn MessageEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn MessageEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn MessageEvent::from(Self) -> @js.Value
 pub fn MessageEvent::get_data(Self) -> @js.Value
 pub fn MessageEvent::get_data_string(Self) -> String?
+pub fn MessageEvent::get_default_prevented(Self) -> Bool
+pub fn MessageEvent::get_time_stamp(Self) -> Double
+pub fn MessageEvent::into(@js.Value) -> Self?
+pub fn MessageEvent::prevent_default(Self) -> Unit
+pub fn MessageEvent::stop_immediate_propagation(Self) -> Unit
+pub fn MessageEvent::stop_propagation(Self) -> Unit
+pub fn MessageEvent::target(Self) -> EventTarget
+pub fn MessageEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn MessageEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn MessageEvent::to_blob_event(Self) -> BlobEvent?
+pub fn MessageEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn MessageEvent::to_close_event(Self) -> CloseEvent?
+pub fn MessageEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn MessageEvent::to_custom_event(Self) -> CustomEvent?
+pub fn MessageEvent::to_drag_event(Self) -> DragEvent?
+pub fn MessageEvent::to_focus_event(Self) -> FocusEvent?
+pub fn MessageEvent::to_input_event(Self) -> InputEvent?
+pub fn MessageEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn MessageEvent::to_message_event(Self) -> Self?
+pub fn MessageEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn MessageEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn MessageEvent::to_ui_event(Self) -> UIEvent?
+pub fn MessageEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for MessageEvent
 pub impl @js.Cast for MessageEvent
 
 type MouseEvent
+pub fn MouseEvent::as_event(Self) -> Event
+pub fn MouseEvent::as_mouse_event(Self) -> Self
+pub fn MouseEvent::as_ui_event(Self) -> UIEvent
+pub fn MouseEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn MouseEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn MouseEvent::from(Self) -> @js.Value
+pub fn MouseEvent::get_alt_key(Self) -> Bool
+pub fn MouseEvent::get_button(Self) -> Int
+pub fn MouseEvent::get_buttons(Self) -> Int
+pub fn MouseEvent::get_client_x(Self) -> Double
+pub fn MouseEvent::get_client_y(Self) -> Double
+pub fn MouseEvent::get_ctrl_key(Self) -> Bool
+pub fn MouseEvent::get_default_prevented(Self) -> Bool
+pub fn MouseEvent::get_meta_key(Self) -> Bool
+pub fn MouseEvent::get_modifier_state(Self, String) -> Bool
+pub fn MouseEvent::get_movement_x(Self) -> Double
+pub fn MouseEvent::get_movement_y(Self) -> Double
+pub fn MouseEvent::get_offset_x(Self) -> Double
+pub fn MouseEvent::get_offset_y(Self) -> Double
+pub fn MouseEvent::get_page_x(Self) -> Double
+pub fn MouseEvent::get_page_y(Self) -> Double
+pub fn MouseEvent::get_related_target(Self) -> EventTarget?
+pub fn MouseEvent::get_screen_x(Self) -> Double
+pub fn MouseEvent::get_screen_y(Self) -> Double
+pub fn MouseEvent::get_shift_key(Self) -> Bool
+pub fn MouseEvent::get_time_stamp(Self) -> Double
+pub fn MouseEvent::get_x(Self) -> Double
+pub fn MouseEvent::get_y(Self) -> Double
+pub fn MouseEvent::into(@js.Value) -> Self?
+pub fn MouseEvent::prevent_default(Self) -> Unit
+pub fn MouseEvent::stop_immediate_propagation(Self) -> Unit
+pub fn MouseEvent::stop_propagation(Self) -> Unit
+pub fn MouseEvent::target(Self) -> EventTarget
+pub fn MouseEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn MouseEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn MouseEvent::to_blob_event(Self) -> BlobEvent?
+pub fn MouseEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn MouseEvent::to_close_event(Self) -> CloseEvent?
+pub fn MouseEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn MouseEvent::to_custom_event(Self) -> CustomEvent?
+pub fn MouseEvent::to_drag_event(Self) -> DragEvent?
+pub fn MouseEvent::to_focus_event(Self) -> FocusEvent?
+pub fn MouseEvent::to_input_event(Self) -> InputEvent?
+pub fn MouseEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn MouseEvent::to_message_event(Self) -> MessageEvent?
+pub fn MouseEvent::to_mouse_event(Self) -> Self?
+pub fn MouseEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn MouseEvent::to_ui_event(Self) -> UIEvent?
+pub fn MouseEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for MouseEvent
 pub impl IsMouseEvent for MouseEvent
 pub impl IsUIEvent for MouseEvent
@@ -497,6 +2372,53 @@ pub type Navigator
 pub fn Navigator::clipboard(Self) -> Clipboard
 
 type Node
+pub fn Node::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Node::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn Node::append_child(Self, Self) -> Unit
+pub fn Node::as_event_target(Self) -> EventTarget
+pub fn Node::as_node(Self) -> Self
+pub fn Node::contains(Self, Self) -> Bool
+pub fn Node::dispatch_event(Self, Event) -> Unit
+pub fn Node::from(Self) -> @js.Value
+pub fn Node::get_child(Self, Int) -> Self
+pub fn Node::get_child_count(Self) -> Int
+pub fn Node::get_first_child(Self) -> Self
+pub fn Node::get_is_connected(Self) -> Bool
+pub fn Node::get_last_child(Self) -> Self
+pub fn Node::get_next_sibling(Self) -> @js.Nullable[Self]
+pub fn Node::get_node_name(Self) -> String
+pub fn Node::get_node_type(Self) -> Int
+pub fn Node::get_node_value(Self) -> String
+pub fn Node::get_parent_element(Self) -> Element?
+pub fn Node::get_parent_node(Self) -> @js.Nullable[Self]
+pub fn Node::get_previous_sibling(Self) -> @js.Nullable[Self]
+pub fn Node::insert_before(Self, Self, @js.Nullable[Self]) -> Unit
+pub fn Node::into(@js.Value) -> Self?
+pub fn Node::is_same_node(Self, Self) -> Bool
+pub fn Node::remove_child(Self, Self) -> Unit
+pub fn Node::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Node::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn Node::replace_child(Self, Self, Self) -> Unit
+pub fn Node::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn Node::to_clipboard(Self) -> Clipboard?
+pub fn Node::to_comment(Self) -> Comment?
+pub fn Node::to_document(Self) -> Document?
+pub fn Node::to_document_fragment(Self) -> DocumentFragment?
+pub fn Node::to_element(Self) -> Element?
+pub fn Node::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Node::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Node::to_html_element(Self) -> HTMLElement?
+pub fn Node::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Node::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Node::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Node::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Node::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn Node::to_node(Self) -> Self?
+pub fn Node::to_svg_element(Self) -> SVGElement?
+pub fn Node::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Node::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Node::to_text(Self) -> Text?
+pub fn Node::to_window(Self) -> Window?
 pub impl IsEventTarget for Node
 pub impl IsNode for Node
 pub impl @js.Cast for Node
@@ -517,18 +2439,67 @@ type Performance
 pub fn Performance::now(Self) -> Double
 
 type PointerEvent
+pub fn PointerEvent::as_event(Self) -> Event
+pub fn PointerEvent::as_mouse_event(Self) -> MouseEvent
+pub fn PointerEvent::as_ui_event(Self) -> UIEvent
+pub fn PointerEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn PointerEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn PointerEvent::from(Self) -> @js.Value
+pub fn PointerEvent::get_alt_key(Self) -> Bool
 pub fn PointerEvent::get_altitude_angle(Self) -> Double
 pub fn PointerEvent::get_azimuth_angle(Self) -> Double
+pub fn PointerEvent::get_button(Self) -> Int
+pub fn PointerEvent::get_buttons(Self) -> Int
+pub fn PointerEvent::get_client_x(Self) -> Double
+pub fn PointerEvent::get_client_y(Self) -> Double
+pub fn PointerEvent::get_ctrl_key(Self) -> Bool
+pub fn PointerEvent::get_default_prevented(Self) -> Bool
 pub fn PointerEvent::get_height(Self) -> Double
 pub fn PointerEvent::get_is_primary(Self) -> Bool
+pub fn PointerEvent::get_meta_key(Self) -> Bool
+pub fn PointerEvent::get_modifier_state(Self, String) -> Bool
+pub fn PointerEvent::get_movement_x(Self) -> Double
+pub fn PointerEvent::get_movement_y(Self) -> Double
+pub fn PointerEvent::get_offset_x(Self) -> Double
+pub fn PointerEvent::get_offset_y(Self) -> Double
+pub fn PointerEvent::get_page_x(Self) -> Double
+pub fn PointerEvent::get_page_y(Self) -> Double
 pub fn PointerEvent::get_pointer_id(Self) -> Int
 pub fn PointerEvent::get_pointer_type(Self) -> String
 pub fn PointerEvent::get_pressure(Self) -> Double
+pub fn PointerEvent::get_related_target(Self) -> EventTarget?
+pub fn PointerEvent::get_screen_x(Self) -> Double
+pub fn PointerEvent::get_screen_y(Self) -> Double
+pub fn PointerEvent::get_shift_key(Self) -> Bool
 pub fn PointerEvent::get_tangential_pressure(Self) -> Double
 pub fn PointerEvent::get_tilt_x(Self) -> Int
 pub fn PointerEvent::get_tilt_y(Self) -> Int
+pub fn PointerEvent::get_time_stamp(Self) -> Double
 pub fn PointerEvent::get_twist(Self) -> Int
 pub fn PointerEvent::get_width(Self) -> Double
+pub fn PointerEvent::get_x(Self) -> Double
+pub fn PointerEvent::get_y(Self) -> Double
+pub fn PointerEvent::into(@js.Value) -> Self?
+pub fn PointerEvent::prevent_default(Self) -> Unit
+pub fn PointerEvent::stop_immediate_propagation(Self) -> Unit
+pub fn PointerEvent::stop_propagation(Self) -> Unit
+pub fn PointerEvent::target(Self) -> EventTarget
+pub fn PointerEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn PointerEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn PointerEvent::to_blob_event(Self) -> BlobEvent?
+pub fn PointerEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn PointerEvent::to_close_event(Self) -> CloseEvent?
+pub fn PointerEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn PointerEvent::to_custom_event(Self) -> CustomEvent?
+pub fn PointerEvent::to_drag_event(Self) -> DragEvent?
+pub fn PointerEvent::to_focus_event(Self) -> FocusEvent?
+pub fn PointerEvent::to_input_event(Self) -> InputEvent?
+pub fn PointerEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn PointerEvent::to_message_event(Self) -> MessageEvent?
+pub fn PointerEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn PointerEvent::to_pointer_event(Self) -> Self?
+pub fn PointerEvent::to_ui_event(Self) -> UIEvent?
+pub fn PointerEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for PointerEvent
 pub impl IsMouseEvent for PointerEvent
 pub impl IsUIEvent for PointerEvent
@@ -547,6 +2518,100 @@ type ResizeObserverEntry
 type SVGAnimatedTransformList
 
 type SVGElement
+pub fn SVGElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn SVGElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn SVGElement::append_child(Self, Node) -> Unit
+pub fn SVGElement::as_element(Self) -> Element
+pub fn SVGElement::as_event_target(Self) -> EventTarget
+pub fn SVGElement::as_node(Self) -> Node
+pub fn SVGElement::as_svg_element(Self) -> Self
+pub fn SVGElement::blur(Self) -> Unit
+pub fn SVGElement::closest(Self, String) -> Element?
+pub fn SVGElement::contains(Self, Node) -> Bool
+pub fn SVGElement::dispatch_event(Self, Event) -> Unit
+pub fn SVGElement::focus(Self) -> Unit
+pub fn SVGElement::from(Self) -> @js.Value
+pub fn SVGElement::get_animations(Self) -> FixedArray[Animation]
+pub fn SVGElement::get_attribute(Self, String) -> String?
+pub fn SVGElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn SVGElement::get_auto_focus(Self) -> Bool
+pub fn SVGElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn SVGElement::get_child(Self, Int) -> Node
+pub fn SVGElement::get_child_count(Self) -> Int
+pub fn SVGElement::get_children(Self) -> HTMLCollection
+pub fn SVGElement::get_client_height(Self) -> Double
+pub fn SVGElement::get_client_left(Self) -> Double
+pub fn SVGElement::get_client_rects(Self) -> DOMRectList
+pub fn SVGElement::get_client_top(Self) -> Double
+pub fn SVGElement::get_client_width(Self) -> Double
+pub fn SVGElement::get_data_set(Self) -> DOMStringMap
+pub fn SVGElement::get_first_child(Self) -> Node
+pub fn SVGElement::get_is_connected(Self) -> Bool
+pub fn SVGElement::get_last_child(Self) -> Node
+pub fn SVGElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn SVGElement::get_node_name(Self) -> String
+pub fn SVGElement::get_node_type(Self) -> Int
+pub fn SVGElement::get_node_value(Self) -> String
+pub fn SVGElement::get_nonce(Self) -> String
+pub fn SVGElement::get_owner_svg_element(Self) -> Self?
+pub fn SVGElement::get_parent_element(Self) -> Element?
+pub fn SVGElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn SVGElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn SVGElement::get_property(Self, String) -> @js.Optional[String]
+pub fn SVGElement::get_scroll_height(Self) -> Double
+pub fn SVGElement::get_scroll_left(Self) -> Double
+pub fn SVGElement::get_scroll_top(Self) -> Double
+pub fn SVGElement::get_scroll_width(Self) -> Double
+pub fn SVGElement::get_style(Self) -> CSSStyleDeclaration
+pub fn SVGElement::get_tab_index(Self) -> Int
+pub fn SVGElement::get_viewport_element(Self) -> Self?
+pub fn SVGElement::has_attribute(Self, String) -> Bool
+pub fn SVGElement::has_pointer_capture(Self, Int) -> Bool
+pub fn SVGElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn SVGElement::into(@js.Value) -> Self?
+pub fn SVGElement::is_same_node(Self, Node) -> Bool
+pub fn SVGElement::matches(Self, String) -> Bool
+pub fn SVGElement::query_selector(Self, String) -> Element?
+pub fn SVGElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn SVGElement::release_pointer_capture(Self, Int) -> Unit
+pub fn SVGElement::remove_attribute(Self, String) -> Unit
+pub fn SVGElement::remove_child(Self, Node) -> Unit
+pub fn SVGElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn SVGElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn SVGElement::remove_property(Self, String) -> Unit
+pub fn SVGElement::replace_child(Self, Node, Node) -> Unit
+pub fn SVGElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn SVGElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn SVGElement::set_attribute(Self, String, String) -> Unit
+pub fn SVGElement::set_auto_focus(Self, Bool) -> Unit
+pub fn SVGElement::set_inner_html(Self, String) -> Unit
+pub fn SVGElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn SVGElement::set_nonce(Self, String) -> Unit
+pub fn SVGElement::set_pointer_capture(Self, Int) -> Unit
+pub fn SVGElement::set_property(Self, String, @js.Value) -> Unit
+pub fn SVGElement::set_scroll_left(Self, Double) -> Unit
+pub fn SVGElement::set_scroll_top(Self, Double) -> Unit
+pub fn SVGElement::set_style(Self, CSSStyleDeclaration) -> Unit
+pub fn SVGElement::set_tab_index(Self, Int) -> Unit
+pub fn SVGElement::to_clipboard(Self) -> Clipboard?
+pub fn SVGElement::to_comment(Self) -> Comment?
+pub fn SVGElement::to_document(Self) -> Document?
+pub fn SVGElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn SVGElement::to_element(Self) -> Element?
+pub fn SVGElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn SVGElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn SVGElement::to_html_element(Self) -> HTMLElement?
+pub fn SVGElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn SVGElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn SVGElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn SVGElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn SVGElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn SVGElement::to_node(Self) -> Node?
+pub fn SVGElement::to_svg_element(Self) -> Self?
+pub fn SVGElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn SVGElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn SVGElement::to_text(Self) -> Text?
+pub fn SVGElement::to_window(Self) -> Window?
 pub impl IsElement for SVGElement
 pub impl IsEventTarget for SVGElement
 pub impl IsNode for SVGElement
@@ -554,6 +2619,107 @@ pub impl IsSVGElement for SVGElement
 pub impl @js.Cast for SVGElement
 
 type SVGGraphicsElement
+pub fn SVGGraphicsElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn SVGGraphicsElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn SVGGraphicsElement::append_child(Self, Node) -> Unit
+pub fn SVGGraphicsElement::as_element(Self) -> Element
+pub fn SVGGraphicsElement::as_event_target(Self) -> EventTarget
+pub fn SVGGraphicsElement::as_node(Self) -> Node
+pub fn SVGGraphicsElement::as_svg_element(Self) -> SVGElement
+pub fn SVGGraphicsElement::as_svg_graphics_element(Self) -> Self
+pub fn SVGGraphicsElement::blur(Self) -> Unit
+pub fn SVGGraphicsElement::closest(Self, String) -> Element?
+pub fn SVGGraphicsElement::contains(Self, Node) -> Bool
+pub fn SVGGraphicsElement::dispatch_event(Self, Event) -> Unit
+pub fn SVGGraphicsElement::focus(Self) -> Unit
+pub fn SVGGraphicsElement::from(Self) -> @js.Value
+pub fn SVGGraphicsElement::get_animations(Self) -> FixedArray[Animation]
+pub fn SVGGraphicsElement::get_attribute(Self, String) -> String?
+pub fn SVGGraphicsElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn SVGGraphicsElement::get_auto_focus(Self) -> Bool
+pub fn SVGGraphicsElement::get_bbox(Self) -> DOMRect
+pub fn SVGGraphicsElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn SVGGraphicsElement::get_child(Self, Int) -> Node
+pub fn SVGGraphicsElement::get_child_count(Self) -> Int
+pub fn SVGGraphicsElement::get_children(Self) -> HTMLCollection
+pub fn SVGGraphicsElement::get_client_height(Self) -> Double
+pub fn SVGGraphicsElement::get_client_left(Self) -> Double
+pub fn SVGGraphicsElement::get_client_rects(Self) -> DOMRectList
+pub fn SVGGraphicsElement::get_client_top(Self) -> Double
+pub fn SVGGraphicsElement::get_client_width(Self) -> Double
+pub fn SVGGraphicsElement::get_ctm(Self) -> DOMMatrix
+pub fn SVGGraphicsElement::get_data_set(Self) -> DOMStringMap
+pub fn SVGGraphicsElement::get_first_child(Self) -> Node
+pub fn SVGGraphicsElement::get_is_connected(Self) -> Bool
+pub fn SVGGraphicsElement::get_last_child(Self) -> Node
+pub fn SVGGraphicsElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn SVGGraphicsElement::get_node_name(Self) -> String
+pub fn SVGGraphicsElement::get_node_type(Self) -> Int
+pub fn SVGGraphicsElement::get_node_value(Self) -> String
+pub fn SVGGraphicsElement::get_nonce(Self) -> String
+pub fn SVGGraphicsElement::get_owner_svg_element(Self) -> SVGElement?
+pub fn SVGGraphicsElement::get_parent_element(Self) -> Element?
+pub fn SVGGraphicsElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn SVGGraphicsElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn SVGGraphicsElement::get_property(Self, String) -> @js.Optional[String]
+pub fn SVGGraphicsElement::get_required_extensions(Self) -> String
+pub fn SVGGraphicsElement::get_screen_ctm(Self) -> DOMMatrix
+pub fn SVGGraphicsElement::get_scroll_height(Self) -> Double
+pub fn SVGGraphicsElement::get_scroll_left(Self) -> Double
+pub fn SVGGraphicsElement::get_scroll_top(Self) -> Double
+pub fn SVGGraphicsElement::get_scroll_width(Self) -> Double
+pub fn SVGGraphicsElement::get_style(Self) -> CSSStyleDeclaration
+pub fn SVGGraphicsElement::get_system_language(Self) -> SVGStringList
+pub fn SVGGraphicsElement::get_tab_index(Self) -> Int
+pub fn SVGGraphicsElement::get_transform(Self) -> SVGAnimatedTransformList
+pub fn SVGGraphicsElement::get_viewport_element(Self) -> SVGElement?
+pub fn SVGGraphicsElement::has_attribute(Self, String) -> Bool
+pub fn SVGGraphicsElement::has_pointer_capture(Self, Int) -> Bool
+pub fn SVGGraphicsElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn SVGGraphicsElement::into(@js.Value) -> Self?
+pub fn SVGGraphicsElement::is_same_node(Self, Node) -> Bool
+pub fn SVGGraphicsElement::matches(Self, String) -> Bool
+pub fn SVGGraphicsElement::query_selector(Self, String) -> Element?
+pub fn SVGGraphicsElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn SVGGraphicsElement::release_pointer_capture(Self, Int) -> Unit
+pub fn SVGGraphicsElement::remove_attribute(Self, String) -> Unit
+pub fn SVGGraphicsElement::remove_child(Self, Node) -> Unit
+pub fn SVGGraphicsElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn SVGGraphicsElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn SVGGraphicsElement::remove_property(Self, String) -> Unit
+pub fn SVGGraphicsElement::replace_child(Self, Node, Node) -> Unit
+pub fn SVGGraphicsElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn SVGGraphicsElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn SVGGraphicsElement::set_attribute(Self, String, String) -> Unit
+pub fn SVGGraphicsElement::set_auto_focus(Self, Bool) -> Unit
+pub fn SVGGraphicsElement::set_inner_html(Self, String) -> Unit
+pub fn SVGGraphicsElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn SVGGraphicsElement::set_nonce(Self, String) -> Unit
+pub fn SVGGraphicsElement::set_pointer_capture(Self, Int) -> Unit
+pub fn SVGGraphicsElement::set_property(Self, String, @js.Value) -> Unit
+pub fn SVGGraphicsElement::set_scroll_left(Self, Double) -> Unit
+pub fn SVGGraphicsElement::set_scroll_top(Self, Double) -> Unit
+pub fn SVGGraphicsElement::set_style(Self, CSSStyleDeclaration) -> Unit
+pub fn SVGGraphicsElement::set_tab_index(Self, Int) -> Unit
+pub fn SVGGraphicsElement::to_clipboard(Self) -> Clipboard?
+pub fn SVGGraphicsElement::to_comment(Self) -> Comment?
+pub fn SVGGraphicsElement::to_document(Self) -> Document?
+pub fn SVGGraphicsElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn SVGGraphicsElement::to_element(Self) -> Element?
+pub fn SVGGraphicsElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn SVGGraphicsElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn SVGGraphicsElement::to_html_element(Self) -> HTMLElement?
+pub fn SVGGraphicsElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn SVGGraphicsElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn SVGGraphicsElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn SVGGraphicsElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn SVGGraphicsElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn SVGGraphicsElement::to_node(Self) -> Node?
+pub fn SVGGraphicsElement::to_svg_element(Self) -> SVGElement?
+pub fn SVGGraphicsElement::to_svg_graphics_element(Self) -> Self?
+pub fn SVGGraphicsElement::to_svg_image_element(Self) -> SVGImageElement?
+pub fn SVGGraphicsElement::to_text(Self) -> Text?
+pub fn SVGGraphicsElement::to_window(Self) -> Window?
 pub impl IsElement for SVGGraphicsElement
 pub impl IsEventTarget for SVGGraphicsElement
 pub impl IsNode for SVGGraphicsElement
@@ -562,6 +2728,100 @@ pub impl IsSVGGraphicsElement for SVGGraphicsElement
 pub impl @js.Cast for SVGGraphicsElement
 
 type SVGImageElement
+pub fn SVGImageElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn SVGImageElement::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn SVGImageElement::append_child(Self, Node) -> Unit
+pub fn SVGImageElement::as_element(Self) -> Element
+pub fn SVGImageElement::as_event_target(Self) -> EventTarget
+pub fn SVGImageElement::as_node(Self) -> Node
+pub fn SVGImageElement::as_svg_element(Self) -> SVGElement
+pub fn SVGImageElement::blur(Self) -> Unit
+pub fn SVGImageElement::closest(Self, String) -> Element?
+pub fn SVGImageElement::contains(Self, Node) -> Bool
+pub fn SVGImageElement::dispatch_event(Self, Event) -> Unit
+pub fn SVGImageElement::focus(Self) -> Unit
+pub fn SVGImageElement::from(Self) -> @js.Value
+pub fn SVGImageElement::get_animations(Self) -> FixedArray[Animation]
+pub fn SVGImageElement::get_attribute(Self, String) -> String?
+pub fn SVGImageElement::get_attribute_style_map(Self) -> StylePropertyMap
+pub fn SVGImageElement::get_auto_focus(Self) -> Bool
+pub fn SVGImageElement::get_bounding_client_rect(Self) -> DOMRect
+pub fn SVGImageElement::get_child(Self, Int) -> Node
+pub fn SVGImageElement::get_child_count(Self) -> Int
+pub fn SVGImageElement::get_children(Self) -> HTMLCollection
+pub fn SVGImageElement::get_client_height(Self) -> Double
+pub fn SVGImageElement::get_client_left(Self) -> Double
+pub fn SVGImageElement::get_client_rects(Self) -> DOMRectList
+pub fn SVGImageElement::get_client_top(Self) -> Double
+pub fn SVGImageElement::get_client_width(Self) -> Double
+pub fn SVGImageElement::get_data_set(Self) -> DOMStringMap
+pub fn SVGImageElement::get_first_child(Self) -> Node
+pub fn SVGImageElement::get_is_connected(Self) -> Bool
+pub fn SVGImageElement::get_last_child(Self) -> Node
+pub fn SVGImageElement::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn SVGImageElement::get_node_name(Self) -> String
+pub fn SVGImageElement::get_node_type(Self) -> Int
+pub fn SVGImageElement::get_node_value(Self) -> String
+pub fn SVGImageElement::get_nonce(Self) -> String
+pub fn SVGImageElement::get_owner_svg_element(Self) -> SVGElement?
+pub fn SVGImageElement::get_parent_element(Self) -> Element?
+pub fn SVGImageElement::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn SVGImageElement::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn SVGImageElement::get_property(Self, String) -> @js.Optional[String]
+pub fn SVGImageElement::get_scroll_height(Self) -> Double
+pub fn SVGImageElement::get_scroll_left(Self) -> Double
+pub fn SVGImageElement::get_scroll_top(Self) -> Double
+pub fn SVGImageElement::get_scroll_width(Self) -> Double
+pub fn SVGImageElement::get_style(Self) -> CSSStyleDeclaration
+pub fn SVGImageElement::get_tab_index(Self) -> Int
+pub fn SVGImageElement::get_viewport_element(Self) -> SVGElement?
+pub fn SVGImageElement::has_attribute(Self, String) -> Bool
+pub fn SVGImageElement::has_pointer_capture(Self, Int) -> Bool
+pub fn SVGImageElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn SVGImageElement::into(@js.Value) -> Self?
+pub fn SVGImageElement::is_same_node(Self, Node) -> Bool
+pub fn SVGImageElement::matches(Self, String) -> Bool
+pub fn SVGImageElement::query_selector(Self, String) -> Element?
+pub fn SVGImageElement::query_selector_all(Self, String) -> NodeList[Element]
+pub fn SVGImageElement::release_pointer_capture(Self, Int) -> Unit
+pub fn SVGImageElement::remove_attribute(Self, String) -> Unit
+pub fn SVGImageElement::remove_child(Self, Node) -> Unit
+pub fn SVGImageElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn SVGImageElement::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn SVGImageElement::remove_property(Self, String) -> Unit
+pub fn SVGImageElement::replace_child(Self, Node, Node) -> Unit
+pub fn SVGImageElement::scroll_into_view(Self, behavior? : String) -> Unit
+pub fn SVGImageElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
+pub fn SVGImageElement::set_attribute(Self, String, String) -> Unit
+pub fn SVGImageElement::set_auto_focus(Self, Bool) -> Unit
+pub fn SVGImageElement::set_inner_html(Self, String) -> Unit
+pub fn SVGImageElement::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn SVGImageElement::set_nonce(Self, String) -> Unit
+pub fn SVGImageElement::set_pointer_capture(Self, Int) -> Unit
+pub fn SVGImageElement::set_property(Self, String, @js.Value) -> Unit
+pub fn SVGImageElement::set_scroll_left(Self, Double) -> Unit
+pub fn SVGImageElement::set_scroll_top(Self, Double) -> Unit
+pub fn SVGImageElement::set_style(Self, CSSStyleDeclaration) -> Unit
+pub fn SVGImageElement::set_tab_index(Self, Int) -> Unit
+pub fn SVGImageElement::to_clipboard(Self) -> Clipboard?
+pub fn SVGImageElement::to_comment(Self) -> Comment?
+pub fn SVGImageElement::to_document(Self) -> Document?
+pub fn SVGImageElement::to_document_fragment(Self) -> DocumentFragment?
+pub fn SVGImageElement::to_element(Self) -> Element?
+pub fn SVGImageElement::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn SVGImageElement::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn SVGImageElement::to_html_element(Self) -> HTMLElement?
+pub fn SVGImageElement::to_html_image_element(Self) -> HTMLImageElement?
+pub fn SVGImageElement::to_html_input_element(Self) -> HTMLInputElement?
+pub fn SVGImageElement::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn SVGImageElement::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn SVGImageElement::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn SVGImageElement::to_node(Self) -> Node?
+pub fn SVGImageElement::to_svg_element(Self) -> SVGElement?
+pub fn SVGImageElement::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn SVGImageElement::to_svg_image_element(Self) -> Self?
+pub fn SVGImageElement::to_text(Self) -> Text?
+pub fn SVGImageElement::to_window(Self) -> Window?
 pub impl IsElement for SVGImageElement
 pub impl IsEventTarget for SVGImageElement
 pub impl IsNode for SVGImageElement
@@ -573,7 +2833,53 @@ type SVGStringList
 type StylePropertyMap
 
 type Text
+pub fn Text::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Text::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn Text::append_child(Self, Node) -> Unit
+pub fn Text::as_event_target(Self) -> EventTarget
+pub fn Text::as_node(Self) -> Node
+pub fn Text::contains(Self, Node) -> Bool
+pub fn Text::dispatch_event(Self, Event) -> Unit
+pub fn Text::from(Self) -> @js.Value
+pub fn Text::get_child(Self, Int) -> Node
+pub fn Text::get_child_count(Self) -> Int
+pub fn Text::get_first_child(Self) -> Node
+pub fn Text::get_is_connected(Self) -> Bool
+pub fn Text::get_last_child(Self) -> Node
+pub fn Text::get_next_sibling(Self) -> @js.Nullable[Node]
+pub fn Text::get_node_name(Self) -> String
+pub fn Text::get_node_type(Self) -> Int
+pub fn Text::get_node_value(Self) -> String
+pub fn Text::get_parent_element(Self) -> Element?
+pub fn Text::get_parent_node(Self) -> @js.Nullable[Node]
+pub fn Text::get_previous_sibling(Self) -> @js.Nullable[Node]
+pub fn Text::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
+pub fn Text::into(@js.Value) -> Self?
+pub fn Text::is_same_node(Self, Node) -> Bool
+pub fn Text::remove_child(Self, Node) -> Unit
+pub fn Text::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Text::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn Text::replace_child(Self, Node, Node) -> Unit
+pub fn Text::set_node_value(Self, @js.Nullable[String]) -> Unit
+pub fn Text::to_clipboard(Self) -> Clipboard?
+pub fn Text::to_comment(Self) -> Comment?
+pub fn Text::to_document(Self) -> Document?
+pub fn Text::to_document_fragment(Self) -> DocumentFragment?
+pub fn Text::to_element(Self) -> Element?
+pub fn Text::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Text::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Text::to_html_element(Self) -> HTMLElement?
+pub fn Text::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Text::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Text::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Text::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Text::to_html_video_element(Self) -> HTMLVideoElement?
 pub fn Text::to_node(Self) -> Node
+pub fn Text::to_svg_element(Self) -> SVGElement?
+pub fn Text::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Text::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Text::to_text(Self) -> Self?
+pub fn Text::to_window(Self) -> Window?
 pub impl IsEventTarget for Text
 pub impl IsNode for Text
 pub impl @js.Cast for Text
@@ -585,19 +2891,101 @@ type TextTrackList
 type TimeRanges
 
 type ToggleEvent
+pub fn ToggleEvent::as_event(Self) -> Event
+pub fn ToggleEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn ToggleEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn ToggleEvent::from(Self) -> @js.Value
+pub fn ToggleEvent::get_default_prevented(Self) -> Bool
 pub fn ToggleEvent::get_new_state(Self) -> String
 pub fn ToggleEvent::get_old_state(Self) -> String
+pub fn ToggleEvent::get_time_stamp(Self) -> Double
+pub fn ToggleEvent::into(@js.Value) -> Self?
+pub fn ToggleEvent::prevent_default(Self) -> Unit
+pub fn ToggleEvent::stop_immediate_propagation(Self) -> Unit
+pub fn ToggleEvent::stop_propagation(Self) -> Unit
+pub fn ToggleEvent::target(Self) -> EventTarget
+pub fn ToggleEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn ToggleEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn ToggleEvent::to_blob_event(Self) -> BlobEvent?
+pub fn ToggleEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn ToggleEvent::to_close_event(Self) -> CloseEvent?
+pub fn ToggleEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn ToggleEvent::to_custom_event(Self) -> CustomEvent?
+pub fn ToggleEvent::to_drag_event(Self) -> DragEvent?
+pub fn ToggleEvent::to_focus_event(Self) -> FocusEvent?
+pub fn ToggleEvent::to_input_event(Self) -> InputEvent?
+pub fn ToggleEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn ToggleEvent::to_message_event(Self) -> MessageEvent?
+pub fn ToggleEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn ToggleEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn ToggleEvent::to_ui_event(Self) -> UIEvent?
+pub fn ToggleEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for ToggleEvent
 pub impl @js.Cast for ToggleEvent
 
 type TransitionEvent
+pub fn TransitionEvent::as_event(Self) -> Event
+pub fn TransitionEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn TransitionEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn TransitionEvent::from(Self) -> @js.Value
+pub fn TransitionEvent::get_default_prevented(Self) -> Bool
 pub fn TransitionEvent::get_elapsed_time(Self) -> Double
 pub fn TransitionEvent::get_property_name(Self) -> String
 pub fn TransitionEvent::get_pseudo_element(Self) -> String
+pub fn TransitionEvent::get_time_stamp(Self) -> Double
+pub fn TransitionEvent::into(@js.Value) -> Self?
+pub fn TransitionEvent::prevent_default(Self) -> Unit
+pub fn TransitionEvent::stop_immediate_propagation(Self) -> Unit
+pub fn TransitionEvent::stop_propagation(Self) -> Unit
+pub fn TransitionEvent::target(Self) -> EventTarget
+pub fn TransitionEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn TransitionEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn TransitionEvent::to_blob_event(Self) -> BlobEvent?
+pub fn TransitionEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn TransitionEvent::to_close_event(Self) -> CloseEvent?
+pub fn TransitionEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn TransitionEvent::to_custom_event(Self) -> CustomEvent?
+pub fn TransitionEvent::to_drag_event(Self) -> DragEvent?
+pub fn TransitionEvent::to_focus_event(Self) -> FocusEvent?
+pub fn TransitionEvent::to_input_event(Self) -> InputEvent?
+pub fn TransitionEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn TransitionEvent::to_message_event(Self) -> MessageEvent?
+pub fn TransitionEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn TransitionEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn TransitionEvent::to_ui_event(Self) -> UIEvent?
+pub fn TransitionEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for TransitionEvent
 pub impl @js.Cast for TransitionEvent
 
 type UIEvent
+pub fn UIEvent::as_event(Self) -> Event
+pub fn UIEvent::as_ui_event(Self) -> Self
+pub fn UIEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn UIEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn UIEvent::from(Self) -> @js.Value
+pub fn UIEvent::get_default_prevented(Self) -> Bool
+pub fn UIEvent::get_time_stamp(Self) -> Double
+pub fn UIEvent::into(@js.Value) -> Self?
+pub fn UIEvent::prevent_default(Self) -> Unit
+pub fn UIEvent::stop_immediate_propagation(Self) -> Unit
+pub fn UIEvent::stop_propagation(Self) -> Unit
+pub fn UIEvent::target(Self) -> EventTarget
+pub fn UIEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn UIEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn UIEvent::to_blob_event(Self) -> BlobEvent?
+pub fn UIEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn UIEvent::to_close_event(Self) -> CloseEvent?
+pub fn UIEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn UIEvent::to_custom_event(Self) -> CustomEvent?
+pub fn UIEvent::to_drag_event(Self) -> DragEvent?
+pub fn UIEvent::to_focus_event(Self) -> FocusEvent?
+pub fn UIEvent::to_input_event(Self) -> InputEvent?
+pub fn UIEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn UIEvent::to_message_event(Self) -> MessageEvent?
+pub fn UIEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn UIEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn UIEvent::to_ui_event(Self) -> Self?
+pub fn UIEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for UIEvent
 pub impl IsUIEvent for UIEvent
 pub impl @js.Cast for UIEvent
@@ -609,10 +2997,37 @@ type VideoFrame
 type VideoTrackList
 
 type VisualViewport
+pub fn VisualViewport::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn VisualViewport::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn VisualViewport::as_event_target(Self) -> EventTarget
+pub fn VisualViewport::dispatch_event(Self, Event) -> Unit
+pub fn VisualViewport::from(Self) -> @js.Value
 pub fn VisualViewport::get_height(Self) -> Double
 pub fn VisualViewport::get_offset_left(Self) -> Double
 pub fn VisualViewport::get_offset_top(Self) -> Double
 pub fn VisualViewport::get_width(Self) -> Double
+pub fn VisualViewport::into(@js.Value) -> Self?
+pub fn VisualViewport::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn VisualViewport::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
+pub fn VisualViewport::to_clipboard(Self) -> Clipboard?
+pub fn VisualViewport::to_comment(Self) -> Comment?
+pub fn VisualViewport::to_document(Self) -> Document?
+pub fn VisualViewport::to_document_fragment(Self) -> DocumentFragment?
+pub fn VisualViewport::to_element(Self) -> Element?
+pub fn VisualViewport::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn VisualViewport::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn VisualViewport::to_html_element(Self) -> HTMLElement?
+pub fn VisualViewport::to_html_image_element(Self) -> HTMLImageElement?
+pub fn VisualViewport::to_html_input_element(Self) -> HTMLInputElement?
+pub fn VisualViewport::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn VisualViewport::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn VisualViewport::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn VisualViewport::to_node(Self) -> Node?
+pub fn VisualViewport::to_svg_element(Self) -> SVGElement?
+pub fn VisualViewport::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn VisualViewport::to_svg_image_element(Self) -> SVGImageElement?
+pub fn VisualViewport::to_text(Self) -> Text?
+pub fn VisualViewport::to_window(Self) -> Window?
 pub impl IsEventTarget for VisualViewport
 pub impl @js.Cast for VisualViewport
 
@@ -621,39 +3036,120 @@ type WebGL2RenderingContext
 type WebGLRenderingContext
 
 type WebSocket
+pub fn WebSocket::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn WebSocket::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
+pub fn WebSocket::as_event_target(Self) -> EventTarget
 pub fn WebSocket::close(Self) -> Unit
 pub fn WebSocket::close_quietly(Self) -> Unit
 pub fn WebSocket::close_safe(Self, code? : Int, reason? : String) -> Result[Unit, String]
 pub fn WebSocket::close_with_code_reason(Self, Int, String) -> Unit
+pub fn WebSocket::dispatch_event(Self, Event) -> Unit
+pub fn WebSocket::from(Self) -> @js.Value
 pub fn WebSocket::get_buffered_amount(Self) -> Int
 pub fn WebSocket::get_protocol(Self) -> String
 pub fn WebSocket::get_ready_state(Self) -> Int
 pub fn WebSocket::get_url(Self) -> String
+pub fn WebSocket::into(@js.Value) -> Self?
 pub fn WebSocket::new(String) -> Self
 pub fn WebSocket::new_with_protocols(String, FixedArray[String]) -> Self
 pub fn WebSocket::open(String, protocols? : FixedArray[String]) -> Result[Self, String]
+pub fn WebSocket::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn WebSocket::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
 pub fn WebSocket::send(Self, String) -> Unit
 pub fn WebSocket::send_safe(Self, String) -> Result[Unit, String]
+pub fn WebSocket::to_clipboard(Self) -> Clipboard?
+pub fn WebSocket::to_comment(Self) -> Comment?
+pub fn WebSocket::to_document(Self) -> Document?
+pub fn WebSocket::to_document_fragment(Self) -> DocumentFragment?
+pub fn WebSocket::to_element(Self) -> Element?
+pub fn WebSocket::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn WebSocket::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn WebSocket::to_html_element(Self) -> HTMLElement?
+pub fn WebSocket::to_html_image_element(Self) -> HTMLImageElement?
+pub fn WebSocket::to_html_input_element(Self) -> HTMLInputElement?
+pub fn WebSocket::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn WebSocket::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn WebSocket::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn WebSocket::to_node(Self) -> Node?
+pub fn WebSocket::to_svg_element(Self) -> SVGElement?
+pub fn WebSocket::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn WebSocket::to_svg_image_element(Self) -> SVGImageElement?
+pub fn WebSocket::to_text(Self) -> Text?
+pub fn WebSocket::to_window(Self) -> Window?
 pub impl IsEventTarget for WebSocket
 pub impl @js.Cast for WebSocket
 
 type WheelEvent
+pub fn WheelEvent::as_event(Self) -> Event
+pub fn WheelEvent::as_mouse_event(Self) -> MouseEvent
+pub fn WheelEvent::as_ui_event(Self) -> UIEvent
+pub fn WheelEvent::composed_path(Self) -> FixedArray[EventTarget]
+pub fn WheelEvent::current_target(Self) -> @js.Nullable[EventTarget]
+pub fn WheelEvent::from(Self) -> @js.Value
+pub fn WheelEvent::get_alt_key(Self) -> Bool
+pub fn WheelEvent::get_button(Self) -> Int
+pub fn WheelEvent::get_buttons(Self) -> Int
+pub fn WheelEvent::get_client_x(Self) -> Double
+pub fn WheelEvent::get_client_y(Self) -> Double
+pub fn WheelEvent::get_ctrl_key(Self) -> Bool
+pub fn WheelEvent::get_default_prevented(Self) -> Bool
 pub fn WheelEvent::get_delta_mode(Self) -> Int
 pub fn WheelEvent::get_delta_x(Self) -> Double
 pub fn WheelEvent::get_delta_y(Self) -> Double
 pub fn WheelEvent::get_delta_z(Self) -> Double
+pub fn WheelEvent::get_meta_key(Self) -> Bool
+pub fn WheelEvent::get_modifier_state(Self, String) -> Bool
+pub fn WheelEvent::get_movement_x(Self) -> Double
+pub fn WheelEvent::get_movement_y(Self) -> Double
+pub fn WheelEvent::get_offset_x(Self) -> Double
+pub fn WheelEvent::get_offset_y(Self) -> Double
+pub fn WheelEvent::get_page_x(Self) -> Double
+pub fn WheelEvent::get_page_y(Self) -> Double
+pub fn WheelEvent::get_related_target(Self) -> EventTarget?
+pub fn WheelEvent::get_screen_x(Self) -> Double
+pub fn WheelEvent::get_screen_y(Self) -> Double
+pub fn WheelEvent::get_shift_key(Self) -> Bool
+pub fn WheelEvent::get_time_stamp(Self) -> Double
+pub fn WheelEvent::get_x(Self) -> Double
+pub fn WheelEvent::get_y(Self) -> Double
+pub fn WheelEvent::into(@js.Value) -> Self?
+pub fn WheelEvent::prevent_default(Self) -> Unit
+pub fn WheelEvent::stop_immediate_propagation(Self) -> Unit
+pub fn WheelEvent::stop_propagation(Self) -> Unit
+pub fn WheelEvent::target(Self) -> EventTarget
+pub fn WheelEvent::to_animation_event(Self) -> AnimationEvent?
+pub fn WheelEvent::to_before_unload_event(Self) -> BeforeUnloadEvent?
+pub fn WheelEvent::to_blob_event(Self) -> BlobEvent?
+pub fn WheelEvent::to_clipboard_event(Self) -> ClipboardEvent?
+pub fn WheelEvent::to_close_event(Self) -> CloseEvent?
+pub fn WheelEvent::to_composition_event(Self) -> CompositionEvent?
+pub fn WheelEvent::to_custom_event(Self) -> CustomEvent?
+pub fn WheelEvent::to_drag_event(Self) -> DragEvent?
+pub fn WheelEvent::to_focus_event(Self) -> FocusEvent?
+pub fn WheelEvent::to_input_event(Self) -> InputEvent?
+pub fn WheelEvent::to_keyboard_event(Self) -> KeyboardEvent?
+pub fn WheelEvent::to_message_event(Self) -> MessageEvent?
+pub fn WheelEvent::to_mouse_event(Self) -> MouseEvent?
+pub fn WheelEvent::to_pointer_event(Self) -> PointerEvent?
+pub fn WheelEvent::to_ui_event(Self) -> UIEvent?
+pub fn WheelEvent::to_wheel_event(Self) -> Self?
 pub impl IsEvent for WheelEvent
 pub impl IsMouseEvent for WheelEvent
 pub impl IsUIEvent for WheelEvent
 pub impl @js.Cast for WheelEvent
 
 type Window
+pub fn Window::add_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Window::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
 pub fn Window::alert(Self, String) -> Unit
+pub fn Window::as_event_target(Self) -> EventTarget
 pub fn Window::cancel_animation_frame(Self, Double) -> Unit
 pub fn Window::clear_interval(Self, Int) -> Unit
 pub fn Window::clear_timeout(Self, Int) -> Unit
 pub fn Window::confirm(Self, String) -> Bool
 pub fn Window::current_url(Self) -> String
+pub fn Window::dispatch_event(Self, Event) -> Unit
+pub fn Window::from(Self) -> @js.Value
 pub fn Window::get_computed_style(Self, Element) -> CSSStyleDeclaration
 pub fn Window::get_performance(Self) -> Performance
 pub fn Window::get_visual_viewport(Self) -> VisualViewport?
@@ -661,6 +3157,7 @@ pub fn Window::history_go_back(Self) -> Unit
 pub fn Window::history_go_forward(Self) -> Unit
 pub fn Window::inner_height(Self) -> Double
 pub fn Window::inner_width(Self) -> Double
+pub fn Window::into(@js.Value) -> Self?
 pub fn Window::load_url(Self, String) -> Unit
 pub fn Window::match_media(Self, String) -> MediaQueryList
 pub fn Window::navigator(Self) -> Navigator
@@ -668,6 +3165,8 @@ pub fn Window::origin(Self) -> String
 pub fn Window::push_url(Self, String) -> Unit
 pub fn Window::queue_microtask(Self, () -> Unit) -> Unit
 pub fn Window::reload_url(Self) -> Unit
+pub fn Window::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
+pub fn Window::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
 pub fn Window::replace_url(Self, String) -> Unit
 pub fn Window::request_animation_frame(Self, (Double) -> Unit) -> Double
 pub fn Window::scroll_by(Self, Double, Double, behavior? : String) -> Unit
@@ -678,7 +3177,26 @@ pub fn Window::scroll_x(Self) -> Double
 pub fn Window::scroll_y(Self) -> Double
 pub fn Window::set_interval(Self, () -> Unit, Int) -> Int
 pub fn Window::set_timeout(Self, () -> Unit, Int) -> Int
+pub fn Window::to_clipboard(Self) -> Clipboard?
+pub fn Window::to_comment(Self) -> Comment?
+pub fn Window::to_document(Self) -> Document?
+pub fn Window::to_document_fragment(Self) -> DocumentFragment?
+pub fn Window::to_element(Self) -> Element?
 pub fn Window::to_event_target(Self) -> EventTarget
+pub fn Window::to_html_canvas_element(Self) -> HTMLCanvasElement?
+pub fn Window::to_html_dialog_element(Self) -> HTMLDialogElement?
+pub fn Window::to_html_element(Self) -> HTMLElement?
+pub fn Window::to_html_image_element(Self) -> HTMLImageElement?
+pub fn Window::to_html_input_element(Self) -> HTMLInputElement?
+pub fn Window::to_html_media_element(Self) -> HTMLMediaElement?
+pub fn Window::to_html_select_element(Self) -> HTMLSelectElement?
+pub fn Window::to_html_video_element(Self) -> HTMLVideoElement?
+pub fn Window::to_node(Self) -> Node?
+pub fn Window::to_svg_element(Self) -> SVGElement?
+pub fn Window::to_svg_graphics_element(Self) -> SVGGraphicsElement?
+pub fn Window::to_svg_image_element(Self) -> SVGImageElement?
+pub fn Window::to_text(Self) -> Text?
+pub fn Window::to_window(Self) -> Self?
 pub impl IsEventTarget for Window
 pub impl @js.Cast for Window
 

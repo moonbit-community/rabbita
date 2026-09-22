@@ -42,8 +42,10 @@ pub enum VNode {
 }
 pub fn VNode::document(Props, Self, Self) -> Self
 pub fn VNode::elem(String, Props, Children[Self], namespace_uri? : String) -> Self
+pub fn VNode::equal(Self, Self) -> Bool
 pub fn VNode::fragment(Array[Self]) -> Self
 pub fn VNode::link(Props, Children[Self], escape? : Bool) -> Self
+pub fn VNode::not_equal(Self, Self) -> Bool
 pub fn VNode::text(String) -> Self
 pub fn VNode::thunk(Int, () -> Self) -> Self
 pub impl Eq for VNode

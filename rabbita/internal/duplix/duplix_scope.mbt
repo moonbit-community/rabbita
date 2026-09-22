@@ -29,6 +29,12 @@ priv struct Scope {
 struct ScopeId(@slotmap.Id) derive(Hash, Eq)
 
 ///|
+pub extend ScopeId with Hash::{hash, hash_combine}
+
+///|
+pub extend ScopeId with Eq::{equal, not_equal}
+
+///|
 pub fn[A] with_scope(f : (ScopeId) -> A) -> A {
   let id = global_scopes.allocate_with(id => {
     id,

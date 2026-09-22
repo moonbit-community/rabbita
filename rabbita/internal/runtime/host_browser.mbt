@@ -57,6 +57,9 @@ pub impl Host for BrowserHost with fn flush(self) {
 }
 
 ///|
+pub extend BrowserHost with Host::{cleanup, flush, get_stores}
+
+///|
 pub impl Host for BrowserHost with fn get_stores(self) {
   self.stores
 }
@@ -127,6 +130,14 @@ pub impl Scheduler for BrowserHost with fn queue_command(self, cmd) {
 }
 
 ///|
+pub extend BrowserHost with Scheduler::{
+  add,
+  queue_command,
+  set_url_changed_injector,
+  set_url_request_injector,
+}
+
+///|
 pub impl Scheduler for BrowserHost with fn set_url_changed_injector(
   self,
   injector,
@@ -145,6 +156,13 @@ pub impl Scheduler for BrowserHost with fn set_url_request_injector(
 ///|
 pub impl Context for BrowserHost with fn get_origin(_self) {
   @dom.window().origin()
+}
+
+///|
+pub extend BrowserHost with Context::{
+  get_origin,
+  inject_url_changed,
+  inject_url_request,
 }
 
 ///|

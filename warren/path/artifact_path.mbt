@@ -14,10 +14,28 @@ pub(all) enum Target {
 } derive(Eq, Hash, Debug)
 
 ///|
+pub extend Target with Eq::{equal, not_equal}
+
+///|
+pub extend Target with Hash::{hash, hash_combine}
+
+///|
+pub extend Target with Debug::{to_repr}
+
+///|
 pub(all) enum Build {
   Release
   Debug
 } derive(Eq, Hash, Debug)
+
+///|
+pub extend Build with Eq::{equal, not_equal}
+
+///|
+pub extend Build with Hash::{hash, hash_combine}
+
+///|
+pub extend Build with Debug::{to_repr}
 
 ///|
 pub(all) enum Mode {
@@ -26,9 +44,21 @@ pub(all) enum Mode {
 } derive(Eq, Hash, Debug)
 
 ///|
+pub extend Mode with Eq::{equal, not_equal}
+
+///|
+pub extend Mode with Hash::{hash, hash_combine}
+
+///|
+pub extend Mode with Debug::{to_repr}
+
+///|
 pub impl Debug for ArtifactPath with fn to_repr(self) {
   @debug.Repr::string(self.to_string(Js, Debug, Build).to_string())
 }
+
+///|
+pub extend ArtifactPath with Debug::{to_repr}
 
 ///|
 pub fn ArtifactPath::join_module_path(

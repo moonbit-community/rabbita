@@ -1008,6 +1008,12 @@ pub(all) enum ColorMode {
 } derive(Debug, Eq)
 
 ///|
+pub extend ColorMode with Debug::{to_repr}
+
+///|
+pub extend ColorMode with Eq::{equal, not_equal}
+
+///|
 const ThemeBaseStyle : String = "background:var(--rui-background);color:var(--rui-foreground)"
 
 ///|

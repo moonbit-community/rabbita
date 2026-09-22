@@ -6,6 +6,12 @@ pub(all) enum ToastVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend ToastVariant with Debug::{to_repr}
+
+///|
+pub extend ToastVariant with Eq::{equal, not_equal}
+
+///|
 priv struct ToastEntry {
   id : Int
   title : String

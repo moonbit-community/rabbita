@@ -5,6 +5,12 @@ pub(all) enum CardSize {
 } derive(Debug, Eq)
 
 ///|
+pub extend CardSize with Debug::{to_repr}
+
+///|
+pub extend CardSize with Eq::{equal, not_equal}
+
+///|
 const CardBaseStyle : String = "--rui-card-radius:calc(var(--rui-radius,0.625rem) + 0.125rem);display:flex;flex-direction:column;gap:var(--rui-card-spacing,1.5rem);border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-card-radius,0.75rem);background:var(--rui-card,oklch(1 0 0));padding-block:var(--rui-card-spacing,1.5rem);color:var(--rui-card-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1),0 1px 2px -1px rgb(0 0 0 / 0.1)"
 
 ///|

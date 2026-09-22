@@ -7,6 +7,9 @@ struct MenubarModel {
 } derive(Eq)
 
 ///|
+pub extend MenubarModel with Eq::{equal, not_equal}
+
+///|
 struct MenubarScope {
   id : String
   model : MenubarModel

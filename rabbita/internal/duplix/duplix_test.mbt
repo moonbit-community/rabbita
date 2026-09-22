@@ -343,7 +343,7 @@ test "assoc disposes removed entry scopes" {
   let values = source.assoc((key, value) => {
     build_runs = build_runs + 1
     let result = value.map1(v => key * 100 + v)
-    on_cleanup(() => dispose_runs = dispose_runs + 1)
+    @duplix.on_cleanup(() => dispose_runs = dispose_runs + 1)
     result
   })
 
@@ -439,11 +439,11 @@ test "switch_by disposes only replaced active branch scope" {
       build_runs = build_runs + 1
       match route {
         Home => {
-          on_cleanup(() => home_disposes = home_disposes + 1)
+          @duplix.on_cleanup(() => home_disposes = home_disposes + 1)
           home_input.map1(x => x + 100)
         }
         Detail => {
-          on_cleanup(() => detail_disposes = detail_disposes + 1)
+          @duplix.on_cleanup(() => detail_disposes = detail_disposes + 1)
           detail_input.map1(x => x + 1000)
         }
       }
@@ -498,7 +498,7 @@ test "switch disposes cleanup registered during lazy assoc recompute" {
       Home => {
         let values = items.assoc((key, value) => {
           item_builds = item_builds + 1
-          on_cleanup(() => item_disposes = item_disposes + 1)
+          @duplix.on_cleanup(() => item_disposes = item_disposes + 1)
           value.map1(v => key * 100 + v)
         })
         values.map1(xs => {

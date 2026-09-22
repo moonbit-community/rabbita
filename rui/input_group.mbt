@@ -7,12 +7,24 @@ pub(all) enum InputGroupAddonAlign {
 } derive(Debug, Eq)
 
 ///|
+pub extend InputGroupAddonAlign with Debug::{to_repr}
+
+///|
+pub extend InputGroupAddonAlign with Eq::{equal, not_equal}
+
+///|
 pub(all) enum InputGroupButtonSize {
   InputButtonXs
   InputButtonSm
   InputButtonIconXs
   InputButtonIconSm
 } derive(Debug, Eq)
+
+///|
+pub extend InputGroupButtonSize with Debug::{to_repr}
+
+///|
+pub extend InputGroupButtonSize with Eq::{equal, not_equal}
 
 ///|
 fn input_group_align_value(align : InputGroupAddonAlign) -> String {

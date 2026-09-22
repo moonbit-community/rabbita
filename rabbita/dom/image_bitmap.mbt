@@ -11,6 +11,10 @@ pub impl @js.Cast for ImageBitmap with fn into(value) {
 
 ///|
 #cfg(target="js")
+pub extend ImageBitmap with @js.Cast::{from, into}
+
+///|
+#cfg(target="js")
 pub impl @js.Cast for ImageBitmap with fn from(value) {
   value |> js_identity
 }

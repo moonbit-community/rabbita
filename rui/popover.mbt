@@ -7,11 +7,23 @@ pub(all) enum PopupSide {
 } derive(Debug, Eq)
 
 ///|
+pub extend PopupSide with Debug::{to_repr}
+
+///|
+pub extend PopupSide with Eq::{equal, not_equal}
+
+///|
 pub(all) enum PopupAlign {
   Start
   Center
   End
 } derive(Debug, Eq)
+
+///|
+pub extend PopupAlign with Debug::{to_repr}
+
+///|
+pub extend PopupAlign with Eq::{equal, not_equal}
 
 ///|
 const PopoverRootStyle : String = "display:contents"

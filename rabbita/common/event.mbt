@@ -6,6 +6,9 @@ struct Mouse {
 } derive(Debug)
 
 ///|
+pub extend Mouse with Debug::{to_repr}
+
+///|
 pub fn Mouse::new(screen~ : Pos, offset~ : Pos, client~ : Pos) -> Self {
   { screen, offset, client, }
 }
@@ -32,9 +35,15 @@ pub(all) struct Pos {
 } derive(Debug)
 
 ///|
+pub extend Pos with Debug::{to_repr}
+
+///|
 pub impl Show for Pos with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend Pos with Show::{output, to_string}
 
 ///|
 struct Keyboard {
@@ -48,6 +57,9 @@ struct Keyboard {
   repeated : Bool
   location_value : Int
 } derive(Debug)
+
+///|
+pub extend Keyboard with Debug::{to_repr}
 
 ///|
 pub fn Keyboard::new(
@@ -127,6 +139,9 @@ struct Scroll {
 } derive(Debug)
 
 ///|
+pub extend Scroll with Debug::{to_repr}
+
+///|
 pub fn Scroll::new(offset~ : Pos, width~ : Double, height~ : Double) -> Self {
   { scroll_offset: offset, scroll_width: width, scroll_height: height, }
 }
@@ -153,6 +168,12 @@ pub(all) struct Viewport {
 } derive(Debug)
 
 ///|
+pub extend Viewport with Debug::{to_repr}
+
+///|
 pub impl Show for Viewport with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend Viewport with Show::{output, to_string}

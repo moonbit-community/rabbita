@@ -507,7 +507,10 @@ pub(all) enum AutoComplete {
 
 #alias(T)
 pub(all) struct Html(@vdom.VNode) derive(Eq)
+pub fn Html::equal(Self, Self) -> Bool
 pub fn Html::from_vnode(@vdom.VNode) -> Self
+pub fn Html::not_equal(Self, Self) -> Bool
+pub fn Html::to_children(Self) -> @vdom.Children[@vdom.VNode]
 pub fn Html::to_virtual_dom(Self) -> @vdom.VNode
 pub impl IsChildren for Html
 

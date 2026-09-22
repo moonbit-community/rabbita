@@ -16,6 +16,18 @@ pub(all) enum Variant {
   Floating(Double)
   String(String)
 } derive(Compare, Eq, Hash, @debug.Debug)
+pub fn Variant::compare(Self, Self) -> Int
+pub fn Variant::equal(Self, Self) -> Bool
+pub fn Variant::hash(Self) -> Int
+pub fn Variant::hash_combine(Self, Hasher) -> Unit
+pub fn Variant::not_equal(Self, Self) -> Bool
+pub fn Variant::op_ge(Self, Self) -> Bool
+pub fn Variant::op_gt(Self, Self) -> Bool
+pub fn Variant::op_le(Self, Self) -> Bool
+pub fn Variant::op_lt(Self, Self) -> Bool
+pub fn Variant::output(Self, &Logger) -> Unit
+pub fn Variant::to_repr(Self) -> @debug.Repr
+pub fn Variant::to_string(Self) -> String
 pub impl Show for Variant
 
 // Type aliases

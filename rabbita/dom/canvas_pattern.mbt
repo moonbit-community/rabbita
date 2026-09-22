@@ -18,6 +18,10 @@ pub impl @js.Cast for CanvasPattern with fn into(value) {
 
 ///|
 #cfg(target="js")
+pub extend CanvasPattern with @js.Cast::{from, into}
+
+///|
+#cfg(target="js")
 pub impl @js.Cast for CanvasPattern with fn from(value) {
   @js.Value::cast_from(value)
 }

@@ -6,6 +6,12 @@ pub(all) enum MarkerVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend MarkerVariant with Debug::{to_repr}
+
+///|
+pub extend MarkerVariant with Eq::{equal, not_equal}
+
+///|
 const MarkerBaseStyle : String = "position:relative;display:flex;width:100%;min-height:1rem;align-items:center;gap:0.5rem;color:var(--rui-marker-fg,var(--rui-muted-foreground,oklch(0.556 0 0)));box-shadow:var(--rui-marker-shadow,none);font-size:0.875rem;line-height:1.25rem;text-align:start;outline:none"
 
 ///|

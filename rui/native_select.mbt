@@ -5,6 +5,12 @@ pub(all) enum NativeSelectSize {
 } derive(Debug, Eq)
 
 ///|
+pub extend NativeSelectSize with Debug::{to_repr}
+
+///|
+pub extend NativeSelectSize with Eq::{equal, not_equal}
+
+///|
 const NativeSelectWrapperStyle : String = "position:relative;display:inline-flex;width:fit-content;max-width:100%;align-items:center"
 
 ///|

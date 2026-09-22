@@ -19,6 +19,13 @@ pub fn[A] with_scope((ScopeId) -> A) -> A
 
 // Types and methods
 type DirtyFlag
+pub fn DirtyFlag::compare(Self, Self) -> Int
+pub fn DirtyFlag::equal(Self, Self) -> Bool
+pub fn DirtyFlag::not_equal(Self, Self) -> Bool
+pub fn DirtyFlag::op_ge(Self, Self) -> Bool
+pub fn DirtyFlag::op_gt(Self, Self) -> Bool
+pub fn DirtyFlag::op_le(Self, Self) -> Bool
+pub fn DirtyFlag::op_lt(Self, Self) -> Bool
 pub impl Compare for DirtyFlag
 pub impl Eq for DirtyFlag
 
@@ -26,8 +33,10 @@ type Node[T]
 pub fn[K : Hash + Eq, V : Eq, C : Eq] Node::assoc(Self[@vector.Vector[(K, V)]], (K, Self[V]) -> Self[C]) -> Self[@vector.Vector[C]]
 pub fn[K : Hash + Eq, V : Eq, C : Eq] Node::assoc_by(Self[@vector.Vector[V]], (K, Self[V]) -> Self[C], by~ : (V) -> K) -> Self[@vector.Vector[C]]
 pub fn[A : Eq, B : Eq] Node::bind(Self[A], (A) -> Self[B]) -> Self[B]
+pub fn[T] Node::compare(Self[T], Self[T]) -> Int
 pub fn[E : @common.Enumerate + Eq, A : Eq] Node::enumerate(Self[E], (E) -> Self[A]) -> Self[A]
 pub fn[E : Eq, A : Eq] Node::enumerate_by(Self[E], (E) -> Self[A], by~ : (E) -> String) -> Self[A]
+pub fn[T] Node::equal(Self[T], Self[T]) -> Bool
 pub fn[A : Eq, B] Node::map(Self[A], (A) -> B) -> Self[B]
 pub fn[A : Eq, B] Node::map1(Self[A], (A) -> B) -> Self[B]
 pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I : Eq, J : Eq, K] Node::map10(Self[A], Self[B], Self[C], Self[D], Self[E], Self[F], Self[G], Self[H], Self[I], Self[J], (A, B, C, D, E, F, G, H, I, J) -> K) -> Self[K]
@@ -41,6 +50,11 @@ pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G] Node::map6(Self[A], Se
 pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H] Node::map7(Self[A], Self[B], Self[C], Self[D], Self[E], Self[F], Self[G], (A, B, C, D, E, F, G) -> H) -> Self[H]
 pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I] Node::map8(Self[A], Self[B], Self[C], Self[D], Self[E], Self[F], Self[G], Self[H], (A, B, C, D, E, F, G, H) -> I) -> Self[I]
 pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I : Eq, J] Node::map9(Self[A], Self[B], Self[C], Self[D], Self[E], Self[F], Self[G], Self[H], Self[I], (A, B, C, D, E, F, G, H, I) -> J) -> Self[J]
+pub fn[T] Node::not_equal(Self[T], Self[T]) -> Bool
+pub fn[T] Node::op_ge(Self[T], Self[T]) -> Bool
+pub fn[T] Node::op_gt(Self[T], Self[T]) -> Bool
+pub fn[T] Node::op_le(Self[T], Self[T]) -> Bool
+pub fn[T] Node::op_lt(Self[T], Self[T]) -> Bool
 pub fn[A : Eq] Node::read(Self[A]) -> A
 pub fn[E : @common.Enumerate + Eq, A : Eq] Node::switch(Self[E], (E) -> Self[A]) -> Self[A]
 pub fn[E : Eq, A : Eq] Node::switch_by(Self[E], (E) -> Self[A], by~ : (E) -> String) -> Self[A]
@@ -60,6 +74,10 @@ pub impl[T] Eq for Node[T]
 
 type ScopeId derive(Eq, Hash)
 pub fn ScopeId::cleanup(Self) -> Unit
+pub fn ScopeId::equal(Self, Self) -> Bool
+pub fn ScopeId::hash(Self) -> Int
+pub fn ScopeId::hash_combine(Self, Hasher) -> Unit
+pub fn ScopeId::not_equal(Self, Self) -> Bool
 
 // Type aliases
 

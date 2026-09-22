@@ -5,6 +5,12 @@ pub(all) enum RadioGroupOrientation {
 } derive(Debug, Eq)
 
 ///|
+pub extend RadioGroupOrientation with Debug::{to_repr}
+
+///|
+pub extend RadioGroupOrientation with Eq::{equal, not_equal}
+
+///|
 const RadioGroupVerticalStyle : String = "display:grid;width:100%;gap:0.75rem"
 
 ///|

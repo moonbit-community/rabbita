@@ -22,6 +22,8 @@ pub fn put(String) -> RequestWithBody
 pub(all) suberror HttpError {
   RequestError(String)
 } derive(ToJson, @json.FromJson)
+pub fn HttpError::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn HttpError::to_json(Self) -> Json
 
 // Types and methods
 pub(all) enum Body {

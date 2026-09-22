@@ -9,6 +9,12 @@ pub(all) enum BadgeVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend BadgeVariant with Debug::{to_repr}
+
+///|
+pub extend BadgeVariant with Eq::{equal, not_equal}
+
+///|
 const BadgeBaseStyle : String = "display:inline-flex;width:fit-content;height:1.25rem;flex-shrink:0;align-items:center;justify-content:center;gap:0.25rem;overflow:hidden;border:1px solid var(--rui-badge-border,var(--rui-badge-base-border,transparent));border-radius:9999px;padding:0.125rem 0.5rem;background:var(--rui-badge-bg,var(--rui-badge-base-bg,transparent));color:var(--rui-badge-fg,var(--rui-badge-base-fg,currentColor));box-shadow:var(--rui-badge-shadow,none);font-size:0.75rem;line-height:1rem;font-weight:500;white-space:nowrap;vertical-align:middle;outline:none;--rui-icon-size:0.75rem"
 
 ///|

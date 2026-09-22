@@ -16,10 +16,12 @@ pub(all) enum BroadcastMsg {
   Reload
   BuildFailed(String)
 } derive(@debug.Debug)
+pub fn BroadcastMsg::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ClientMsg {
   Text(String)
 } derive(@debug.Debug)
+pub fn ClientMsg::to_repr(Self) -> @debug.Repr
 
 pub struct Devhub {
   // private fields

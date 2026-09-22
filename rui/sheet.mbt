@@ -8,6 +8,12 @@ pub(all) enum SheetSide {
 } derive(Debug, Eq)
 
 ///|
+pub extend SheetSide with Debug::{to_repr}
+
+///|
+pub extend SheetSide with Eq::{equal, not_equal}
+
+///|
 const SheetStyle : String = "min-width:0;min-height:0;max-height:100dvh;margin:0;border:0;border-radius:0;box-shadow:0 16px 48px rgb(0 0 0 / 0.2)"
 
 ///|

@@ -19,6 +19,10 @@ pub impl @js.Cast for CSSStyleDeclaration with fn into(value) {
 
 ///|
 #cfg(target="js")
+pub extend CSSStyleDeclaration with @js.Cast::{from, into}
+
+///|
+#cfg(target="js")
 pub impl @js.Cast for CSSStyleDeclaration with fn from(value) {
   value |> js_identity
 }

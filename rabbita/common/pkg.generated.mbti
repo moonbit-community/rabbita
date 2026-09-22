@@ -11,9 +11,24 @@ import {
 
 // Types and methods
 type Id derive(Compare, Eq, Hash)
+pub fn Id::compare(Self, Self) -> Int
+pub fn Id::equal(Self, Self) -> Bool
+pub fn Id::hash(Self) -> Int
+pub fn Id::hash_combine(Self, Hasher) -> Unit
+pub fn Id::not_equal(Self, Self) -> Bool
+pub fn Id::op_ge(Self, Self) -> Bool
+pub fn Id::op_gt(Self, Self) -> Bool
+pub fn Id::op_le(Self, Self) -> Bool
+pub fn Id::op_lt(Self, Self) -> Bool
+pub fn Id::output(Self, &Logger) -> Unit
+pub fn Id::to_string(Self) -> String
 pub impl Show for Id
 
 type InstId derive(Eq, Hash)
+pub fn InstId::equal(Self, Self) -> Bool
+pub fn InstId::hash(Self) -> Int
+pub fn InstId::hash_combine(Self, Hasher) -> Unit
+pub fn InstId::not_equal(Self, Self) -> Bool
 
 type Keyboard derive(@debug.Debug)
 pub fn Keyboard::alt_key(Self) -> Bool
@@ -26,29 +41,38 @@ pub fn Keyboard::meta_key(Self) -> Bool
 pub fn Keyboard::new(key~ : String, code~ : String, alt_key~ : Bool, ctrl_key~ : Bool, shift_key~ : Bool, meta_key~ : Bool, is_composing~ : Bool, repeat~ : Bool, location~ : Int) -> Self
 pub fn Keyboard::repeat(Self) -> Bool
 pub fn Keyboard::shift_key(Self) -> Bool
+pub fn Keyboard::to_repr(Self) -> @debug.Repr
 
 type Mouse derive(@debug.Debug)
 pub fn Mouse::client_pos(Self) -> Pos
 pub fn Mouse::new(screen~ : Pos, offset~ : Pos, client~ : Pos) -> Self
 pub fn Mouse::offset_pos(Self) -> Pos
 pub fn Mouse::screen_pos(Self) -> Pos
+pub fn Mouse::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Pos {
   x : Double
   y : Double
 } derive(@debug.Debug)
+pub fn Pos::output(Self, &Logger) -> Unit
+pub fn Pos::to_repr(Self) -> @debug.Repr
+pub fn Pos::to_string(Self) -> String
 pub impl Show for Pos
 
 type Scroll derive(@debug.Debug)
 pub fn Scroll::height(Self) -> Double
 pub fn Scroll::new(offset~ : Pos, width~ : Double, height~ : Double) -> Self
 pub fn Scroll::offset_pos(Self) -> Pos
+pub fn Scroll::to_repr(Self) -> @debug.Repr
 pub fn Scroll::width(Self) -> Double
 
 pub(all) struct Viewport {
   width : Double
   height : Double
 } derive(@debug.Debug)
+pub fn Viewport::output(Self, &Logger) -> Unit
+pub fn Viewport::to_repr(Self) -> @debug.Repr
+pub fn Viewport::to_string(Self) -> String
 pub impl Show for Viewport
 
 // Type aliases

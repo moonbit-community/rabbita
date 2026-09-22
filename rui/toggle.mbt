@@ -5,11 +5,23 @@ pub(all) enum ToggleVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend ToggleVariant with Debug::{to_repr}
+
+///|
+pub extend ToggleVariant with Eq::{equal, not_equal}
+
+///|
 pub(all) enum ToggleSize {
   Default
   Sm
   Lg
 } derive(Debug, Eq)
+
+///|
+pub extend ToggleSize with Debug::{to_repr}
+
+///|
+pub extend ToggleSize with Eq::{equal, not_equal}
 
 ///|
 const ToggleBaseStyle : String = "display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;gap:0.5rem;--rui-toggle-base-bg:transparent;--rui-toggle-base-fg:currentColor;--rui-toggle-base-border:transparent;--rui-toggle-base-shadow:none;--rui-toggle-base-radius:var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem));--rui-toggle-padding-inline:0.5rem;--rui-toggle-icon-size:1rem;border:var(--rui-control-border-width,1px) solid transparent;border-block-start-width:var(--rui-toggle-border-block-start-width,var(--rui-control-border-width,1px));border-inline-start-width:var(--rui-toggle-border-inline-start-width,var(--rui-control-border-width,1px));border-color:var(--rui-toggle-border,var(--rui-toggle-base-border,transparent));border-radius:var(--rui-toggle-radius,var(--rui-toggle-base-radius,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem))));margin:0;padding-block:0;padding-inline:var(--rui-toggle-padding-inline);background:var(--rui-toggle-bg,var(--rui-toggle-base-bg,transparent));background-clip:padding-box;color:var(--rui-toggle-fg,var(--rui-toggle-base-fg,currentColor));box-shadow:var(--rui-toggle-shadow,var(--rui-toggle-base-shadow,none));font-size:0.875rem;line-height:1.25rem;font-weight:500;white-space:nowrap;cursor:pointer;user-select:none;appearance:none;-webkit-appearance:none;outline:none;vertical-align:middle"

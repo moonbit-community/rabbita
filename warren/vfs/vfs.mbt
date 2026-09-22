@@ -10,9 +10,15 @@ pub(all) enum VirtualFs {
 } derive(Debug)
 
 ///|
+pub extend VirtualFs with Debug::{to_repr}
+
+///|
 struct VirtualFileSystem {
   roots : Map[String, VirtualFs]
 } derive(Debug)
+
+///|
+pub extend VirtualFileSystem with Debug::{to_repr}
 
 ///|
 #as_free_fn

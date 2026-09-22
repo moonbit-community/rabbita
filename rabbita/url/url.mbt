@@ -8,9 +8,21 @@ pub(all) enum UrlRequest {
 } derive(Debug, Eq, Compare)
 
 ///|
+pub extend UrlRequest with Debug::{to_repr}
+
+///|
+pub extend UrlRequest with Eq::{equal, not_equal}
+
+///|
+pub extend UrlRequest with Compare::{compare, op_ge, op_gt, op_le, op_lt}
+
+///|
 pub impl Show for UrlRequest with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend UrlRequest with Show::{output, to_string}
 
 ///|
 /// Url
@@ -33,9 +45,21 @@ pub(all) struct Url {
 } derive(Debug, Eq, Compare)
 
 ///|
+pub extend Url with Debug::{to_repr}
+
+///|
+pub extend Url with Eq::{equal, not_equal}
+
+///|
+pub extend Url with Compare::{compare, op_ge, op_gt, op_le, op_lt}
+
+///|
 pub impl Show for Url with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend Url with Show::{output}
 
 ///|
 pub(all) enum Protocol {
@@ -45,9 +69,21 @@ pub(all) enum Protocol {
 } derive(Debug, Eq, Compare)
 
 ///|
+pub extend Protocol with Debug::{to_repr}
+
+///|
+pub extend Protocol with Eq::{equal, not_equal}
+
+///|
+pub extend Protocol with Compare::{compare, op_ge, op_gt, op_le, op_lt}
+
+///|
 pub impl Show for Protocol with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend Protocol with Show::{output, to_string}
 
 ///|
 pub fn Url::to_string(self : Url) -> String {

@@ -379,6 +379,9 @@ struct Config {
 } derive(Eq)
 
 ///|
+pub extend Config with Eq::{equal, not_equal}
+
+///|
 impl @rabbita.Enumerate for Config with fn tag(self : Config) {
   "\{self.lang}, \{self.theme}"
 }

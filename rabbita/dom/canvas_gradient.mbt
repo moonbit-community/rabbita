@@ -26,6 +26,10 @@ pub impl @js.Cast for CanvasGradient with fn into(value) {
 
 ///|
 #cfg(target="js")
+pub extend CanvasGradient with @js.Cast::{from, into}
+
+///|
+#cfg(target="js")
 pub impl @js.Cast for CanvasGradient with fn from(value) {
   @js.Value::cast_from(value)
 }
