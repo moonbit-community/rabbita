@@ -2,8 +2,6 @@
 priv struct CommandModel {
   query : String
   active : Int
-  open : Bool
-  generation : Int
 } derive(Eq)
 
 ///|
@@ -11,10 +9,7 @@ priv enum CommandMessage {
   CommandSetQuery(String, Int)
   CommandSetActive(Int)
   CommandSelect(String, @cmd.Cmd)
-  CommandOpen
-  CommandRequestClose
-  CommandFinalizeClose(Int)
-  CommandDidClose(String)
+  CommandReset
 }
 
 ///|
@@ -31,10 +26,9 @@ priv struct CommandEntry {
 /// Opaque state supplied to every compound command part.
 ///
 /// The scope deliberately replaces a global context: query, active option,
-/// filtering, dialog state, and commands stay local to one Rabbita value.
+/// and filtering stay local to one Rabbita value.
 struct CommandScope {
   root_id : String
-  dialog_id : String?
   model : CommandModel
   catalog : Array[CommandEntry]
   collecting : Bool
@@ -44,13 +38,7 @@ struct CommandScope {
   filter : (String, String, Array[String]) -> Bool
   should_filter : Bool
   dialog : Bool
-  close_on_escape : Bool
   emit : @cmd.Emit[CommandMessage]
-  open_command : @cmd.Cmd
-  close_command : @cmd.Cmd
-  native_open : Bool?
-  native_on_close : @cmd.Emit[String]?
-  native_on_cancel : @cmd.Cmd?
 }
 
 ///|
@@ -60,10 +48,7 @@ const CommandRootStyle : String = "display:flex;width:100%;min-width:0;flex-dire
 const CommandDialogRootStyle : String = "border:0;border-radius:inherit;padding:0.25rem;box-shadow:none"
 
 ///|
-const CommandDialogOverlayStyle : String = "background:rgb(0 0 0 / 0.1);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)"
-
-///|
-const CommandDialogContentStyle : String = "position:relative;width:min(100%,32rem);max-height:calc(100vh - 2rem);overflow:hidden;border:0;border-radius:calc(var(--rui-radius,0.625rem) + 0.25rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);opacity:var(--rui-dialog-content-opacity,1);transform:var(--rui-dialog-content-transform,translateY(0) scale(1));pointer-events:auto;transition:opacity 200ms ease,transform 200ms ease"
+const CommandDialogStyle : String = "position:fixed;inset:0;width:min(calc(100% - 2rem),32rem);max-width:none;max-height:calc(100vh - 2rem);margin:auto;padding:0;overflow-y:auto;border:0;border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
 
 ///|
 const CommandInputWrapperStyle : String = "display:flex;min-width:0;align-items:center;gap:0.625rem;border-bottom:1px solid var(--rui-border,oklch(0.922 0 0));padding-inline:0.75rem"
@@ -248,15 +233,6 @@ fn command_notify_string(
 }
 
 ///|
-fn command_notify_bool(notify : @cmd.Emit[Bool]?, value : Bool) -> @cmd.Cmd {
-  if notify is Some(notify) {
-    notify(value)
-  } else {
-    @cmd.none
-  }
-}
-
-///|
 #cfg(target="js")
 fn command_scroll_active_now(root_id : String, index : Int) -> Unit {
   guard ui_element_by_id(root_id) is Some(root) else { return }
@@ -292,7 +268,6 @@ fn command_keyboard_attrs(
 ) -> @html.Attrs {
   let root_attrs = ui_attrs(attrs)
     .data_set("slot", "command")
-    .data_set("state", if scope.model.open { "open" } else { "closed" })
     .data_set("filtered-count", "\{command_match_count(scope)}")
   ignore(
     root_attrs.on_keydown(event => {
@@ -340,9 +315,6 @@ fn command_keyboard_attrs(
         event.prevent_default()
         let entry = scope.catalog[scope.model.active]
         (scope.emit)(CommandSelect(entry.value, entry.select_command))
-      } else if key == "Escape" && scope.dialog && scope.close_on_escape {
-        event.prevent_default()
-        scope.close_command
       } else if key == "Escape" && !scope.dialog && scope.model.query != "" {
         event.prevent_default()
         (scope.emit)(
@@ -373,7 +345,6 @@ fn command_keyboard_attrs(
 ) -> @html.Attrs {
   ui_attrs(attrs)
   .data_set("slot", "command")
-  .data_set("state", if scope.model.open { "open" } else { "closed" })
   .data_set("filtered-count", "\{command_match_count(scope)}")
 }
 
@@ -386,23 +357,17 @@ fn command_noop_emit() -> @cmd.Emit[CommandMessage] {
 ///|
 fn command_scope(
   root_id : String,
-  dialog_id : String?,
   model : CommandModel,
   catalog : Array[CommandEntry],
   collecting : Bool,
   filter : (String, String, Array[String]) -> Bool,
   should_filter : Bool,
   dialog : Bool,
-  close_on_escape : Bool,
   emit : @cmd.Emit[CommandMessage],
-  native_open : Bool?,
-  native_on_close : @cmd.Emit[String]?,
-  native_on_cancel : @cmd.Cmd?,
   list_id : Ref[String],
 ) -> CommandScope {
   {
     root_id,
-    dialog_id,
     model,
     catalog,
     collecting,
@@ -412,13 +377,7 @@ fn command_scope(
     filter,
     should_filter,
     dialog,
-    close_on_escape,
     emit,
-    open_command: emit(CommandOpen),
-    close_command: emit(CommandRequestClose),
-    native_open,
-    native_on_close,
-    native_on_cancel,
   }
 }
 
@@ -448,38 +407,32 @@ fn command_effective_model(
 ///|
 fn command_surface(
   root_id : String,
-  dialog_id : String?,
   model : CommandModel,
   filter : (String, String, Array[String]) -> Bool,
   should_filter : Bool,
   dialog : Bool,
-  close_on_escape : Bool,
   emit : @cmd.Emit[CommandMessage],
-  native_open : Bool?,
-  native_on_close : @cmd.Emit[String]?,
-  native_on_cancel : @cmd.Cmd?,
   class : String?,
   title : String?,
   attrs : @html.Attrs?,
   style : Array[String],
   children : (CommandScope) -> @html.Html,
-) -> (@html.Html, CommandScope) {
+) -> @html.Html {
   // The first pure pass records item metadata. The second pass can therefore
   // render CommandEmpty and aria-activedescendant correctly regardless of the
   // order in which compound parts appear.
   let catalog : Array[CommandEntry] = []
   let list_id = Ref("\{root_id}-list")
   let collecting_scope = command_scope(
-    root_id, dialog_id, model, catalog, true, filter, should_filter, dialog, close_on_escape,
-    emit, native_open, native_on_close, native_on_cancel, list_id,
+    root_id, model, catalog, true, filter, should_filter, dialog, emit, list_id,
   )
   ignore(children(collecting_scope))
   let effective_model = command_effective_model(
     model, catalog, should_filter, filter,
   )
   let scope = command_scope(
-    root_id, dialog_id, effective_model, catalog, false, filter, should_filter, dialog,
-    close_on_escape, emit, native_open, native_on_close, native_on_cancel, list_id,
+    root_id, effective_model, catalog, false, filter, should_filter, dialog, emit,
+    list_id,
   )
   let content = children(scope)
   let root_styles = if dialog {
@@ -493,7 +446,7 @@ fn command_surface(
   } else {
     [UiBoxSizing, UiFontSans, UiTextRendering, CommandRootStyle]
   }
-  let html = @html.div(
+  @html.div(
     style=ui_styles(root_styles, style),
     id=root_id,
     class?,
@@ -501,29 +454,12 @@ fn command_surface(
     attrs=command_keyboard_attrs(scope, attrs),
     content,
   )
-  (html, scope)
 }
 
 ///|
 /// Read the current normalized query without exposing the scope representation.
 pub fn command_query(scope : CommandScope) -> String {
   scope.model.query
-}
-
-///|
-pub fn command_is_open(scope : CommandScope) -> Bool {
-  scope.model.open
-}
-
-///|
-/// Return commands for custom dialog triggers or dismiss controls.
-pub fn command_open(scope : CommandScope) -> @cmd.Cmd {
-  scope.open_command
-}
-
-///|
-pub fn command_close(scope : CommandScope) -> @cmd.Cmd {
-  scope.close_command
 }
 
 ///|
@@ -551,7 +487,7 @@ pub fn command_input(
     .role("combobox")
     .aria_label(aria_label)
     .aria_autocomplete("list")
-    .aria_expanded(ui_bool(if scope.dialog { scope.model.open } else { true }))
+    .aria_expanded("true")
     .aria_controls(command_list_id(scope))
   if scope.model.active >= 0 {
     ignore(
@@ -881,22 +817,17 @@ pub fn[C : @html.IsChildren] command_shortcut(
 ///|
 #cfg(target="js")
 fn command_update(
-  emit : @cmd.Emit[CommandMessage],
   root_id : String,
-  dialog_id : String?,
-  dialog : Bool,
-  close_on_select : Bool,
+  close_dialog : String?,
   on_value_select : @cmd.Emit[String]?,
   on_query_change : @cmd.Emit[String]?,
-  on_open_change : @cmd.Emit[Bool]?,
-  on_close : @cmd.Emit[String]?,
   message : CommandMessage,
   current : CommandModel,
 ) -> (CommandModel, @cmd.Cmd) {
   match message {
     CommandSetQuery(query, active) =>
       (
-        { ..current, query, active, },
+        { query, active, },
         @cmd.batch([
           command_notify_string(on_query_change, query),
           command_scroll_active(root_id, active),
@@ -904,107 +835,36 @@ fn command_update(
       )
     CommandSetActive(active) =>
       ({ ..current, active, }, command_scroll_active(root_id, active))
-    CommandSelect(value, item_command) => {
-      let selection = @cmd.batch([
-        command_notify_string(on_value_select, value),
-        item_command,
-      ])
-      if dialog && close_on_select && current.open && dialog_id is Some(_) {
-        let generation = current.generation + 1
-        (
-          { query: "", active: -1, open: false, generation, },
-          @cmd.batch([
-            selection,
-            command_notify_string(on_query_change, ""),
-            command_notify_bool(on_open_change, false),
-            @rabbita.delay(
-              emit(CommandFinalizeClose(generation)),
-              DialogExitDurationMs,
-            ),
-          ]),
-        )
-      } else {
-        (current, selection)
-      }
-    }
-    CommandOpen =>
-      if !dialog || current.open {
-        (current, @cmd.none)
-      } else if dialog_id is Some(id) {
-        (
-          {
-            query: "",
-            active: -1,
-            open: true,
-            generation: current.generation + 1,
+    CommandSelect(value, item_command) =>
+      (
+        current,
+        @cmd.batch([
+          command_notify_string(on_value_select, value),
+          item_command,
+          if close_dialog is Some(id) {
+            @dialog.close(id)
+          } else {
+            @cmd.none
           },
-          @cmd.batch([
-            ui_dialog_show(id, true),
-            command_notify_bool(on_open_change, true),
-          ]),
-        )
-      } else {
-        (current, @cmd.none)
-      }
-    CommandRequestClose =>
-      if dialog && current.open && dialog_id is Some(_) {
-        let generation = current.generation + 1
-        (
-          { ..current, open: false, generation, },
-          @cmd.batch([
-            command_notify_bool(on_open_change, false),
-            @rabbita.delay(
-              emit(CommandFinalizeClose(generation)),
-              DialogExitDurationMs,
-            ),
-          ]),
-        )
-      } else if !dialog && current.query != "" {
-        (
-          { ..current, query: "", active: -1, },
-          command_notify_string(on_query_change, ""),
-        )
-      } else {
-        (current, @cmd.none)
-      }
-    CommandFinalizeClose(generation) =>
-      if dialog &&
-        !current.open &&
-        current.generation == generation &&
-        dialog_id is Some(id) {
-        (current, ui_dialog_close(id))
-      } else {
-        (current, @cmd.none)
-      }
-    CommandDidClose(value) =>
-      if dialog {
-        (
-          {
-            query: "",
-            active: -1,
-            open: false,
-            generation: current.generation + 1,
-          },
-          @cmd.batch([
-            if current.open {
-              command_notify_bool(on_open_change, false)
-            } else {
-              @cmd.none
-            },
-            command_notify_string(on_close, value),
-          ]),
-        )
-      } else {
-        (current, @cmd.none)
-      }
+        ]),
+      )
+    CommandReset =>
+      (
+        { query: "", active: -1, },
+        if current.query != "" {
+          command_notify_string(on_query_change, "")
+        } else {
+          @cmd.none
+        },
+      )
   }
 }
 
 ///|
-/// Create a self-contained command palette with Rabbita-owned query,
+/// Create an inline command box with Rabbita-owned query,
 /// filtering, and active-option state.
 #cfg(target="js")
-pub fn command(
+pub fn command_box(
   id~ : String,
   default_query? : String = "",
   should_filter? : Bool = true,
@@ -1018,56 +878,25 @@ pub fn command(
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let matcher = filter.unwrap_or(command_default_filter)
-  let initial : CommandModel = {
-    query: default_query,
-    active: -1,
-    open: true,
-    generation: 0,
-  }
+  let initial : CommandModel = { query: default_query, active: -1, }
   let (model, emit) = @rabbita.create_state(initial, update=fn(
     current,
     message,
-    emit,
+    _,
   ) {
-    command_update(
-      emit,
-      id,
-      None,
-      false,
-      false,
-      on_value_select,
-      on_query_change,
-      None,
-      None,
-      message,
-      current,
-    )
+    command_update(id, None, on_value_select, on_query_change, message, current)
   })
   model.view(model => {
     command_surface(
-      id,
-      None,
-      model,
-      matcher,
-      should_filter,
-      false,
-      true,
-      emit,
-      None,
-      None,
-      None,
-      class,
-      title,
-      attrs,
-      style,
+      id, model, matcher, should_filter, false, emit, class, title, attrs, style,
       children,
-    ).0
+    )
   })
 }
 
 ///|
 #cfg(not(target="js"))
-pub fn command(
+pub fn command_box(
   id~ : String,
   default_query? : String = "",
   should_filter? : Bool = true,
@@ -1081,285 +910,102 @@ pub fn command(
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_value_select, on_query_change))
-  let matcher = filter.unwrap_or(command_default_filter)
   @rabbita.Val::constant(
     command_surface(
       id,
-      None,
-      { query: default_query, active: -1, open: true, generation: 0, },
-      matcher,
+      { query: default_query, active: -1, },
+      filter.unwrap_or(command_default_filter),
       should_filter,
       false,
-      true,
       command_noop_emit(),
-      None,
-      None,
-      None,
       class,
       title,
       attrs,
       style,
       children,
-    ).0,
-  )
-}
-
-///|
-/// Default trigger for a CommandDialog. Supply it through the dialog's
-/// `trigger` callback so it remains outside the native dialog top layer.
-pub fn[C : @html.IsChildren] command_dialog_trigger(
-  scope~ : CommandScope,
-  variant? : ButtonVariant = Outline,
-  size? : ButtonSize = Default,
-  disabled? : Bool = false,
-  id? : String,
-  class? : String,
-  title? : String,
-  aria_label? : String,
-  on_click? : @cmd.Cmd,
-  attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  children : C,
-) -> @html.Html {
-  let trigger_attrs = ui_attrs(attrs)
-    .data_set("slot", "command-dialog-trigger")
-    .data_set("state", if scope.model.open { "open" } else { "closed" })
-    .aria_haspopup("dialog")
-    .aria_expanded(ui_bool(scope.model.open))
-  if scope.dialog_id is Some(dialog_id) {
-    ignore(trigger_attrs.aria_controls(dialog_id))
-  }
-  dialog_control_button(
-    slot="command-dialog-trigger",
-    command=scope.open_command,
-    variant~,
-    size~,
-    disabled~,
-    id~,
-    class~,
-    title~,
-    aria_label~,
-    on_click~,
-    attrs=Some(trigger_attrs),
-    style~,
-    children,
-  )
-}
-
-///|
-fn command_dialog_view(
-  dialog_id : String,
-  model : CommandModel,
-  filter : (String, String, Array[String]) -> Bool,
-  should_filter : Bool,
-  close_on_escape : Bool,
-  emit : @cmd.Emit[CommandMessage],
-  native_open : Bool?,
-  native_on_close : @cmd.Emit[String]?,
-  native_on_cancel : @cmd.Cmd?,
-  aria_label : String,
-  close_on_overlay : Bool,
-  class : String?,
-  title : String?,
-  attrs : @html.Attrs?,
-  style : Array[String],
-  overlay_attrs : @html.Attrs?,
-  overlay_style : Array[String],
-  native_attrs : @html.Attrs?,
-  native_style : Array[String],
-  trigger : ((CommandScope) -> @html.Html)?,
-  children : (CommandScope) -> @html.Html,
-) -> @html.Html {
-  let root_id = "\{dialog_id}-command"
-  let surface_result = command_surface(
-    root_id,
-    Some(dialog_id),
-    model,
-    filter,
-    should_filter,
-    true,
-    close_on_escape,
-    emit,
-    native_open,
-    native_on_close,
-    native_on_cancel,
-    class,
-    title,
-    attrs,
-    style,
-    children,
-  )
-  let surface = surface_result.0
-  let scope = surface_result.1
-  let native_element_attrs = dialog_state_attrs(
-      native_attrs,
-      "command-dialog-native",
-      model.open,
-    )
-    .aria_modal("true")
-    .aria_label(aria_label)
-  let overlay_element_attrs = dialog_state_attrs(
-    overlay_attrs,
-    "command-dialog-overlay",
-    model.open,
-  )
-  if close_on_overlay {
-    ignore(
-      overlay_element_attrs.on_click(_ => {
-        if ui_dialog_should_close_outside() {
-          scope.close_command
-        } else {
-          @cmd.none
-        }
-      }),
-    )
-  }
-  let positioner_attrs = dialog_state_attrs(
-    None,
-    "command-dialog-positioner",
-    model.open,
-  )
-  let content_attrs = dialog_state_attrs(
-    None,
-    "command-dialog-content",
-    model.open,
-  )
-  let closedby = if close_on_overlay {
-    "any"
-  } else if close_on_escape {
-    "closerequest"
-  } else {
-    "none"
-  }
-  let open = scope.native_open
-  let on_close = scope.native_on_close
-  let on_cancel = scope.native_on_cancel
-  @html.fragment([
-    if trigger is Some(render_trigger) {
-      render_trigger(scope)
-    } else {
-      @html.nothing
-    },
-    @html.dialog(
-      style=ui_styles([UiBoxSizing, DialogNativeStyle], native_style),
-      id=dialog_id,
-      open?,
-      closedby~,
-      on_close?,
-      on_cancel?,
-      attrs=native_element_attrs,
-      [
-        @html.div(
-          style=ui_styles(
-            [
-              UiBoxSizing,
-              DialogOverlayStyle,
-              CommandDialogOverlayStyle,
-              dialog_overlay_motion_style(model.open),
-            ],
-            overlay_style,
-          ),
-          attrs=overlay_element_attrs,
-          @html.nothing,
-        ),
-        @html.div(
-          style=[UiBoxSizing, DialogPositionerStyle],
-          attrs=positioner_attrs,
-          @html.div(
-            style=[
-              UiBoxSizing,
-              CommandDialogContentStyle,
-              dialog_content_motion_style(model.open),
-            ],
-            attrs=content_attrs,
-            surface,
-          ),
-        ),
-      ],
     ),
-  ])
+  )
 }
 
 ///|
-/// Create a modal command palette backed by native `<dialog>` semantics.
-/// Focus trapping, Escape, top-layer stacking, and focus restoration are
-/// supplied by the browser rather than a hidden runtime or stylesheet.
+/// Render a command palette inside a native dialog. Only the query and
+/// active option are stateful; the browser owns visibility and focus.
+///
+/// Open it from an ordinary button with `@rabbita/dialog.show(id)` and close
+/// it with a `<form method="dialog">` or `@rabbita/dialog.close(id)`.
+/// Closing resets the query and active option. Selecting an item also closes
+/// the dialog unless `close_on_select=false`.
+/// `open=true` renders an initially open, non-modal dialog. `closedby` and
+/// `on_cancel` follow the same native behavior as `@html.dialog`.
 #cfg(target="js")
 pub fn command_dialog(
   id~ : String,
-  default_open? : Bool = false,
   default_query? : String = "",
   should_filter? : Bool = true,
   filter? : (String, String, Array[String]) -> Bool,
   close_on_select? : Bool = true,
-  close_on_escape? : Bool = true,
-  close_on_overlay? : Bool = true,
+  open? : Bool,
+  closedby? : String = "any",
   aria_label? : String = "Command menu",
   on_value_select? : @cmd.Emit[String],
   on_query_change? : @cmd.Emit[String],
-  on_open_change? : @cmd.Emit[Bool],
   on_close? : @cmd.Emit[String],
+  on_cancel? : @cmd.Cmd,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
   style? : Array[String] = [],
-  overlay_attrs? : @html.Attrs,
-  overlay_style? : Array[String] = [],
-  native_attrs? : @html.Attrs,
-  native_style? : Array[String] = [],
-  trigger? : (CommandScope) -> @html.Html,
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
+  let root_id = "\{id}-command"
   let matcher = filter.unwrap_or(command_default_filter)
-  let initial : CommandModel = {
-    query: default_query,
-    active: -1,
-    open: default_open,
-    generation: 0,
-  }
-  let (model, emit) = @rabbita.create_state_with_init(
-    init=fn(_) {
-      (initial, if default_open { ui_dialog_show(id, true) } else { @cmd.none })
-    },
-    update=fn(current, message, emit) {
-      command_update(
-        emit,
-        "\{id}-command",
-        Some(id),
-        true,
-        close_on_select,
-        on_value_select,
-        on_query_change,
-        on_open_change,
-        on_close,
-        message,
-        current,
-      )
-    },
-  )
+  let initial : CommandModel = { query: default_query, active: -1, }
+  let (model, emit) = @rabbita.create_state(initial, update=fn(
+    current,
+    message,
+    _,
+  ) {
+    command_update(
+      root_id,
+      if close_on_select {
+        Some(id)
+      } else {
+        None
+      },
+      on_value_select,
+      on_query_change,
+      message,
+      current,
+    )
+  })
   model.view(model => {
-    command_dialog_view(
-      id,
-      model,
-      matcher,
-      should_filter,
-      close_on_escape,
-      emit,
-      None,
-      Some(emit.map(value => CommandDidClose(value))),
-      Some(if close_on_escape { emit(CommandRequestClose) } else { @cmd.none }),
-      aria_label,
-      close_on_overlay,
-      class,
-      title,
-      attrs,
-      style,
-      overlay_attrs,
-      overlay_style,
-      native_attrs,
-      native_style,
-      trigger,
-      children,
+    @html.dialog(
+      id~,
+      open?,
+      closedby~,
+      on_close=@cmd.Emit(value => {
+        @cmd.batch([emit(CommandReset), command_notify_string(on_close, value)])
+      }),
+      on_cancel?,
+      class?,
+      title?,
+      attrs=ui_attrs(attrs)
+        .data_set("slot", "command-dialog")
+        .aria_label(aria_label),
+      style=ui_styles([UiBoxSizing, CommandDialogStyle], style),
+      command_surface(
+        root_id,
+        model,
+        matcher,
+        should_filter,
+        true,
+        emit,
+        None,
+        None,
+        None,
+        [],
+        children,
+      ),
     )
   })
 }
@@ -1368,58 +1014,50 @@ pub fn command_dialog(
 #cfg(not(target="js"))
 pub fn command_dialog(
   id~ : String,
-  default_open? : Bool = false,
   default_query? : String = "",
   should_filter? : Bool = true,
   filter? : (String, String, Array[String]) -> Bool,
   close_on_select? : Bool = true,
-  close_on_escape? : Bool = true,
-  close_on_overlay? : Bool = true,
+  open? : Bool,
+  closedby? : String = "any",
   aria_label? : String = "Command menu",
   on_value_select? : @cmd.Emit[String],
   on_query_change? : @cmd.Emit[String],
-  on_open_change? : @cmd.Emit[Bool],
   on_close? : @cmd.Emit[String],
+  on_cancel? : @cmd.Cmd,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
   style? : Array[String] = [],
-  overlay_attrs? : @html.Attrs,
-  overlay_style? : Array[String] = [],
-  native_attrs? : @html.Attrs,
-  native_style? : Array[String] = [],
-  trigger? : (CommandScope) -> @html.Html,
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
-  ignore(
-    (
-      close_on_select, on_value_select, on_query_change, on_open_change, on_close,
-    ),
-  )
-  let matcher = filter.unwrap_or(command_default_filter)
+  ignore((close_on_select, on_value_select, on_query_change))
   @rabbita.Val::constant(
-    command_dialog_view(
-      id,
-      { query: default_query, active: -1, open: default_open, generation: 0, },
-      matcher,
-      should_filter,
-      close_on_escape,
-      command_noop_emit(),
-      Some(default_open),
-      None,
-      None,
-      aria_label,
-      close_on_overlay,
-      class,
-      title,
-      attrs,
-      style,
-      overlay_attrs,
-      overlay_style,
-      native_attrs,
-      native_style,
-      trigger,
-      children,
+    @html.dialog(
+      id~,
+      open?,
+      closedby~,
+      on_close?,
+      on_cancel?,
+      class?,
+      title?,
+      attrs=ui_attrs(attrs)
+        .data_set("slot", "command-dialog")
+        .aria_label(aria_label),
+      style=ui_styles([UiBoxSizing, CommandDialogStyle], style),
+      command_surface(
+        "\{id}-command",
+        { query: default_query, active: -1, },
+        filter.unwrap_or(command_default_filter),
+        should_filter,
+        true,
+        command_noop_emit(),
+        None,
+        None,
+        None,
+        [],
+        children,
+      ),
     ),
   )
 }

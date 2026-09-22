@@ -39,7 +39,7 @@ fn fixture_command_items(scope : @rui.CommandScope) -> Html {
 fn command_fixture() -> Val[Html] {
   let (selection, set_selection) = @rabbita.create_variable("none")
   let (query, set_query) = @rabbita.create_variable("")
-  let command = @rui.command(
+  let command_box = @rui.command_box(
     id="fixture-command",
     on_value_select=set_selection.map(value => _ => value),
     on_query_change=set_query.map(value => _ => value),
@@ -48,9 +48,9 @@ fn command_fixture() -> Val[Html] {
     ],
     fixture_command_items,
   )
-  command.map3(selection, query, fn(command, selection, query) {
-    @fixture.section("fixture-section-command", "Command", [
-      command,
+  command_box.map3(selection, query, fn(command_box, selection, query) {
+    @fixture.section("fixture-section-command", "Command Box", [
+      command_box,
       @html.output(
         id="fixture-command-output",
         "query:\{query}|selected:\{selection}",

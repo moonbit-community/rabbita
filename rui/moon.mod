@@ -1,6 +1,6 @@
 name = "moonbit-community/rui"
 
-version = "0.1.5"
+version = "0.2.0"
 
 import {
   "moonbit-community/rabbita@0.16.1",

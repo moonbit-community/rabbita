@@ -2012,6 +2012,7 @@ pub fn[C : @html.IsChildren] sidebar_trigger(
     .data_set("slot", "sidebar-trigger")
     .data_set("state", if expanded { "open" } else { "closed" })
     .aria_expanded(ui_bool(expanded))
+    .aria_label(aria_label)
   if controls is Some(value) {
     ignore(trigger_attrs.aria_controls(value))
   }
@@ -2019,18 +2020,23 @@ pub fn[C : @html.IsChildren] sidebar_trigger(
     trigger_attrs,
     mobile && !scope.mobile_open && !disabled,
   )
-  dialog_control_button(
+  button(
     slot="sidebar-trigger",
-    command=if mobile { scope.toggle_mobile } else { scope.toggle_collapsed },
     variant=Ghost,
     size=IconSm,
     disabled~,
-    id~,
-    class~,
-    title~,
-    aria_label=Some(aria_label),
-    on_click~,
-    attrs=Some(trigger_attrs),
+    id?,
+    class?,
+    title?,
+    on_click=@cmd.batch([
+      on_click.unwrap_or(@cmd.none),
+      if mobile {
+        scope.toggle_mobile
+      } else {
+        scope.toggle_collapsed
+      },
+    ]),
+    attrs=trigger_attrs,
     style=ui_styles(
       ["width:1.75rem;height:1.75rem;--rui-button-base-shadow:0 0 #0000"],
       style,
@@ -2108,30 +2114,21 @@ pub fn sidebar_rail(
     .data_set("max-width", "\{max_width}")
     .aria_expanded(ui_bool(!scope.collapsed))
     .tabindex(-1)
+    .aria_label(aria_label)
   ignore(
     rail_attrs.on_click(_ => {
-      @cmd.batch([
-        match on_click {
-          Some(command) => command
-          None => @cmd.none
-        },
-        scope.toggle_collapsed,
-      ])
+      @cmd.batch([on_click.unwrap_or(@cmd.none), scope.toggle_collapsed])
     }),
   )
   sidebar_bind_resize_attrs(rail_attrs, scope, min_width, max_width)
-  dialog_control_button(
+  button(
     slot="sidebar-rail",
-    command=@cmd.none,
     variant=Ghost,
     size=IconXs,
-    disabled=false,
-    id~,
-    class~,
-    title=Some(title),
-    aria_label=Some(aria_label),
-    on_click=None,
-    attrs=Some(rail_attrs),
+    id?,
+    class?,
+    title~,
+    attrs=rail_attrs,
     style=ui_styles([SidebarRailStyle], style),
     @html.span(
       attrs=@html.Attrs::build()
@@ -2274,18 +2271,20 @@ pub fn[C : @html.IsChildren] sidebar_group_action(
   style? : Array[String] = [],
   children : C,
 ) -> @html.Html {
-  dialog_control_button(
+  let element_attrs = ui_attrs(attrs)
+  if aria_label is Some(label) {
+    ignore(element_attrs.aria_label(label))
+  }
+  button(
     slot="sidebar-group-action",
-    command=@cmd.none,
     variant=Ghost,
     size=IconXs,
     disabled~,
-    id~,
-    class~,
-    title~,
-    aria_label~,
-    on_click~,
-    attrs~,
+    id?,
+    class?,
+    title?,
+    on_click?,
+    attrs=element_attrs,
     style=ui_styles(
       [
         SidebarGroupActionStyle,
@@ -2687,18 +2686,19 @@ pub fn[C : @html.IsChildren] sidebar_menu_action(
   let element_attrs = ui_attrs(attrs)
     .data_set("slot", "sidebar-menu-action")
     .data_set("show-on-hover", ui_bool(show_on_hover))
-  dialog_control_button(
+  if aria_label is Some(label) {
+    ignore(element_attrs.aria_label(label))
+  }
+  button(
     slot="sidebar-menu-action",
-    command=@cmd.none,
     variant=Ghost,
     size=IconXs,
     disabled~,
-    id~,
-    class~,
-    title~,
-    aria_label~,
-    on_click~,
-    attrs=Some(element_attrs),
+    id?,
+    class?,
+    title?,
+    on_click?,
+    attrs=element_attrs,
     style=ui_styles(
       [
         SidebarMenuActionStyle,

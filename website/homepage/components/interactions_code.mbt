@@ -1581,36 +1581,40 @@ const IgDrawerSharedCode : String =
   #|  id : String,
   #|  direction : @rui.DrawerDirection,
   #|  trigger_label : String,
-  #|) -> @rabbita.Val[@html.Html] {
-  #|  @rui.drawer(id~, scope => {
-  #|    @html.fragment([
-  #|      @rui.drawer_trigger(scope, variant=@rui.Outline, trigger_label),
-  #|      @rui.drawer_portal([
-  #|        @rui.drawer_content(
-  #|          scope,
-  #|          direction~,
-  #|          show_handle=true,
-  #|          show_close=true,
-  #|          [
-  #|            @rui.drawer_header([
-  #|              @rui.drawer_title(scope, trigger_label),
-  #|              @rui.drawer_description(
-  #|                scope,
-  #|                "The direction controls placement, motion, and handle orientation.",
-  #|              ),
-  #|            ]),
-  #|            @html.div(
-  #|              style=["position:relative;min-width:0;padding-block:1rem"],
-  #|              "All checks passed",
+  #|) -> @html.Html {
+  #|  @html.fragment([
+  #|    @rui.button(variant=@rui.Outline, on_click=@dialog.show(id), trigger_label),
+  #|    @rui.drawer(
+  #|      id~,
+  #|      direction~,
+  #|      swipe_area=50,
+  #|      attrs=@html.Attrs::build()
+  #|        .aria_labelledby(id + "-title")
+  #|        .aria_describedby(id + "-description"),
+  #|      [
+  #|        @rui.drawer_header([
+  #|          @rui.drawer_title(id=id + "-title", trigger_label),
+  #|          @rui.drawer_description(
+  #|            id=id + "-description",
+  #|            "Drag beside the drawer to dismiss, or use the close button below.",
+  #|          ),
+  #|        ]),
+  #|        @html.div(style=["border:1px solid var(--rui-border);border-radius:0.5rem;padding:1rem;text-align:center"], "All checks passed"),
+  #|        @rui.drawer_footer(
+  #|          @html.form(
+  #|            method_="dialog",
+  #|            @rui.button(
+  #|              variant=@rui.Outline,
+  #|              type_="submit",
+  #|              style=["width:100%"],
+  #|              "Close",
   #|            ),
-  #|            @rui.drawer_footer(@rui.drawer_close(scope, "Close")),
-  #|          ],
+  #|          ),
   #|        ),
-  #|      ]),
-  #|    ])
-  #|  })
+  #|      ],
+  #|    ),
+  #|  ])
   #|}
-  #|
 
 ///|
 const IgDrawerTopCallCode : String =
@@ -1918,7 +1922,7 @@ const IgContextMenuRadioCode : String =
 
 ///|
 const IgCommandInlineCode : String =
-  #|@rui.command(
+  #|@rui.command_box(
   #|  id="showcase-command",
   #|  style=["max-width:none;border:1px solid var(--rui-border);border-radius:var(--rui-radius);box-shadow:none"],
   #|  scope => {
@@ -1955,9 +1959,6 @@ const IgCommandDialogCode : String =
   #|@rui.command_dialog(
   #|  id="showcase-command-dialog",
   #|  aria_label="Command palette",
-  #|  trigger=scope => {
-  #|    @rui.command_dialog_trigger(scope~, variant=@rui.Outline, "Open palette")
-  #|  },
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.command_input(scope~, placeholder="Type a command…"),
@@ -1976,7 +1977,14 @@ const IgCommandDialogCode : String =
   #|      ]),
   #|    ])
   #|  },
-  #|)
+  #|).map(dialog => @html.fragment([
+  #|  @rui.button(
+  #|    variant=@rui.Outline,
+  #|    on_click=@dialog.show("showcase-command-dialog"),
+  #|    "Open palette",
+  #|  ),
+  #|  dialog,
+  #|]))
 
 ///|
 const IgDropdownMenuBasicCode : String =
