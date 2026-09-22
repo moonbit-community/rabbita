@@ -5,6 +5,12 @@ pub(all) enum MessageScrollDirection {
 } derive(Debug, Eq)
 
 ///|
+pub extend MessageScrollDirection with Debug::{to_repr}
+
+///|
+pub extend MessageScrollDirection with Eq::{equal, not_equal}
+
+///|
 priv struct MessageScrollerPosition {
   at_start : Bool
   at_end : Bool

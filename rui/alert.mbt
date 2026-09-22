@@ -5,6 +5,12 @@ pub(all) enum AlertVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend AlertVariant with Debug::{to_repr}
+
+///|
+pub extend AlertVariant with Eq::{equal, not_equal}
+
+///|
 const AlertBaseStyle : String = "position:relative;display:grid;grid-template-columns:var(--rui-alert-columns,0 minmax(0,1fr) auto);grid-template-rows:auto auto;width:100%;min-width:0;align-items:start;column-gap:var(--rui-alert-column-gap,0);row-gap:0.125rem;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);padding:0.75rem 1rem;text-align:start;font-size:0.875rem;line-height:1.25rem;--rui-icon-size:1rem"
 
 ///|

@@ -5,6 +5,12 @@ pub(all) enum AccordionType {
 } derive(Debug, Eq)
 
 ///|
+pub extend AccordionType with Debug::{to_repr}
+
+///|
+pub extend AccordionType with Eq::{equal, not_equal}
+
+///|
 /// One entry for the self-contained accordion component.
 ///
 /// Use the compound `accordion_*` functions directly when the trigger needs

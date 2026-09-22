@@ -7,6 +7,10 @@ enum CleanupBranch {
 
 ///|
 #cfg(target="js")
+pub extend CleanupBranch with Eq::{equal, not_equal}
+
+///|
+#cfg(target="js")
 impl @common.Enumerate for CleanupBranch with fn tag(self) {
   match self {
     Active => "active"

@@ -32,7 +32,7 @@ pub(all) suberror HydrateExn {
 
 ///|
 #internal(experimental, "This API is unstable and may change in the future.")
-pub(all) extenum Extension {}
+pub extenum Extension
 
 ///|
 let default_handler : Op = {
@@ -61,6 +61,10 @@ pub impl Debug for Cmd with fn to_repr(cmd) {
       }
   }
 }
+
+///|
+#internal(experimental, "This API is unstable and may change in the future.")
+pub extend Cmd with Debug::{to_repr}
 
 ///|
 fn[A, B] wrap_hook(

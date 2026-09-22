@@ -142,6 +142,9 @@ enum WbRoute {
 } derive(Eq)
 
 ///|
+pub extend WbRoute with Eq::{equal, not_equal}
+
+///|
 impl @common.Enumerate for WbRoute with fn tag(self) {
   match self {
     WbHome => "home"

@@ -39,6 +39,15 @@ struct Id {
 } derive(Eq, Hash, Compare)
 
 ///|
+pub extend Id with Eq::{equal, not_equal}
+
+///|
+pub extend Id with Hash::{hash, hash_combine}
+
+///|
+pub extend Id with Compare::{compare, op_ge, op_gt, op_le, op_lt}
+
+///|
 pub fn[T] SlotMap::free(arena : Self[T], id : Id) -> Unit {
   let { gen, idx, } = id
   guard idx != -1 else { abort("valid slot index") }

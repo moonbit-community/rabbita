@@ -10,6 +10,9 @@ using @cmd {type Cmd, type Emit}
 pub(all) struct Html(@vdom.VNode) derive(Eq)
 
 ///|
+pub extend Html with Eq::{equal, not_equal}
+
+///|
 pub fn Html::to_virtual_dom(self : Html) -> @vdom.VNode {
   self.0
 }

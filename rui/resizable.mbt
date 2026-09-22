@@ -5,6 +5,12 @@ pub(all) enum ResizablePanelSide {
 } derive(Debug, Eq)
 
 ///|
+pub extend ResizablePanelSide with Debug::{to_repr}
+
+///|
+pub extend ResizablePanelSide with Eq::{equal, not_equal}
+
+///|
 priv enum ResizableGroupMsg {
   SetResizableGroupSizes(Array[Int])
   ResizeResizableGroupAt(Int, Int)

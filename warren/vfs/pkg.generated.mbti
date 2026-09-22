@@ -18,6 +18,7 @@ pub fn VirtualFileSystem::mount(Self, String, VirtualFs) -> Unit
 #as_free_fn
 pub fn VirtualFileSystem::new(Map[String, VirtualFs]) -> Self
 pub async fn VirtualFileSystem::read(Self, String) -> &@io.Data?
+pub fn VirtualFileSystem::to_repr(Self) -> @debug.Repr
 pub fn VirtualFileSystem::unmount(Self, String) -> Unit
 
 pub(all) enum VirtualFs {
@@ -26,6 +27,7 @@ pub(all) enum VirtualFs {
   DirectoryContent(Map[String, VirtualFs])
   FileContent(String)
 } derive(@debug.Debug)
+pub fn VirtualFs::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

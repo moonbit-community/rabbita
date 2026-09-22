@@ -65,6 +65,9 @@ pub enum Status[T] {
   Loaded(T)
   Failed(Error)
 }
+pub fn[T : Eq] Status::equal(Self[T], Self[T]) -> Bool
+pub fn[T : Eq] Status::not_equal(Self[T], Self[T]) -> Bool
+pub fn[T] Status::tag(Self[T]) -> String
 pub impl[T] @common.Enumerate for Status[T]
 pub impl[T : Eq] Eq for Status[T]
 

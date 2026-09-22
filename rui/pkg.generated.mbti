@@ -832,27 +832,42 @@ pub(all) enum AccordionType {
   Single
   Multiple
 } derive(Eq, @debug.Debug)
+pub fn AccordionType::equal(Self, Self) -> Bool
+pub fn AccordionType::not_equal(Self, Self) -> Bool
+pub fn AccordionType::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AlertVariant {
   Default
   Destructive
 } derive(Eq, @debug.Debug)
+pub fn AlertVariant::equal(Self, Self) -> Bool
+pub fn AlertVariant::not_equal(Self, Self) -> Bool
+pub fn AlertVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AttachmentMediaVariant {
   AttachmentIcon
   AttachmentImage
 } derive(Eq, @debug.Debug)
+pub fn AttachmentMediaVariant::equal(Self, Self) -> Bool
+pub fn AttachmentMediaVariant::not_equal(Self, Self) -> Bool
+pub fn AttachmentMediaVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AttachmentOrientation {
   AttachmentHorizontal
   AttachmentVertical
 } derive(Eq, @debug.Debug)
+pub fn AttachmentOrientation::equal(Self, Self) -> Bool
+pub fn AttachmentOrientation::not_equal(Self, Self) -> Bool
+pub fn AttachmentOrientation::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AttachmentSize {
   AttachmentDefaultSize
   AttachmentSm
   AttachmentXs
 } derive(Eq, @debug.Debug)
+pub fn AttachmentSize::equal(Self, Self) -> Bool
+pub fn AttachmentSize::not_equal(Self, Self) -> Bool
+pub fn AttachmentSize::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AttachmentState {
   AttachmentIdle
@@ -861,18 +876,27 @@ pub(all) enum AttachmentState {
   AttachmentError
   AttachmentDone
 } derive(Eq, @debug.Debug)
+pub fn AttachmentState::equal(Self, Self) -> Bool
+pub fn AttachmentState::not_equal(Self, Self) -> Bool
+pub fn AttachmentState::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AvatarImageStatus {
   AvatarLoading
   AvatarLoaded
   AvatarError
 } derive(Eq, @debug.Debug)
+pub fn AvatarImageStatus::equal(Self, Self) -> Bool
+pub fn AvatarImageStatus::not_equal(Self, Self) -> Bool
+pub fn AvatarImageStatus::to_repr(Self) -> @debug.Repr
 
 pub(all) enum AvatarSize {
   Default
   Sm
   Lg
 } derive(Eq, @debug.Debug)
+pub fn AvatarSize::equal(Self, Self) -> Bool
+pub fn AvatarSize::not_equal(Self, Self) -> Bool
+pub fn AvatarSize::to_repr(Self) -> @debug.Repr
 
 pub(all) enum BadgeVariant {
   Default
@@ -882,11 +906,17 @@ pub(all) enum BadgeVariant {
   Ghost
   Link
 } derive(Eq, @debug.Debug)
+pub fn BadgeVariant::equal(Self, Self) -> Bool
+pub fn BadgeVariant::not_equal(Self, Self) -> Bool
+pub fn BadgeVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum BubbleReactionSide {
   ReactionTop
   ReactionBottom
 } derive(Eq, @debug.Debug)
+pub fn BubbleReactionSide::equal(Self, Self) -> Bool
+pub fn BubbleReactionSide::not_equal(Self, Self) -> Bool
+pub fn BubbleReactionSide::to_repr(Self) -> @debug.Repr
 
 pub(all) enum BubbleVariant {
   BubbleDefault
@@ -897,6 +927,9 @@ pub(all) enum BubbleVariant {
   BubbleGhost
   BubbleDestructive
 } derive(Eq, @debug.Debug)
+pub fn BubbleVariant::equal(Self, Self) -> Bool
+pub fn BubbleVariant::not_equal(Self, Self) -> Bool
+pub fn BubbleVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ButtonSize {
   Default
@@ -908,6 +941,9 @@ pub(all) enum ButtonSize {
   IconSm
   IconLg
 } derive(Eq, @debug.Debug)
+pub fn ButtonSize::equal(Self, Self) -> Bool
+pub fn ButtonSize::not_equal(Self, Self) -> Bool
+pub fn ButtonSize::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ButtonVariant {
   Default
@@ -917,22 +953,34 @@ pub(all) enum ButtonVariant {
   Destructive
   Link
 } derive(Eq, @debug.Debug)
+pub fn ButtonVariant::equal(Self, Self) -> Bool
+pub fn ButtonVariant::not_equal(Self, Self) -> Bool
+pub fn ButtonVariant::to_repr(Self) -> @debug.Repr
 
 type CalendarDate derive(Eq, @debug.Debug)
 pub fn CalendarDate::day(Self) -> Int
+pub fn CalendarDate::equal(Self, Self) -> Bool
 pub fn CalendarDate::month(Self) -> Int
+pub fn CalendarDate::not_equal(Self, Self) -> Bool
 pub fn CalendarDate::to_iso_string(Self) -> String
+pub fn CalendarDate::to_repr(Self) -> @debug.Repr
 pub fn CalendarDate::year(Self) -> Int
 
 pub(all) enum CardSize {
   Default
   Sm
 } derive(Eq, @debug.Debug)
+pub fn CardSize::equal(Self, Self) -> Bool
+pub fn CardSize::not_equal(Self, Self) -> Bool
+pub fn CardSize::to_repr(Self) -> @debug.Repr
 
 pub(all) enum CarouselOrientation {
   CarouselHorizontal
   CarouselVertical
 } derive(Eq, @debug.Debug)
+pub fn CarouselOrientation::equal(Self, Self) -> Bool
+pub fn CarouselOrientation::not_equal(Self, Self) -> Bool
+pub fn CarouselOrientation::to_repr(Self) -> @debug.Repr
 
 type CarouselScope
 
@@ -941,11 +989,17 @@ pub(all) enum ChartIndicator {
   ChartLine
   ChartDashed
 } derive(Eq, @debug.Debug)
+pub fn ChartIndicator::equal(Self, Self) -> Bool
+pub fn ChartIndicator::not_equal(Self, Self) -> Bool
+pub fn ChartIndicator::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ColorMode {
   Light
   Dark
 } derive(Eq, @debug.Debug)
+pub fn ColorMode::equal(Self, Self) -> Bool
+pub fn ColorMode::not_equal(Self, Self) -> Bool
+pub fn ColorMode::to_repr(Self) -> @debug.Repr
 
 type ComboboxOption
 
@@ -957,6 +1011,9 @@ pub(all) enum ContentAlignment {
   AlignStart
   AlignEnd
 } derive(Eq, @debug.Debug)
+pub fn ContentAlignment::equal(Self, Self) -> Bool
+pub fn ContentAlignment::not_equal(Self, Self) -> Bool
+pub fn ContentAlignment::to_repr(Self) -> @debug.Repr
 
 type ContextMenuRadioGroupScope
 
@@ -967,10 +1024,16 @@ type ContextMenuSubScope
 type DataTableColumn[T]
 
 type DatePickerPreset derive(Eq, @debug.Debug)
+pub fn DatePickerPreset::equal(Self, Self) -> Bool
+pub fn DatePickerPreset::not_equal(Self, Self) -> Bool
+pub fn DatePickerPreset::to_repr(Self) -> @debug.Repr
 
 type DateRange derive(Eq, @debug.Debug)
 pub fn DateRange::end(Self) -> CalendarDate?
+pub fn DateRange::equal(Self, Self) -> Bool
+pub fn DateRange::not_equal(Self, Self) -> Bool
 pub fn DateRange::start(Self) -> CalendarDate
+pub fn DateRange::to_repr(Self) -> @debug.Repr
 
 pub(all) enum DrawerDirection {
   DrawerTop
@@ -978,6 +1041,9 @@ pub(all) enum DrawerDirection {
   DrawerBottom
   DrawerLeft
 } derive(Eq, @debug.Debug)
+pub fn DrawerDirection::equal(Self, Self) -> Bool
+pub fn DrawerDirection::not_equal(Self, Self) -> Bool
+pub fn DrawerDirection::to_repr(Self) -> @debug.Repr
 
 type DrawerScope
 
@@ -991,17 +1057,26 @@ pub(all) enum EmptyMediaVariant {
   EmptyMediaDefault
   EmptyMediaIcon
 } derive(Eq, @debug.Debug)
+pub fn EmptyMediaVariant::equal(Self, Self) -> Bool
+pub fn EmptyMediaVariant::not_equal(Self, Self) -> Bool
+pub fn EmptyMediaVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum FieldLegendVariant {
   FieldLegend
   FieldLabelLegend
 } derive(Eq, @debug.Debug)
+pub fn FieldLegendVariant::equal(Self, Self) -> Bool
+pub fn FieldLegendVariant::not_equal(Self, Self) -> Bool
+pub fn FieldLegendVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum FieldOrientation {
   FieldVertical
   FieldHorizontal
   FieldResponsive
 } derive(Eq, @debug.Debug)
+pub fn FieldOrientation::equal(Self, Self) -> Bool
+pub fn FieldOrientation::not_equal(Self, Self) -> Bool
+pub fn FieldOrientation::to_repr(Self) -> @debug.Repr
 
 pub(all) enum InputGroupAddonAlign {
   InputInlineStart
@@ -1009,6 +1084,9 @@ pub(all) enum InputGroupAddonAlign {
   InputBlockStart
   InputBlockEnd
 } derive(Eq, @debug.Debug)
+pub fn InputGroupAddonAlign::equal(Self, Self) -> Bool
+pub fn InputGroupAddonAlign::not_equal(Self, Self) -> Bool
+pub fn InputGroupAddonAlign::to_repr(Self) -> @debug.Repr
 
 pub(all) enum InputGroupButtonSize {
   InputButtonXs
@@ -1016,6 +1094,9 @@ pub(all) enum InputGroupButtonSize {
   InputButtonIconXs
   InputButtonIconSm
 } derive(Eq, @debug.Debug)
+pub fn InputGroupButtonSize::equal(Self, Self) -> Bool
+pub fn InputGroupButtonSize::not_equal(Self, Self) -> Bool
+pub fn InputGroupButtonSize::to_repr(Self) -> @debug.Repr
 
 type InputOtpScope
 
@@ -1024,33 +1105,53 @@ pub(all) enum ItemMediaVariant {
   ItemMediaIcon
   ItemMediaImage
 } derive(Eq, @debug.Debug)
+pub fn ItemMediaVariant::equal(Self, Self) -> Bool
+pub fn ItemMediaVariant::not_equal(Self, Self) -> Bool
+pub fn ItemMediaVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ItemSize {
   ItemDefaultSize
   ItemSm
 } derive(Eq, @debug.Debug)
+pub fn ItemSize::equal(Self, Self) -> Bool
+pub fn ItemSize::not_equal(Self, Self) -> Bool
+pub fn ItemSize::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ItemVariant {
   ItemDefault
   ItemOutline
   ItemMuted
 } derive(Eq, @debug.Debug)
+pub fn ItemVariant::equal(Self, Self) -> Bool
+pub fn ItemVariant::not_equal(Self, Self) -> Bool
+pub fn ItemVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum MarkerVariant {
   MarkerDefault
   MarkerSeparator
   MarkerBorder
 } derive(Eq, @debug.Debug)
+pub fn MarkerVariant::equal(Self, Self) -> Bool
+pub fn MarkerVariant::not_equal(Self, Self) -> Bool
+pub fn MarkerVariant::to_repr(Self) -> @debug.Repr
 
 type MenuCoreModel derive(Eq)
+pub fn MenuCoreModel::equal(Self, Self) -> Bool
+pub fn MenuCoreModel::not_equal(Self, Self) -> Bool
 
 type MenuIndicatorPlacement derive(Eq)
+pub fn MenuIndicatorPlacement::equal(Self, Self) -> Bool
+pub fn MenuIndicatorPlacement::not_equal(Self, Self) -> Bool
 
 type MenuSubmenuChange derive(Eq)
+pub fn MenuSubmenuChange::equal(Self, Self) -> Bool
+pub fn MenuSubmenuChange::not_equal(Self, Self) -> Bool
 
 type MenubarMenuScope
 
 type MenubarModel derive(Eq)
+pub fn MenubarModel::equal(Self, Self) -> Bool
+pub fn MenubarModel::not_equal(Self, Self) -> Bool
 
 type MenubarRadioGroupScope
 
@@ -1062,6 +1163,9 @@ pub(all) enum MessageScrollDirection {
   ScrollStart
   ScrollEnd
 } derive(Eq, @debug.Debug)
+pub fn MessageScrollDirection::equal(Self, Self) -> Bool
+pub fn MessageScrollDirection::not_equal(Self, Self) -> Bool
+pub fn MessageScrollDirection::to_repr(Self) -> @debug.Repr
 
 type MessageScrollerScope
 
@@ -1069,10 +1173,15 @@ pub(all) enum NativeSelectSize {
   NativeSelectDefault
   NativeSelectSm
 } derive(Eq, @debug.Debug)
+pub fn NativeSelectSize::equal(Self, Self) -> Bool
+pub fn NativeSelectSize::not_equal(Self, Self) -> Bool
+pub fn NativeSelectSize::to_repr(Self) -> @debug.Repr
 
 type NavigationMenuItemScope
 
 type NavigationMenuModel derive(Eq)
+pub fn NavigationMenuModel::equal(Self, Self) -> Bool
+pub fn NavigationMenuModel::not_equal(Self, Self) -> Bool
 
 type NavigationMenuScope
 
@@ -1081,6 +1190,9 @@ pub(all) enum PopupAlign {
   Center
   End
 } derive(Eq, @debug.Debug)
+pub fn PopupAlign::equal(Self, Self) -> Bool
+pub fn PopupAlign::not_equal(Self, Self) -> Bool
+pub fn PopupAlign::to_repr(Self) -> @debug.Repr
 
 pub(all) enum PopupSide {
   Top
@@ -1088,11 +1200,17 @@ pub(all) enum PopupSide {
   Bottom
   Left
 } derive(Eq, @debug.Debug)
+pub fn PopupSide::equal(Self, Self) -> Bool
+pub fn PopupSide::not_equal(Self, Self) -> Bool
+pub fn PopupSide::to_repr(Self) -> @debug.Repr
 
 pub(all) enum RadioGroupOrientation {
   RadioVertical
   RadioHorizontal
 } derive(Eq, @debug.Debug)
+pub fn RadioGroupOrientation::equal(Self, Self) -> Bool
+pub fn RadioGroupOrientation::not_equal(Self, Self) -> Bool
+pub fn RadioGroupOrientation::to_repr(Self) -> @debug.Repr
 
 type RadioGroupScope
 
@@ -1102,6 +1220,9 @@ pub(all) enum ResizablePanelSide {
   FirstPanel
   SecondPanel
 } derive(Eq, @debug.Debug)
+pub fn ResizablePanelSide::equal(Self, Self) -> Bool
+pub fn ResizablePanelSide::not_equal(Self, Self) -> Bool
+pub fn ResizablePanelSide::to_repr(Self) -> @debug.Repr
 
 type ResizableScope
 
@@ -1113,6 +1234,9 @@ pub(all) enum SeparatorOrientation {
   Horizontal
   Vertical
 } derive(Eq, @debug.Debug)
+pub fn SeparatorOrientation::equal(Self, Self) -> Bool
+pub fn SeparatorOrientation::not_equal(Self, Self) -> Bool
+pub fn SeparatorOrientation::to_repr(Self) -> @debug.Repr
 
 pub(all) enum SheetSide {
   SheetTop
@@ -1120,23 +1244,35 @@ pub(all) enum SheetSide {
   SheetBottom
   SheetLeft
 } derive(Eq, @debug.Debug)
+pub fn SheetSide::equal(Self, Self) -> Bool
+pub fn SheetSide::not_equal(Self, Self) -> Bool
+pub fn SheetSide::to_repr(Self) -> @debug.Repr
 
 pub(all) enum SidebarCollapsible {
   SidebarOffcanvas
   SidebarIcon
   SidebarFixed
 } derive(Eq, @debug.Debug)
+pub fn SidebarCollapsible::equal(Self, Self) -> Bool
+pub fn SidebarCollapsible::not_equal(Self, Self) -> Bool
+pub fn SidebarCollapsible::to_repr(Self) -> @debug.Repr
 
 pub(all) enum SidebarMenuButtonSize {
   SidebarMenuSm
   SidebarMenuDefault
   SidebarMenuLg
 } derive(Eq, @debug.Debug)
+pub fn SidebarMenuButtonSize::equal(Self, Self) -> Bool
+pub fn SidebarMenuButtonSize::not_equal(Self, Self) -> Bool
+pub fn SidebarMenuButtonSize::to_repr(Self) -> @debug.Repr
 
 pub(all) enum SidebarMenuButtonVariant {
   SidebarMenuButtonDefault
   SidebarMenuButtonOutline
 } derive(Eq, @debug.Debug)
+pub fn SidebarMenuButtonVariant::equal(Self, Self) -> Bool
+pub fn SidebarMenuButtonVariant::not_equal(Self, Self) -> Bool
+pub fn SidebarMenuButtonVariant::to_repr(Self) -> @debug.Repr
 
 type SidebarScope
 
@@ -1144,17 +1280,26 @@ pub(all) enum SidebarSide {
   SidebarLeft
   SidebarRight
 } derive(Eq, @debug.Debug)
+pub fn SidebarSide::equal(Self, Self) -> Bool
+pub fn SidebarSide::not_equal(Self, Self) -> Bool
+pub fn SidebarSide::to_repr(Self) -> @debug.Repr
 
 pub(all) enum SidebarVariant {
   SidebarDefault
   SidebarFloating
   SidebarInset
 } derive(Eq, @debug.Debug)
+pub fn SidebarVariant::equal(Self, Self) -> Bool
+pub fn SidebarVariant::not_equal(Self, Self) -> Bool
+pub fn SidebarVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum SwitchSize {
   Default
   Sm
 } derive(Eq, @debug.Debug)
+pub fn SwitchSize::equal(Self, Self) -> Bool
+pub fn SwitchSize::not_equal(Self, Self) -> Bool
+pub fn SwitchSize::to_repr(Self) -> @debug.Repr
 
 type TabEntry
 
@@ -1162,16 +1307,25 @@ pub(all) enum TabsListVariant {
   TabsDefault
   TabsLine
 } derive(Eq, @debug.Debug)
+pub fn TabsListVariant::equal(Self, Self) -> Bool
+pub fn TabsListVariant::not_equal(Self, Self) -> Bool
+pub fn TabsListVariant::to_repr(Self) -> @debug.Repr
 
 pub(all) enum TabsOrientation {
   TabsHorizontal
   TabsVertical
 } derive(Eq, @debug.Debug)
+pub fn TabsOrientation::equal(Self, Self) -> Bool
+pub fn TabsOrientation::not_equal(Self, Self) -> Bool
+pub fn TabsOrientation::to_repr(Self) -> @debug.Repr
 
 pub(all) enum TextDirection {
   Ltr
   Rtl
 } derive(Eq, @debug.Debug)
+pub fn TextDirection::equal(Self, Self) -> Bool
+pub fn TextDirection::not_equal(Self, Self) -> Bool
+pub fn TextDirection::to_repr(Self) -> @debug.Repr
 
 type ToastScope
 pub fn ToastScope::dismiss(Self, id~ : Int) -> @cmd.Cmd
@@ -1183,6 +1337,9 @@ pub(all) enum ToastVariant {
   ToastDestructive
   ToastSuccess
 } derive(Eq, @debug.Debug)
+pub fn ToastVariant::equal(Self, Self) -> Bool
+pub fn ToastVariant::not_equal(Self, Self) -> Bool
+pub fn ToastVariant::to_repr(Self) -> @debug.Repr
 
 type ToggleGroupScope
 
@@ -1191,11 +1348,17 @@ pub(all) enum ToggleSize {
   Sm
   Lg
 } derive(Eq, @debug.Debug)
+pub fn ToggleSize::equal(Self, Self) -> Bool
+pub fn ToggleSize::not_equal(Self, Self) -> Bool
+pub fn ToggleSize::to_repr(Self) -> @debug.Repr
 
 pub(all) enum ToggleVariant {
   Default
   Outline
 } derive(Eq, @debug.Debug)
+pub fn ToggleVariant::equal(Self, Self) -> Bool
+pub fn ToggleVariant::not_equal(Self, Self) -> Bool
+pub fn ToggleVariant::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

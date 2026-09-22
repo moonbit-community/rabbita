@@ -5,6 +5,12 @@ pub(all) enum CarouselOrientation {
 } derive(Debug, Eq)
 
 ///|
+pub extend CarouselOrientation with Debug::{to_repr}
+
+///|
+pub extend CarouselOrientation with Eq::{equal, not_equal}
+
+///|
 /// Opaque state passed from `carousel` to its compound content, item, and
 /// previous/next controls.
 struct CarouselScope {

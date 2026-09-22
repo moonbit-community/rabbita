@@ -85,10 +85,10 @@ Example:
 
 ```mbt check
 ///|
-let html : Html = ul({
-  "todo-1": li("Buy milk"),
-  "todo-2": li("Write docs"),
-  "todo-3": li("Write code"),
+let html : Html = @html.ul({
+  "todo-1": @html.li("Buy milk"),
+  "todo-2": @html.li("Write docs"),
+  "todo-3": @html.li("Write code"),
 })
 ```
 
@@ -121,10 +121,10 @@ fn update2(msg : Msg2, _ : Model2) -> Model2 {
 
 ///|
 fn view2(emit : Emit[Msg2], _ : Model2) -> Html {
-  canvas(
+  @html.canvas(
     on_mousedown=m => emit(StartDraw(m)),
     on_mouseup=m => emit(EndDraw(m)),
-    nothing,
+    @html.nothing,
   )
 }
 ```
@@ -144,8 +144,8 @@ Example:
 ```mbt check
 ///|
 let html1 : Html = div(
-  attrs=Attrs::build().class("card").style("gap", "12px").data("..."),
-  [text("Hello")],
+  attrs=@html.Attrs::build().class("card").style("gap", "12px").data("..."),
+  [@html.text("Hello")],
 )
 ```
 
@@ -157,8 +157,8 @@ The wrapper functions and properties provided here may not cover all possible us
 ///|
 let html2 : Html = node(
   "div",
-  Attrs::build().class("card").style("gap", "12px").data("..."),
-  [p("text1"), p("text2")],
+  @html.Attrs::build().class("card").style("gap", "12px").data("..."),
+  [@html.p("text1"), @html.p("text2")],
 )
 ```
 

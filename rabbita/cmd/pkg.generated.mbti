@@ -36,6 +36,7 @@ pub(all) suberror Unhandled
 
 // Types and methods
 type Cmd
+pub fn Cmd::to_repr(Self) -> @debug.Repr
 pub impl @debug.Debug for Cmd
 
 pub(all) enum EffectKind {
@@ -47,7 +48,7 @@ pub(all) enum EffectKind {
 pub(all) struct Emit[Msg]((Msg) -> Cmd)
 pub fn[A, B] Emit::map(Self[A], (B) -> A) -> Self[B]
 
-pub(all) extenum Extension {
+pub extenum Extension {
 }
 
 pub(all) struct Injector[Arg]((Arg) -> Cmd)

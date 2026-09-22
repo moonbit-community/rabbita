@@ -9,6 +9,9 @@ pub impl IsChildren for Html with fn to_children(html) {
 }
 
 ///|
+pub extend Html with IsChildren::{to_children}
+
+///|
 pub impl IsChildren for String with fn to_children(str) {
   Array([text(str).0])
 }

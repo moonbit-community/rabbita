@@ -11,9 +11,15 @@ pub struct CloseInfo {
 } derive(Debug)
 
 ///|
+pub extend CloseInfo with Debug::{to_repr}
+
+///|
 pub impl Show for CloseInfo with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend CloseInfo with Show::{output, to_string}
 
 ///|
 /// Inbound events emitted by a managed WebSocket connection.
@@ -25,9 +31,15 @@ pub(all) enum Event {
 } derive(Debug)
 
 ///|
+pub extend Event with Debug::{to_repr}
+
+///|
 pub impl Show for Event with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend Event with Show::{output, to_string}
 
 ///|
 /// Outbound payload for `send(...)`.
@@ -53,12 +65,18 @@ pub impl Show for Payload with fn output(self, buf) {
 }
 
 ///|
+pub extend Payload with Show::{output, to_string}
+
+///|
 pub impl Debug for Payload with fn to_repr(self) {
   match self {
     Text(text) => Repr::ctor("Text", [(None, Repr(text))])
     Json(value) => Repr::ctor("Json", [(None, Repr(value))])
   }
 }
+
+///|
+pub extend Payload with Debug::{to_repr}
 
 ///|
 /// Browser `WebSocket.readyState` mapped to a MoonBit enum.
@@ -70,9 +88,15 @@ pub(all) enum ReadyState {
 } derive(Debug)
 
 ///|
+pub extend ReadyState with Debug::{to_repr}
+
+///|
 pub impl Show for ReadyState with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend ReadyState with Show::{output, to_string}
 
 ///|
 /// Snapshot of the current connection state for a named socket.
@@ -86,6 +110,12 @@ pub struct Snapshot {
 } derive(Debug)
 
 ///|
+pub extend Snapshot with Debug::{to_repr}
+
+///|
 pub impl Show for Snapshot with fn output(self, buf) {
   Show::output(@debug.Debug::to_repr(self), buf)
 }
+
+///|
+pub extend Snapshot with Show::{output, to_string}

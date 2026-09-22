@@ -71,9 +71,15 @@ pub impl[T] Eq for Node[T] with fn equal(a, b) {
 }
 
 ///|
+pub extend Node with Eq::{equal, not_equal}
+
+///|
 pub impl[T] Compare for Node[T] with fn compare(a, b) {
   a.id.compare(b.id)
 }
+
+///|
+pub extend Node with Compare::{compare, op_ge, op_gt, op_le, op_lt}
 
 ///|
 impl[T : Eq] ErasedNode for Node[T] with fn get_id(self) {
@@ -140,9 +146,15 @@ pub impl Eq for DirtyFlag with fn equal(a, b) {
 }
 
 ///|
+pub extend DirtyFlag with Eq::{equal, not_equal}
+
+///|
 pub impl Compare for DirtyFlag with fn compare(a, b) {
   a.id.compare(b.id)
 }
+
+///|
+pub extend DirtyFlag with Compare::{compare, op_ge, op_gt, op_le, op_lt}
 
 ///|
 pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {

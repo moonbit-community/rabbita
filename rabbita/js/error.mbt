@@ -30,6 +30,10 @@ pub impl Show for Error_ with fn output(self, logger) {
 
 ///|
 #cfg(target="js")
+pub extend Error_ with Show::{output, to_string}
+
+///|
+#cfg(target="js")
 extern "js" fn Error_::wrap_ffi(
   op : () -> Value,
   on_ok : (Value) -> Unit,

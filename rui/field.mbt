@@ -6,10 +6,22 @@ pub(all) enum FieldOrientation {
 } derive(Debug, Eq)
 
 ///|
+pub extend FieldOrientation with Debug::{to_repr}
+
+///|
+pub extend FieldOrientation with Eq::{equal, not_equal}
+
+///|
 pub(all) enum FieldLegendVariant {
   FieldLegend
   FieldLabelLegend
 } derive(Debug, Eq)
+
+///|
+pub extend FieldLegendVariant with Debug::{to_repr}
+
+///|
+pub extend FieldLegendVariant with Eq::{equal, not_equal}
 
 ///|
 fn field_orientation_value(orientation : FieldOrientation) -> String {

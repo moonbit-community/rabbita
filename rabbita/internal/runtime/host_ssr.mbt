@@ -131,6 +131,9 @@ pub impl Host for SSRHost with fn flush(self) {
 }
 
 ///|
+pub extend SSRHost with Host::{cleanup, flush, get_stores}
+
+///|
 pub impl Host for SSRHost with fn get_stores(self) {
   self.stores
 }
@@ -149,6 +152,14 @@ pub impl Scheduler for SSRHost with fn queue_command(self, cmd) {
 }
 
 ///|
+pub extend SSRHost with Scheduler::{
+  add,
+  queue_command,
+  set_url_changed_injector,
+  set_url_request_injector,
+}
+
+///|
 pub impl Scheduler for SSRHost with fn set_url_changed_injector(self, injector) {
   self.url_changed = injector
 }
@@ -161,6 +172,13 @@ pub impl Scheduler for SSRHost with fn set_url_request_injector(self, injector) 
 ///|
 pub impl Context for SSRHost with fn get_origin(self) {
   self.origin
+}
+
+///|
+pub extend SSRHost with Context::{
+  get_origin,
+  inject_url_changed,
+  inject_url_request,
 }
 
 ///|

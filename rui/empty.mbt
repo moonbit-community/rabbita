@@ -5,6 +5,12 @@ pub(all) enum EmptyMediaVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend EmptyMediaVariant with Debug::{to_repr}
+
+///|
+pub extend EmptyMediaVariant with Eq::{equal, not_equal}
+
+///|
 const EmptyStyle : String = "display:flex;min-width:0;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;border-style:dashed;border-radius:var(--rui-radius,0.625rem);padding:var(--rui-empty-padding,1.5rem);text-align:center;text-wrap:balance"
 
 ///|

@@ -67,6 +67,9 @@ pub impl Host for HydrationHost with fn flush(self) {
 }
 
 ///|
+pub extend HydrationHost with Host::{cleanup, flush, get_stores}
+
+///|
 pub impl Host for HydrationHost with fn get_stores(self) {
   self.browser.stores
 }
@@ -124,6 +127,14 @@ pub impl Scheduler for HydrationHost with fn queue_command(self, cmd) {
 }
 
 ///|
+pub extend HydrationHost with Scheduler::{
+  add,
+  queue_command,
+  set_url_changed_injector,
+  set_url_request_injector,
+}
+
+///|
 pub impl Scheduler for HydrationHost with fn set_url_changed_injector(
   self,
   injector,
@@ -142,6 +153,13 @@ pub impl Scheduler for HydrationHost with fn set_url_request_injector(
 ///|
 pub impl Context for HydrationHost with fn get_origin(self) {
   Context::get_origin(self.browser)
+}
+
+///|
+pub extend HydrationHost with Context::{
+  get_origin,
+  inject_url_changed,
+  inject_url_request,
 }
 
 ///|

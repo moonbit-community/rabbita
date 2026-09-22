@@ -23,6 +23,10 @@ pub impl Show for Value with fn output(self, logger) {
 
 ///|
 #cfg(target="js")
+pub extend Value with Show::{output}
+
+///|
+#cfg(target="js")
 pub let globalThis : Value = get_globalThis()
 
 ///|

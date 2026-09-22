@@ -19,6 +19,8 @@ pub fn static_code(String, lang~ : String, light_theme~ : String, dark_theme~ : 
 
 // Types and methods
 type Config derive(Eq)
+pub fn Config::equal(Self, Self) -> Bool
+pub fn Config::not_equal(Self, Self) -> Bool
 
 // Type aliases
 

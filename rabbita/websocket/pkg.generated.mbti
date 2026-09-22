@@ -26,6 +26,9 @@ pub struct CloseInfo {
   reason : String
   clean : Bool
 } derive(@debug.Debug)
+pub fn CloseInfo::output(Self, &Logger) -> Unit
+pub fn CloseInfo::to_repr(Self) -> @debug.Repr
+pub fn CloseInfo::to_string(Self) -> String
 pub impl Show for CloseInfo
 
 pub(all) enum Event {
@@ -34,12 +37,18 @@ pub(all) enum Event {
   Closed(CloseInfo)
   Errored
 } derive(@debug.Debug)
+pub fn Event::output(Self, &Logger) -> Unit
+pub fn Event::to_repr(Self) -> @debug.Repr
+pub fn Event::to_string(Self) -> String
 pub impl Show for Event
 
 pub(all) enum Payload {
   Text(String)
   Json(Json)
 }
+pub fn Payload::output(Self, &Logger) -> Unit
+pub fn Payload::to_repr(Self) -> @debug.Repr
+pub fn Payload::to_string(Self) -> String
 pub impl Show for Payload
 pub impl @debug.Debug for Payload
 
@@ -49,6 +58,9 @@ pub(all) enum ReadyState {
   Closing
   Closed
 } derive(@debug.Debug)
+pub fn ReadyState::output(Self, &Logger) -> Unit
+pub fn ReadyState::to_repr(Self) -> @debug.Repr
+pub fn ReadyState::to_string(Self) -> String
 pub impl Show for ReadyState
 
 pub struct Snapshot {
@@ -58,6 +70,9 @@ pub struct Snapshot {
   buffered_amount : Int
   ready_state : ReadyState
 } derive(@debug.Debug)
+pub fn Snapshot::output(Self, &Logger) -> Unit
+pub fn Snapshot::to_repr(Self) -> @debug.Repr
+pub fn Snapshot::to_string(Self) -> String
 pub impl Show for Snapshot
 
 // Type aliases

@@ -8,6 +8,12 @@ pub(all) enum DrawerDirection {
 } derive(Debug, Eq)
 
 ///|
+pub extend DrawerDirection with Debug::{to_repr}
+
+///|
+pub extend DrawerDirection with Eq::{equal, not_equal}
+
+///|
 /// Explicit compound-component scope created by [`drawer`].
 struct DrawerScope(DialogController)
 

@@ -6,6 +6,9 @@ struct NavigationMenuModel {
 } derive(Eq)
 
 ///|
+pub extend NavigationMenuModel with Eq::{equal, not_equal}
+
+///|
 struct NavigationMenuScope {
   id : String
   model : NavigationMenuModel

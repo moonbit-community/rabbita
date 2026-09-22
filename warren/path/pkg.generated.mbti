@@ -14,6 +14,7 @@ type ArtifactPath
 pub fn ArtifactPath::join_module_path(Self, MooncakesPath) -> Self
 pub fn ArtifactPath::join_relative(Self, String) -> Self
 pub fn ArtifactPath::new(SourcePath) -> Self
+pub fn ArtifactPath::to_repr(Self) -> @debug.Repr
 pub fn ArtifactPath::to_string(Self, Target, Build, Mode) -> SourcePath
 pub impl @debug.Debug for ArtifactPath
 
@@ -21,23 +22,54 @@ pub(all) enum Build {
   Release
   Debug
 } derive(Eq, Hash, @debug.Debug)
+pub fn Build::equal(Self, Self) -> Bool
+pub fn Build::hash(Self) -> Int
+pub fn Build::hash_combine(Self, Hasher) -> Unit
+pub fn Build::not_equal(Self, Self) -> Bool
+pub fn Build::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Mode {
   Check
   Build
 } derive(Eq, Hash, @debug.Debug)
+pub fn Mode::equal(Self, Self) -> Bool
+pub fn Mode::hash(Self) -> Int
+pub fn Mode::hash_combine(Self, Hasher) -> Unit
+pub fn Mode::not_equal(Self, Self) -> Bool
+pub fn Mode::to_repr(Self) -> @debug.Repr
 
 type MooncakesPath derive(Compare, Eq)
+pub fn MooncakesPath::compare(Self, Self) -> Int
+pub fn MooncakesPath::equal(Self, Self) -> Bool
 pub fn MooncakesPath::join(Self, String) -> Self
 pub fn MooncakesPath::new(String) -> Self
+pub fn MooncakesPath::not_equal(Self, Self) -> Bool
+pub fn MooncakesPath::op_ge(Self, Self) -> Bool
+pub fn MooncakesPath::op_gt(Self, Self) -> Bool
+pub fn MooncakesPath::op_le(Self, Self) -> Bool
+pub fn MooncakesPath::op_lt(Self, Self) -> Bool
+pub fn MooncakesPath::output(Self, &Logger) -> Unit
+pub fn MooncakesPath::to_repr(Self) -> @debug.Repr
 pub fn MooncakesPath::to_string(Self) -> String
 pub impl Show for MooncakesPath
 pub impl @debug.Debug for MooncakesPath
 
 type SourcePath derive(Compare, Eq, Hash)
+pub fn SourcePath::compare(Self, Self) -> Int
+pub fn SourcePath::equal(Self, Self) -> Bool
+pub fn SourcePath::hash(Self) -> Int
+pub fn SourcePath::hash_combine(Self, Hasher) -> Unit
 pub fn SourcePath::join(Self, String) -> Self
 pub fn SourcePath::new(String) -> Self
+pub fn SourcePath::not_equal(Self, Self) -> Bool
+pub fn SourcePath::op_ge(Self, Self) -> Bool
+pub fn SourcePath::op_gt(Self, Self) -> Bool
+pub fn SourcePath::op_le(Self, Self) -> Bool
+pub fn SourcePath::op_lt(Self, Self) -> Bool
+pub fn SourcePath::output(Self, &Logger) -> Unit
 pub fn SourcePath::relative(Self, Self) -> String
+pub fn SourcePath::to_repr(Self) -> @debug.Repr
+pub fn SourcePath::to_string(Self) -> String
 pub impl Show for SourcePath
 pub impl @debug.Debug for SourcePath
 
@@ -47,6 +79,11 @@ pub(all) enum Target {
   Js
   Native
 } derive(Eq, Hash, @debug.Debug)
+pub fn Target::equal(Self, Self) -> Bool
+pub fn Target::hash(Self) -> Int
+pub fn Target::hash_combine(Self, Hasher) -> Unit
+pub fn Target::not_equal(Self, Self) -> Bool
+pub fn Target::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 pub using @moonbitlang/x/path {type Path}

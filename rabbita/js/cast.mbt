@@ -115,6 +115,10 @@ pub impl[A : Cast] Cast for JsArray[A] with fn into(value) {
 
 ///|
 #cfg(target="js")
+pub extend JsArray with Cast::{from, into}
+
+///|
+#cfg(target="js")
 pub impl[A : Cast] Cast for JsArray[A] with fn from(value) {
   Value::cast_from(value)
 }

@@ -10,6 +10,12 @@ struct CalendarDate {
 } derive(Debug, Eq)
 
 ///|
+pub extend CalendarDate with Debug::{to_repr}
+
+///|
+pub extend CalendarDate with Eq::{equal, not_equal}
+
+///|
 priv struct CalendarModel {
   visible : CalendarDate
   selected : CalendarDate?

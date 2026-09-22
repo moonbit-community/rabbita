@@ -5,6 +5,12 @@ pub(all) enum TabsOrientation {
 } derive(Debug, Eq)
 
 ///|
+pub extend TabsOrientation with Debug::{to_repr}
+
+///|
+pub extend TabsOrientation with Eq::{equal, not_equal}
+
+///|
 /// Visual treatment for a tabs list.
 ///
 /// `TabsDefault` uses the compact muted surface. `TabsLine` removes that
@@ -13,6 +19,12 @@ pub(all) enum TabsListVariant {
   TabsDefault
   TabsLine
 } derive(Debug, Eq)
+
+///|
+pub extend TabsListVariant with Debug::{to_repr}
+
+///|
+pub extend TabsListVariant with Eq::{equal, not_equal}
 
 ///|
 /// One entry for the self-contained tabs component.

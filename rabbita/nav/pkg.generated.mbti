@@ -36,6 +36,8 @@ pub(all) enum ScrollBehavior {
   Instant
   Smooth
 }
+pub fn ScrollBehavior::output(Self, &Logger) -> Unit
+pub fn ScrollBehavior::to_string(Self) -> String
 pub impl Show for ScrollBehavior
 
 // Type aliases

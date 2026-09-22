@@ -8,6 +8,9 @@ struct MenuCoreModel {
 } derive(Eq)
 
 ///|
+pub extend MenuCoreModel with Eq::{equal, not_equal}
+
+///|
 enum MenuSubmenuChange {
   MenuOpenSubmenu(String)
   MenuSwitchSubmenu(String, String)
@@ -15,6 +18,9 @@ enum MenuSubmenuChange {
   MenuCloseSubmenusUnder(String)
   MenuCloseAllSubmenus
 } derive(Eq)
+
+///|
+pub extend MenuSubmenuChange with Eq::{equal, not_equal}
 
 ///|
 priv struct MenuScope {
@@ -34,6 +40,9 @@ enum MenuIndicatorPlacement {
   MenuIndicatorInlineStart
   MenuIndicatorInlineEnd
 } derive(Eq)
+
+///|
+pub extend MenuIndicatorPlacement with Eq::{equal, not_equal}
 
 ///|
 const MenuRootStyle : String = "display:contents"

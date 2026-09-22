@@ -20,13 +20,17 @@ pub suberror Error_ {
   Error_(Value)
 }
 pub fn Error_::cause(Self) -> Value?
+pub fn Error_::output(Self, &Logger) -> Unit
+pub fn Error_::to_string(Self) -> String
 pub fn[T] Error_::wrap(() -> Value, map_ok? : (Value) -> T) -> T raise Self
 pub impl Show for Error_
 
 // Types and methods
 #external
 pub type JsArray[T]
+pub fn[A : Cast] JsArray::from(Self[A]) -> Value
 pub fn[T] JsArray::get(Self[T], Int) -> T?
+pub fn[A : Cast] JsArray::into(Value) -> Self[A]?
 pub fn[T] JsArray::is_empty(Self[T]) -> Bool
 pub fn[T] JsArray::iter(Self[T]) -> Iter[T?]
 pub fn[T] JsArray::length(Self[T]) -> Int
@@ -185,6 +189,7 @@ pub fn[Arg, Result] Value::new(Self, FixedArray[Arg]) -> Result
 pub fn[Arg, Result] Value::new_with_index(Self, Int, FixedArray[Arg]) -> Result
 pub fn[Arg, Result] Value::new_with_string(Self, String, FixedArray[Arg]) -> Result
 pub fn[Arg, Result] Value::new_with_symbol(Self, Symbol, FixedArray[Arg]) -> Result
+pub fn Value::output(Self, &Logger) -> Unit
 pub fn[T] Value::set_with_index(Self, Int, T) -> Unit
 pub fn[T] Value::set_with_string(Self, String, T) -> Unit
 pub fn[T] Value::set_with_symbol(Self, Symbol, T) -> Unit

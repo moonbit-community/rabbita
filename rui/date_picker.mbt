@@ -6,6 +6,12 @@ struct DatePickerPreset {
 } derive(Debug, Eq)
 
 ///|
+pub extend DatePickerPreset with Debug::{to_repr}
+
+///|
+pub extend DatePickerPreset with Eq::{equal, not_equal}
+
+///|
 pub fn date_picker_preset(
   label~ : String,
   value~ : CalendarDate,
@@ -20,6 +26,12 @@ struct DateRange {
   start : CalendarDate
   end : CalendarDate?
 } derive(Debug, Eq)
+
+///|
+pub extend DateRange with Debug::{to_repr}
+
+///|
+pub extend DateRange with Eq::{equal, not_equal}
 
 ///|
 /// Construct a normalized date range. If `end` precedes `start`, the two

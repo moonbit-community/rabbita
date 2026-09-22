@@ -10,10 +10,22 @@ pub(all) enum BubbleVariant {
 } derive(Debug, Eq)
 
 ///|
+pub extend BubbleVariant with Debug::{to_repr}
+
+///|
+pub extend BubbleVariant with Eq::{equal, not_equal}
+
+///|
 pub(all) enum BubbleReactionSide {
   ReactionTop
   ReactionBottom
 } derive(Debug, Eq)
+
+///|
+pub extend BubbleReactionSide with Debug::{to_repr}
+
+///|
+pub extend BubbleReactionSide with Eq::{equal, not_equal}
 
 ///|
 fn bubble_variant_value(variant : BubbleVariant) -> String {
