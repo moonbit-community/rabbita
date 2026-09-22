@@ -3,7 +3,7 @@ name = "local/rabbita-e2e-rui"
 version = "0.1.0"
 
 import {
-  "Yoorkin/rui@0.1.5",
+  "moonbit-community/rui@0.1.5",
   "moonbit-community/rabbita@0.16.1",
 }
 

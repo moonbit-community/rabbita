@@ -1,4 +1,4 @@
-name = "Yoorkin/rui"
+name = "moonbit-community/rui"
 
 version = "0.1.5"
 
