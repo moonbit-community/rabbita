@@ -228,7 +228,7 @@ pub fn[C : @html.IsChildren] message_scroller_content(
     attrs=ui_attrs(attrs).data_set("slot", "message-scroller-content"),
     style=ui_styles(
       [
-        "display:flex;height:max-content;min-height:100%;flex-direction:column;gap:2rem",
+        "display:flex;height:max-content;min-height:100%;flex-direction:column;gap:1.5rem",
       ],
       style,
     ),

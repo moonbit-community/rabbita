@@ -1,7 +1,7 @@
 # Third-party notices
 
 Rabbita UI translates visual recipes and public component conventions from
-shadcn/ui's Vega style. Calendar focus behavior additionally follows React
+shadcn/ui's Nova style. Calendar focus behavior additionally follows React
 DayPicker, which shadcn/ui wraps. The MoonBit implementation is original and
 uses Rabbita-native HTML, ARIA, browser primitives, and incremental state.
 

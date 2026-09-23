@@ -1,6 +1,6 @@
 name = "moonbit-community/rui"
 
-version = "0.2.0"
+version = "0.3.0"
 
 import {
   "moonbit-community/rabbita@0.16.1",
@@ -16,7 +16,7 @@ license = "MIT"
 
 keywords = [ "UI", "components", "rabbita", "shadcn", "web" ]
 
-description = "Self-contained Vega-style UI components for Rabbita"
+description = "Self-contained Nova-style UI components for Rabbita"
 
 preferred_target = "js"
 

@@ -130,7 +130,7 @@ fn dropdown_scope(
 }
 
 ///|
-/// Stateful shadcn/Vega dropdown menu. The builder receives an opaque scope
+/// Stateful shadcn/Nova dropdown menu. The builder receives an opaque scope
 /// shared by all compound parts; no registration or stylesheet is required.
 #cfg(target="js")
 pub fn dropdown_menu(

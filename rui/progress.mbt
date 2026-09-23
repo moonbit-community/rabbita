@@ -9,13 +9,13 @@ priv enum ProgressState {
 const ProgressBaseStyle : String = "display:flex;width:100%;min-width:0;flex-wrap:wrap;align-items:center;gap:0.75rem"
 
 ///|
-const ProgressTrackStyle : String = "position:relative;display:flex;width:100%;height:0.5rem;align-items:center;overflow-x:hidden;border-radius:9999px;background:color-mix(in oklab,var(--rui-primary,oklch(0.205 0 0)) 20%,transparent)"
+const ProgressTrackStyle : String = "position:relative;display:flex;width:100%;height:0.25rem;align-items:center;overflow-x:hidden;border-radius:9999px;background:var(--rui-muted,oklch(0.97 0 0))"
 
 ///|
 const ProgressIndicatorStyle : String = "height:100%;flex:none;background:var(--rui-primary,oklch(0.205 0 0));transition:width 150ms ease"
 
 ///|
-const ProgressIndeterminateStyle : String = "position:absolute;inset-block:0;inset-inline-start:-40%;inline-size:40%;animation:rui-progress-indeterminate 1.4s ease-in-out infinite"
+const ProgressIndeterminateStyle : String = "position:absolute;inset-block:0;inset-inline-start:var(--rui-progress-indeterminate-start,-40%);inline-size:40%;animation:rui-progress-indeterminate 1.4s ease-in-out infinite"
 
 ///|
 const ProgressIndeterminateCss : String =
@@ -26,7 +26,7 @@ const ProgressIndeterminateCss : String =
   #|@media (prefers-reduced-motion:reduce) {
   #|  [data-slot="progress-indicator"][data-state="indeterminate"] {
   #|    animation:none !important;
-  #|    inset-inline-start:30%;
+  #|    --rui-progress-indeterminate-start:30%;
   #|  }
   #|}
   #|
@@ -142,7 +142,7 @@ fn progress_display_text(value : Int?, min : Int, max : Int) -> String {
 }
 
 ///|
-/// Render an ARIA progress group and append Vega's track and
+/// Render an ARIA progress group and append Nova's track and
 /// indicator automatically after optional label/value children.
 ///
 /// Determinate values are clamped to `min...max`. A `max` below `min` is

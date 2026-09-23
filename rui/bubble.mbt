@@ -223,7 +223,7 @@ pub fn[C : @html.IsChildren] bubble_content_link(
 }
 
 ///|
-/// Render the button branch of Vega's interactive bubble-content recipe.
+/// Render the button branch of Nova's interactive bubble-content recipe.
 pub fn[C : @html.IsChildren] bubble_content_button(
   disabled? : Bool = false,
   type_? : String = "button",

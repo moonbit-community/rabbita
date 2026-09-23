@@ -42,22 +42,22 @@ struct CommandScope {
 }
 
 ///|
-const CommandRootStyle : String = "display:flex;width:100%;min-width:0;flex-direction:column;overflow:hidden;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 1px 2px rgb(0 0 0 / 0.05)"
+const CommandRootStyle : String = "display:flex;width:100%;min-width:0;flex-direction:column;overflow:hidden;border:0;border-radius:calc(var(--rui-radius,0.625rem) + 0.25rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:none;padding:0.25rem"
 
 ///|
 const CommandDialogRootStyle : String = "border:0;border-radius:inherit;padding:0.25rem;box-shadow:none"
 
 ///|
-const CommandDialogStyle : String = "position:fixed;inset:0;width:min(calc(100% - 2rem),32rem);max-width:none;max-height:calc(100vh - 2rem);margin:auto;padding:0;overflow-y:auto;border:0;border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
+const CommandDialogStyle : String = "position:fixed;inset:0;width:min(calc(100% - 2rem),24rem);max-width:none;max-height:calc(100vh - 2rem);margin:auto;padding:0;overflow-y:auto;border:0;border-radius:calc(var(--rui-radius,0.625rem) + 0.25rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
 
 ///|
-const CommandInputWrapperStyle : String = "display:flex;min-width:0;align-items:center;gap:0.625rem;border-bottom:1px solid var(--rui-border,oklch(0.922 0 0));padding-inline:0.75rem"
+const CommandInputWrapperStyle : String = "display:flex;min-width:0;align-items:center;gap:0.5rem;padding-inline:0.5rem;height:2rem;margin:0.25rem 0.25rem 0;border:1px solid color-mix(in oklab,var(--rui-input,oklch(0.922 0 0)) 30%,transparent);border-radius:var(--rui-radius,0.625rem);background:color-mix(in oklab,var(--rui-input,oklch(0.922 0 0)) 30%,transparent)"
 
 ///|
-const CommandInputStyle : String = "width:100%;min-width:0;height:3rem;border:0;background:transparent;padding:0;color:inherit;font-size:0.875rem;line-height:1.25rem;outline:none;appearance:none;-webkit-appearance:none"
+const CommandInputStyle : String = "width:100%;min-width:0;height:100%;border:0;background:transparent;padding:0;color:inherit;font-size:0.875rem;line-height:1.25rem;outline:none;appearance:none;-webkit-appearance:none"
 
 ///|
-const CommandListStyle : String = "min-height:0;max-height:18.75rem;overflow-x:hidden;overflow-y:auto;padding:0.25rem"
+const CommandListStyle : String = "min-height:0;max-height:18rem;overflow-x:hidden;overflow-y:auto;padding:0;scroll-padding-block:0.25rem"
 
 ///|
 const CommandEmptyStyle : String = "padding:1.5rem 0.75rem;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;line-height:1.25rem;text-align:center"
@@ -69,13 +69,13 @@ const CommandGroupStyle : String = "min-width:0;padding:0.25rem"
 const CommandGroupHeadingStyle : String = "padding:0.375rem 0.5rem;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.75rem;line-height:1rem;font-weight:500"
 
 ///|
-const CommandItemStyle : String = "position:relative;display:flex;width:100%;min-width:0;min-height:2rem;align-items:center;gap:0.5rem;border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding:0.375rem 0.5rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font-size:0.875rem;line-height:1.25rem;text-align:start;outline:none;cursor:default;user-select:none"
+const CommandItemStyle : String = "position:relative;display:flex;width:100%;min-width:0;min-height:2rem;align-items:center;gap:0.5rem;border-radius:var(--rui-command-item-radius,calc(var(--rui-radius,0.625rem) - 0.25rem));background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding:0.375rem 0.5rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font-size:0.875rem;line-height:1.25rem;text-align:start;outline:none;cursor:default;user-select:none"
 
 ///|
 const CommandItemActiveStyle : String = "--rui-menu-item-base-bg:var(--rui-accent,oklch(0.97 0 0));--rui-menu-item-base-fg:var(--rui-accent-foreground,var(--rui-foreground,oklch(0.145 0 0)))"
 
 ///|
-const CommandSeparatorStyle : String = "height:1px;margin:0.25rem -0.25rem;background:var(--rui-border,oklch(0.922 0 0));pointer-events:none"
+const CommandSeparatorStyle : String = "height:1px;margin:0 -0.25rem;background:var(--rui-border,oklch(0.922 0 0));pointer-events:none"
 
 ///|
 const CommandShortcutStyle : String = "margin-inline-start:auto;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.75rem;line-height:1rem;letter-spacing:0.08em"

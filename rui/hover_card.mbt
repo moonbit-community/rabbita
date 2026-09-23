@@ -2,7 +2,7 @@
 const HoverCardRootStyle : String = "display:contents"
 
 ///|
-const HoverCardContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:block;width:16rem;max-width:calc(100vw - 1rem);transform-origin:var(--rui-floating-transform-origin,center);margin:0;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-popover,oklch(1 0 0));padding:1rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
+const HoverCardContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:block;width:16rem;max-width:calc(100vw - 1rem);transform-origin:var(--rui-floating-transform-origin,center);margin:0;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0.625rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
 fn hover_card_delay(value : Int) -> Int {
@@ -100,7 +100,7 @@ pub fn[C : @html.IsChildren] hover_card_trigger(
 }
 
 ///|
-/// Render the shadcn Vega hover-card surface on the native Popover top layer.
+/// Render the shadcn Nova hover-card surface on the native Popover top layer.
 ///
 /// `popover="auto"` supplies browser Escape and light-dismiss behavior. The
 /// stateful root synchronizes those native changes back into Rabbita state.
@@ -637,7 +637,7 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_hover_card(
 ///
 /// Pointer hover, keyboard focus, configurable opening/closing delays,
 /// hoverable content, Escape, outside press, native light-dismiss, and floating
-/// positioning are handled internally. All Vega styling is inline.
+/// positioning are handled internally. All Nova styling is inline.
 #cfg(target="js")
 pub fn[T : @html.IsChildren, C : @html.IsChildren] hover_card(
   id~ : String,

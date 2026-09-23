@@ -1069,7 +1069,7 @@ const IgSidebarSharedCode : String =
   #|      ],
   #|    ),
   #|    @html.div(
-  #|      style=["display:flex;min-height:0;flex:1;align-items:center;justify-content:center;padding:1rem"],
+  #|      style=["display:flex;min-height:0;flex:1;align-items:center;justify-content:center;padding:1rem 0"],
   #|      @html.p(
   #|        style=["color:var(--rui-muted-foreground);font-size:0.8125rem;line-height:1.35;max-width:18rem;margin:0;text-align:center"],
   #|        if mobile {
@@ -1088,7 +1088,7 @@ const IgSidebarSharedCode : String =
 const IgSidebarDefaultCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1123,7 +1123,7 @@ const IgSidebarDefaultCode : String =
 const IgSidebarFixedCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1158,7 +1158,7 @@ const IgSidebarFixedCode : String =
 const IgSidebarIconCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=true,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1193,7 +1193,7 @@ const IgSidebarIconCode : String =
 const IgSidebarLoadingCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1223,7 +1223,7 @@ const IgSidebarLoadingCode : String =
 const IgSidebarFloatingCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1258,7 +1258,7 @@ const IgSidebarFloatingCode : String =
 const IgSidebarInsetCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1297,7 +1297,7 @@ const IgSidebarRightCode : String =
   #|
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1332,7 +1332,7 @@ const IgSidebarRightCode : String =
 const IgSidebarResizeCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -1348,7 +1348,7 @@ const IgSidebarResizeCode : String =
   #|          ),
   #|          @rui.sidebar_rail(
   #|            scope,
-  #|            min_width=192,
+  #|            min_width=112,
   #|            max_width=352,
   #|          ),
   #|        ],
@@ -1371,7 +1371,7 @@ const IgSidebarResizeCode : String =
 const IgSidebarMobileCode : String =
   #|@rui.sidebar_provider(
   #|  default_collapsed=false,
-  #|  style=["--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"],
+  #|  style=["container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"],
   #|  scope => {
   #|    @html.fragment([
   #|      @rui.sidebar(
@@ -2633,7 +2633,7 @@ const IgHoverCardSharedCode : String =
   #|      @html.div(
   #|        style=["display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem"],
   #|        [
-  #|          @rui.badge(variant=@rui.Secondary, "Vega"),
+  #|          @rui.badge(variant=@rui.Secondary, "Nova"),
   #|          @rui.badge(variant=@rui.Outline, "Inline"),
   #|        ],
   #|      ),

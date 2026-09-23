@@ -126,7 +126,7 @@ const SidebarOverlayClosedStyle : String = "--rui-sidebar-overlay-opacity:0;--ru
 const SidebarHeaderFooterStyle : String = "display:flex;min-width:0;flex-direction:column;gap:0.5rem;padding:0.5rem;overflow:hidden"
 
 ///|
-const SidebarContentStyle : String = "display:flex;min-width:0;min-height:0;flex:1;flex-direction:column;gap:0.5rem;overflow-x:hidden;overflow-y:var(--rui-sidebar-content-overflow-y,auto);scrollbar-width:none"
+const SidebarContentStyle : String = "display:flex;min-width:0;min-height:0;flex:1;flex-direction:column;gap:0;overflow-x:hidden;overflow-y:var(--rui-sidebar-content-overflow-y,auto);scrollbar-width:none"
 
 ///|
 const SidebarGroupStyle : String = "position:relative;display:flex;min-width:0;flex-direction:column;padding:0.5rem"
@@ -147,7 +147,7 @@ const SidebarActionSizeStyle : String = "width:1.25rem;height:1.25rem;--rui-butt
 const SidebarGroupContentStyle : String = "min-width:0;width:100%;font-size:0.875rem;line-height:1.25rem"
 
 ///|
-const SidebarMenuStyle : String = "display:flex;min-width:0;width:100%;flex-direction:column;gap:0.25rem;margin:0;padding:0;list-style:none"
+const SidebarMenuStyle : String = "display:flex;min-width:0;width:100%;flex-direction:column;gap:0;margin:0;padding:0;list-style:none"
 
 ///|
 const SidebarMenuItemStyle : String = "position:relative;display:block;min-width:0"
@@ -559,13 +559,19 @@ fn sidebar_pointer_move(event : @dom.MouseEvent) -> Bool {
   let rounded_width = state.width.round().to_int().max(1)
   root
   .get_style()
-  .set_property("--rui-sidebar-current-width", "\{rounded_width}px")
+  .set_property(
+    "--rui-sidebar-current-width",
+    "min(\{rounded_width}px,var(--rui-sidebar-max-width,\{rounded_width}px))",
+  )
   sidebar.get_style().set_property("transition", "none")
   sidebar
   .get_style()
-  .set_property("width", "\{(rounded_width - state.gutter).max(1)}px")
+  .set_property(
+    "width",
+    "max(1px,calc(var(--rui-sidebar-current-width) - \{state.gutter}px))",
+  )
   shell.get_style().set_property("transition", "none")
-  shell.get_style().set_property("width", "\{rounded_width}px")
+  shell.get_style().set_property("width", "var(--rui-sidebar-current-width)")
   true
 }
 
@@ -1463,7 +1469,8 @@ fn sidebar_mobile_change_cmd(
 ///|
 fn sidebar_provider_width_style(width : Int?) -> String {
   match width {
-    Some(width) => "--rui-sidebar-current-width:\{width}px"
+    Some(width) =>
+      "--rui-sidebar-current-width:min(\{width}px,var(--rui-sidebar-max-width,\{width}px))"
     None => ""
   }
 }

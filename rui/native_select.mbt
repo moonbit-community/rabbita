@@ -14,13 +14,13 @@ pub extend NativeSelectSize with Eq::{equal, not_equal}
 const NativeSelectWrapperStyle : String = "position:relative;display:inline-flex;width:fit-content;max-width:100%;align-items:center"
 
 ///|
-const NativeSelectBaseStyle : String = "width:100%;min-width:0;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 1px 2px rgb(0 0 0 / 0.05);appearance:none;-webkit-appearance:none;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));padding-block:0.25rem;padding-inline:0.625rem 2.25rem;color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));font-size:0.875rem;line-height:1.25rem;box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 1px 2px rgb(0 0 0 / 0.05)));outline-offset:2px;user-select:none"
+const NativeSelectBaseStyle : String = "width:100%;min-width:0;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 0 #0000;appearance:none;-webkit-appearance:none;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:var(--rui-radius,0.625rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));padding-block:0.25rem;padding-inline:0.625rem 2.25rem;color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));font-size:0.875rem;line-height:1.25rem;box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 0 #0000));outline-offset:2px;user-select:none"
 
 ///|
-const NativeSelectDefaultStyle : String = "height:2.25rem"
+const NativeSelectDefaultStyle : String = "height:2rem"
 
 ///|
-const NativeSelectSmStyle : String = "height:2rem"
+const NativeSelectSmStyle : String = "height:1.75rem;padding-block:0.125rem;border-radius:min(calc(var(--rui-radius,0.625rem) - 0.125rem),10px)"
 
 ///|
 const NativeSelectInvalidStyle : String = "border-color:var(--rui-destructive-border,var(--rui-destructive,oklch(0.577 0.245 27.325)));box-shadow:0 0 0 3px var(--rui-destructive-ring,oklch(0.577 0.245 27.325 / 0.2))"

@@ -54,28 +54,28 @@ priv enum NavigationMenuMsg {
 const NavigationMenuRootStyle : String = "position:relative;display:flex;width:max-content;max-width:100%;min-width:0;align-items:center;justify-content:center"
 
 ///|
-const NavigationMenuListStyle : String = "display:flex;max-width:100%;flex-wrap:wrap;list-style:none;align-items:center;justify-content:center;gap:0.25rem;margin:0;padding:0"
+const NavigationMenuListStyle : String = "display:flex;max-width:100%;flex-wrap:wrap;list-style:none;align-items:center;justify-content:center;gap:0;margin:0;padding:0"
 
 ///|
 const NavigationMenuItemStyle : String = "position:relative;display:flex;align-items:center"
 
 ///|
-const NavigationMenuTriggerStyle : String = "display:inline-flex;height:2.25rem;max-width:100%;min-width:0;align-items:center;justify-content:center;gap:0.375rem;--rui-nav-base-bg:var(--rui-background,oklch(1 0 0));--rui-nav-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-nav-base-border:transparent;--rui-nav-base-shadow:none;border:1px solid transparent;border-color:var(--rui-nav-border,var(--rui-nav-base-border,transparent));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-nav-bg,var(--rui-nav-base-bg,var(--rui-background,oklch(1 0 0))));padding-inline:0.75rem;color:var(--rui-nav-fg,var(--rui-nav-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-nav-shadow,var(--rui-nav-base-shadow,none));font-size:0.875rem;line-height:1.25rem;font-weight:500;white-space:nowrap;outline-offset:2px"
+const NavigationMenuTriggerStyle : String = "display:inline-flex;max-width:100%;min-width:0;align-items:center;justify-content:center;gap:0.375rem;--rui-nav-base-bg:var(--rui-background,oklch(1 0 0));--rui-nav-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-nav-base-border:transparent;--rui-nav-base-shadow:none;border:1px solid transparent;border-color:var(--rui-nav-border,var(--rui-nav-base-border,transparent));border-radius:var(--rui-radius,0.625rem);background:var(--rui-nav-bg,var(--rui-nav-base-bg,var(--rui-background,oklch(1 0 0))));color:var(--rui-nav-fg,var(--rui-nav-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-nav-shadow,var(--rui-nav-base-shadow,none));font-size:0.875rem;line-height:1.25rem;font-weight:500;white-space:nowrap;outline-offset:2px;padding:0.375rem 0.625rem;height:2.25rem"
 
 ///|
 const NavigationMenuTriggerOpenStyle : String = "--rui-nav-base-bg:color-mix(in oklab,var(--rui-accent,oklch(0.97 0 0)) 50%,transparent);--rui-nav-base-fg:var(--rui-accent-foreground,oklch(0.205 0 0))"
 
 ///|
-const NavigationMenuContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:block;width:min(32rem,calc(100vw - 1rem));max-height:calc(100vh - 1rem);overflow:auto;margin:0;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:1rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 12px 32px rgb(0 0 0 / 0.14);outline:none;transition:opacity 150ms ease,transform 150ms ease,visibility 150ms ease"
+const NavigationMenuContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:block;width:min(32rem,calc(100vw - 1rem));max-height:calc(100vh - 1rem);overflow:auto;margin:0;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0.25rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 12px 32px rgb(0 0 0 / 0.14);outline:none;transition:opacity 150ms ease,transform 150ms ease,visibility 150ms ease"
 
 ///|
-const NavigationMenuViewportContentStyle : String = "position:relative;display:block;width:min(32rem,calc(100vw - 1rem));max-height:calc(100dvh - 1rem);overflow:auto;padding:1rem;color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));outline:none"
+const NavigationMenuViewportContentStyle : String = "position:relative;display:block;width:100%;max-width:100%;max-height:calc(100dvh - 1rem);overflow:auto;padding:0.25rem;color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));outline:none"
 
 ///|
-const NavigationMenuViewportStyle : String = "position:fixed;inset:auto;top:0;left:50%;z-index:50;--rui-navigation-viewport-half:min(16rem,calc(50vw - 0.5rem));width:min(32rem,calc(100vw - 1rem));max-width:calc(100vw - 1rem);max-height:calc(100dvh - 1rem);overflow:hidden;transform:translateX(-50%);position-try-fallbacks:flip-block;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));box-shadow:0 12px 32px rgb(0 0 0 / 0.14);transition:opacity 150ms ease,visibility 150ms ease"
+const NavigationMenuViewportStyle : String = "position:fixed;inset:auto;top:0;inset-inline-start:0.5rem;z-index:50;--rui-navigation-viewport-width:min(32rem,calc(100vw - 1rem));width:var(--rui-navigation-viewport-width);max-width:calc(100vw - 1rem);max-height:calc(100dvh - 1rem);overflow:hidden;position-try-fallbacks:flip-block;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));box-shadow:0 12px 32px rgb(0 0 0 / 0.14);transition:opacity 150ms ease,visibility 150ms ease"
 
 ///|
-const NavigationMenuLinkStyle : String = "display:block;min-width:0;--rui-nav-base-bg:transparent;--rui-nav-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-nav-base-border:transparent;--rui-nav-base-shadow:none;border:1px solid transparent;border-color:var(--rui-nav-border,var(--rui-nav-base-border,transparent));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-nav-bg,var(--rui-nav-base-bg,transparent));padding:0.625rem 0.75rem;color:var(--rui-nav-fg,var(--rui-nav-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-nav-shadow,var(--rui-nav-base-shadow,none));text-decoration:none;outline-offset:2px;overflow-wrap:anywhere"
+const NavigationMenuLinkStyle : String = "display:flex;min-width:0;--rui-nav-base-bg:transparent;--rui-nav-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-nav-base-border:transparent;--rui-nav-base-shadow:none;border:1px solid transparent;border-color:var(--rui-nav-border,var(--rui-nav-base-border,transparent));border-radius:var(--rui-navigation-link-radius,var(--rui-radius,0.625rem));background:var(--rui-nav-bg,var(--rui-nav-base-bg,transparent));padding:0.5rem;color:var(--rui-nav-fg,var(--rui-nav-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-nav-shadow,var(--rui-nav-base-shadow,none));text-decoration:none;outline-offset:2px;overflow-wrap:anywhere;flex-direction:column;gap:0.5rem;font-size:0.875rem;line-height:1.25rem"
 
 ///|
 const NavigationMenuLinkActiveStyle : String = "--rui-nav-base-bg:color-mix(in oklab,var(--rui-accent,oklch(0.97 0 0)) 50%,transparent);--rui-nav-base-fg:var(--rui-accent-foreground,oklch(0.205 0 0))"
@@ -110,7 +110,7 @@ fn navigation_viewport_anchor_id(id : String) -> String {
 ///|
 fn navigation_viewport_position_style(id : String) -> String {
   let anchor = popup_anchor_name(navigation_viewport_anchor_id(id))
-  "position-anchor:\{anchor};top:calc(anchor(bottom) + 0.375rem);left:clamp(calc(var(--rui-navigation-viewport-half) + 0.5rem),anchor(center),calc(100vw - var(--rui-navigation-viewport-half) - 0.5rem))"
+  "position-anchor:\{anchor};top:calc(anchor(bottom) + 0.5rem);inset-inline-start:clamp(0.5rem,anchor(start),calc(100vw - var(--rui-navigation-viewport-width) - 0.5rem))"
 }
 
 ///|
@@ -1038,9 +1038,9 @@ pub fn[C : @html.IsChildren] navigation_menu_content(
     .aria_labelledby(trigger_id)
     .data_set("trigger-id", trigger_id)
     .data_set("requested-side", "bottom")
-    .data_set("requested-align", "center")
+    .data_set("requested-align", "start")
     .data_set("side", "bottom")
-    .data_set("align", "center")
+    .data_set("align", "start")
     .data_set("side-offset", "\{side_offset}")
     .data_set("align-offset", "\{align_offset}")
     .data_set("navigation-value", scope.value)
@@ -1073,7 +1073,7 @@ pub fn[C : @html.IsChildren] navigation_menu_content(
           popup_floating_anchor_style(
             trigger_id,
             Bottom,
-            Center,
+            Start,
             side_offset,
             align_offset,
           )

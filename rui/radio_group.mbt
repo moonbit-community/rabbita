@@ -11,10 +11,10 @@ pub extend RadioGroupOrientation with Debug::{to_repr}
 pub extend RadioGroupOrientation with Eq::{equal, not_equal}
 
 ///|
-const RadioGroupVerticalStyle : String = "display:grid;width:100%;gap:0.75rem"
+const RadioGroupVerticalStyle : String = "display:grid;width:100%;gap:0.5rem"
 
 ///|
-const RadioGroupHorizontalStyle : String = "display:flex;width:100%;flex-wrap:wrap;align-items:center;gap:0.75rem"
+const RadioGroupHorizontalStyle : String = "display:flex;width:100%;flex-wrap:wrap;align-items:center;gap:0.5rem"
 
 ///|
 const RadioGroupItemBaseStyle : String = "position:relative;display:inline-grid;width:1rem;height:1rem;flex-shrink:0;place-content:center;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-primary-foreground,oklch(0.985 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 1px 2px rgb(0 0 0 / 0.05);border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:9999px;margin:0;padding:0;background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-primary-foreground,oklch(0.985 0 0))));box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 1px 2px rgb(0 0 0 / 0.05)));cursor:pointer;appearance:none;-webkit-appearance:none;outline-offset:2px;vertical-align:middle"
@@ -111,7 +111,7 @@ fn radio_group_bind_keyboard(attrs : @html.Attrs) -> Unit {
 }
 
 ///|
-/// Lay out native radio inputs as a Vega-style radio group.
+/// Lay out native radio inputs as a Nova-style radio group.
 ///
 /// Each item remains a real `<input type="radio">`, so same-name items retain
 /// the browser's arrow-key navigation and form behavior.

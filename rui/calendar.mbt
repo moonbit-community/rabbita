@@ -39,28 +39,28 @@ priv enum CalendarMsg {
 }
 
 ///|
-const CalendarRootStyle : String = "display:block;width:15.5rem;max-width:100%;border-radius:var(--rui-radius,0.625rem);background:var(--rui-background,oklch(1 0 0));padding:0.75rem;color:var(--rui-foreground,oklch(0.145 0 0));--rui-calendar-cell-radius:calc(var(--rui-radius,0.625rem) - 0.125rem)"
+const CalendarRootStyle : String = "display:block;width:13.25rem;max-width:100%;border-radius:var(--rui-radius,0.625rem);background:var(--rui-background,oklch(1 0 0));padding:0.5rem;color:var(--rui-foreground,oklch(0.145 0 0));--rui-calendar-cell-radius:calc(var(--rui-radius,0.625rem) - 0.125rem)"
 
 ///|
-const CalendarHeaderStyle : String = "position:relative;display:flex;height:2rem;width:100%;align-items:center;justify-content:center;margin-bottom:1rem"
+const CalendarHeaderStyle : String = "position:relative;display:flex;height:1.75rem;width:100%;align-items:center;justify-content:center;margin-bottom:1rem"
 
 ///|
-const CalendarCaptionStyle : String = "display:flex;height:2rem;align-items:center;justify-content:center;padding-inline:2rem;font-size:0.875rem;line-height:1.25rem;font-weight:500;user-select:none"
+const CalendarCaptionStyle : String = "display:flex;height:1.75rem;align-items:center;justify-content:center;padding-inline:2rem;font-size:0.875rem;line-height:1.25rem;font-weight:500;user-select:none"
 
 ///|
 const CalendarNavStyle : String = "position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;gap:0.25rem;pointer-events:none"
 
 ///|
-const CalendarNavButtonStyle : String = "display:inline-flex;width:2rem;height:2rem;align-items:center;justify-content:center;--rui-calendar-base-bg:transparent;--rui-calendar-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-calendar-base-border:transparent;--rui-calendar-base-shadow:none;border:1px solid transparent;border-color:var(--rui-calendar-border,var(--rui-calendar-base-border,transparent));border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);margin:0;padding:0;background:var(--rui-calendar-bg,var(--rui-calendar-base-bg,transparent));color:var(--rui-calendar-fg,var(--rui-calendar-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-calendar-shadow,var(--rui-calendar-base-shadow,none));cursor:pointer;appearance:none;-webkit-appearance:none;pointer-events:auto;outline-offset:2px"
+const CalendarNavButtonStyle : String = "display:inline-flex;width:1.75rem;height:1.75rem;align-items:center;justify-content:center;--rui-calendar-base-bg:transparent;--rui-calendar-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-calendar-base-border:transparent;--rui-calendar-base-shadow:none;border:1px solid transparent;border-color:var(--rui-calendar-border,var(--rui-calendar-base-border,transparent));border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);margin:0;padding:0;background:var(--rui-calendar-bg,var(--rui-calendar-base-bg,transparent));color:var(--rui-calendar-fg,var(--rui-calendar-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-calendar-shadow,var(--rui-calendar-base-shadow,none));cursor:pointer;appearance:none;-webkit-appearance:none;pointer-events:auto;outline-offset:2px"
 
 ///|
 const CalendarGridStyle : String = "width:100%;border-collapse:separate;border-spacing:0 0.5rem;table-layout:fixed;margin-block:-0.5rem"
 
 ///|
-const CalendarWeekdayStyle : String = "width:2rem;height:2rem;padding:0;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.8rem;line-height:1rem;font-weight:400;text-align:center;vertical-align:middle;user-select:none"
+const CalendarWeekdayStyle : String = "width:1.75rem;height:1.75rem;padding:0;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.8rem;line-height:1rem;font-weight:400;text-align:center;vertical-align:middle;user-select:none"
 
 ///|
-const CalendarCellStyle : String = "position:relative;width:2rem;height:2rem;padding:0;text-align:center;vertical-align:middle"
+const CalendarCellStyle : String = "position:relative;width:1.75rem;height:1.75rem;padding:0;text-align:center;vertical-align:middle"
 
 ///|
 const CalendarCellRangeStartStyle : String = "background:linear-gradient(var(--rui-calendar-range-start-direction,to right),transparent 50%,var(--rui-accent,oklch(0.97 0 0)) 50%)"
@@ -78,7 +78,7 @@ const CalendarCellRangeRowStartStyle : String = "border-start-start-radius:var(-
 const CalendarCellRangeRowEndStyle : String = "border-start-end-radius:var(--rui-calendar-cell-radius);border-end-end-radius:var(--rui-calendar-cell-radius)"
 
 ///|
-const CalendarDayStyle : String = "display:inline-flex;width:2rem;height:2rem;align-items:center;justify-content:center;--rui-calendar-base-bg:transparent;--rui-calendar-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-calendar-base-border:transparent;--rui-calendar-base-shadow:none;border:1px solid transparent;border-color:var(--rui-calendar-border,var(--rui-calendar-base-border,transparent));border-radius:var(--rui-calendar-cell-radius,calc(var(--rui-radius,0.625rem) - 0.125rem));margin:0;padding:0;background:var(--rui-calendar-bg,var(--rui-calendar-base-bg,transparent));color:var(--rui-calendar-fg,var(--rui-calendar-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-calendar-shadow,var(--rui-calendar-base-shadow,none));font-size:0.875rem;line-height:1rem;font-weight:400;text-align:center;cursor:pointer;user-select:none;appearance:none;-webkit-appearance:none;outline-offset:2px"
+const CalendarDayStyle : String = "display:inline-flex;width:1.75rem;height:1.75rem;align-items:center;justify-content:center;--rui-calendar-base-bg:transparent;--rui-calendar-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-calendar-base-border:transparent;--rui-calendar-base-shadow:none;border:1px solid transparent;border-color:var(--rui-calendar-border,var(--rui-calendar-base-border,transparent));border-radius:var(--rui-calendar-cell-radius,calc(var(--rui-radius,0.625rem) - 0.125rem));margin:0;padding:0;background:var(--rui-calendar-bg,var(--rui-calendar-base-bg,transparent));color:var(--rui-calendar-fg,var(--rui-calendar-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-calendar-shadow,var(--rui-calendar-base-shadow,none));font-size:0.875rem;line-height:1rem;font-weight:400;text-align:center;cursor:pointer;user-select:none;appearance:none;-webkit-appearance:none;outline-offset:2px"
 
 ///|
 const CalendarDaySelectedStyle : String = "--rui-calendar-base-border:var(--rui-primary,oklch(0.205 0 0));--rui-calendar-base-bg:var(--rui-primary,oklch(0.205 0 0));--rui-calendar-base-fg:var(--rui-primary-foreground,oklch(0.985 0 0))"
@@ -93,7 +93,7 @@ const CalendarDayTodayStyle : String = "--rui-calendar-base-bg:var(--rui-accent,
 const CalendarDayOutsideStyle : String = "--rui-calendar-base-fg:var(--rui-muted-foreground,oklch(0.556 0 0));opacity:0.55"
 
 ///|
-const CalendarOutsidePlaceholderStyle : String = "display:block;width:2rem;height:2rem;visibility:hidden"
+const CalendarOutsidePlaceholderStyle : String = "display:block;width:1.75rem;height:1.75rem;visibility:hidden"
 
 ///|
 fn calendar_clamp(value : Int, minimum : Int, maximum : Int) -> Int {

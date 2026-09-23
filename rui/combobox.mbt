@@ -66,19 +66,20 @@ struct ComboboxScope {
 const ComboboxRootStyle : String = "position:relative;display:flex;width:100%;min-width:0;flex-direction:column"
 
 ///|
-const ComboboxControlStyle : String = "display:flex;width:100%;min-height:2.25rem;min-width:0;align-items:center;gap:0.375rem;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 1px 2px rgb(0 0 0 / 0.05);border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));padding:0.25rem 0.375rem;box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 1px 2px rgb(0 0 0 / 0.05)));outline-offset:2px"
+const ComboboxControlStyle : String = "display:flex;width:100%;min-height:2rem;min-width:0;align-items:center;gap:0.375rem;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 0 #0000;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:var(--rui-radius,0.625rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));padding:0.25rem 0.375rem;box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 0 #0000));outline-offset:2px"
 
 ///|
 const ComboboxControlLayoutStyle : String = "display:flex;width:100%;min-width:0"
 
 ///|
-const ComboboxChipsStyle : String = "display:flex;width:100%;min-width:0;min-height:2.25rem;flex:1;flex-wrap:wrap;align-items:center;gap:0.375rem;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 1px 2px rgb(0 0 0 / 0.05);border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));background-clip:padding-box;padding:0.375rem 0.625rem;color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 1px 2px rgb(0 0 0 / 0.05)));font-size:0.875rem;line-height:1.25rem;outline:none"
+const ComboboxChipsStyle : String = "display:flex;width:100%;min-width:0;min-height:2rem;flex:1;flex-wrap:wrap;align-items:center;gap:0.25rem;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 0 #0000;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:var(--rui-radius,0.625rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));background-clip:padding-box;padding:0.25rem var(--rui-combobox-chips-padding-inline,0.625rem);color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 0 #0000));font-size:0.875rem;line-height:1.25rem;outline:none"
 
 ///|
-const ComboboxContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:var(--rui-floating-anchor-width,anchor-size(width));min-width:min(calc(var(--rui-floating-anchor-width,anchor-size(width)) + 1.75rem),calc(100vw - 1rem));max-width:var(--rui-floating-available-width,calc(100vw - 1rem));max-height:min(24rem,var(--rui-floating-available-height,calc(100vh - 1rem)));transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;overflow:hidden;margin:0;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-popover,oklch(1 0 0));padding:0;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
+// The anchor already includes the control and its actions. Use its full width.
+const ComboboxContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:var(--rui-floating-anchor-width,anchor-size(width));min-width:0;max-width:var(--rui-floating-available-width,calc(100vw - 1rem));max-height:min(24rem,var(--rui-floating-available-height,calc(100vh - 1rem)));transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;overflow:hidden;margin:0;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
-const ComboboxItemStyle : String = "position:relative;display:flex;width:100%;min-height:2rem;align-items:center;gap:0.5rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding-block:0.375rem;padding-inline:0.5rem 2rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font:inherit;font-size:0.875rem;line-height:1.25rem;text-align:start;white-space:nowrap;outline:none;cursor:pointer"
+const ComboboxItemStyle : String = "position:relative;display:flex;width:100%;align-items:center;gap:0.5rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding-block:0.25rem;padding-inline:0.375rem 2rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font:inherit;font-size:0.875rem;line-height:1.25rem;text-align:start;white-space:nowrap;outline:none;cursor:pointer"
 
 ///|
 const ComboboxInputBaseStyle : String = "border:0;background:transparent;padding:0.125rem 0.25rem;color:var(--rui-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;outline:none"
@@ -87,7 +88,7 @@ const ComboboxInputBaseStyle : String = "border:0;background:transparent;padding
 const ComboboxInputLayoutStyle : String = "width:100%;min-width:3rem;flex:1"
 
 ///|
-const ComboboxChipsInputLayoutStyle : String = "width:auto;min-width:4rem;flex:1"
+const ComboboxChipsInputLayoutStyle : String = "width:auto;min-width:4rem;flex:1;padding:0;height:1.25rem"
 
 ///|
 const ComboboxTriggerIconStyle : String = "display:inline-flex;width:1rem;height:1rem;flex:none;align-items:center;justify-content:center;line-height:0;color:var(--rui-muted-foreground,oklch(0.556 0 0));pointer-events:none"
@@ -754,8 +755,8 @@ fn combobox_input_surface(
       [
         UiBoxSizing,
         UiFontSans,
-        layout_style,
         ComboboxInputBaseStyle,
+        layout_style,
         ui_disabled_style(scope.disabled),
         popup_anchor_style(resolved_id),
       ],
@@ -1175,7 +1176,7 @@ pub fn[C : @html.IsChildren] combobox_chip(
       .data_set("value", value),
     style=ui_styles(
       [
-        "display:inline-flex;max-width:100%;height:1.5rem;align-items:center;gap:0.25rem;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);background:var(--rui-secondary,oklch(0.97 0 0));padding:0 0.375rem;color:var(--rui-secondary-foreground,oklch(0.205 0 0));font-size:0.75rem;line-height:1rem",
+        "display:inline-flex;max-width:100%;height:1.3125rem;align-items:center;gap:0.25rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);background:var(--rui-muted,oklch(0.97 0 0));padding-block:0;padding-inline:0.375rem var(--rui-combobox-chip-padding-end,0.375rem);color:var(--rui-foreground,oklch(0.145 0 0));font-size:0.75rem;font-weight:500;line-height:1rem",
       ],
       style,
     ),

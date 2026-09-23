@@ -105,10 +105,10 @@ const DatePickerTriggerLabelStyle : String = "min-width:0;flex:1;overflow:hidden
 const DatePickerPlaceholderStyle : String = "color:var(--rui-muted-foreground,oklch(0.556 0 0))"
 
 ///|
-const DatePickerContentStyle : String = "width:15.5rem;min-width:0;max-width:calc(100vw - 1rem);gap:0;overflow:hidden;padding:0;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1),0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
+const DatePickerContentStyle : String = "width:13.25rem;min-width:0;max-width:calc(100vw - 1rem);gap:0;overflow:hidden;padding:0;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1),0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
 
 ///|
-const DateRangePickerContentStyle : String = "width:var(--rui-date-range-picker-width,32rem);min-width:0;max-width:calc(100vw - 1rem);max-height:var(--rui-date-range-picker-max-height,none);position-try-order:most-height;gap:0;overflow-x:hidden;overflow-y:var(--rui-date-range-picker-overflow-y,hidden);padding:0;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1),0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
+const DateRangePickerContentStyle : String = "width:var(--rui-date-range-picker-width,27.5rem);min-width:0;max-width:calc(100vw - 1rem);max-height:var(--rui-date-range-picker-max-height,none);position-try-order:most-height;gap:0;overflow-x:hidden;overflow-y:var(--rui-date-range-picker-overflow-y,hidden);padding:0;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1),0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
 
 ///|
 const DatePickerContentInnerStyle : String = "display:flex;min-width:0;flex-direction:column"
@@ -123,10 +123,10 @@ const DatePickerPresetsStyle : String = "display:grid;grid-template-columns:repe
 const DatePickerPresetStyle : String = "width:100%;justify-content:flex-start"
 
 ///|
-const DatePickerCalendarStyle : String = "width:15.5rem;min-width:0;max-width:100%;border-radius:0"
+const DatePickerCalendarStyle : String = "width:13.25rem;min-width:0;max-width:100%;border-radius:0"
 
 ///|
-const DateRangePickerCalendarStyle : String = "width:15.5rem;min-width:0;max-width:100%;flex:0 1 15.5rem;border-radius:0"
+const DateRangePickerCalendarStyle : String = "width:13.25rem;min-width:0;max-width:100%;flex:0 1 13.25rem;border-radius:0"
 
 ///|
 fn date_picker_part_styles(

@@ -108,7 +108,7 @@ fn avatar_part_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 }
 
 ///|
-/// Render the composable Vega avatar root as a native `span` element.
+/// Render the composable Nova avatar root as a native `span` element.
 ///
 /// Size is shared with fallback and badge parts through inherited inline custom
 /// properties. The root does not own image-loading state; omit `avatar_image`
