@@ -46,6 +46,16 @@ pub struct PublicFixture {
 
 type RunningServer
 
+pub struct ServerFixture {
+  browser_main_mbt : String
+  moon_mod : String
+  readme_md : String
+  gitignore : String
+  moon_pkg : String
+  main_mbt : String
+  warren_assets_mbt : String
+}
+
 type ServerTarget
 
 type TemplateEntry
@@ -53,6 +63,7 @@ type TemplateEntry
 pub struct TemplatesFixture {
   default : DefaultFixture
   minimized : MinimizedFixture
+  server : ServerFixture
 }
 
 // Type aliases
