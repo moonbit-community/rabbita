@@ -27,7 +27,7 @@ the generated `pkg.generated.mbti` interface.
 ## Customization
 
 For Markdown documents, import `moonbit-community/rui/markdown` and use
-`@markdown.markdown(source)`. The synchronous renderer includes Nova typography,
+`@markdown.markdown(source)`. The synchronous renderer includes shadcn Typeset typography with Nova tokens,
 tables, task lists and footnotes. See the [Markdown package](markdown/README.mbt.md)
 for supported syntax and source-rendering behavior.
 

@@ -2,11 +2,12 @@
 package "moonbit-community/rui/markdown"
 
 import {
+  "moonbit-community/cmark/cmark",
   "moonbit-community/rabbita/html",
 }
 
 // Values
-pub fn markdown(String) -> @html.Html
+pub fn markdown(String, render_codeblock? : (String, String) -> @html.Html, escape_link? : Bool, transform_link? : (String) -> String, render_heading? : (@cmark.BlockHeading) -> @html.Html) -> @html.Html
 
 // Errors
 

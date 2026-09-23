@@ -49,6 +49,9 @@ fn subscriptions(_ : Route, emit : @rabbita.Emit[Msg]) -> @sub.Sub {
 ///|
 fn app() -> @rabbita.Val[@html.Html] {
   let url = try! @url.parse(@dom.window().current_url())
+  let markdown_source = "# Routing target\n\n[Markdown Forms](/forms)\n\n[Reference][forms]\n\n<" +
+    url.to_string() +
+    "#autolink>\n\nFootnote[^note]\n\n[forms]: /forms\n\n[^note]: Note."
   let (route, _) = @rabbita.create_state(
     route_from_path(url.path),
     update~,
@@ -85,6 +88,11 @@ fn app() -> @rabbita.Val[@html.Html] {
         title,
       ),
       @fixture.section("fixture-route-content", section_title, [@html.p(body)]),
+      @html.section(id="markdown-routed", @markdown.markdown(markdown_source)),
+      @html.section(
+        id="markdown-native",
+        @markdown.markdown(markdown_source, escape_link=true),
+      ),
     ])
   })
 }

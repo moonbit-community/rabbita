@@ -14,6 +14,11 @@ supported_targets = "js"
 options(
   "pre-build": [
     {
+      "input": "../../../rui/markdown/__fixtures__/async-0.22.2-README.md",
+      "output": "markdown_async_readme.mbt",
+      "command": ":embed -i $input -o $output --name markdown_async_readme --text",
+    },
+    {
       "input": "../../../rui/markdown/__fixtures__/ripgrep-README.md",
       "output": "markdown_readme.mbt",
       "command": ":embed -i $input -o $output --name markdown_readme --text",

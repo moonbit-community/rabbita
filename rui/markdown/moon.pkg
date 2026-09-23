@@ -1,5 +1,8 @@
 import {
+  "moonbit-community/rui/internal/checkbox_view",
   "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/clipboard",
+  "moonbit-community/rabbita/svg",
   "moonbit-community/cmark/cmark",
 }
 
@@ -16,6 +19,11 @@ supported_targets = "js+native+wasm"
 
 options(
   "pre-build": [
+    {
+      "input": "__fixtures__/async-0.22.2-README.md",
+      "output": "async_readme_test.mbt",
+      "command": ":embed -i $input -o $output --name async_readme --text",
+    },
     {
       "input": "__fixtures__/ripgrep-README.md",
       "output": "ripgrep_test.mbt",

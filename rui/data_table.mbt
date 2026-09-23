@@ -484,7 +484,7 @@ fn[T] render_data_table(
     header_cells.push(
       table_head(
         style=["width:2.75rem;padding-inline:0.75rem"],
-        render_checkbox(
+        @checkbox_view.render(
           checked=all_page_selected,
           indeterminate=some_page_selected,
           disabled=page_keys.length() == 0,
@@ -578,7 +578,7 @@ fn[T] render_data_table(
         cells.push(
           table_cell(
             style=["width:2.75rem;padding-inline:0.75rem"],
-            render_checkbox(
+            @checkbox_view.render(
               checked=selected,
               aria_label="Select row \{key}",
               on_checked_change?,
@@ -653,7 +653,7 @@ fn[T] render_data_table(
         )
         menu_items.push(
           @html.label(style=[DataTableColumnOptionStyle], [
-            render_checkbox(
+            @checkbox_view.render(
               checked=visible,
               aria_label="Toggle \{column.label} column",
               on_checked_change?,

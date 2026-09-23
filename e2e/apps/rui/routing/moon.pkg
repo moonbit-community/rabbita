@@ -6,6 +6,7 @@ import {
   "moonbit-community/rabbita/nav",
   "moonbit-community/rabbita/sub",
   "moonbit-community/rabbita/url",
+  "moonbit-community/rui/markdown",
 }
 
 supported_targets = "js"

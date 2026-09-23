@@ -1,0 +1,7 @@
+import {
+  "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/cmd",
+  "moonbit-community/rabbita/svg",
+}
+
+supported_targets = "js+native+wasm"

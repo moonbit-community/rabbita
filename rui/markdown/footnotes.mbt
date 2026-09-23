@@ -24,7 +24,7 @@ fn render_footnote_reference(
   let anchor = @html.a(
     href="#" + footnote.id,
     id=reference_id,
-    escape=true,
+    escape=state.escape_link,
     attrs=@html.Attrs::build()
       .role("doc-noteref")
       .aria_label("Footnote \{index + 1}"),
@@ -68,7 +68,7 @@ fn render_footnotes(state : RenderState) -> @html.Html {
                 for ref_index, reference in note.references => {
                   @html.a(
                     href="#" + reference,
-                    escape=true,
+                    escape=state.escape_link,
                     attrs=@html.Attrs::build()
                       .role("doc-backlink")
                       .aria_label(

@@ -1,5 +1,9 @@
 ///|
 priv struct RenderState {
+  render_codeblock : ((String, String) -> @html.Html)?
+  render_heading : ((@cmark.BlockHeading) -> @html.Html)?
+  escape_link : Bool
+  transform_link : ((String) -> String)?
   defs : Map[String, @cmark.LabelDef]
   ids : Map[String, Bool]
   footnotes : Array[FootnoteUse]
@@ -14,16 +18,36 @@ priv struct FootnoteUse {
 }
 
 ///|
-/// Render Markdown with self-contained Nova typography.
+/// Render Markdown with shadcn Typeset typography and Nova theme tokens.
 ///
 /// Parses CommonMark and cmark's table, task-list, strikethrough, footnote and
 /// math extensions. Raw HTML is displayed as text. Code and math remain source;
 /// no asynchronous highlighter or diagram engine is required. Relative URLs
-/// are preserved; only relative URLs and http, https, mailto and tel schemes
+/// are preserved by default; only relative URLs and http, https, mailto and tel schemes
 /// are navigable. Wrap the result in `@rui.theme` to inherit dark theme tokens.
-pub fn markdown(source : String) -> @html.Html {
+/// `render_codeblock` replaces fenced/indented code content with caller-rendered
+/// HTML (usually `pre`/`code`); the frame still copies the original source.
+/// Its arguments are the source and the complete cmark-parsed fence info string
+/// (for example, `moonbit check`). Indented or unlabelled blocks pass empty info.
+/// Links use Rabbita's routing by default. Set `escape_link=true` to use native
+/// browser navigation for all links, including heading anchors and footnotes.
+/// `transform_link` rewrites source link and image destinations before URL safety
+/// checks. Generated heading anchors and footnote references are not rewritten.
+/// `render_heading` receives the cmark heading and replaces the entire heading.
+/// The callback owns inline rendering, styles, IDs and anchor links.
+pub fn markdown(
+  source : String,
+  render_codeblock? : (String, String) -> @html.Html,
+  escape_link? : Bool = false,
+  transform_link? : (String) -> String,
+  render_heading? : (@cmark.BlockHeading) -> @html.Html,
+) -> @html.Html {
   let doc = @cmark.Doc::from_string(source, strict=false, heading_auto_ids=true)
   let state : RenderState = {
+    render_codeblock,
+    render_heading,
+    escape_link,
+    transform_link,
     defs: doc.defs,
     ids: {},
     footnotes: [],
