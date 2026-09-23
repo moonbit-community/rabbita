@@ -22,11 +22,16 @@ pub fn Server::close(self : Self) -> Unit {
 }
 
 ///|
+/// Creates an application server. Non-empty `assets` provides an embedded
+/// static filesystem keyed by absolute URL paths (for example `/index.js`).
+/// In production it replaces `dist`; in development Warren's live files are
+/// used. A supplied `component` still renders `/`, and API routes remain active.
 #internal(experimental, "This API is unstable and may change in the future.")
 pub async fn Server::Server(
   api~ : @moonback.Module,
   port~ : UInt16,
   dist? : @path.Path,
+  assets? : Map[String, Bytes],
   component? : () -> Val[Html],
   silent? : Bool = false,
 ) -> Self {
@@ -62,7 +67,8 @@ pub async fn Server::Server(
     _ => @env.get_env_var("WARREN_DIST")
   }
   let app = @moonback.App(ctx => {
-    ctx.use_(page_service(port~, warren_client?, dist?, component?))
+    let assets = assets.filter(files => !files.is_empty() && mode is Prod)
+    ctx.use_(page_service(port~, warren_client?, dist?, component?, assets?))
     api(ctx)
   })
   if !silent {
@@ -83,6 +89,7 @@ fn page_service(
   dist? : String,
   port~ : UInt16,
   warren_client? : String,
+  assets? : Map[String, Bytes],
 ) -> @moonback.Module {
   let head = [
     link(rel="stylesheet", href="/styles.css"),
@@ -93,7 +100,21 @@ fn page_service(
   ]
 
   ctx => {
-    if dist is Some(dir) {
+    if assets is Some(files) {
+      let static = @static.from_assets(files, rewrite_trailing_slash_index=true)
+      ctx.add_middleware(
+        @moonback.Middleware(next => {
+          let serve = (static.0)(next)
+          (req, res) => {
+            if component is Some(_) && req.path == "/" {
+              next(req, res)
+            } else {
+              serve(req, res)
+            }
+          }
+        }),
+      )
+    } else if dist is Some(dir) {
       ctx.add_middleware(@static.new(root=dir.to_string()))
     }
     if component is Some(component) {
@@ -107,7 +128,7 @@ fn page_service(
         let page = @rabbita.new(component).render(url~, head~)
         res.send_html(@moonback.Html::raw(page))
       })
-    } else {
+    } else if assets is None {
       ctx.get("/", (_req, res) => serve_index_html(res, dist?, warren_client?))
     }
   }

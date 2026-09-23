@@ -38,4 +38,4 @@ moon run --target native cmd/server
 
 The server listens on <http://127.0.0.1:3002>.
 
-[moonback]: https://mooncakes.io/docs/hackwaly/moonback
+[moonback]: https://mooncakes.io/docs/moonbitlang/moonback

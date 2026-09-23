@@ -20,6 +20,7 @@ async fn main {
     api~,
     port=3002,
     dist=@path.Path("./dist"),
+    assets=warren_assets(),
     component=@app.view,
   )
   defer server.close()

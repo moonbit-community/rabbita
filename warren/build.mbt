@@ -90,7 +90,12 @@ async fn ensure_clean_dir(path : SourcePath) -> Unit {
 
 ///|
 async fn copy_dir_contents(src : SourcePath, dst : SourcePath) -> Unit {
-  for entry in @fs.readdir(source_path_to_string(src), sort=true) {
+  for
+    entry in @fs.readdir(
+      source_path_to_string(src),
+      include_hidden=true,
+      sort=true,
+    ) {
     copy(src=src.join(entry), dst=dst.join(entry))
   }
 }
@@ -109,10 +114,15 @@ fn build_only_args(
   entry : SourcePath,
   target : String,
   release : Bool,
+  target_dir? : SourcePath,
 ) -> Array[String] {
   let args = ["run", "--build-only", "--target", target]
   if release {
     args.push("--release")
+  }
+  if target_dir is Some(dir) {
+    args.push("--target-dir")
+    args.push(source_path_to_string(dir))
   }
   args.push(moon_entry(project_root, entry))
   args
@@ -145,8 +155,9 @@ async fn run_build_only(
   entry : SourcePath,
   target : String,
   release : Bool,
+  target_dir? : SourcePath,
 ) -> SourcePath {
-  let args = build_only_args(project_root, entry, target, release)
+  let args = build_only_args(project_root, entry, target, release, target_dir?)
   log("build", "Running `moon \{args.join(" ")}`")
   let (code, stdout, stderr) = @process.collect_output(
     "moon",
@@ -338,8 +349,11 @@ async fn copy_server_artifact(
   artifact : SourcePath,
   destination : SourcePath,
   target : ServerTarget,
+  output_name? : String,
 ) -> SourcePath {
-  let basename = Path::basename(source_path_to_string(artifact)).to_owned()
+  let basename = output_name.unwrap_or(
+    Path::basename(source_path_to_string(artifact)).to_owned(),
+  )
   let output = destination.join(basename)
   guard !@fs.exists(source_path_to_string(output)) else {
     fail(
@@ -372,7 +386,12 @@ async fn build_project(
   layout : ProjectLayout,
   server_target : ServerTarget,
   dist : SourcePath,
+  bundle? : Bool = false,
 ) -> Unit {
+  if bundle {
+    build_bundle(layout, server_target, dist)
+    return
+  }
   ensure_clean_dir(dist)
   let browser_artifact = run_build_only(
     layout.root,

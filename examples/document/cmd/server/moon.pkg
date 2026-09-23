@@ -1,7 +1,7 @@
 import {
   "moonbit-community/rabbita/server" @rabbita_server,
   "example/document/app",
-  "hackwaly/moonback",
+  "moonbitlang/moonback",
   "moonbitlang/async",
   "moonbitlang/core/json",
   "moonbitlang/x/path",
