@@ -6,7 +6,7 @@ priv enum SliderMsg {
 }
 
 ///|
-const SliderThumbStyle : String = "position:absolute;z-index:2;display:block;width:1rem;height:1rem;border:1px solid var(--rui-primary,oklch(0.205 0 0));border-radius:9999px;background:var(--rui-slider-thumb,var(--rui-background,oklch(1 0 0)));--rui-slider-thumb-base-shadow:0 1px 2px rgb(0 0 0 / 0.1);box-shadow:var(--rui-slider-thumb-shadow,var(--rui-slider-thumb-base-shadow,0 1px 2px rgb(0 0 0 / 0.1)));pointer-events:none"
+const SliderThumbStyle : String = "position:absolute;z-index:2;display:block;width:0.75rem;height:0.75rem;border:1px solid var(--rui-ring,oklch(0.708 0 0));border-radius:9999px;background:var(--rui-slider-thumb,var(--rui-background,oklch(1 0 0)));--rui-slider-thumb-base-shadow:0 0 #0000;box-shadow:var(--rui-slider-thumb-shadow,var(--rui-slider-thumb-base-shadow,0 0 #0000));pointer-events:none"
 
 ///|
 fn slider_parse(value : String, fallback : Int) -> Int {
@@ -724,9 +724,9 @@ fn render_slider_values(
     style=[
       "position:absolute;overflow:hidden;border-radius:9999px;background:var(--rui-muted,oklch(0.97 0 0))",
       if orientation is Vertical {
-        "left:50%;top:0;width:0.375rem;height:100%;transform:translateX(-50%)"
+        "left:50%;top:0;width:0.25rem;height:100%;transform:translateX(-50%)"
       } else {
-        "inset-inline-start:0;top:50%;width:100%;height:0.375rem;transform:translateY(-50%)"
+        "inset-inline-start:0;top:50%;width:100%;height:0.25rem;transform:translateY(-50%)"
       },
     ],
     @html.div(
@@ -776,7 +776,7 @@ fn render_slider_values(
           if orientation is Vertical {
             "left:50%;bottom:\{percent}%;transform:translate(-50%,50%)"
           } else {
-            "top:50%;inset-inline-start:calc(\{percent}% - 0.5rem);transform:translateY(-50%)"
+            "top:50%;inset-inline-start:calc(\{percent}% - 0.375rem);transform:translateY(-50%)"
           },
         ],
         "",

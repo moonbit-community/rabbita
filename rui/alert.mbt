@@ -11,7 +11,7 @@ pub extend AlertVariant with Debug::{to_repr}
 pub extend AlertVariant with Eq::{equal, not_equal}
 
 ///|
-const AlertBaseStyle : String = "position:relative;display:grid;grid-template-columns:var(--rui-alert-columns,0 minmax(0,1fr) auto);grid-template-rows:auto auto;width:100%;min-width:0;align-items:start;column-gap:var(--rui-alert-column-gap,0);row-gap:0.125rem;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);padding:0.75rem 1rem;text-align:start;font-size:0.875rem;line-height:1.25rem;--rui-icon-size:1rem"
+const AlertBaseStyle : String = "position:relative;display:grid;grid-template-columns:var(--rui-alert-columns,0 minmax(0,1fr) auto);grid-template-rows:auto auto;width:100%;min-width:0;align-items:start;column-gap:var(--rui-alert-column-gap,0);row-gap:0.125rem;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);padding:0.5rem 0.625rem;text-align:start;font-size:0.875rem;line-height:1.25rem;--rui-icon-size:1rem"
 
 ///|
 const AlertDefaultStyle : String = "--rui-alert-description-color:var(--rui-muted-foreground,oklch(0.556 0 0));background:var(--rui-card,oklch(1 0 0));color:var(--rui-card-foreground,oklch(0.145 0 0))"
@@ -26,7 +26,7 @@ const AlertTitleStyle : String = "grid-column:2;grid-row:1;min-width:0;min-heigh
 const AlertDescriptionStyle : String = "grid-column:2;grid-row:2;display:grid;min-width:0;justify-items:start;gap:0.25rem;color:var(--rui-alert-description-color,var(--rui-muted-foreground,oklch(0.556 0 0)));font-size:0.875rem;line-height:1.25rem;text-wrap:balance"
 
 ///|
-const AlertActionStyle : String = "grid-column:3;grid-row:1 / span 2;align-self:start;justify-self:end;margin-inline-start:1rem;transform:translate(var(--rui-alert-action-offset-inline,0.25rem),-0.125rem)"
+const AlertActionStyle : String = "grid-column:3;grid-row:1 / span 2;align-self:start;justify-self:end;margin-inline-start:1rem;transform:translate(var(--rui-alert-action-offset-inline,0.125rem),0)"
 
 ///|
 fn alert_variant_style(variant : AlertVariant) -> String {
@@ -42,7 +42,7 @@ fn alert_part_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 }
 
 ///|
-/// Render a semantic live alert using the Vega default or destructive recipe.
+/// Render a semantic live alert using the Nova default or destructive recipe.
 ///
 /// Title, description, and action parts occupy stable grid tracks. This keeps
 /// optional actions from covering text without relying on stylesheet `:has()`.

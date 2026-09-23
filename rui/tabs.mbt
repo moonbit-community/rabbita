@@ -14,7 +14,7 @@ pub extend TabsOrientation with Eq::{equal, not_equal}
 /// Visual treatment for a tabs list.
 ///
 /// `TabsDefault` uses the compact muted surface. `TabsLine` removes that
-/// surface and marks the active trigger with the Vega edge indicator.
+/// surface and marks the active trigger with the Nova edge indicator.
 pub(all) enum TabsListVariant {
   TabsDefault
   TabsLine
@@ -52,19 +52,19 @@ const TabsRootVerticalStyle : String = "flex-direction:row;flex-wrap:wrap;align-
 const TabsListStyle : String = "display:inline-flex;width:fit-content;max-width:100%;align-items:center;justify-content:flex-start;padding:0.1875rem;color:var(--rui-muted-foreground,oklch(0.556 0 0))"
 
 ///|
-const TabsListDefaultStyle : String = "gap:0.125rem;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-muted,oklch(0.97 0 0));overflow-x:auto"
+const TabsListDefaultStyle : String = "gap:0;border-radius:var(--rui-radius,0.625rem);background:var(--rui-muted,oklch(0.97 0 0));overflow-x:auto"
 
 ///|
 const TabsListLineStyle : String = "gap:0.25rem;border-radius:0;background:transparent;overflow:visible"
 
 ///|
-const TabsListHorizontalStyle : String = "min-height:2.25rem;flex-direction:row"
+const TabsListHorizontalStyle : String = "min-height:2rem;flex-direction:row"
 
 ///|
 const TabsListVerticalStyle : String = "min-width:min(9rem,100%);flex:0 1 9rem;flex-direction:column;align-items:stretch;overflow-x:visible"
 
 ///|
-const TabsTriggerStyle : String = "display:inline-flex;min-width:0;min-height:1.75rem;flex:1;align-items:center;justify-content:center;gap:0.375rem;--rui-tabs-base-bg:transparent;--rui-tabs-base-fg:inherit;--rui-tabs-base-border:transparent;--rui-tabs-base-shadow:none;--rui-control-base-shadow:var(--rui-tabs-base-shadow,none);border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-tabs-border,var(--rui-tabs-base-border,transparent)));border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);margin:0;padding:0.25rem 0.625rem;background:var(--rui-tabs-bg,var(--rui-tabs-base-bg,transparent));color:var(--rui-tabs-fg,var(--rui-tabs-base-fg,inherit));box-shadow:var(--rui-control-shadow,var(--rui-tabs-shadow,var(--rui-tabs-base-shadow,none)));font-size:0.875rem;line-height:1.25rem;font-weight:500;text-align:center;white-space:nowrap;cursor:pointer;user-select:none;appearance:none;-webkit-appearance:none;outline-offset:2px"
+const TabsTriggerStyle : String = "display:inline-flex;min-width:0;min-height:1.625rem;flex:1;align-items:center;justify-content:center;gap:0.375rem;--rui-tabs-base-bg:transparent;--rui-tabs-base-fg:inherit;--rui-tabs-base-border:transparent;--rui-tabs-base-shadow:none;--rui-control-base-shadow:var(--rui-tabs-base-shadow,none);border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-tabs-border,var(--rui-tabs-base-border,transparent)));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);margin:0;padding-block:0.125rem;padding-inline:var(--rui-tabs-padding-inline-start,0.375rem) var(--rui-tabs-padding-inline-end,0.375rem);background:var(--rui-tabs-bg,var(--rui-tabs-base-bg,transparent));color:var(--rui-tabs-fg,var(--rui-tabs-base-fg,inherit));box-shadow:var(--rui-control-shadow,var(--rui-tabs-shadow,var(--rui-tabs-base-shadow,none)));font-size:0.875rem;line-height:1.25rem;font-weight:500;text-align:center;white-space:nowrap;cursor:pointer;user-select:none;appearance:none;-webkit-appearance:none;outline-offset:2px"
 
 ///|
 const TabsTriggerActiveStyle : String = "--rui-tabs-base-border:var(--rui-tabs-active-border,transparent);--rui-tabs-base-bg:var(--rui-tabs-active-bg,var(--rui-background,oklch(1 0 0)));--rui-tabs-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-tabs-base-shadow:var(--rui-tabs-active-shadow,0 1px 2px rgb(0 0 0 / 0.05))"

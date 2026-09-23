@@ -96,3 +96,29 @@ test('select typeahead chooses an enabled match and keyboard navigation skips di
     'true',
   );
 });
+
+test('combobox popup matches its complete control while filtering and resizing', async ({ page }) => {
+  await page.goto('/');
+  const input = page.locator('#fixture-combobox-input');
+  const control = page.locator('#fixture-combobox-control');
+  const popup = page.locator('#fixture-combobox-content');
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await input.fill('mo');
+    await expect(popup).toBeVisible();
+    for (const query of ['mo', 'zzz', '']) {
+      await input.fill(query);
+      await expect.poll(async () => {
+        const anchor = await control.boundingBox();
+        const box = await popup.boundingBox();
+        return anchor && box ? Math.abs(box.width - anchor.width) : Infinity;
+      }).toBeLessThan(1);
+      const anchor = (await control.boundingBox())!;
+      const box = (await popup.boundingBox())!;
+      expect(Math.abs(box.x - anchor.x)).toBeLessThan(1);
+      expect(box.x).toBeGreaterThanOrEqual(0);
+      expect(box.x + box.width).toBeLessThanOrEqual(width);
+    }
+    await input.press('Escape');
+  }
+});

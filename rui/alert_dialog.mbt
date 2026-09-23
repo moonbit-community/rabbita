@@ -1,5 +1,5 @@
 ///|
-const AlertDialogMediaStyle : String = "display:inline-flex;width:4rem;height:4rem;flex-shrink:0;align-items:center;justify-content:center;margin-bottom:0.5rem;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-muted,oklch(0.97 0 0));color:var(--rui-muted-foreground,oklch(0.556 0 0))"
+const AlertDialogMediaStyle : String = "display:inline-flex;width:2.5rem;height:2.5rem;flex-shrink:0;align-items:center;justify-content:center;margin-bottom:0.5rem;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-muted,oklch(0.97 0 0));color:var(--rui-muted-foreground,oklch(0.556 0 0))"
 
 ///|
 /// Render a native alert dialog without component state or an implicit close icon.

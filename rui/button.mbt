@@ -33,13 +33,13 @@ pub extend ButtonSize with Debug::{to_repr}
 pub extend ButtonSize with Eq::{equal, not_equal}
 
 ///|
-const ButtonBaseStyle : String = "display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;gap:var(--rui-button-gap,0.5rem);--rui-button-base-bg:transparent;--rui-button-base-fg:currentColor;--rui-button-base-border:transparent;--rui-button-base-shadow:none;--rui-button-padding-inline:1rem;--rui-button-icon-size:1rem;border-style:solid;border-color:var(--rui-button-border,var(--rui-button-base-border,transparent));border-top-width:var(--rui-control-border-top-width,var(--rui-control-border-width,1px));border-right-width:var(--rui-control-border-right-width,var(--rui-control-border-width,1px));border-bottom-width:var(--rui-control-border-bottom-width,var(--rui-control-border-width,1px));border-left-width:var(--rui-control-border-left-width,var(--rui-control-border-width,1px));border-top-left-radius:var(--rui-control-radius-top-left,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));border-top-right-radius:var(--rui-control-radius-top-right,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));border-bottom-right-radius:var(--rui-control-radius-bottom-right,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));border-bottom-left-radius:var(--rui-control-radius-bottom-left,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));margin:0;padding-block:0;padding-inline:var(--rui-button-padding-inline);background:var(--rui-button-bg,var(--rui-button-base-bg,transparent));background-clip:padding-box;color:var(--rui-button-fg,var(--rui-button-base-fg,currentColor));box-shadow:var(--rui-button-shadow,var(--rui-button-base-shadow,none));font-size:0.875rem;line-height:1.25rem;font-weight:500;white-space:nowrap;cursor:pointer;user-select:none;appearance:none;-webkit-appearance:none;outline:none;vertical-align:middle"
+const ButtonBaseStyle : String = "display:inline-flex;flex-shrink:0;align-items:center;justify-content:center;gap:var(--rui-button-gap,0.375rem);--rui-button-base-bg:transparent;--rui-button-base-fg:currentColor;--rui-button-base-border:transparent;--rui-button-base-shadow:none;--rui-button-padding-inline:0.625rem;--rui-button-icon-size:1rem;border-style:solid;border-color:var(--rui-button-border,var(--rui-button-base-border,transparent));border-top-width:var(--rui-control-border-top-width,var(--rui-control-border-width,1px));border-right-width:var(--rui-control-border-right-width,var(--rui-control-border-width,1px));border-bottom-width:var(--rui-control-border-bottom-width,var(--rui-control-border-width,1px));border-left-width:var(--rui-control-border-left-width,var(--rui-control-border-width,1px));border-top-left-radius:var(--rui-control-radius-top-left,var(--rui-control-radius,var(--rui-button-group-radius,var(--rui-button-size-radius,var(--rui-radius,0.625rem)))));border-top-right-radius:var(--rui-control-radius-top-right,var(--rui-control-radius,var(--rui-button-group-radius,var(--rui-button-size-radius,var(--rui-radius,0.625rem)))));border-bottom-right-radius:var(--rui-control-radius-bottom-right,var(--rui-control-radius,var(--rui-button-group-radius,var(--rui-button-size-radius,var(--rui-radius,0.625rem)))));border-bottom-left-radius:var(--rui-control-radius-bottom-left,var(--rui-control-radius,var(--rui-button-group-radius,var(--rui-button-size-radius,var(--rui-radius,0.625rem)))));margin:0;padding-block:0;padding-inline:var(--rui-button-padding-inline-start,var(--rui-button-padding-inline)) var(--rui-button-padding-inline-end,var(--rui-button-padding-inline));background:var(--rui-button-bg,var(--rui-button-base-bg,transparent));background-clip:padding-box;color:var(--rui-button-fg,var(--rui-button-base-fg,currentColor));box-shadow:var(--rui-button-shadow,var(--rui-button-base-shadow,none));font-size:0.875rem;line-height:1.25rem;font-weight:500;white-space:nowrap;cursor:default;user-select:none;appearance:none;-webkit-appearance:none;outline:none;vertical-align:middle"
 
 ///|
 const ButtonDefaultStyle : String = "--rui-button-base-bg:var(--rui-primary,oklch(0.205 0 0));--rui-button-base-fg:var(--rui-primary-foreground,oklch(0.985 0 0));--rui-button-base-border:transparent;--rui-button-base-shadow:none"
 
 ///|
-const ButtonOutlineStyle : String = "--rui-button-base-bg:var(--rui-outline-background,var(--rui-background,oklch(1 0 0)));--rui-button-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-button-base-border:var(--rui-outline-border,var(--rui-input,oklch(0.922 0 0)));--rui-button-base-shadow:0 1px 2px rgb(0 0 0 / 0.05)"
+const ButtonOutlineStyle : String = "--rui-button-base-bg:var(--rui-outline-background,var(--rui-background,oklch(1 0 0)));--rui-button-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-button-base-border:var(--rui-outline-border,var(--rui-input,oklch(0.922 0 0)));--rui-button-base-shadow:none"
 
 ///|
 const ButtonSecondaryStyle : String = "--rui-button-base-bg:var(--rui-secondary,oklch(0.97 0 0));--rui-button-base-fg:var(--rui-secondary-foreground,oklch(0.205 0 0));--rui-button-base-border:transparent;--rui-button-base-shadow:none"
@@ -48,34 +48,34 @@ const ButtonSecondaryStyle : String = "--rui-button-base-bg:var(--rui-secondary,
 const ButtonGhostStyle : String = "--rui-button-base-bg:transparent;--rui-button-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-button-base-border:transparent;--rui-button-base-shadow:none"
 
 ///|
-const ButtonDestructiveStyle : String = "--rui-button-base-bg:var(--rui-destructive-surface,var(--rui-destructive,oklch(0.577 0.245 27.325)));--rui-button-base-fg:white;--rui-button-base-border:transparent;--rui-button-base-shadow:none"
+const ButtonDestructiveStyle : String = "--rui-button-base-bg:var(--rui-destructive-subtle,oklch(0.577 0.245 27.325 / 0.1));--rui-button-base-fg:var(--rui-destructive,oklch(0.577 0.245 27.325));--rui-button-base-border:transparent;--rui-button-base-shadow:none"
 
 ///|
 const ButtonLinkStyle : String = "height:auto;--rui-button-base-bg:transparent;--rui-button-base-fg:var(--rui-primary,oklch(0.205 0 0));--rui-button-base-border:transparent;--rui-button-base-shadow:none;text-underline-offset:4px"
 
 ///|
-const ButtonSizeDefaultStyle : String = "height:2.25rem;--rui-button-padding-inline:1rem;--rui-button-padding-inline-with-icon:0.75rem"
+const ButtonSizeDefaultStyle : String = "height:2rem;--rui-button-padding-inline:0.625rem;--rui-button-padding-inline-with-icon:0.5rem"
 
 ///|
-const ButtonSizeXsStyle : String = "height:1.5rem;--rui-button-gap:0.25rem;--rui-button-padding-inline:0.5rem;--rui-button-padding-inline-with-icon:0.375rem;--rui-button-icon-size:0.75rem;font-size:0.75rem;line-height:1rem"
+const ButtonSizeXsStyle : String = "height:1.5rem;--rui-button-size-radius:min(calc(var(--rui-radius,0.625rem) - 0.125rem),10px);--rui-button-gap:0.25rem;--rui-button-padding-inline:0.5rem;--rui-button-padding-inline-with-icon:0.375rem;--rui-button-icon-size:0.75rem;font-size:0.75rem;line-height:1rem"
 
 ///|
-const ButtonSizeSmStyle : String = "height:2rem;--rui-button-gap:0.375rem;--rui-button-padding-inline:0.75rem;--rui-button-padding-inline-with-icon:0.625rem"
+const ButtonSizeSmStyle : String = "height:1.75rem;--rui-button-size-radius:min(calc(var(--rui-radius,0.625rem) - 0.125rem),12px);--rui-button-gap:0.25rem;--rui-button-padding-inline:0.625rem;--rui-button-padding-inline-with-icon:0.375rem;--rui-button-icon-size:0.875rem;font-size:0.8rem"
 
 ///|
-const ButtonSizeLgStyle : String = "height:2.5rem;--rui-button-padding-inline:1.5rem;--rui-button-padding-inline-with-icon:1rem"
+const ButtonSizeLgStyle : String = "height:2.25rem;--rui-button-padding-inline:0.625rem;--rui-button-padding-inline-with-icon:0.5rem"
 
 ///|
-const ButtonSizeIconStyle : String = "width:2.25rem;height:2.25rem;--rui-button-padding-inline:0"
+const ButtonSizeIconStyle : String = "width:2rem;height:2rem;--rui-button-padding-inline:0"
 
 ///|
-const ButtonSizeIconXsStyle : String = "width:1.5rem;height:1.5rem;--rui-button-padding-inline:0;--rui-button-icon-size:0.75rem"
+const ButtonSizeIconXsStyle : String = "width:1.5rem;height:1.5rem;--rui-button-size-radius:min(calc(var(--rui-radius,0.625rem) - 0.125rem),10px);--rui-button-padding-inline:0;--rui-button-icon-size:0.75rem"
 
 ///|
-const ButtonSizeIconSmStyle : String = "width:2rem;height:2rem;--rui-button-padding-inline:0"
+const ButtonSizeIconSmStyle : String = "width:1.75rem;height:1.75rem;--rui-button-size-radius:min(calc(var(--rui-radius,0.625rem) - 0.125rem),12px);--rui-button-padding-inline:0"
 
 ///|
-const ButtonSizeIconLgStyle : String = "width:2.5rem;height:2.5rem;--rui-button-padding-inline:0"
+const ButtonSizeIconLgStyle : String = "width:2.25rem;height:2.25rem;--rui-button-padding-inline:0"
 
 ///|
 fn button_variant_value(variant : ButtonVariant) -> String {
@@ -130,7 +130,10 @@ fn button_size_style(size : ButtonSize) -> String {
 }
 
 ///|
-/// Render a native button with shadcn/ui Vega variants and sizes.
+/// Render a native button with shadcn/ui Nova variants and sizes.
+///
+/// Mark icons with `data-icon="inline-start"` or `data-icon="inline-end"`
+/// to reduce padding on the corresponding side.
 ///
 /// User styles are appended last and therefore override the built-in recipe.
 pub fn[C : @html.IsChildren] button(

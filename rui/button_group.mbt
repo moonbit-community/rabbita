@@ -8,7 +8,7 @@ const ButtonGroupVerticalStyle : String = "flex-direction:column"
 const ButtonGroupHorizontalStyle : String = "flex-direction:row"
 
 ///|
-const ButtonGroupTextStyle : String = "display:flex;align-items:center;gap:0.5rem;border-style:solid;border-color:var(--rui-border,oklch(0.922 0 0));border-top-width:var(--rui-control-border-top-width,var(--rui-control-border-width,1px));border-right-width:var(--rui-control-border-right-width,var(--rui-control-border-width,1px));border-bottom-width:var(--rui-control-border-bottom-width,var(--rui-control-border-width,1px));border-left-width:var(--rui-control-border-left-width,var(--rui-control-border-width,1px));border-top-left-radius:var(--rui-control-radius-top-left,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));border-top-right-radius:var(--rui-control-radius-top-right,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));border-bottom-right-radius:var(--rui-control-radius-bottom-right,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));border-bottom-left-radius:var(--rui-control-radius-bottom-left,var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem)));background:var(--rui-muted,oklch(0.97 0 0));padding-inline:0.625rem;color:var(--rui-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;font-weight:500;box-shadow:0 1px 2px rgb(0 0 0 / 0.05)"
+const ButtonGroupTextStyle : String = "display:flex;align-items:center;gap:0.5rem;border-style:solid;border-color:var(--rui-border,oklch(0.922 0 0));border-top-width:var(--rui-control-border-top-width,var(--rui-control-border-width,1px));border-right-width:var(--rui-control-border-right-width,var(--rui-control-border-width,1px));border-bottom-width:var(--rui-control-border-bottom-width,var(--rui-control-border-width,1px));border-left-width:var(--rui-control-border-left-width,var(--rui-control-border-width,1px));border-top-left-radius:var(--rui-control-radius-top-left,var(--rui-control-radius,var(--rui-radius,0.625rem)));border-top-right-radius:var(--rui-control-radius-top-right,var(--rui-control-radius,var(--rui-radius,0.625rem)));border-bottom-right-radius:var(--rui-control-radius-bottom-right,var(--rui-control-radius,var(--rui-radius,0.625rem)));border-bottom-left-radius:var(--rui-control-radius-bottom-left,var(--rui-control-radius,var(--rui-radius,0.625rem)));background:var(--rui-muted,oklch(0.97 0 0));padding-inline:0.625rem;color:var(--rui-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;font-weight:500;box-shadow:none"
 
 ///|
 fn button_group_orientation_style(orientation : SeparatorOrientation) -> String {
@@ -19,7 +19,7 @@ fn button_group_orientation_style(orientation : SeparatorOrientation) -> String 
 }
 
 ///|
-/// Group Buttons, Toggles, inputs, or text into one contiguous Vega control.
+/// Group Buttons, Toggles, inputs, or text into one contiguous Nova control.
 ///
 /// The interaction sheet merges adjacent borders and corner radii. Keeping
 /// those rules on the children preserves each control's own variant surface.

@@ -1,5 +1,5 @@
 ///|
-const TextareaBaseStyle : String = "display:flex;width:100%;min-height:4rem;min-width:0;field-sizing:content;resize:vertical;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 1px 2px rgb(0 0 0 / 0.05);border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));padding:0.5rem 0.625rem;color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 1px 2px rgb(0 0 0 / 0.05)));font-size:1rem;line-height:1.5rem;outline-offset:2px"
+const TextareaBaseStyle : String = "display:flex;width:100%;min-height:4rem;min-width:0;field-sizing:content;resize:vertical;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 0 #0000;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:var(--rui-radius,0.625rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));padding:0.5rem 0.625rem;color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 0 #0000));font-size:var(--rui-control-font-size,1rem);line-height:var(--rui-control-line-height,1.5rem);outline-offset:2px"
 
 ///|
 const TextareaInvalidStyle : String = "border-color:var(--rui-destructive-border,var(--rui-destructive,oklch(0.577 0.245 27.325)));box-shadow:0 0 0 3px var(--rui-destructive-ring,oklch(0.577 0.245 27.325 / 0.2))"
@@ -14,7 +14,7 @@ fn textarea_invalid_style(invalid : Bool) -> String {
 }
 
 ///|
-/// Render a controlled native textarea using the shadcn/ui Vega field recipe.
+/// Render a controlled native textarea using the shadcn/ui Nova field recipe.
 ///
 /// `on_input` is the immediate value-change channel; `on_change` follows the
 /// browser's native change event. User styles are appended last.

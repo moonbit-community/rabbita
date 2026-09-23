@@ -26,13 +26,13 @@ const IgNavigationContentStyle : String = "box-sizing:border-box;display:grid;gr
 const IgNavigationLinkStyle : String = "display:flex;min-height:4.5rem;flex-direction:column;justify-content:center;gap:0.25rem"
 
 ///|
-const IgSidebarVariantFrameStyle : String = "--rui-sidebar-width:15rem;height:24rem;min-height:24rem;overflow:hidden"
+const IgSidebarVariantFrameStyle : String = "container-type:inline-size;--rui-sidebar-width:min(15rem,44cqw);--rui-sidebar-max-width:44cqw;height:24rem;min-height:24rem;overflow:hidden"
 
 ///|
 const IgSidebarWorkspaceStyle : String = "box-sizing:border-box;display:flex;min-width:0;flex:1;flex-direction:column;padding:0.75rem"
 
 ///|
-const IgSidebarWorkspaceBodyStyle : String = "display:flex;min-height:0;flex:1;align-items:center;justify-content:center;padding:1rem"
+const IgSidebarWorkspaceBodyStyle : String = "display:flex;min-height:0;flex:1;align-items:center;justify-content:center;padding:1rem 0"
 
 ///|
 const IgContextTargetStyle : String = "display:flex;min-height:8rem;align-items:center;justify-content:center;border:1px dashed var(--rui-border);border-radius:var(--rui-radius);background:var(--rui-muted);color:var(--rui-muted-foreground);font-size:0.8125rem;text-align:center;user-select:none"
@@ -531,7 +531,7 @@ fn ig_sidebar_variant(
       let rail = if mobile || !interactive {
         @html.nothing
       } else if resizable {
-        @rui.sidebar_rail(scope, min_width=192, max_width=352)
+        @rui.sidebar_rail(scope, min_width=112, max_width=352)
       } else {
         @rui.sidebar_rail(scope)
       }
@@ -1388,7 +1388,7 @@ fn ig_hover_card_variant(
         "Native MoonBit components with incremental state.",
       ),
       @html.div(style=[RowStyle], [
-        @rui.badge(variant=Secondary, "Vega"),
+        @rui.badge(variant=Secondary, "Nova"),
         @rui.badge(variant=Outline, "Inline"),
       ]),
     ]),

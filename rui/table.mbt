@@ -48,7 +48,7 @@ fn table_row_state_style(selected : Bool, expanded : Bool) -> String {
 }
 
 ///|
-/// Render a semantic native table inside Vega's horizontal-scroll container.
+/// Render a semantic native table inside Nova's horizontal-scroll container.
 ///
 /// `style` and `attrs` belong to the native `table`; use `container_style` and
 /// `container_attrs` when the scroll wrapper needs customization.

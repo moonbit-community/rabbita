@@ -848,7 +848,7 @@ const FdvItemMutedImageCode : String =
   #|  ),
   #|  @rui.item_content([
   #|    @rui.item_header("Preview build"),
-  #|    @rui.item_title("Vega surface"),
+  #|    @rui.item_title("Nova surface"),
   #|    @rui.item_description("Generated from the current token set."),
   #|    @rui.item_footer("Updated moments ago"),
   #|  ]),
@@ -1181,7 +1181,7 @@ fn fdv_items_demo() -> @html.Html {
           ),
           @rui.item_content([
             @rui.item_header("Preview build"),
-            @rui.item_title("Vega surface"),
+            @rui.item_title("Nova surface"),
             @rui.item_description("Generated from the current token set."),
             @rui.item_footer("Updated moments ago"),
           ]),

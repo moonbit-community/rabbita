@@ -149,9 +149,9 @@ fn[C : @html.IsChildren] render_toggle_group(
       [
         UiBoxSizing,
         UiFontSans,
-        "--rui-toggle-group-gap:\{gap}rem;display:inline-flex;width:fit-content;align-items:center;gap:var(--rui-toggle-group-gap);border-radius:var(--rui-control-radius,calc(var(--rui-radius,0.625rem) - 0.125rem))",
-        if spacing == 0 && variant is Outline {
-          UiShadowXs
+        "--rui-toggle-group-gap:\{gap}rem;display:inline-flex;width:fit-content;align-items:center;gap:var(--rui-toggle-group-gap);border-radius:var(--rui-control-radius,var(--rui-toggle-group-radius,var(--rui-radius,0.625rem)))",
+        if size is Sm {
+          "--rui-toggle-group-radius:min(calc(var(--rui-radius,0.625rem) - 0.125rem),10px)"
         } else {
           ""
         },
@@ -320,7 +320,7 @@ pub fn[C : @html.IsChildren] toggle_group_item(
     attrs=item_attrs,
     style=ui_styles(
       [
-        "width:auto;min-width:0;flex-shrink:0;--rui-toggle-padding-inline:0.75rem",
+        "width:auto;min-width:0;flex-shrink:0;--rui-toggle-padding-inline:0.625rem",
         if scope.spacing == 0 {
           "--rui-toggle-base-radius:0;--rui-toggle-base-shadow:none"
         } else {

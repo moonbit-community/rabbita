@@ -40,7 +40,7 @@ fn typography_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 }
 
 ///|
-/// Render the Vega display heading recipe as a semantic `h1`.
+/// Render the Nova display heading recipe as a semantic `h1`.
 pub fn[C : @html.IsChildren] typography_h1(
   id? : String,
   class? : String,
@@ -65,7 +65,7 @@ pub fn[C : @html.IsChildren] typography_h1(
 }
 
 ///|
-/// Render the Vega section heading recipe as a semantic `h2`.
+/// Render the Nova section heading recipe as a semantic `h2`.
 pub fn[C : @html.IsChildren] typography_h2(
   id? : String,
   class? : String,
@@ -90,7 +90,7 @@ pub fn[C : @html.IsChildren] typography_h2(
 }
 
 ///|
-/// Render the Vega subsection heading recipe as a semantic `h3`.
+/// Render the Nova subsection heading recipe as a semantic `h3`.
 pub fn[C : @html.IsChildren] typography_h3(
   id? : String,
   class? : String,
@@ -115,7 +115,7 @@ pub fn[C : @html.IsChildren] typography_h3(
 }
 
 ///|
-/// Render the Vega compact heading recipe as a semantic `h4`.
+/// Render the Nova compact heading recipe as a semantic `h4`.
 pub fn[C : @html.IsChildren] typography_h4(
   id? : String,
   class? : String,
@@ -165,7 +165,7 @@ pub fn[C : @html.IsChildren] typography_p(
 }
 
 ///|
-/// Render the Vega quotation recipe as a semantic `blockquote`.
+/// Render the Nova quotation recipe as a semantic `blockquote`.
 pub fn[C : @html.IsChildren] typography_blockquote(
   id? : String,
   class? : String,
@@ -190,7 +190,7 @@ pub fn[C : @html.IsChildren] typography_blockquote(
 }
 
 ///|
-/// Render the Vega bulleted-list recipe as a semantic `ul`.
+/// Render the Nova bulleted-list recipe as a semantic `ul`.
 pub fn[C : @html.IsChildren] typography_list(
   id? : String,
   class? : String,
@@ -240,7 +240,7 @@ pub fn[C : @html.IsChildren] typography_inline_code(
 }
 
 ///|
-/// Render introductory copy with the Vega lead treatment.
+/// Render introductory copy with the Nova lead treatment.
 pub fn[C : @html.IsChildren] typography_lead(
   id? : String,
   class? : String,

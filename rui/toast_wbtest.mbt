@@ -1,5 +1,5 @@
 ///|
-test "toast and Sonner share the single overridable Vega shadow" {
+test "toast and Sonner share the single overridable Nova shadow" {
   assert_eq(
     ToastCardShadowStyle,
     "--rui-toast-base-shadow:0 4px 12px rgb(0 0 0 / 0.1)",

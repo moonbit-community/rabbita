@@ -2,7 +2,7 @@
 const PaginationRootStyle : String = "display:flex;width:100%;min-width:0;justify-content:center;margin-inline:auto"
 
 ///|
-const PaginationContentStyle : String = "display:flex;max-width:100%;flex-wrap:nowrap;align-items:center;justify-content:center;gap:0.25rem;margin:0;padding:0;list-style:none"
+const PaginationContentStyle : String = "display:flex;max-width:100%;flex-wrap:nowrap;align-items:center;justify-content:center;gap:0.125rem;margin:0;padding:0;list-style:none"
 
 ///|
 const PaginationItemStyle : String = "display:block"
@@ -11,10 +11,10 @@ const PaginationItemStyle : String = "display:block"
 const PaginationLinkResetStyle : String = "text-decoration:none"
 
 ///|
-const PaginationPreviousStyle : String = "padding-inline-start:0.5rem"
+const PaginationPreviousStyle : String = "padding-inline-start:0.375rem"
 
 ///|
-const PaginationNextStyle : String = "padding-inline-end:0.5rem"
+const PaginationNextStyle : String = "padding-inline-end:0.375rem"
 
 ///|
 const PaginationChevronBoxStyle : String = "display:inline-flex;width:1rem;height:1rem;flex-shrink:0;align-items:center;justify-content:center"
@@ -29,7 +29,7 @@ const PaginationChevronPreviousStyle : String = "transform:rotate(135deg)"
 const PaginationChevronNextStyle : String = "transform:rotate(-45deg)"
 
 ///|
-const PaginationEllipsisStyle : String = "display:inline-flex;width:2.25rem;height:2.25rem;align-items:center;justify-content:center;color:var(--rui-muted-foreground,oklch(0.556 0 0))"
+const PaginationEllipsisStyle : String = "display:inline-flex;width:2rem;height:2rem;align-items:center;justify-content:center;color:var(--rui-muted-foreground,oklch(0.556 0 0))"
 
 ///|
 const PaginationDotsStyle : String = "display:block;width:0.1875rem;height:0.1875rem;border-radius:9999px;background:currentColor;box-shadow:-0.3125rem 0 currentColor,0.3125rem 0 currentColor"
@@ -138,7 +138,7 @@ pub fn[C : @html.IsChildren] pagination_item(
 }
 
 ///|
-/// Render a native page anchor using the Vega button recipe.
+/// Render a native page anchor using the Nova button recipe.
 ///
 /// Active links expose both `aria-current="page"` and stable data state.
 pub fn[C : @html.IsChildren] pagination_link(

@@ -5,7 +5,7 @@
 
 RUI (`moonbit-community/rui`) is a native component library for
 [Rabbita](https://github.com/moonbit-community/rabbita), inspired by the
-shadcn/ui Vega visual language.
+[shadcn/ui Nova](https://ui.shadcn.com/r/styles/base-nova/registry.json) visual language.
 
 [Browse the component showcase](https://moonbit-community.github.io/rabbita/components/)
 

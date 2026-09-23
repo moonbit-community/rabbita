@@ -29,7 +29,7 @@ const AccordionRootStyle : String = "display:block;width:100%;min-width:0;color:
 const AccordionItemStyle : String = "display:block;width:100%;min-width:0;border-bottom:1px solid var(--rui-border,oklch(0.922 0 0))"
 
 ///|
-const AccordionTriggerStyle : String = "display:flex;width:100%;min-height:3rem;align-items:center;justify-content:space-between;gap:0.75rem;border:1px solid var(--rui-accordion-border,var(--rui-accordion-base-border,transparent));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);margin:0;padding:0.75rem 0;background:var(--rui-accordion-bg,var(--rui-accordion-base-bg,transparent));color:var(--rui-accordion-fg,var(--rui-accordion-base-fg,inherit));box-shadow:var(--rui-accordion-shadow,var(--rui-accordion-base-shadow,none));font-size:0.875rem;line-height:1.25rem;font-weight:500;text-align:start;list-style:none;cursor:pointer;user-select:none;outline-offset:2px"
+const AccordionTriggerStyle : String = "display:flex;width:100%;align-items:flex-start;justify-content:space-between;gap:0.75rem;border:1px solid var(--rui-accordion-border,var(--rui-accordion-base-border,transparent));border-radius:var(--rui-radius,0.625rem);margin:0;padding:0.625rem 0;background:var(--rui-accordion-bg,var(--rui-accordion-base-bg,transparent));color:var(--rui-accordion-fg,var(--rui-accordion-base-fg,inherit));box-shadow:var(--rui-accordion-shadow,var(--rui-accordion-base-shadow,none));font-size:0.875rem;line-height:1.25rem;font-weight:500;text-align:start;list-style:none;cursor:pointer;user-select:none;outline-offset:2px"
 
 ///|
 const AccordionTriggerOpenStyle : String = "--rui-accordion-base-fg:var(--rui-foreground,oklch(0.145 0 0))"
@@ -62,7 +62,7 @@ const AccordionContentClosedStyle : String = "--rui-accordion-content-rows:0fr;-
 const AccordionContentClipStyle : String = "min-width:0;min-height:0;overflow:hidden"
 
 ///|
-const AccordionContentStyle : String = "min-width:0;padding:0 0 1rem;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;line-height:1.5;overflow-wrap:anywhere"
+const AccordionContentStyle : String = "min-width:0;padding:0 0 0.625rem;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;line-height:1.5;overflow-wrap:anywhere"
 
 ///|
 fn accordion_type_value(type_ : AccordionType) -> String {

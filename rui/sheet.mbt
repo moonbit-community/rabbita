@@ -98,7 +98,7 @@ pub fn[C : @html.IsChildren] sheet(
       if show_close {
         @html.form(
           method_="dialog",
-          style=["position:absolute;top:1rem;inset-inline-end:1rem"],
+          style=["position:absolute;top:0.75rem;inset-inline-end:0.75rem"],
           button(
             variant=Ghost,
             size=IconSm,
@@ -133,7 +133,7 @@ pub fn[C : @html.IsChildren] sheet_header(
 ) -> @html.Html {
   @html.div(
     style=ui_styles(
-      [UiBoxSizing, DialogHeaderStyle, "margin-block-end:1rem"],
+      [UiBoxSizing, DialogHeaderStyle, "gap:0.125rem;margin-block-end:1rem"],
       style,
     ),
     id?,
@@ -155,7 +155,10 @@ pub fn[C : @html.IsChildren] sheet_footer(
 ) -> @html.Html {
   @html.div(
     style=ui_styles(
-      [UiBoxSizing, DialogFooterStyle, "margin-block-start:1rem"],
+      [
+        UiBoxSizing,
+        "display:flex;flex-direction:column;gap:0.5rem;margin-block-start:1rem",
+      ],
       style,
     ),
     id?,

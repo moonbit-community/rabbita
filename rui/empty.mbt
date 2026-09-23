@@ -11,7 +11,7 @@ pub extend EmptyMediaVariant with Debug::{to_repr}
 pub extend EmptyMediaVariant with Eq::{equal, not_equal}
 
 ///|
-const EmptyStyle : String = "display:flex;min-width:0;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;border-style:dashed;border-radius:var(--rui-radius,0.625rem);padding:var(--rui-empty-padding,1.5rem);text-align:center;text-wrap:balance"
+const EmptyStyle : String = "display:flex;width:100%;min-width:0;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:1rem;border:0 dashed var(--rui-border,oklch(0.922 0 0));border-radius:calc(var(--rui-radius,0.625rem) + 0.25rem);padding:var(--rui-empty-padding,1.5rem);text-align:center;text-wrap:balance"
 
 ///|
 const EmptyHeaderStyle : String = "display:flex;max-width:24rem;min-width:0;flex-direction:column;align-items:center;gap:0.5rem;text-align:center;overflow-wrap:anywhere"
@@ -20,16 +20,16 @@ const EmptyHeaderStyle : String = "display:flex;max-width:24rem;min-width:0;flex
 const EmptyMediaStyle : String = "display:flex;flex-shrink:0;align-items:center;justify-content:center;margin-bottom:0.5rem"
 
 ///|
-const EmptyMediaIconStyle : String = "width:2.5rem;height:2.5rem;border-radius:0.5rem;background:var(--rui-muted,oklch(0.97 0 0));color:var(--rui-foreground,oklch(0.145 0 0));--rui-icon-size:1.5rem"
+const EmptyMediaIconStyle : String = "width:2rem;height:2rem;border-radius:0.5rem;background:var(--rui-muted,oklch(0.97 0 0));color:var(--rui-foreground,oklch(0.145 0 0));--rui-icon-size:1rem"
 
 ///|
-const EmptyTitleStyle : String = "font-size:1.125rem;line-height:1.75rem;font-weight:500;letter-spacing:-0.025em"
+const EmptyTitleStyle : String = "font-size:0.875rem;line-height:1.25rem;font-weight:500;letter-spacing:-0.025em"
 
 ///|
 const EmptyDescriptionStyle : String = "color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;line-height:1.625"
 
 ///|
-const EmptyContentStyle : String = "display:flex;width:100%;max-width:24rem;min-width:0;flex-direction:column;align-items:center;gap:1rem;font-size:0.875rem;text-wrap:balance;overflow-wrap:anywhere"
+const EmptyContentStyle : String = "display:flex;width:100%;max-width:24rem;min-width:0;flex-direction:column;align-items:center;gap:0.625rem;font-size:0.875rem;text-wrap:balance;overflow-wrap:anywhere"
 
 ///|
 pub fn[C : @html.IsChildren] empty(

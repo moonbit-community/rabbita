@@ -15,7 +15,7 @@ pub extend BadgeVariant with Debug::{to_repr}
 pub extend BadgeVariant with Eq::{equal, not_equal}
 
 ///|
-const BadgeBaseStyle : String = "display:inline-flex;width:fit-content;height:1.25rem;flex-shrink:0;align-items:center;justify-content:center;gap:0.25rem;overflow:hidden;border:1px solid var(--rui-badge-border,var(--rui-badge-base-border,transparent));border-radius:9999px;padding:0.125rem 0.5rem;background:var(--rui-badge-bg,var(--rui-badge-base-bg,transparent));color:var(--rui-badge-fg,var(--rui-badge-base-fg,currentColor));box-shadow:var(--rui-badge-shadow,none);font-size:0.75rem;line-height:1rem;font-weight:500;white-space:nowrap;vertical-align:middle;outline:none;--rui-icon-size:0.75rem"
+const BadgeBaseStyle : String = "display:inline-flex;width:fit-content;height:1.25rem;flex-shrink:0;align-items:center;justify-content:center;gap:0.25rem;overflow:hidden;border:1px solid var(--rui-badge-border,var(--rui-badge-base-border,transparent));border-radius:9999px;padding-block:0.125rem;padding-inline:var(--rui-badge-padding-inline-start,0.5rem) var(--rui-badge-padding-inline-end,0.5rem);background:var(--rui-badge-bg,var(--rui-badge-base-bg,transparent));color:var(--rui-badge-fg,var(--rui-badge-base-fg,currentColor));box-shadow:var(--rui-badge-shadow,none);font-size:0.75rem;line-height:1rem;font-weight:500;white-space:nowrap;vertical-align:middle;outline:none;--rui-icon-size:0.75rem"
 
 ///|
 const BadgeDefaultStyle : String = "--rui-badge-base-bg:var(--rui-primary,oklch(0.205 0 0));--rui-badge-base-fg:var(--rui-primary-foreground,oklch(0.985 0 0));--rui-badge-base-border:transparent"
@@ -24,7 +24,7 @@ const BadgeDefaultStyle : String = "--rui-badge-base-bg:var(--rui-primary,oklch(
 const BadgeSecondaryStyle : String = "--rui-badge-base-bg:var(--rui-secondary,oklch(0.97 0 0));--rui-badge-base-fg:var(--rui-secondary-foreground,oklch(0.205 0 0));--rui-badge-base-border:transparent"
 
 ///|
-const BadgeDestructiveStyle : String = "--rui-badge-base-bg:var(--rui-destructive-surface,var(--rui-destructive,oklch(0.577 0.245 27.325)));--rui-badge-base-fg:white;--rui-badge-base-border:transparent"
+const BadgeDestructiveStyle : String = "--rui-badge-base-bg:var(--rui-destructive-subtle,oklch(0.577 0.245 27.325 / 0.1));--rui-badge-base-fg:var(--rui-destructive,oklch(0.577 0.245 27.325));--rui-badge-base-border:transparent"
 
 ///|
 const BadgeOutlineStyle : String = "--rui-badge-base-bg:transparent;--rui-badge-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-badge-base-border:var(--rui-border,oklch(0.922 0 0))"
@@ -112,7 +112,7 @@ fn badge_bind_disabled_link(attrs : @html.Attrs, disabled : Bool) -> Unit {
 }
 
 ///|
-/// Render the `asChild` anchor path from the Vega badge recipe as a native link.
+/// Render the `asChild` anchor path from the Nova badge recipe as a native link.
 pub fn[C : @html.IsChildren] badge_link(
   href~ : String,
   variant? : BadgeVariant = Default,

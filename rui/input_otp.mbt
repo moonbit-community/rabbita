@@ -113,7 +113,7 @@ pub fn input_otp_slot(
       [
         UiBoxSizing,
         UiTransition,
-        "position:relative;display:flex;width:2.25rem;height:2.25rem;align-items:center;justify-content:center;border-block:1px solid var(--rui-otp-border,var(--rui-input,oklch(0.922 0 0)));border-inline-end:1px solid var(--rui-otp-border,var(--rui-input,oklch(0.922 0 0)));background:var(--rui-input-background,transparent);font-size:0.875rem;line-height:1.25rem;box-shadow:var(--rui-otp-shadow,0 1px 2px rgb(0 0 0 / 0.05));outline:none",
+        "position:relative;display:flex;width:2rem;height:2rem;align-items:center;justify-content:center;border-block:1px solid var(--rui-otp-border,var(--rui-input,oklch(0.922 0 0)));border-inline-end:1px solid var(--rui-otp-border,var(--rui-input,oklch(0.922 0 0)));background:var(--rui-input-background,transparent);font-size:0.875rem;line-height:1.25rem;box-shadow:var(--rui-otp-shadow,none);outline:none",
         if scope.invalid {
           "--rui-otp-border:var(--rui-destructive-border,var(--rui-destructive,oklch(0.577 0.245 27.325)))"
         } else {

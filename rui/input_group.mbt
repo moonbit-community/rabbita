@@ -78,7 +78,7 @@ pub fn[C : @html.IsChildren] input_group(
         UiBoxSizing,
         UiFontSans,
         UiTransition,
-        "position:relative;display:flex;width:100%;height:2rem;min-width:0;min-height:2rem;align-items:center;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 0 #0000;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:var(--rui-radius,0.625rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 0 #0000));outline:none",
+        "position:relative;display:flex;width:100%;height:var(--rui-input-group-height,2rem);min-width:0;min-height:2rem;flex-direction:var(--rui-input-group-direction,row);align-items:var(--rui-input-group-align,center);--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 0 #0000;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:var(--rui-radius,0.625rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 0 #0000));outline:none",
         if invalid {
           InputInvalidStyle
         } else {
@@ -109,6 +109,7 @@ pub fn[C : @html.IsChildren] input_group_addon(
     .data_set("align", input_group_align_value(align))
   let addon_style = ui_styles(
     [
+      UiBoxSizing,
       "display:flex;height:auto;align-items:center;justify-content:center;gap:0.5rem;padding-block:0.375rem;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;font-weight:500;user-select:none;cursor:text",
       input_group_align_style(align),
     ],
@@ -178,7 +179,7 @@ pub fn input_group_control(
     control_attrs,
     ui_styles(
       [
-        "display:flex;width:100%;min-width:0;min-height:2rem;flex:1;border:0;border-radius:0;background:transparent;padding:0.625rem;color:inherit;font:inherit;box-shadow:none;outline:none",
+        "display:flex;width:100%;min-width:0;min-height:2rem;flex:1;border:0;border-radius:0;background:transparent;padding:0.625rem;color:inherit;font:inherit;font-size:var(--rui-control-font-size,1rem);line-height:var(--rui-control-line-height,1.5rem);box-shadow:none;outline:none",
       ],
       style,
     ),
@@ -189,17 +190,19 @@ pub fn input_group_control(
 fn input_group_button_size(size : InputGroupButtonSize) -> (ButtonSize, String) {
   match size {
     InputButtonXs => (Xs, "xs")
-    InputButtonSm => (Sm, "sm")
+    InputButtonSm => (Default, "sm")
     InputButtonIconXs => (IconXs, "icon-xs")
-    InputButtonIconSm => (IconSm, "icon-sm")
+    InputButtonIconSm => (Icon, "icon-sm")
   }
 }
 
 ///|
 fn input_group_button_size_style(size : InputGroupButtonSize) -> String {
   match size {
-    InputButtonXs | InputButtonIconXs =>
-      "--rui-control-radius:calc(var(--rui-radius,0.625rem) - 0.1875rem)"
+    InputButtonXs =>
+      "--rui-control-radius:calc(var(--rui-radius,0.625rem) - 0.1875rem);--rui-button-padding-inline:0.375rem;--rui-button-icon-size:0.875rem;font-size:0.875rem;line-height:1.25rem"
+    InputButtonIconXs =>
+      "--rui-control-radius:calc(var(--rui-radius,0.625rem) - 0.1875rem);--rui-button-icon-size:1rem"
     InputButtonSm | InputButtonIconSm => ""
   }
 }
@@ -276,7 +279,7 @@ pub fn input_group_input(
     slot="input-group-control",
     style=ui_styles(
       [
-        "height:100%;min-height:0;flex:1;border:0;border-radius:0;background:transparent;box-shadow:none;outline:none",
+        "height:var(--rui-input-group-control-height,100%);min-height:0;flex:1;border:0;border-radius:0;background:transparent;padding-inline-start:var(--rui-input-group-padding-start,0.625rem);padding-inline-end:var(--rui-input-group-padding-end,0.625rem);padding-block-start:var(--rui-input-group-padding-top,0.25rem);padding-block-end:var(--rui-input-group-padding-bottom,0.25rem);box-shadow:none;outline:none",
       ],
       style,
     ),

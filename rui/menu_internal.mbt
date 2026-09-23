@@ -48,22 +48,22 @@ pub extend MenuIndicatorPlacement with Eq::{equal, not_equal}
 const MenuRootStyle : String = "display:contents"
 
 ///|
-const MenuContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:max-content;min-width:min(var(--rui-menu-min-width,12rem),calc(100vw - 1rem));max-width:calc(100vw - 1rem);max-height:var(--rui-menu-available-height,calc(100vh - 1rem));transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;gap:0.125rem;overflow-x:hidden;overflow-y:auto;margin:0;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-popover,oklch(1 0 0));padding:0.25rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
+const MenuContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:max-content;min-width:min(var(--rui-menu-min-width,12rem),calc(100vw - 1rem));max-width:calc(100vw - 1rem);max-height:var(--rui-menu-available-height,calc(100vh - 1rem));transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;gap:0;overflow-x:hidden;overflow-y:auto;margin:0;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0.25rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
-const MenuSubContentStyle : String = "position:fixed;inset:auto;left:var(--rui-submenu-left,auto);top:var(--rui-submenu-top,auto);z-index:51;display:flex;width:max-content;min-width:min(var(--rui-menu-min-width,12rem),calc(100vw - 1rem));max-width:min(18rem,calc(100vw - 1rem));max-height:calc(100vh - 1rem);transform-origin:var(--rui-floating-transform-origin,0% 0%);flex-direction:column;gap:0.125rem;overflow-x:hidden;overflow-y:auto;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-popover,oklch(1 0 0));padding:0.25rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
+const MenuSubContentStyle : String = "position:fixed;inset:auto;left:var(--rui-submenu-left,auto);top:var(--rui-submenu-top,auto);z-index:51;display:flex;width:max-content;min-width:min(var(--rui-menu-min-width,12rem),calc(100vw - 1rem));max-width:min(18rem,calc(100vw - 1rem));max-height:calc(100vh - 1rem);transform-origin:var(--rui-floating-transform-origin,0% 0%);flex-direction:column;gap:0;overflow-x:hidden;overflow-y:auto;border:1px solid color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0.25rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
-const MenuItemStyle : String = "position:relative;display:flex;width:100%;min-height:2rem;cursor:default;align-items:center;gap:0.5rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding:0.375rem 0.5rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font:inherit;line-height:1.25rem;text-align:start;white-space:nowrap;outline:none;user-select:none"
+const MenuItemStyle : String = "position:relative;display:flex;width:100%;cursor:default;align-items:center;gap:0.375rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding:0.25rem 0.375rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font:inherit;line-height:1.25rem;text-align:start;white-space:nowrap;outline:none;user-select:none"
 
 ///|
-const MenuItemInsetStyle : String = "padding-inline-start:2rem"
+const MenuItemInsetStyle : String = "padding-inline-start:1.75rem"
 
 ///|
 const MenuItemDestructiveStyle : String = "--rui-menu-item-base-fg:var(--rui-destructive,oklch(0.577 0.245 27.325))"
 
 ///|
-const MenuLabelStyle : String = "padding:0.375rem 0.5rem;font-size:0.75rem;line-height:1rem;font-weight:500;color:var(--rui-muted-foreground,oklch(0.556 0 0))"
+const MenuLabelStyle : String = "padding:0.25rem 0.375rem;font-size:0.75rem;line-height:1rem;font-weight:500;color:var(--rui-muted-foreground,oklch(0.556 0 0))"
 
 ///|
 const MenuSeparatorStyle : String = "height:1px;margin:0.25rem -0.25rem;background:var(--rui-border,oklch(0.922 0 0));pointer-events:none"

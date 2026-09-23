@@ -32,10 +32,10 @@ const PopoverRootStyle : String = "display:contents"
 const PopoverAnchorStyle : String = "position:relative;display:inline-flex;max-width:100%"
 
 ///|
-const PopoverContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:18rem;max-width:calc(100vw - 1rem);transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;gap:1rem;margin:0;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-popover,oklch(1 0 0));padding:1rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1),0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
+const PopoverContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:18rem;max-width:calc(100vw - 1rem);transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;gap:0.625rem;margin:0;border:0;border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0.625rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1),0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
-const PopoverHeaderStyle : String = "display:flex;flex-direction:column;gap:0.25rem;font-size:0.875rem;line-height:1.25rem"
+const PopoverHeaderStyle : String = "display:flex;flex-direction:column;gap:0.125rem;font-size:0.875rem;line-height:1.25rem"
 
 ///|
 const PopoverTitleStyle : String = "margin:0;font-size:0.875rem;line-height:1.25rem;font-weight:500"

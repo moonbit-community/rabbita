@@ -11,19 +11,19 @@ pub extend CardSize with Debug::{to_repr}
 pub extend CardSize with Eq::{equal, not_equal}
 
 ///|
-const CardBaseStyle : String = "--rui-card-radius:calc(var(--rui-radius,0.625rem) + 0.125rem);display:flex;flex-direction:column;gap:var(--rui-card-spacing,1.5rem);border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-card-radius,0.75rem);background:var(--rui-card,oklch(1 0 0));padding-block:var(--rui-card-spacing,1.5rem);color:var(--rui-card-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1),0 1px 2px -1px rgb(0 0 0 / 0.1)"
+const CardBaseStyle : String = "--rui-card-radius:calc(var(--rui-radius,0.625rem) + 0.25rem);display:flex;flex-direction:column;gap:var(--rui-card-spacing,1rem);border:0;border-radius:var(--rui-card-radius,0.75rem);background:var(--rui-card,oklch(1 0 0));padding-block:var(--rui-card-spacing,1rem) var(--rui-card-padding-bottom,var(--rui-card-spacing,1rem));color:var(--rui-card-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent);overflow:hidden"
 
 ///|
-const CardDefaultSizeStyle : String = "--rui-card-spacing:1.5rem;--rui-card-title-size:1rem;--rui-card-title-line-height:1"
+const CardDefaultSizeStyle : String = "--rui-card-spacing:1rem;--rui-card-title-size:1rem;--rui-card-title-line-height:1.375"
 
 ///|
-const CardSmSizeStyle : String = "--rui-card-spacing:1rem;--rui-card-title-size:0.875rem;--rui-card-title-line-height:1.25rem"
+const CardSmSizeStyle : String = "--rui-card-spacing:0.75rem;--rui-card-title-size:0.875rem;--rui-card-title-line-height:1.375"
 
 ///|
-const CardHeaderStyle : String = "display:grid;grid-template-columns:var(--rui-card-header-columns,minmax(0,1fr));grid-template-rows:auto auto;align-items:start;column-gap:var(--rui-card-header-column-gap,0);row-gap:0.5rem;padding-inline:var(--rui-card-spacing,1.5rem);border-radius:var(--rui-card-radius,0.75rem) var(--rui-card-radius,0.75rem) 0 0"
+const CardHeaderStyle : String = "display:grid;grid-template-columns:var(--rui-card-header-columns,minmax(0,1fr));grid-template-rows:auto auto;align-items:start;column-gap:var(--rui-card-header-column-gap,0);row-gap:0.25rem;padding-inline:var(--rui-card-spacing,1rem);border-radius:var(--rui-card-radius,0.75rem) var(--rui-card-radius,0.75rem) 0 0"
 
 ///|
-const CardTitleStyle : String = "grid-column:1;grid-row:1;min-width:0;font-size:var(--rui-card-title-size,1rem);line-height:var(--rui-card-title-line-height,1);font-weight:600;overflow-wrap:anywhere"
+const CardTitleStyle : String = "grid-column:1;grid-row:1;min-width:0;font-size:var(--rui-card-title-size,1rem);line-height:var(--rui-card-title-line-height,1.375);font-weight:500;overflow-wrap:anywhere"
 
 ///|
 const CardDescriptionStyle : String = "grid-column:1;grid-row:2;min-width:0;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;line-height:1.25rem;overflow-wrap:anywhere"
@@ -32,10 +32,10 @@ const CardDescriptionStyle : String = "grid-column:1;grid-row:2;min-width:0;colo
 const CardActionStyle : String = "grid-column:2;grid-row:1 / span 2;align-self:start;justify-self:end"
 
 ///|
-const CardContentStyle : String = "min-width:0;padding-inline:var(--rui-card-spacing,1.5rem)"
+const CardContentStyle : String = "min-width:0;padding-inline:var(--rui-card-spacing,1rem)"
 
 ///|
-const CardFooterStyle : String = "display:flex;align-items:center;padding-inline:var(--rui-card-spacing,1.5rem);border-radius:0 0 var(--rui-card-radius,0.875rem) var(--rui-card-radius,0.875rem)"
+const CardFooterStyle : String = "display:flex;align-items:center;border-radius:0 0 var(--rui-card-radius,0.875rem) var(--rui-card-radius,0.875rem);padding:var(--rui-card-spacing,1rem);border-top:1px solid var(--rui-border,oklch(0.922 0 0));background:color-mix(in oklab,var(--rui-muted,oklch(0.97 0 0)) 50%,transparent)"
 
 ///|
 fn card_size_style(size : CardSize) -> String {
@@ -59,7 +59,7 @@ fn card_part_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 }
 
 ///|
-/// Render the root of a composable Vega card.
+/// Render the root of a composable Nova card.
 ///
 /// `--rui-card-spacing` is inherited by every card part. Appending a value through
 /// `style` changes the spacing of the complete composition without CSS setup.

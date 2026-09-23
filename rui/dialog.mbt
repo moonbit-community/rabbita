@@ -1,5 +1,5 @@
 ///|
-const DialogStyle : String = "position:fixed;inset:0;width:min(calc(100% - 2rem),32rem);max-width:none;max-height:calc(100vh - 2rem);margin:auto;overflow-y:auto;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));padding:1.5rem;color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 16px 48px rgb(0 0 0 / 0.18)"
+const DialogStyle : String = "position:fixed;inset:0;width:min(calc(100% - 2rem),24rem);max-width:none;max-height:calc(100vh - 2rem);margin:auto;overflow-y:auto;border:0;border-radius:calc(var(--rui-radius,0.625rem) + 0.25rem);background:var(--rui-popover,var(--rui-background,oklch(1 0 0)));padding:1rem;color:var(--rui-popover-foreground,var(--rui-foreground,oklch(0.145 0 0)));box-shadow:0 0 0 1px color-mix(in oklab,var(--rui-foreground,oklch(0.145 0 0)) 10%,transparent)"
 
 ///|
 /// Render a styled native dialog without component state.
@@ -46,7 +46,7 @@ pub fn[C : @html.IsChildren] dialog(
       if show_close {
         @html.form(
           method_="dialog",
-          style=["position:absolute;top:1rem;inset-inline-end:1rem"],
+          style=["position:absolute;top:0.5rem;inset-inline-end:0.5rem"],
           button(
             variant=Ghost,
             size=IconSm,
@@ -77,10 +77,10 @@ const DialogCloseIconButtonStyle : String = "background:var(--rui-close-bg,var(-
 const DialogDescriptionStyle : String = "margin:0;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;line-height:1.5;text-wrap:pretty"
 
 ///|
-const DialogTitleStyle : String = "margin:0;color:var(--rui-foreground,oklch(0.145 0 0));font-size:1.125rem;line-height:1.25;font-weight:600;letter-spacing:-0.01em;text-wrap:balance"
+const DialogTitleStyle : String = "margin:0;color:var(--rui-foreground,oklch(0.145 0 0));font-size:1rem;line-height:1.5rem;font-weight:500;letter-spacing:-0.01em;text-wrap:balance"
 
 ///|
-const DialogFooterStyle : String = "display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:0.5rem"
+const DialogFooterStyle : String = "display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:0.5rem;margin-inline:-1rem;margin-block-end:-1rem;padding:1rem;border-top:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:0 0 calc(var(--rui-radius,0.625rem) + 0.25rem) calc(var(--rui-radius,0.625rem) + 0.25rem);background:color-mix(in oklab,var(--rui-muted,oklch(0.97 0 0)) 50%,transparent)"
 
 ///|
 const DialogHeaderStyle : String = "display:flex;min-width:0;flex-direction:column;gap:0.375rem;text-align:start"

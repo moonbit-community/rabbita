@@ -375,12 +375,16 @@ const FormsFieldHorizontalCode : String =
 
 ///|
 const FormsFieldResponsiveCode : String =
-  #|@html.div(
+  #|@rui.field_group(
   #|  style=["width:min(100%,30rem);margin-inline:auto"],
   #|  @rui.field(
   #|      orientation=@rui.FieldResponsive,
   #|      [
-  #|        @rui.field_label(for_="forms-variants-field-responsive", "Repository"),
+  #|        @rui.field_label(
+  #|          for_="forms-variants-field-responsive",
+  #|          style=["width:7rem;flex:none"],
+  #|          "Repository",
+  #|        ),
   #|        @rui.field_content([
   #|          @rui.input(
   #|            id="forms-variants-field-responsive",
@@ -832,14 +836,14 @@ const FormsOtpFormCode : String = FoundationsStrokeIconCode +
     #|  aria_label="Verification code",
     #|  input_attrs=@html.Attrs::build().required(true),
     #|  render=scope => {
-    #|    let slot_style = ["width:2.75rem;height:3rem;font-size:1.25rem;line-height:1.75rem"]
+    #|    let slot_style = ["width:2rem;height:2rem;font-size:0.875rem;line-height:1.25rem"]
     #|    @html.fragment([
     #|      @rui.input_otp_group([
     #|        @rui.input_otp_slot(scope~, index=0, style=slot_style),
     #|        @rui.input_otp_slot(scope~, index=1, style=slot_style),
     #|        @rui.input_otp_slot(scope~, index=2, style=slot_style),
     #|      ]),
-    #|      @rui.input_otp_separator(style=["margin-inline:0.5rem"]),
+    #|      @rui.input_otp_separator(),
     #|      @rui.input_otp_group([
     #|        @rui.input_otp_slot(scope~, index=3, style=slot_style),
     #|        @rui.input_otp_slot(scope~, index=4, style=slot_style),
@@ -1446,11 +1450,12 @@ fn forms_field_variants(form_composition : @html.Html) -> @html.Html {
         "Responsive",
         "The label stacks when the field container becomes narrow.",
         showcase_demo_stage(
-          @html.div(
+          @rui.field_group(
             style=["width:min(100%,30rem);margin-inline:auto"],
             @rui.field(orientation=FieldResponsive, [
               @rui.field_label(
                 for_="forms-variants-field-responsive",
+                style=["width:7rem;flex:none"],
                 "Repository",
               ),
               @rui.field_content([
@@ -1729,7 +1734,7 @@ fn forms_otp_variants() -> @rabbita.Val[@html.Html] {
     input_attrs=@html.Attrs::build().required(true),
     render=scope => {
       let slot_style = [
-        "width:2.75rem;height:3rem;font-size:1.25rem;line-height:1.75rem",
+        "width:2rem;height:2rem;font-size:0.875rem;line-height:1.25rem",
       ]
       @html.fragment([
         @rui.input_otp_group([
@@ -1737,7 +1742,7 @@ fn forms_otp_variants() -> @rabbita.Val[@html.Html] {
           @rui.input_otp_slot(scope~, index=1, style=slot_style),
           @rui.input_otp_slot(scope~, index=2, style=slot_style),
         ]),
-        @rui.input_otp_separator(style=["margin-inline:0.5rem"]),
+        @rui.input_otp_separator(),
         @rui.input_otp_group([
           @rui.input_otp_slot(scope~, index=3, style=slot_style),
           @rui.input_otp_slot(scope~, index=4, style=slot_style),

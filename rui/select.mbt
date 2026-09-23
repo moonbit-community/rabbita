@@ -63,13 +63,13 @@ struct SelectScope {
 const SelectRootStyle : String = "position:relative;display:inline-flex;width:100%;min-width:0"
 
 ///|
-const SelectTriggerStyle : String = "display:flex;width:100%;height:2.25rem;min-width:0;align-items:center;justify-content:space-between;gap:0.5rem;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 1px 2px rgb(0 0 0 / 0.05);border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));padding:0.25rem 0.625rem;color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));font-size:0.875rem;line-height:1.25rem;text-align:start;white-space:nowrap;outline-offset:2px;box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 1px 2px rgb(0 0 0 / 0.05)));cursor:pointer"
+const SelectTriggerStyle : String = "display:flex;width:100%;height:2rem;min-width:0;align-items:center;justify-content:space-between;gap:0.5rem;--rui-control-base-bg:var(--rui-input-background,transparent);--rui-control-base-fg:var(--rui-foreground,oklch(0.145 0 0));--rui-control-base-border:var(--rui-input,oklch(0.922 0 0));--rui-control-base-shadow:0 0 #0000;border:1px solid transparent;border-color:var(--rui-control-border,var(--rui-control-base-border,var(--rui-input,oklch(0.922 0 0))));border-radius:var(--rui-radius,0.625rem);background:var(--rui-control-bg,var(--rui-control-base-bg,var(--rui-input-background,transparent)));padding:0.25rem 0.625rem;color:var(--rui-control-fg,var(--rui-control-base-fg,var(--rui-foreground,oklch(0.145 0 0))));font-size:0.875rem;line-height:1.25rem;text-align:start;white-space:nowrap;outline-offset:2px;box-shadow:var(--rui-control-shadow,var(--rui-control-base-shadow,0 0 #0000));cursor:pointer;user-select:none"
 
 ///|
-const SelectContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:var(--rui-floating-anchor-width,anchor-size(width));min-width:max(8rem,var(--rui-floating-anchor-width,anchor-size(width)));max-width:var(--rui-floating-available-width,calc(100vw - 1rem));max-height:var(--rui-floating-available-height,calc(100vh - 1rem));transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;overflow-x:hidden;overflow-y:auto;margin:0;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-popover,oklch(1 0 0));padding:0;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
+const SelectContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:var(--rui-floating-anchor-width,anchor-size(width));min-width:max(8rem,var(--rui-floating-anchor-width,anchor-size(width)));max-width:var(--rui-floating-available-width,calc(100vw - 1rem));max-height:var(--rui-floating-available-height,calc(100vh - 1rem));transform-origin:var(--rui-floating-transform-origin,center);flex-direction:column;overflow-x:hidden;overflow-y:auto;margin:0;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0;color:var(--rui-popover-foreground,oklch(0.145 0 0));box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1),0 4px 6px -4px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
-const SelectItemStyle : String = "position:relative;display:flex;width:100%;min-height:2rem;align-items:center;gap:0.5rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding-block:0.375rem;padding-inline:0.5rem 2rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font:inherit;font-size:0.875rem;line-height:1.25rem;text-align:start;white-space:nowrap;outline:none;cursor:pointer"
+const SelectItemStyle : String = "position:relative;display:flex;width:100%;align-items:center;gap:0.375rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding-block:0.25rem;padding-inline:0.375rem 2rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font:inherit;font-size:0.875rem;line-height:1.25rem;text-align:start;white-space:nowrap;outline:none;cursor:pointer"
 
 ///|
 fn select_find_value(options : Array[SelectOption], value : String?) -> Int {
@@ -630,7 +630,7 @@ pub fn[C : @html.IsChildren] select_label(
     attrs=ui_attrs(attrs).data_set("slot", "select-label"),
     style=ui_styles(
       [
-        "padding:0.375rem 0.5rem;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.75rem;line-height:1rem;font-weight:500",
+        "padding:0.25rem 0.375rem;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.75rem;line-height:1rem;font-weight:500",
       ],
       style,
     ),
@@ -767,7 +767,12 @@ fn select_scroll_button(
     attrs=button_attrs,
     style=ui_styles(
       [
-        "display:flex;width:100%;height:1.5rem;align-items:center;justify-content:center;border:0;background:var(--rui-popover,white);color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.75rem;cursor:default",
+        "position:sticky;z-index:1;display:flex;width:100%;height:1.5rem;flex:none;align-items:center;justify-content:center;border:0;background:var(--rui-popover,white);color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.75rem;cursor:default",
+        if direction < 0 {
+          "inset-block-start:0"
+        } else {
+          "inset-block-end:0"
+        },
       ],
       style,
     ),

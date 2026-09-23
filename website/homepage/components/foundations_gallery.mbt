@@ -709,7 +709,7 @@ fn foundations_centered_section(
 fn foundations_button_demo() -> @html.Html {
   showcase_component_demos(
     "Button",
-    "Action controls across the complete Vega variant and size set.",
+    "Action controls across the compact shadcn/ui Nova variants and sizes.",
     [
       foundations_centered_section(
         "Default",
@@ -1175,7 +1175,7 @@ fn foundations_message_demo() -> @html.Html {
 fn foundations_bubble_demo() -> @html.Html {
   showcase_component_demos(
     "Bubble",
-    "All seven Vega treatments share root-owned color, alignment, focus, hover, and press states.",
+    "All seven Nova treatments share root-owned color, alignment, focus, hover, and press states.",
     [
       foundations_centered_section(
         "Default",

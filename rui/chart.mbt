@@ -38,7 +38,7 @@ fn chart_indicator_style(indicator : ChartIndicator, color : String) -> String {
 }
 
 ///|
-/// Vega chart surface for an application-provided SVG, canvas, or chart engine.
+/// Nova chart surface for an application-provided SVG, canvas, or chart engine.
 pub fn[C : @html.IsChildren] chart_container(
   aria_label? : String,
   aspect? : String = "16 / 9",

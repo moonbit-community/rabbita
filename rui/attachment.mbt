@@ -405,7 +405,7 @@ fn attachment_bind_disabled_link(attrs : @html.Attrs, disabled : Bool) -> Unit {
 }
 
 ///|
-/// Render the Vega attachment trigger's `asChild` path as a native anchor.
+/// Render the Nova attachment trigger's `asChild` path as a native anchor.
 pub fn[C : @html.IsChildren] attachment_trigger_link(
   href~ : String,
   disabled? : Bool = false,

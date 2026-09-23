@@ -5,10 +5,10 @@ const TooltipProviderStyle : String = "display:contents"
 const TooltipRootStyle : String = "display:contents"
 
 ///|
-const TooltipContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:max-content;max-width:calc(100vw - 1rem);transform-origin:var(--rui-floating-transform-origin,center);align-items:center;margin:0;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.25rem);background:var(--rui-primary,oklch(0.205 0 0));padding:0.375rem 0.75rem;color:var(--rui-primary-foreground,oklch(0.985 0 0));font-size:0.75rem;line-height:1rem;font-weight:400;text-wrap:balance;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
+const TooltipContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:flex;width:max-content;max-width:min(20rem,calc(100vw - 1rem));transform-origin:var(--rui-floating-transform-origin,center);align-items:center;gap:0.375rem;margin:0;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-foreground,oklch(0.145 0 0));padding:0.375rem 0.75rem;color:var(--rui-background,oklch(1 0 0));font-size:0.75rem;line-height:1rem;font-weight:400;text-wrap:balance;box-shadow:none;outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
-const TooltipArrowBaseStyle : String = "position:absolute;z-index:-1;top:var(--rui-tooltip-arrow-top,auto);right:var(--rui-tooltip-arrow-right,auto);bottom:var(--rui-tooltip-arrow-bottom,auto);left:var(--rui-tooltip-arrow-left,auto);width:0.625rem;height:0.625rem;margin-top:var(--rui-tooltip-arrow-margin-top,0);margin-left:var(--rui-tooltip-arrow-margin-left,0);border-radius:2px;background:var(--rui-primary,oklch(0.205 0 0));transform:rotate(45deg)"
+const TooltipArrowBaseStyle : String = "position:absolute;z-index:-1;top:var(--rui-tooltip-arrow-top,auto);right:var(--rui-tooltip-arrow-right,auto);bottom:var(--rui-tooltip-arrow-bottom,auto);left:var(--rui-tooltip-arrow-left,auto);width:0.625rem;height:0.625rem;margin-top:var(--rui-tooltip-arrow-margin-top,0);margin-left:var(--rui-tooltip-arrow-margin-left,0);border-radius:2px;background:var(--rui-foreground,oklch(0.145 0 0));transform:rotate(45deg)"
 
 ///|
 fn tooltip_delay(value : Int) -> Int {
@@ -36,7 +36,7 @@ fn tooltip_arrow_side_style(side : PopupSide) -> String {
 ///|
 /// Supply shared open and close delays to descendant tooltips.
 ///
-/// shadcn's Vega preset opens without a wait, so `delay` defaults to zero.
+/// shadcn's Nova preset opens without a wait, so `delay` defaults to zero.
 /// `timeout` is the instant-phase window: moving between tooltips within
 /// that period bypasses a non-zero opening delay. An individual `tooltip` can
 /// override the opening or closing delay.
