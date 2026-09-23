@@ -1,4 +1,5 @@
 import {
+  "moonbit-community/rui/internal/checkbox_view",
   "moonbit-community/rabbita",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/cmd",

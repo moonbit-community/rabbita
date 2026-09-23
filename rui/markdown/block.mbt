@@ -18,8 +18,36 @@ fn render_block(
       }
     }
     Heading({ v, .. }) => {
+      if state.render_heading is Some(render) {
+        return render(v)
+      }
       let id = unique_id(state, v.inline.id())
-      let content = render_inline(state, v.inline)
+      let content = @html.fragment([
+        render_inline(state, v.inline),
+        @html.a(
+          class="rui-markdown-anchor",
+          href="#" + id,
+          title="Link to " + plain_text(v.inline),
+          attrs=@html.Attrs::build().aria_label(
+            "Link to " + plain_text(v.inline),
+          ),
+          escape=state.escape_link,
+          @html.span(
+            attrs=@html.Attrs::build().aria_hidden("true"),
+            @svg.svg(width=16, height=16, view_box="0 0 24 24", [
+              @svg.path(
+                d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
+                fill="none",
+                stroke="currentColor",
+                stroke_width=2,
+                attrs=@svg.Attrs::build()
+                  .stroke_linecap("round")
+                  .stroke_linejoin("round"),
+              ),
+            ]),
+          ),
+        ),
+      ])
       match v.level {
         1 => @html.h1(id~, content)
         2 => @html.h2(id~, content)
@@ -31,16 +59,12 @@ fn render_block(
     }
     BlockQuote({ v, .. }) => @html.blockquote(render_block(state, v.block))
     CodeBlock({ v, .. }) => {
-      let language = if v.info_string is Some(info) {
-        @cmark.CodeBlock::language_of_info_string(info.v).map(pair => pair.0)
-      } else {
-        None
-      }
-      code_block(lines_text(v.code), language?)
+      let info = v.info_string.map(node => node.v).unwrap_or("")
+      code_block(lines_text(v.code), info~, render?=state.render_codeblock)
     }
-    HtmlBlock({ v, .. }) => code_block(lines_text(v.0), language="html")
+    HtmlBlock({ v, .. }) => code_block(lines_text(v.0), info="html")
     ExtMathBlock({ v, .. }) =>
-      code_block("$$\n" + lines_text(v.code) + "\n$$", language="math")
+      code_block("$$\n" + lines_text(v.code) + "\n$$", info="math")
     ThematicBreak(_) => @html.hr()
     List({ v, .. }) => render_list(state, v)
     ExtTable({ v, .. }) => render_table(state, v)
@@ -50,11 +74,49 @@ fn render_block(
 }
 
 ///|
-fn code_block(source : String, language? : String) -> @html.Html {
-  @html.pre(
-    attrs=@html.Attrs::build().tabindex(0).aria_label("Code block"),
-    @html.code(class?=language.map(name => "language-" + name), source),
-  )
+fn code_block(
+  source : String,
+  info~ : String,
+  render? : (String, String) -> @html.Html,
+) -> @html.Html {
+  @html.div(class="rui-markdown-code", [
+    @html.button(
+      class="rui-markdown-copy",
+      type_="button",
+      title="Copy code",
+      attrs=@html.Attrs::build().aria_label("Copy code"),
+      on_click=@clipboard.copy(Text(source)),
+      @html.span(
+        style=["display:flex"],
+        attrs=@html.Attrs::build().aria_hidden("true"),
+        @svg.svg(width=16, height=16, view_box="0 0 24 24", [
+          @svg.path(
+            d="M8 8h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2ZM4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2",
+            fill="none",
+            stroke="currentColor",
+            stroke_width=2,
+            attrs=@svg.Attrs::build()
+              .stroke_linecap("round")
+              .stroke_linejoin("round"),
+          ),
+        ]),
+      ),
+    ),
+    @html.div(
+      class="rui-markdown-code-content",
+      if render is Some(render) {
+        render(source, info)
+      } else {
+        let language = @cmark.CodeBlock::language_of_info_string(info).map(pair => {
+          pair.0
+        })
+        @html.pre(
+          attrs=@html.Attrs::build().tabindex(0).aria_label("Code block"),
+          @html.code(class?=language.map(name => "language-" + name), source),
+        )
+      },
+    ),
+  ])
 }
 
 ///|
@@ -65,10 +127,10 @@ fn render_list(state : RenderState, list : @cmark.BlockList) -> @html.Html {
       let content = render_block(state, item.block, tight=list.tight)
       if item.ext_task_marker is Some(marker) {
         @html.li(class="rui-markdown-task", [
-          @html.input(
-            input_type=Checkbox,
+          @checkbox_view.render(
             checked=marker.v == 'x' || marker.v == 'X',
-            attrs=@html.Attrs::build().disabled(true).aria_label("Task status"),
+            disabled=true,
+            aria_label="Task status",
           ),
           content,
         ])

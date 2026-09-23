@@ -13,8 +13,8 @@ fn render_inline(state : RenderState, inline : @cmark.Inline) -> @html.Html {
     Break({ v: { ty: Soft, .. }, .. }) => @html.text("\n")
     Autolink({ v, .. }) => {
       let href = if v.is_email { "mailto:" + v.link.v } else { v.link.v }
-      if allowed_url(href) {
-        @html.a(href~, escape=true, v.link.v)
+      if link_destination(state, href) is Some(href) {
+        @html.a(href~, escape=state.escape_link, v.link.v)
       } else {
         @html.text(v.link.v)
       }
@@ -45,9 +45,10 @@ fn render_link(
       LinkDef({ v, .. }) => {
         let destination = v.dest.map(node => node.v).unwrap_or("")
         let title = v.title.map(tight_text)
-        if !allowed_url(destination) {
-          @html.text(plain_text(link.text))
-        } else if image {
+        guard link_destination(state, destination) is Some(destination) else {
+          return @html.text(plain_text(link.text))
+        }
+        if image {
           @html.img(
             src=destination,
             alt=plain_text(link.text),
@@ -58,7 +59,7 @@ fn render_link(
           @html.a(
             href=destination,
             title?,
-            escape=true,
+            escape=state.escape_link,
             render_inline(state, link.text),
           )
         }
@@ -66,5 +67,19 @@ fn render_link(
     }
   } else {
     render_inline(state, link.text)
+  }
+}
+
+///|
+fn link_destination(state : RenderState, destination : String) -> String? {
+  let destination = if state.transform_link is Some(transform) {
+    transform(destination)
+  } else {
+    destination
+  }
+  if allowed_url(destination) {
+    Some(destination)
+  } else {
+    None
   }
 }

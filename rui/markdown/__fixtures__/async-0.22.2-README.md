@@ -1,0 +1,149 @@
+# Asynchronous programming library for MoonBit
+
+This library provides basic asynchronous IO functionality for MoonBit,
+as well as useful asynchronous programming facilities.
+Currently, this library only supports native/LLVM backends on Linux/MacOS.
+
+API document is available at <https://mooncakes.io/docs/moonbitlang/async>.
+You can also find small examples in `examples`,
+these examples can be run via `moon run -C examples examples/<example-name>` in project root.
+You can find a brief introduction to some examples in `examples/README.md`,
+including the topics each example covers.
+
+WARNING: this library is current experimental, API is subject to future change.
+
+## Installation
+In your MoonBit project root, run:
+```bash
+moon add moonbitlang/async@0.22.1
+```
+This library provides the following packages:
+
+- `moonbitlang/async`: most basic asynchronous operations
+- `moonbitlang/async/socket`: TCP and UDP socket
+- `moonbitlang/async/tls`: TLS support via OpenSSL
+- `moonbitlang/async/stdio`: operations on standard output channels
+- `moonbitlang/async/pipe`: operations on pipes
+- `moonbitlang/async/fs`: file system operations, such as file IO and directory reading
+- `moonbitlang/async/process`: spawning system process
+- `moonbitlang/async/shell`: shell-free commands, pipelines, redirection, and glob expansion
+- `moonbitlang/async/aqueue`: asynchronous queue data structure for inter-task communication
+- `moonbitlang/async/semaphore`: semaphore for concurrency control
+- `moonbitlang/async/cond_var`: condition variable with broadcasting support
+- `moonbitlang/async/io`: generic IO abstraction & utilities, such as buffering
+- `moonbitlang/async/http`: HTTP client and server support. Features:
+    - HTTPS client support
+    - `CONNECT` based HTTP/HTTPS proxy support
+- `moonbitlang/async/websocket`: WebSocket client and server support. Features:
+    - TLS encrypted WebSocket (`wss://`) support
+    - `CONNECT` based HTTP/HTTPS proxy support
+    - native integration with `moonbitlang/async/http`
+- `moonbitlang/async/signal`: control signal handling behavior
+
+To use these packages, add them to the `import` field of `moon.pkg.json`.
+
+## Features
+
+- [X] TCP/UDP socket
+- [X] DNS resolution
+- [X] TLS support
+- [X] HTTP support
+- [X] timer
+- [X] pipe
+- [X] asynchronous file system operations
+- [X] process manipulation
+- [X] signal handling
+    - [X] graceful cancellation on receiving `SIGINT` etc.
+    - [ ] custom signal handling logic
+- [X] file system watching
+- [X] structured concurrency
+- [X] cooperative multi tasking
+- [X] IO worker thread
+- [X] native integration with the MoonBit language
+- [X] Linux support (`epoll`)
+- [X] MacOS support (`kqueue`)
+- [X] Windows support (`IOCP`)
+- [X] wasm1 backend
+- [ ] wasm-gc
+- [X] Javascript backend
+    - [X] integration with JavaScript promise and Web API `ReadableStream`
+    - [X] all IO-independent API, including:
+        - `moonbitlang/async`
+        - `moonbitlang/async/io`
+        - `moonbitlang/async/aqueue`
+        - `moonbitlang/async/semaphore`
+        - `moonbitlang/async/cond_var`
+    - [X] HTTP Client API support in `@http` using fetch API
+    - [ ] implement other IO primitives in JavaScript using Node.js
+
+
+## Structured concurrency and error propagation
+`moonbitlang/async` features *structured concurrency*.
+In `moonbitlang/async`, every asynchronous task must be spawned in a *task group*.
+Task groups can be created with the `with_task_group` function
+
+```moonbit
+async fn[X] with_task_group(async (TaskGroup[X]) -> X)  -> X
+```
+
+When `with_task_group` returns,
+it is guaranteed that all tasks spawned in the group already terminate,
+leaving no room for orphan task and resource leak.
+
+If any child task in a task group fail with error,
+all other tasks in the group will be cancelled.
+So there will be no silently ignored error.
+
+For more behavior detail and useful API, consult the API document.
+
+## Task cancellation
+In `moonbitlang/async`, all asynchronous operations are by default cancellable.
+So no need to worry about accidentally creating uncancellable task.
+
+In `moonbitlang/async`, when a task is cancelled,
+it will receive a special signal at where it suspended.
+This cancellation signal is similar to, but not the same as an error.
+The cancellation signal propogates like an error, and can trigger `defer` and `errdefer` blocks.
+However, `catch` can **not** capture the cancellation signal.
+
+In most cases, users don't need to handle cancellation specially.
+Cleanup related logic can be put in `defer` or `errdefer`,
+while other error handlers usually don't need to handle cancellation anyway.
+If special handling of cancellation is indeed necessary,
+`@async.handle_cancellation` can be used.
+
+Cancellation is a sticky state attached to every task in `moonbitlang/async`.
+The aforementioned cancellation signal is merely a notification for the cancelled task,
+capturing that signal via `@async.handle_cancellation` does *not* revert cancellation.
+The task will stay in cancelled state,
+and the next unprotected async operation will get cancelled immediately.
+To truly protect a piece of critical code from cancellation, use `@async.protect_from_cancel`.
+
+## Caveats
+
+Currently, `moonbitlang/async` features a single-threaded, cooperative multitasking model.
+With this single-threaded model,
+code without suspension point can always be considered atomic.
+So no need for expensive lock and less bug.
+However, this model also come with some caveats:
+
+- task scheduling can only happen when current task suspend itself,
+by performing some asynchronous IO operation or manually calling `@async.pause`.
+If you perform heavy computation loop without pausing from time to time,
+the whole program will be blocked until the loop terminates,
+and other task will not get executed before that.
+Similarly, performing blocking IO operation **not** provided by `moonbitlang/async`
+may block the whole program as well
+
+- in the same way, task cancellation can only happen when a task is in suspended state
+(blocked by IO operation or manually `pause`'ed)
+
+- although internally `moonbitlang/async` may use OS threads to perform some IO job,
+user code can only utilize one hardware processor
+
+There are several other points to notice when using this library:
+
+- At most one task can read/write to socket etc. at anytime, to avoid race condition.
+If multiple reader/writer is desired,
+you should create a dedicated worker task for reading/writing
+and use `@async.Queue` to distribute/gather data

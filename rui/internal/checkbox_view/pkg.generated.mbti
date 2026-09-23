@@ -1,0 +1,18 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/rui/internal/checkbox_view"
+
+import {
+  "moonbit-community/rabbita/cmd",
+  "moonbit-community/rabbita/html",
+}
+
+// Values
+pub fn render(checked? : Bool, indeterminate? : Bool, disabled? : Bool, read_only? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, aria_label? : String, on_checked_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
