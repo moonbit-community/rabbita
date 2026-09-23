@@ -44,7 +44,7 @@ const apps = [
   {
     name: 'showcase',
     port: 4350,
-    testMatch: '**/showcase.spec.ts',
+    testMatch: '**/showcase*.spec.ts',
     command: 'warren -C ../website/homepage dev --browser-entry main --public-dir public --direct --port 4350',
   },
   ...mainApps.map(({ name, port }) => ({

@@ -26,6 +26,11 @@ the generated `pkg.generated.mbti` interface.
 
 ## Customization
 
+For Markdown documents, import `moonbit-community/rui/markdown` and use
+`@markdown.markdown(source)`. The synchronous renderer includes Nova typography,
+tables, task lists and footnotes. See the [Markdown package](markdown/README.mbt.md)
+for supported syntax and source-rendering behavior.
+
 Use `--rui-*` theme tokens, component `style` parameters, and `attrs` for normal
 customization. Copy the relevant `.mbt` source when you need to change a
 component's DOM structure, state model, or interaction policy.

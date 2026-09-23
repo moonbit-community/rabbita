@@ -5,7 +5,18 @@ import {
   "moonbit-community/rabbita/dialog",
   "moonbit-community/rabbita/svg",
   "moonbit-community/rui",
+  "moonbit-community/rui/markdown",
   "Yoorkin/shiki",
 }
 
 supported_targets = "js"
+
+options(
+  "pre-build": [
+    {
+      "input": "../../../rui/markdown/__fixtures__/ripgrep-README.md",
+      "output": "markdown_readme.mbt",
+      "command": ":embed -i $input -o $output --name markdown_readme --text",
+    },
+  ],
+)

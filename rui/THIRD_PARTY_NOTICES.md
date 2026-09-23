@@ -1,5 +1,10 @@
 # Third-party notices
 
+The Markdown tests and website showcase use the complete ripgrep README under
+the MIT license. Its pinned source and license are preserved in
+[`markdown/__fixtures__/PROVENANCE.md`](markdown/__fixtures__/PROVENANCE.md) and
+[`markdown/__fixtures__/ripgrep-LICENSE-MIT`](markdown/__fixtures__/ripgrep-LICENSE-MIT).
+
 Rabbita UI translates visual recipes and public component conventions from
 shadcn/ui's Nova style. Calendar focus behavior additionally follows React
 DayPicker, which shadcn/ui wraps. The MoonBit implementation is original and

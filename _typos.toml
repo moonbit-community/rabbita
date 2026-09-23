@@ -1,5 +1,5 @@
 [files]
-extend-exclude = ["warren/embbed_devtool.mbt"]
+extend-exclude = ["warren/embbed_devtool.mbt", "rui/markdown/__fixtures__/ripgrep-README.md", "rui/markdown/ripgrep_test.mbt"]
 
 [default.extend-words]
 childs = "childs"

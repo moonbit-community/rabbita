@@ -4,10 +4,10 @@ version = "0.2.0"
 
 import {
   "moonbit-community/rabbita@0.16.1",
-  "moonbit-community/rui@0.3.1",
+  "moonbit-community/rui@0.3.2",
   "Yoorkin/shiki@0.1.0",
   "moonbitlang/async@0.21.0",
-  "moonbit-community/cmark@0.4.7",
+  "moonbit-community/cmark@0.4.8",
 }
 
 readme = "README.md"
