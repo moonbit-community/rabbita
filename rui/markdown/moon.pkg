@@ -1,0 +1,25 @@
+import {
+  "moonbit-community/rabbita/html",
+  "moonbit-community/cmark/cmark",
+}
+
+import {
+  "moonbit-community/rabbita",
+  "moonbitlang/async",
+} for "test"
+
+// SSR tests use these imports only on native/wasm.
+
+warnings = "-unused_package"
+
+supported_targets = "js+native+wasm"
+
+options(
+  "pre-build": [
+    {
+      "input": "__fixtures__/ripgrep-README.md",
+      "output": "ripgrep_test.mbt",
+      "command": ":embed -i $input -o $output --name ripgrep_readme --text",
+    },
+  ],
+)

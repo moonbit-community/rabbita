@@ -174,6 +174,7 @@ fn showcase_component_page(slug : String) -> @rabbita.Val[@html.Html] {
     | "item"
     | "kbd"
     | "label"
+    | "markdown"
     | "marker"
     | "message"
     | "progress"

@@ -41,6 +41,7 @@ let showcase_page_entries : Array[ShowcasePageEntry] = [
   { slug: "item", title: "Item", },
   { slug: "kbd", title: "Kbd", },
   { slug: "label", title: "Label", },
+  { slug: "markdown", title: "Markdown", },
   { slug: "marker", title: "Marker", },
   { slug: "menubar", title: "Menubar", },
   { slug: "message", title: "Message", },

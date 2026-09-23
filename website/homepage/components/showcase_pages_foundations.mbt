@@ -85,6 +85,7 @@ fn showcase_foundations_page(slug : String) -> @rabbita.Val[@html.Html] {
     "item" => showcase_static_page(fdv_items_demo())
     "kbd" => showcase_static_page(foundations_kbd_demo())
     "label" => showcase_static_page(foundations_label_demo())
+    "markdown" => showcase_static_page(markdown_demo())
     "marker" => showcase_static_page(fdv_marker_demo())
     "message" => showcase_static_page(foundations_message_demo())
     "progress" => showcase_static_page(fdv_progress_demo())

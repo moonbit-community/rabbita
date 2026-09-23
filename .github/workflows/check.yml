@@ -52,6 +52,11 @@ jobs:
           moon info . --target js
           git diff --exit-code
 
+      - name: Markdown rendering tests
+        run: |
+          moon -C rui test markdown --target native
+          moon -C rui test markdown --target js
+
       - name: format diff
         run: |
           cd rabbita
