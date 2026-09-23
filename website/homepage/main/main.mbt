@@ -1102,6 +1102,7 @@ fn app() -> Val[Html] {
 /// see README.md to get started.
 #warnings("-alert_unstable")
 fn main {
+  install_showcase_navigation_guard()
   @shiki.initialize(langs=["moonbit"], themes=[
     "github-light", "github-dark-default",
   ])

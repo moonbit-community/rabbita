@@ -317,35 +317,32 @@ fn ig_sidebar_panel_icon(side : @rui.SidebarSide) -> @html.Html {
 ///|
 fn ig_sidebar_navigation(
   scope : @rui.SidebarScope,
-  side : @rui.SidebarSide,
   menu_size : @rui.SidebarMenuButtonSize,
   mobile : Bool,
-  interactive : Bool,
 ) -> @html.Html {
-  let close_command = if mobile {
-    @rui.sidebar_close_mobile(scope)
-  } else {
-    @rui.sidebar_collapse(scope)
-  }
   @html.fragment([
     @rui.sidebar_header(
-      @rui.sidebar_input(
-        aria_label="Filter workspace navigation",
-        placeholder="Filter…",
-      ),
-    ),
-    @rui.sidebar_content(
-      @rui.sidebar_group([
-        @rui.sidebar_group_label(scope~, "Workspace"),
-        if interactive {
-          @rui.sidebar_group_action(
-            aria_label=if mobile { "Close sidebar" } else { "Collapse sidebar" },
-            on_click=close_command,
-            ig_sidebar_panel_icon(side),
+      @html.div(style=[RowStyle, "flex-wrap:nowrap"], [
+        @rui.sidebar_input(
+          aria_label="Filter workspace navigation",
+          placeholder="Filter…",
+        ),
+        if mobile {
+          @rui.button(
+            variant=Ghost,
+            size=IconSm,
+            attrs=@html.Attrs::build().aria_label("Close mobile sidebar"),
+            on_click=@rui.sidebar_close_mobile(scope),
+            showcase_close_icon(),
           )
         } else {
           @html.nothing
         },
+      ]),
+    ),
+    @rui.sidebar_content(
+      @rui.sidebar_group([
+        @rui.sidebar_group_label(scope~, "Workspace"),
         @rui.sidebar_group_content(
           @rui.sidebar_menu([
             @rui.sidebar_menu_item([
@@ -355,20 +352,6 @@ fn ig_sidebar_navigation(
                 size=menu_size,
                 [showcase_layout_icon(), @html.span("Overview")],
               ),
-              if interactive {
-                @rui.sidebar_menu_action(
-                  show_on_hover=true,
-                  aria_label=if mobile {
-                    "Close sidebar"
-                  } else {
-                    "Collapse sidebar"
-                  },
-                  on_click=close_command,
-                  showcase_panel_left_icon(),
-                )
-              } else {
-                @html.nothing
-              },
             ]),
             @rui.sidebar_menu_item([
               @rui.sidebar_menu_button(href="#activity", size=menu_size, [
@@ -500,7 +483,7 @@ fn ig_sidebar_workspace_content(
       @html.p(
         style=[MutedStyle, "max-width:18rem;margin:0;text-align:center"],
         if mobile {
-          "Open the mobile sheet, then close it with the overlay, Escape, or its navigation action."
+          "Open the mobile sheet, then close it with its close button, the overlay, or Escape."
         } else if interactive {
           "Use the trigger or sidebar rail; the provider owns every state change."
         } else {
@@ -545,7 +528,7 @@ fn ig_sidebar_variant(
       }
       @html.fragment([
         @rui.sidebar(scope, id~, side~, variant~, collapsible~, mobile~, [
-          ig_sidebar_navigation(scope, side, menu_size, mobile, interactive),
+          ig_sidebar_navigation(scope, menu_size, mobile),
           rail,
         ]),
         workspace,
