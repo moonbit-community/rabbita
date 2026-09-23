@@ -880,43 +880,32 @@ const IgSidebarSharedCode : String =
   #|
   #|fn sidebar_navigation(
   #|  scope : @rui.SidebarScope,
-  #|  side : @rui.SidebarSide,
   #|  menu_size : @rui.SidebarMenuButtonSize,
   #|  mobile : Bool,
-  #|  interactive : Bool,
   #|) -> @html.Html {
-  #|  let close_command = if mobile {
-  #|    @rui.sidebar_close_mobile(scope)
-  #|  } else {
-  #|    @rui.sidebar_collapse(scope)
-  #|  }
   #|  @html.fragment([
   #|    @rui.sidebar_header(
-  #|      @rui.sidebar_input(
-  #|        aria_label="Filter workspace navigation",
-  #|        placeholder="Filter…",
-  #|      ),
-  #|    ),
-  #|    @rui.sidebar_content(
-  #|      @rui.sidebar_group([
-  #|        @rui.sidebar_group_label(scope~, "Workspace"),
-  #|        if interactive {
-  #|          @rui.sidebar_group_action(
-  #|            aria_label=if mobile {
-  #|              "Close sidebar"
-  #|            } else {
-  #|              "Collapse sidebar"
-  #|            },
-  #|            on_click=close_command,
-  #|            if side == @rui.SidebarRight {
-  #|              stroke_icon("M3 3h18v18H3zM15 3v18")
-  #|            } else {
-  #|              panel_left_icon()
-  #|            },
+  #|      @html.div(style=["display:flex;align-items:center;gap:0.75rem", "flex-wrap:nowrap"], [
+  #|        @rui.sidebar_input(
+  #|          aria_label="Filter workspace navigation",
+  #|          placeholder="Filter…",
+  #|        ),
+  #|        if mobile {
+  #|          @rui.button(
+  #|            variant=Ghost,
+  #|            size=IconSm,
+  #|            attrs=@html.Attrs::build().aria_label("Close mobile sidebar"),
+  #|            on_click=@rui.sidebar_close_mobile(scope),
+  #|            stroke_icon("M18 6 6 18M6 6l12 12"),
   #|          )
   #|        } else {
   #|          @html.nothing
   #|        },
+  #|      ]),
+  #|    ),
+  #|    @rui.sidebar_content(
+  #|      @rui.sidebar_group([
+  #|        @rui.sidebar_group_label(scope~, "Workspace"),
   #|        @rui.sidebar_group_content(
   #|          @rui.sidebar_menu([
   #|            @rui.sidebar_menu_item([
@@ -926,20 +915,6 @@ const IgSidebarSharedCode : String =
   #|                size=menu_size,
   #|                [layout_icon(), @html.span("Overview")],
   #|              ),
-  #|              if interactive {
-  #|                @rui.sidebar_menu_action(
-  #|                  show_on_hover=true,
-  #|                  aria_label=if mobile {
-  #|                    "Close sidebar"
-  #|                  } else {
-  #|                    "Collapse sidebar"
-  #|                  },
-  #|                  on_click=close_command,
-  #|                  panel_left_icon(),
-  #|                )
-  #|              } else {
-  #|                @html.nothing
-  #|              },
   #|            ]),
   #|            @rui.sidebar_menu_item([
   #|              @rui.sidebar_menu_button(href="#activity", size=menu_size, [
@@ -981,24 +956,23 @@ const IgSidebarSharedCode : String =
   #|          @rui.sidebar_menu_button(
   #|            href="#account",
   #|            size=menu_size,
-  #|            variant=if menu_size == @rui.SidebarMenuLg {
-  #|              @rui.SidebarMenuButtonOutline
+  #|            variant=if menu_size == SidebarMenuLg {
+  #|              SidebarMenuButtonOutline
   #|            } else {
-  #|              @rui.SidebarMenuButtonDefault
+  #|              SidebarMenuButtonDefault
   #|            },
-  #|            if menu_size == @rui.SidebarMenuLg {
+  #|            if menu_size == SidebarMenuLg {
   #|              [
   #|                user_icon(),
-  #|                @html.span(
-  #|                  style=["display:grid;min-width:0;line-height:1.1"],
-  #|                  [
-  #|                    @html.strong("Yorkin"),
-  #|                    @html.span(
-  #|                      style=["color:var(--rui-muted-foreground);font-size:0.75rem;line-height:1.35"],
-  #|                      "yorkin@example.com",
-  #|                    ),
-  #|                  ],
-  #|                ),
+  #|                @html.span(style=["display:grid;min-width:0;line-height:1.1"], [
+  #|                  @html.strong("Yorkin"),
+  #|                  @html.span(
+  #|                    style=[
+  #|                      "color:var(--rui-muted-foreground);font-size:0.75rem;line-height:1.35",
+  #|                    ],
+  #|                    "yorkin@example.com",
+  #|                  ),
+  #|                ]),
   #|              ]
   #|            } else {
   #|              [user_icon(), @html.span("Account")]
@@ -1073,7 +1047,7 @@ const IgSidebarSharedCode : String =
   #|      @html.p(
   #|        style=["color:var(--rui-muted-foreground);font-size:0.8125rem;line-height:1.35;max-width:18rem;margin:0;text-align:center"],
   #|        if mobile {
-  #|          "Open the mobile sheet, then close it with the overlay, Escape, or its navigation action."
+  #|          "Open the mobile sheet, then close it with its close button, the overlay, or Escape."
   #|        } else if interactive {
   #|          "Use the trigger or sidebar rail; the provider owns every state change."
   #|        } else {
@@ -1100,7 +1074,7 @@ const IgSidebarDefaultCode : String =
   #|        mobile=false,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarLeft, @rui.SidebarMenuDefault, false, true,
+  #|            scope, @rui.SidebarMenuDefault, false,
   #|          ),
   #|          @rui.sidebar_rail(scope),
   #|        ],
@@ -1135,7 +1109,7 @@ const IgSidebarFixedCode : String =
   #|        mobile=false,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarLeft, @rui.SidebarMenuSm, false, false,
+  #|            scope, @rui.SidebarMenuSm, false,
   #|          ),
   #|          @html.nothing,
   #|        ],
@@ -1170,7 +1144,7 @@ const IgSidebarIconCode : String =
   #|        mobile=false,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarLeft, @rui.SidebarMenuDefault, false, true,
+  #|            scope, @rui.SidebarMenuDefault, false,
   #|          ),
   #|          @rui.sidebar_rail(scope),
   #|        ],
@@ -1235,7 +1209,7 @@ const IgSidebarFloatingCode : String =
   #|        mobile=false,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarLeft, @rui.SidebarMenuLg, false, true,
+  #|            scope, @rui.SidebarMenuLg, false,
   #|          ),
   #|          @rui.sidebar_rail(scope),
   #|        ],
@@ -1270,7 +1244,7 @@ const IgSidebarInsetCode : String =
   #|        mobile=false,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarLeft, @rui.SidebarMenuDefault, false, true,
+  #|            scope, @rui.SidebarMenuDefault, false,
   #|          ),
   #|          @rui.sidebar_rail(scope),
   #|        ],
@@ -1309,7 +1283,7 @@ const IgSidebarRightCode : String =
   #|        mobile=false,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarRight, @rui.SidebarMenuDefault, false, true,
+  #|            scope, @rui.SidebarMenuDefault, false,
   #|          ),
   #|          @rui.sidebar_rail(scope),
   #|        ],
@@ -1344,7 +1318,7 @@ const IgSidebarResizeCode : String =
   #|        mobile=false,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarLeft, @rui.SidebarMenuDefault, false, true,
+  #|            scope, @rui.SidebarMenuDefault, false,
   #|          ),
   #|          @rui.sidebar_rail(
   #|            scope,
@@ -1383,7 +1357,7 @@ const IgSidebarMobileCode : String =
   #|        mobile=true,
   #|        [
   #|          sidebar_navigation(
-  #|            scope, @rui.SidebarLeft, @rui.SidebarMenuDefault, true, true,
+  #|            scope, @rui.SidebarMenuDefault, true,
   #|          ),
   #|          @html.nothing,
   #|        ],
