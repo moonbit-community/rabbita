@@ -10,7 +10,7 @@ test {
 }
 ```
 
-`markdown` is synchronous and includes a stylesheet based on shadcn Typography recipes
+`markdown` is synchronous and includes a stylesheet based on shadcn Typeset
 and RUI Nova theme tokens. No external CSS or initialization is needed. Wrap it in
 `@rui.theme(mode=Dark, ...)` to inherit dark tokens, as with other RUI components.
 
@@ -145,20 +145,23 @@ test {
 
 ## Typography reference
 
-Checked against shadcn's [Base Typography examples](https://github.com/shadcn-ui/ui/tree/main/apps/v4/examples/base)
-on 2026-09-23: H1–H4 sizes, paragraph line height, 24px block spacing and list
-indentation, 8px list-item spacing, inline code and bordered tables. The
-standalone H1 example is centered; Markdown uses start alignment, as does the
-upstream full Typography example.
+Checked against [shadcn Typeset](https://ui.shadcn.com/typeset) (Article and
+Notes) on 2026-09-23. Headings, paragraph rhythm, nested bullet markers,
+quotes, inline code and table separators follow its default stylesheet.
+Body size defaults to 16px (18px below 48rem), with 1.75 line height and
+1.25em flow spacing. `--rui-markdown-size` can override the base size.
 
-There is no separate Typography item in the Nova component registry. The
-current [Typography documentation redirects to Typeset](https://ui.shadcn.com/docs/typeset),
-a different configurable prose system. This renderer does not claim to
-implement Typeset. H5/H6, compact nested-list spacing, task markers, heading
-anchors, code frames, copy controls and footnotes are RUI extensions. Nova
-colors, disabled states and radii follow the surrounding RUI theme.
+The Typeset configurator can select different fonts, widths and sizes; those
+are host choices, not Nova component variants. RUI retains its existing
+font fallback chain and theme tokens, shared 16px Checkbox appearance,
+heading anchors and code-copy controls. Task checkboxes center on the first
+text line, including wrapped and nested items. Code frames retain 16px
+padding to fit the copy control without covering the second line.
+No font is downloaded by this package.
 
 ## Known cmark 0.4.8 task-list limitation
+
+Tracked upstream in [cmark issue #149](https://github.com/moonbit-community/cmark.mbt/issues/149).
 
 Under an unordered task such as `- [x] parent`, cmark currently counts `[x] `
 as part of the required continuation indentation. Children indented with two

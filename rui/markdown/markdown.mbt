@@ -18,7 +18,7 @@ priv struct FootnoteUse {
 }
 
 ///|
-/// Render Markdown with shadcn Typography recipes and Nova theme tokens.
+/// Render Markdown with shadcn Typeset typography and Nova theme tokens.
 ///
 /// Parses CommonMark and cmark's table, task-list, strikethrough, footnote and
 /// math extensions. Raw HTML is displayed as text. Code and math remain source;

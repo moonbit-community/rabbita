@@ -125,7 +125,7 @@ const MarkdownUsageCode : String =
 fn markdown_demo() -> @html.Html {
   showcase_component_demos(
     "Markdown",
-    "Synchronous Markdown rendering with cmark 0.4.8, shadcn Typography recipes and Nova theme tokens. HTML, code, math and diagrams remain source where no renderer is provided.",
+    "Synchronous Markdown rendering with cmark 0.4.8, shadcn Typeset typography and Nova theme tokens. HTML, code, math and diagrams remain source where no renderer is provided.",
     [
       showcase_demo_section(
         "Markdown syntax",

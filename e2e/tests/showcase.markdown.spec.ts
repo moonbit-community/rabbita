@@ -186,11 +186,11 @@ for (const colorScheme of ['light', 'dark'] as const) {
       const geometry = await nested.evaluate(el => {
         const child = el.querySelector('li')!;
         return { indent: child.getBoundingClientRect().x - el.parentElement!.getBoundingClientRect().x,
-          marker: getComputedStyle(el).listStyleType, gap: getComputedStyle(el).marginTop };
+          marker: getComputedStyle(el).listStyleType, gap: parseFloat(getComputedStyle(el).marginTop), fontSize: parseFloat(getComputedStyle(el).fontSize), first: el === el.parentElement!.firstElementChild };
       });
-      expect(geometry.indent).toBeCloseTo(24, 0);
-      expect(['disc', 'decimal']).toContain(geometry.marker);
-      expect(geometry.gap).toBe('8px');
+      expect(geometry.indent).toBeCloseTo(geometry.fontSize * 1.9, 0);
+      expect(['disc', 'circle', 'square', 'decimal']).toContain(geometry.marker);
+      expect(geometry.gap).toBeCloseTo(geometry.first ? 0 : geometry.fontSize * 0.5, 1);
     }
     const wrapped = lists.locator('ul ul ul > li').first();
     const starts = await wrapped.evaluate(el => {
@@ -203,9 +203,10 @@ for (const colorScheme of ['light', 'dark'] as const) {
     for (const task of await lists.locator('.rui-markdown-task').all()) {
       const geometry = await task.evaluate(el => {
         const check = el.querySelector('[role=checkbox]')!.getBoundingClientRect();
-        return { offset: el.getBoundingClientRect().x - check.x, right: check.right, text: el.getBoundingClientRect().x };
+        const fontSize = parseFloat(getComputedStyle(el).fontSize);
+        return { offset: el.getBoundingClientRect().x - check.x, fontSize, right: check.right, text: el.getBoundingClientRect().x + fontSize * 0.4 };
       });
-      expect(geometry.offset).toBeCloseTo(24, 0);
+      expect(geometry.offset).toBeCloseTo(geometry.fontSize * 1.1, 0);
       expect(geometry.right).toBeLessThan(geometry.text);
     }
     const paragraphs = lists.locator('li').filter({ has: page.locator(':scope > p', { hasText: 'A loose item' }) }).first().locator(':scope > p');
@@ -235,3 +236,28 @@ test('complete async 0.22.2 README retains source text and exposes the documente
   await expect(readme.locator('#task-cancellation')).toBeFocused();
   await expect(page).toHaveURL(/\/components\/markdown\/$/);
 });
+
+for (const width of [390, 1280]) {
+  test(`task checkboxes center on the first text line at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    const tasks = page.locator('.rui-markdown-task');
+    const geometry = await tasks.evaluateAll(items => items.map(item => {
+      const checkbox = item.querySelector(':scope > [role=checkbox]')!;
+      const paragraph = item.querySelector(':scope > p');
+      const text = paragraph || item;
+      const style = getComputedStyle(text);
+      const box = checkbox.getBoundingClientRect();
+      const bounds = text.getBoundingClientRect();
+      return {
+        text: text.textContent?.slice(0, 60),
+        offset: box.y + box.height / 2 - (bounds.y + parseFloat(style.lineHeight) / 2),
+        wrapped: bounds.height > parseFloat(style.lineHeight) * 1.5,
+        loose: !!paragraph,
+      };
+    }));
+    expect(geometry.some(item => item.loose)).toBe(true);
+    expect(geometry.some(item => !item.loose)).toBe(true);
+    expect(geometry.some(item => item.wrapped)).toBe(true);
+    for (const item of geometry) expect(Math.abs(item.offset), item.text).toBeLessThan(0.6);
+  });
+}
