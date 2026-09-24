@@ -268,7 +268,6 @@ async fn execute_request(
         Failed(RequestError("HTTP \{response.code}\{reason}"), expect)
       }
     } catch {
-      error if @async.is_cancellation_error(error) => raise error
       RequestError(message) => Failed(RequestError(message), expect)
       error => Failed(RequestError(error.to_string()), expect)
     }
