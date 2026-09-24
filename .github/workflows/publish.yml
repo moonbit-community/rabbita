@@ -25,6 +25,9 @@ jobs:
     env:
       FORCE_COLOR: 1
       TYPOS_VERSION: v1.19.0
+      # Check and publish the rabbita module alone; the root moon.work would
+      # otherwise pull sibling members such as rui into the --deny-warn gate.
+      MOON_WORK: "off"
 
     steps:
       - uses: actions/checkout@v4

@@ -101,10 +101,13 @@ fn page_service(
 
   ctx => {
     if assets is Some(files) {
-      let static = @static.from_assets(files, rewrite_trailing_slash_index=true)
+      let assets_middleware = @static.from_assets(
+        files,
+        rewrite_trailing_slash_index=true,
+      )
       ctx.add_middleware(
         @moonback.Middleware(next => {
-          let serve = (static.0)(next)
+          let serve = (assets_middleware.0)(next)
           (req, res) => {
             if component is Some(_) && req.path == "/" {
               next(req, res)
