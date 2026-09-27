@@ -16,6 +16,10 @@ priv struct Model {
   old_tagger_count : Int
   new_tagger_count : Int
   barrier : Int
+  socket_case : Int
+  socket_errors : Int
+  socket_opens : Int
+  socket_message : String
 } derive(Eq)
 
 ///|
@@ -27,6 +31,10 @@ priv enum Msg {
   UseOldTagger
   UseNewTagger
   Barrier
+  SetSocket(Int)
+  SocketError
+  SocketOpened
+  SocketMessage(String)
 }
 
 ///|
@@ -66,6 +74,13 @@ fn update(model : Model, message : Msg, _ : Emit[Msg]) -> (Model, Cmd) {
     UseOldTagger => ({ ..model, use_new_tagger: false, }, @rabbita.none)
     UseNewTagger => ({ ..model, use_new_tagger: true, }, @rabbita.none)
     Barrier => ({ ..model, barrier: model.barrier + 1, }, @rabbita.none)
+    SetSocket(socket_case) => ({ ..model, socket_case, }, @rabbita.none)
+    SocketError =>
+      ({ ..model, socket_errors: model.socket_errors + 1, }, @rabbita.none)
+    SocketOpened =>
+      ({ ..model, socket_opens: model.socket_opens + 1, }, @rabbita.none)
+    SocketMessage(socket_message) =>
+      ({ ..model, socket_message, }, @rabbita.none)
   }
 }
 
@@ -73,6 +88,7 @@ fn update(model : Model, message : Msg, _ : Emit[Msg]) -> (Model, Cmd) {
 fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
   if model.active {
     @sub.batch([
+      socket_subscription(model.socket_case, emit),
       @sub.on_resize(emit.map(viewport => Resized(viewport))),
       @sub.on_key_down(
         emit.map(keyboard => {
@@ -90,6 +106,25 @@ fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
 }
 
 ///|
+fn socket_subscription(socket_case : Int, emit : Emit[Msg]) -> @sub.Sub {
+  let (url, protocols) : (String, FixedArray[String]) = match socket_case {
+    1 => ("ftp://example.test", [])
+    2 => ("ws://example.test/#fragment", [])
+    3 => ("ws://example.test/socket", ["duplicate", "duplicate"])
+    4 => ("ws://example.test/socket", [])
+    5 => ("ws://example.test/socket", ["events"])
+    _ => return @sub.none
+  }
+  @websocket.listen(
+    url,
+    protocols~,
+    open=emit(SocketOpened),
+    message=emit.map(message => SocketMessage(message)),
+    error=emit(SocketError),
+  )
+}
+
+///|
 fn app() -> Val[Html] {
   let initial : Model = {
     active: true,
@@ -102,6 +137,10 @@ fn app() -> Val[Html] {
     old_tagger_count: 0,
     new_tagger_count: 0,
     barrier: 0,
+    socket_case: 0,
+    socket_errors: 0,
+    socket_opens: 0,
+    socket_message: "",
   }
   let (model, emit) = @rabbita.create_state(initial, update~, subscriptions~)
   model.view(model => {
@@ -119,6 +158,15 @@ fn app() -> Val[Html] {
       button(on_click=emit(SetActive(true)), "Enable subscriptions"),
       button(on_click=emit(Barrier), "Flush barrier"),
       p(id="barrier", "barrier: \{model.barrier}"),
+      button(on_click=emit(SetSocket(1)), "Invalid socket scheme"),
+      button(on_click=emit(SetSocket(2)), "Socket URL fragment"),
+      button(on_click=emit(SetSocket(3)), "Duplicate socket protocols"),
+      button(on_click=emit(SetSocket(4)), "Valid socket"),
+      button(on_click=emit(SetSocket(5)), "Valid socket with protocol"),
+      button(on_click=emit(SetSocket(0)), "Remove socket"),
+      p(id="socket-errors", "socket errors: \{model.socket_errors}"),
+      p(id="socket-opens", "socket opens: \{model.socket_opens}"),
+      p(id="socket-message", "socket message: \{model.socket_message}"),
       p(id="resize-count", "resizes: \{model.resize_count}"),
       p(id="viewport", "viewport: \{model.width}x\{model.height}"),
       p(id="key-count", "keys: \{model.key_count}"),
