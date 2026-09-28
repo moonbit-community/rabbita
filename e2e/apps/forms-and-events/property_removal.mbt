@@ -24,6 +24,20 @@ fn property_removal_fixture() -> Val[Html] {
     if flag is Some(flag) {
       ignore(custom_attrs.checked(flag))
     }
+    let input_attrs = @html.Attrs::build()
+    let form_attrs = @html.Attrs::build()
+    let video_attrs = @html.Attrs::build()
+    let div_attrs = @html.Attrs::build()
+    let iframe_attrs = @html.Attrs::build()
+    let img_attrs = @html.Attrs::build()
+    if flag is Some(flag) {
+      ignore(input_attrs.readonly_(flag).formnovalidate(flag))
+      ignore(form_attrs.novalidate(flag))
+      ignore(video_attrs.playsinline(flag))
+      ignore(div_attrs.itemscope(flag))
+      ignore(iframe_attrs.allowfullscreen(flag))
+      ignore(img_attrs.ismap(flag))
+    }
     @html.section([
       @html.h2("Optional DOM properties"),
       button(on_click=set_phase(_ => 0), "Set initial properties"),
@@ -63,6 +77,15 @@ fn property_removal_fixture() -> Val[Html] {
         ([] : Array[Html]),
       ),
       @html.node("property-probe", custom_attrs, ([] : Array[Html])),
+      input(id="readonly-constructor", read_only?=flag),
+      @html.textarea(id="readonly-textarea", read_only?=flag, @html.nothing),
+      @html.iframe(id="fullscreen-constructor", allowfullscreen?=flag),
+      input(id="reflected-input", attrs=input_attrs),
+      @html.form(id="reflected-form", attrs=form_attrs, @html.nothing),
+      @html.video(id="reflected-video", attrs=video_attrs, @html.nothing),
+      div(id="reflected-div", attrs=div_attrs, @html.nothing),
+      @html.iframe(id="reflected-iframe", attrs=iframe_attrs),
+      @html.img(id="reflected-img", attrs=img_attrs),
     ])
   })
 }

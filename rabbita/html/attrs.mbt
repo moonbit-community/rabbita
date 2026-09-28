@@ -444,7 +444,7 @@ pub fn Attrs::formmethod(self : Attrs, value : String) -> Attrs {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/formnovalidate)
 pub fn Attrs::formnovalidate(self : Attrs, value : Bool) -> Attrs {
-  self.property("formnovalidate", Boolean(value))
+  self.property("formNoValidate", Boolean(value))
 }
 
 ///|
@@ -516,7 +516,7 @@ pub fn Attrs::inputmode(self : Attrs, value : String) -> Attrs {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/ismap)
 pub fn Attrs::ismap(self : Attrs, value : Bool) -> Attrs {
-  self.property("ismap", Boolean(value))
+  self.property("isMap", Boolean(value))
 }
 
 ///|
@@ -630,7 +630,7 @@ pub fn Attrs::name(self : Attrs, value : String) -> Attrs {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/novalidate)
 pub fn Attrs::novalidate(self : Attrs, value : Bool) -> Attrs {
-  self.property("novalidate", Boolean(value))
+  self.property("noValidate", Boolean(value))
 }
 
 ///|
@@ -666,7 +666,7 @@ pub fn Attrs::placeholder(self : Attrs, value : String) -> Attrs {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/playsinline)
 pub fn Attrs::playsinline(self : Attrs, value : Bool) -> Attrs {
-  self.property("playsinline", Boolean(value))
+  self.property("playsInline", Boolean(value))
 }
 
 ///|
@@ -684,7 +684,7 @@ pub fn Attrs::preload(self : Attrs, value : String) -> Attrs {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/readonly)
 pub fn Attrs::readonly_(self : Attrs, value : Bool) -> Attrs {
-  self.property("readonly", Boolean(value))
+  self.property("readOnly", Boolean(value))
 }
 
 ///|
@@ -948,7 +948,12 @@ pub fn Attrs::itemref(self : Attrs, value : String) -> Attrs {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/itemscope)
 pub fn Attrs::itemscope(self : Attrs, value : Bool) -> Attrs {
-  self.property("itemscope", Boolean(value))
+  if value {
+    self.0.attrs["itemscope"] = ""
+  } else {
+    self.0.attrs.remove("itemscope")
+  }
+  self
 }
 
 ///|
@@ -978,7 +983,7 @@ pub fn Attrs::popover(self : Attrs, value : String) -> Attrs {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/allowfullscreen)
 pub fn Attrs::allowfullscreen(self : Attrs, value : Bool) -> Attrs {
-  self.property("allowfullscreen", Boolean(value))
+  self.property("allowFullscreen", Boolean(value))
 }
 
 ///|

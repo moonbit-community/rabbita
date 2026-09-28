@@ -10,10 +10,41 @@ const booleanProperties = [
   ['optional-video', 'autoplay'],
   ['optional-video', 'loop'],
   ['optional-video', 'muted'],
+  ['readonly-constructor', 'readOnly'],
+  ['readonly-textarea', 'readOnly'],
+  ['fullscreen-constructor', 'allowFullscreen'],
+  ['reflected-input', 'readOnly'],
+  ['reflected-input', 'formNoValidate'],
+  ['reflected-form', 'noValidate'],
+  ['reflected-video', 'playsInline'],
+  ['reflected-iframe', 'allowFullscreen'],
+  ['reflected-img', 'isMap'],
 ] as const;
 
+test('itemscope adds and removes the HTML attribute without expando properties', async ({ page }) => {
+  await page.goto('/');
+  const target = page.locator('#reflected-div');
+  const original = await target.elementHandle();
+  await expect(target).toHaveAttribute('itemscope', '');
+  for (const [action, present] of [
+    ['Set empty properties', false],
+    ['Set updated properties', true],
+    ['Omit properties', false],
+    ['Set initial properties', true],
+  ] as const) {
+    await page.getByRole('button', { name: action, exact: true }).click();
+    if (present) {
+      await expect(target).toHaveAttribute('itemscope', '');
+    } else {
+      await expect(target).not.toHaveAttribute('itemscope');
+    }
+    expect(await target.evaluate((node, previous) => node === previous, original)).toBe(true);
+    expect(await target.evaluate(node => Object.hasOwn(node, 'itemScope') || Object.hasOwn(node, 'itemscope'))).toBe(false);
+  }
+});
+
 for (const [id, property] of booleanProperties) {
-  test(`${property} resets when omitted and can be added again`, async ({ page }) => {
+  test(`${id}.${property} resets when omitted and can be added again`, async ({ page }) => {
     await page.goto('/');
     const target = page.locator(`#${id}`);
     const original = await target.elementHandle();

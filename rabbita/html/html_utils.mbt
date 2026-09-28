@@ -313,7 +313,7 @@ fn push_placeholder(value : String?, attrs : Attrs) -> Unit {
 ///|
 fn push_readonly(value : Bool?, attrs : Attrs) -> Unit {
   if value is Some(v) {
-    ignore(attrs.property("readonly", Boolean(v)))
+    ignore(attrs.property("readOnly", Boolean(v)))
   }
 }
 
@@ -771,7 +771,7 @@ fn push_sandbox(value : String?, attrs : Attrs) -> Unit {
 ///|
 fn push_allowfullscreen(value : Bool?, attrs : Attrs) -> Unit {
   if value is Some(v) {
-    ignore(attrs.property("allowfullscreen", Boolean(v)))
+    ignore(attrs.property("allowFullscreen", Boolean(v)))
   }
 }
 
