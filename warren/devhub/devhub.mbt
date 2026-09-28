@@ -307,8 +307,6 @@ async fn Devhub::handle_ws(
     } catch {
       _ => ()
     }
-    group.return_immediately(()) catch {
-      _ => ()
-    }
+    group.return_immediately(())
   })
 }
