@@ -364,8 +364,8 @@ let _embed_server_moon_mod : String =
   #|
   #|import {
   #|  "moonbit-community/rabbita@__RABBITA_VERSION__",
-  #|  "moonbitlang/async@0.21.0",
-  #|  "moonbitlang/moonback@0.8.3",
+  #|  "moonbitlang/async@0.22.4",
+  #|  "moonbitlang/moonback@0.8.4",
   #|  "moonbitlang/x@0.5.1",
   #|}
   #|

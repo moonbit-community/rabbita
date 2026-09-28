@@ -6,7 +6,7 @@ import {
   "moonbit-community/rabbita@0.16.1",
   "moonbit-community/rui@0.3.3",
   "Yoorkin/shiki@0.1.0",
-  "moonbitlang/async@0.21.0",
+  "moonbitlang/async@0.22.4",
   "moonbit-community/cmark@0.4.8",
 }
 

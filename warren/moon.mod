@@ -3,7 +3,7 @@ name = "moonbit-community/warren"
 version = "0.4.0"
 
 import {
-  "moonbitlang/async@0.21.0",
+  "moonbitlang/async@0.22.4",
   "moonbitlang/parser@0.2.5",
   "moonbitlang/x@0.5.1",
 }
