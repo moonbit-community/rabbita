@@ -1,5 +1,11 @@
 import { expect, test } from '@playwright/test';
 
+test('SVG lists remain live and animated transform lists are read-only', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Run SVG collection APIs' }).click();
+  await expect(page.locator('#svg-collections-result')).toHaveText('passed');
+});
+
 test('node, element, document, collection, HTML, image, and SVG APIs use real DOM objects', async ({ page }) => {
   await page.goto('/');
 
