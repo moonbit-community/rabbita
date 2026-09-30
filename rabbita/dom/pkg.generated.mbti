@@ -2516,6 +2516,8 @@ pub fn ResizeObserver::unobserve(Self, Element) -> Unit
 type ResizeObserverEntry
 
 type SVGAnimatedTransformList
+pub fn SVGAnimatedTransformList::get_anim_val(Self) -> SVGTransformListReadOnly
+pub fn SVGAnimatedTransformList::get_base_val(Self) -> SVGTransformList
 
 type SVGElement
 pub fn SVGElement::add_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -2662,7 +2664,7 @@ pub fn SVGGraphicsElement::get_parent_element(Self) -> Element?
 pub fn SVGGraphicsElement::get_parent_node(Self) -> @js.Nullable[Node]
 pub fn SVGGraphicsElement::get_previous_sibling(Self) -> @js.Nullable[Node]
 pub fn SVGGraphicsElement::get_property(Self, String) -> @js.Optional[String]
-pub fn SVGGraphicsElement::get_required_extensions(Self) -> String
+pub fn SVGGraphicsElement::get_required_extensions(Self) -> SVGStringList
 pub fn SVGGraphicsElement::get_screen_ctm(Self) -> DOMMatrix
 pub fn SVGGraphicsElement::get_scroll_height(Self) -> Double
 pub fn SVGGraphicsElement::get_scroll_left(Self) -> Double
@@ -2829,6 +2831,37 @@ pub impl IsSVGElement for SVGImageElement
 pub impl @js.Cast for SVGImageElement
 
 type SVGStringList
+pub fn SVGStringList::append_item(Self, String) -> String
+pub fn SVGStringList::clear(Self) -> Unit
+pub fn SVGStringList::get_item(Self, Double) -> String
+pub fn SVGStringList::get_length(Self) -> Double
+pub fn SVGStringList::get_number_of_items(Self) -> Double
+pub fn SVGStringList::initialize(Self, String) -> String
+pub fn SVGStringList::insert_item_before(Self, String, Double) -> String
+pub fn SVGStringList::length(Self) -> Int
+pub fn SVGStringList::remove_item(Self, Double) -> String
+pub fn SVGStringList::replace_item(Self, String, Double) -> String
+
+type SVGTransform
+
+type SVGTransformList
+pub fn SVGTransformList::append_item(Self, SVGTransform) -> SVGTransform
+pub fn SVGTransformList::clear(Self) -> Unit
+pub fn SVGTransformList::consolidate(Self) -> @js.Nullable[SVGTransform]
+pub fn SVGTransformList::get_item(Self, Double) -> SVGTransform
+pub fn SVGTransformList::get_length(Self) -> Double
+pub fn SVGTransformList::get_number_of_items(Self) -> Double
+pub fn SVGTransformList::initialize(Self, SVGTransform) -> SVGTransform
+pub fn SVGTransformList::insert_item_before(Self, SVGTransform, Double) -> SVGTransform
+pub fn SVGTransformList::length(Self) -> Int
+pub fn SVGTransformList::remove_item(Self, Double) -> SVGTransform
+pub fn SVGTransformList::replace_item(Self, SVGTransform, Double) -> SVGTransform
+
+type SVGTransformListReadOnly
+pub fn SVGTransformListReadOnly::get_item(Self, Double) -> SVGTransform
+pub fn SVGTransformListReadOnly::get_length(Self) -> Double
+pub fn SVGTransformListReadOnly::get_number_of_items(Self) -> Double
+pub fn SVGTransformListReadOnly::length(Self) -> Int
 
 type StylePropertyMap
 
@@ -3495,7 +3528,7 @@ pub trait IsSVGElement : IsElement {
 
 pub trait IsSVGGraphicsElement : IsSVGElement {
   fn as_svg_graphics_element(Self) -> SVGGraphicsElement
-  fn get_required_extensions(Self) -> String
+  fn get_required_extensions(Self) -> SVGStringList
   fn get_system_language(Self) -> SVGStringList
   fn get_transform(Self) -> SVGAnimatedTransformList
   fn get_bbox(Self) -> DOMRect
