@@ -17,6 +17,7 @@ priv struct Model {
   media : String
   collections : String
   drag_probes : String
+  svg_collections : String
 } derive(Eq)
 
 ///|
@@ -32,6 +33,7 @@ priv enum Msg {
   RunMedia
   RunDomCollections
   InstallDragProbes
+  RunSvgCollections
   PushUrl
   ReplaceUrl
   HistoryBack
@@ -69,6 +71,7 @@ fn update(model : Model, message : Msg) -> Model {
       install_drag_probes()
       { ..model, drag_probes: "ready", }
     }
+    RunSvgCollections => { ..model, svg_collections: probe_svg_collections(), }
     PushUrl => {
       @dom.window().push_url("/dom-api-pushed")
       model
@@ -110,6 +113,7 @@ fn app() -> Val[Html] {
     media: "idle",
     collections: "idle",
     drag_probes: "idle",
+    svg_collections: "idle",
   }
   let (model, emit) = @rabbita.create_pure_state(initial, update~)
   model.view(model => {
@@ -149,6 +153,8 @@ fn app() -> Val[Html] {
       p(id="dnd-result", "pending"),
       div(id="dnd-source", "Drag source"),
       div(id="dnd-target", "Drop target"),
+      button(on_click=emit(RunSvgCollections), "Run SVG collection APIs"),
+      p(id="svg-collections-result", model.svg_collections),
       button(on_click=emit(PushUrl), "Push URL"),
       button(on_click=emit(ReplaceUrl), "Replace URL"),
       button(on_click=emit(HistoryBack), "History back"),

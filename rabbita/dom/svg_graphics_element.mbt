@@ -151,7 +151,7 @@ pub extend SVGGraphicsElement with IsSVGGraphicsElement::{
 #cfg(target="js")
 pub trait IsSVGGraphicsElement: IsSVGElement {
   fn as_svg_graphics_element(Self) -> SVGGraphicsElement = _
-  fn get_required_extensions(Self) -> String = _
+  fn get_required_extensions(Self) -> SVGStringList = _
   fn get_system_language(Self) -> SVGStringList = _
   fn get_transform(Self) -> SVGAnimatedTransformList = _
   fn get_bbox(Self) -> DOMRect = _
@@ -174,14 +174,6 @@ pub extend SVGGraphicsElement with @js.Cast::{from, into}
 pub impl @js.Cast for SVGGraphicsElement with fn from(value) {
   value |> js_identity
 }
-
-///|
-#cfg(target="js")
-type SVGStringList
-
-///|
-#cfg(target="js")
-type SVGAnimatedTransformList
 
 ///|
 #cfg(target="js")
@@ -231,7 +223,7 @@ impl IsSVGGraphicsElement with fn get_screen_ctm(s) {
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_get_required_extensions(s : @js.Value) -> String = "(self) => self.requiredExtensions"
+extern "js" fn ffi_get_required_extensions(s : @js.Value) -> SVGStringList = "(self) => self.requiredExtensions"
 
 ///|
 #cfg(target="js")
