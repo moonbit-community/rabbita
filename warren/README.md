@@ -6,7 +6,6 @@
 
 ```sh
 moon install moonbit-community/warren
-moon install moonbit-community/evol
 ```
 
 ## Project entries
@@ -84,10 +83,6 @@ stops the server and exits Warren. A native server is restarted only when its
 artifact changes or the previous process has exited.
 
 ## Release build
-
-Warren minifies release JavaScript with `evol`, installed above and available on
-`PATH`. If `evol` is unavailable or fails, Warren warns and uses Moon's release
-JavaScript without extra minification. This also applies to bundled builds.
 
 ```sh
 warren build
