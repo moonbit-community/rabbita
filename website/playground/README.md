@@ -4,10 +4,11 @@ MoonBit + Rabbita playground, served by Warren.
 
 ## Dev
 
-Install `warren` once:
+Install `warren` and `evol` once:
 
 ```sh
 moon install moonbit-community/warren
+moon install moonbit-community/evol
 ```
 
 ```sh

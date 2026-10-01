@@ -270,22 +270,12 @@ async fn minify_or_copy_js(
 ) -> Unit {
   let src_string = source_path_to_string(src)
   let dst_string = source_path_to_string(dst)
-  let terser_args = [
-    src_string, "-c", "toplevel=true", "-m", "toplevel=true", "-o", dst_string,
-  ]
-  if has_command("terser") {
-    guard !run_minifier("terser", terser_args, project_root, "terser") else {
-      return
-    }
-    copy(src~, dst~)
-    return
-  }
-  if has_command("node") && has_command("npm") {
+  if has_command("evol") {
     guard !run_minifier(
-      "npm",
-      ["exec", "--yes", "terser", "--", ..terser_args],
+      "evol",
+      [src_string, "--output", dst_string],
       project_root,
-      "npm exec terser",
+      "evol",
     ) else {
       return
     }
@@ -293,7 +283,7 @@ async fn minify_or_copy_js(
     return
   }
   log(
-    "warn", "terser not found and node/npm unavailable. Using Moon release JS without extra minification.",
+    "warn", "evol not found. Install it with `moon install moonbit-community/evol`. Using Moon release JS without extra minification.",
   )
   copy(src~, dst~)
 }

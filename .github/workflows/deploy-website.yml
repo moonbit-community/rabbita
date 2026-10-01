@@ -48,6 +48,9 @@ jobs:
         run: |
           moon install ./warren
 
+      - name: Install evol
+        run: moon install moonbit-community/evol
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5

@@ -7,6 +7,7 @@ Built with MoonBit, Rabbita, and Warren.
 ```sh
 moon update
 moon install moonbit-community/warren
+moon install moonbit-community/evol
 ```
 
 ## Dev
