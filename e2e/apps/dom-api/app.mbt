@@ -15,6 +15,7 @@ priv struct Model {
   events : String
   async_apis : String
   media : String
+  svg_collections : String
 } derive(Eq)
 
 ///|
@@ -28,6 +29,7 @@ priv enum Msg {
   InstallEvents
   RunAsyncApis
   RunMedia
+  RunSvgCollections
   PushUrl
   ReplaceUrl
   HistoryBack
@@ -60,6 +62,7 @@ fn update(model : Model, message : Msg) -> Model {
       { ..model, async_apis: "running", }
     }
     RunMedia => { ..model, media: probe_media(), }
+    RunSvgCollections => { ..model, svg_collections: probe_svg_collections(), }
     PushUrl => {
       @dom.window().push_url("/dom-api-pushed")
       model
@@ -99,6 +102,7 @@ fn app() -> Val[Html] {
     events: "idle",
     async_apis: "idle",
     media: "idle",
+    svg_collections: "idle",
   }
   let (model, emit) = @rabbita.create_pure_state(initial, update~)
   model.view(model => {
@@ -131,6 +135,8 @@ fn app() -> Val[Html] {
       p(id="async-result", model.async_apis),
       button(on_click=emit(RunMedia), "Run media APIs"),
       p(id="media-result", model.media),
+      button(on_click=emit(RunSvgCollections), "Run SVG collection APIs"),
+      p(id="svg-collections-result", model.svg_collections),
       button(on_click=emit(PushUrl), "Push URL"),
       button(on_click=emit(ReplaceUrl), "Replace URL"),
       button(on_click=emit(HistoryBack), "History back"),
