@@ -3,6 +3,4 @@ import {
   "moonbit-community/rabbita/html",
 }
 
-options(
-  "is-main": true,
-)
+pkgtype(kind: "executable")

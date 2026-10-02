@@ -186,9 +186,9 @@ fn initial_model() -> Model {
 ///|
 fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
   match msg {
-    HoverStarted => (none, { ..model, hovered: true })
-    HoverEnded => (none, { ..model, hovered: false })
-    TogglePinned => (none, { ..model, pinned: !model.pinned, hovered: true })
+    HoverStarted => (none, { ..model, hovered: true, })
+    HoverEnded => (none, { ..model, hovered: false, })
+    TogglePinned => (none, { ..model, pinned: !model.pinned, hovered: true, })
     DragStarted(mouse) => {
       let x = mouse_client_x(mouse)
       (
@@ -196,7 +196,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         {
           ..model,
           hovered: true,
-          drag: Some({ start_x: x, start_left: model.tab_left, moved: false }),
+          drag: Some({ start_x: x, start_left: model.tab_left, moved: false, }),
         },
       )
     }
@@ -209,25 +209,25 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
             drag.start_left + delta,
             model.viewport_width,
           )
-          (none, { ..model, tab_left, drag: Some({ ..drag, moved, }) })
+          (none, { ..model, tab_left, drag: Some({ ..drag, moved, }), })
         }
         None => (none, model)
       }
     DragEnded =>
       match model.drag {
-        Some(_) => (none, { ..model, drag: None })
+        Some(_) => (none, { ..model, drag: None, })
         None => (none, model)
       }
     ViewportChanged(viewport) => {
       let viewport_width = viewport.width.round().to_int()
       let tab_left = clamp_tab_left(model.tab_left, viewport_width)
-      (none, { ..model, tab_left, viewport_width })
+      (none, { ..model, tab_left, viewport_width, })
     }
-    SocketOpened => (none, { ..model, listening: true, reconnecting: false })
+    SocketOpened => (none, { ..model, listening: true, reconnecting: false, })
     SocketMessage("building") =>
       (
         none,
-        { ..model, auto_open: false, status: Building, build_diagnostics: "" },
+        { ..model, auto_open: false, status: Building, build_diagnostics: "", },
       )
     SocketMessage("reload") =>
       (
@@ -255,10 +255,10 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         None => (none, model)
       }
     SocketClosed | SocketErrored =>
-      (none, { ..model, listening: false, reconnecting: true })
+      (none, { ..model, listening: false, reconnecting: true, })
     ReconnectTick =>
       if model.reconnecting {
-        (none, { ..model, listening: true, reconnecting: false })
+        (none, { ..model, listening: true, reconnecting: false, })
       } else {
         (none, model)
       }
@@ -267,7 +267,7 @@ fn update(emit : Emit[Msg], msg : Msg, model : Model) -> (Cmd, Model) {
         Reloading =>
           (
             none,
-            { ..model, auto_open: false, status: Ready, build_diagnostics: "" },
+            { ..model, auto_open: false, status: Ready, build_diagnostics: "", },
           )
         _ => (none, model)
       }
@@ -306,14 +306,16 @@ fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {
 
 ///|
 fn drag_layer(emit : Emit[Msg], drag : Val[DragState?]) -> Val[Html] {
-  drag.map(drag => match drag {
-    Some(_) =>
-      div(
-        class="warren-devtool-drag-layer",
-        on_mouseup=emit.map(_ => DragEnded),
-        "",
-      )
-    None => @html.nothing
+  drag.map(drag => {
+    match drag {
+      Some(_) =>
+        div(
+          class="warren-devtool-drag-layer",
+          on_mouseup=emit.map(_ => DragEnded),
+          "",
+        )
+      None => @html.nothing
+    }
   })
 }
 
@@ -335,8 +337,7 @@ fn pin_icon() -> Html {
 ///|
 fn diagnostics_panel(status : DevStatus, build_diagnostics : String) -> Html {
   match status {
-    BuildFailed =>
-      pre(class="warren-devtool-diagnostics", build_diagnostics)
+    BuildFailed => pre(class="warren-devtool-diagnostics", build_diagnostics)
     _ => @html.nothing
   }
 }
@@ -344,11 +345,11 @@ fn diagnostics_panel(status : DevStatus, build_diagnostics : String) -> Html {
 ///|
 fn preview_frame(model : Val[Model]) -> Val[Html] {
   model.map(model => {
-  let preview_class = if dev_status_is_loading(model.status) {
-    "warren-preview-frame is-loading"
-  } else {
-    "warren-preview-frame"
-  }
+    let preview_class = if dev_status_is_loading(model.status) {
+      "warren-preview-frame is-loading"
+    } else {
+      "warren-preview-frame"
+    }
     iframe(
       class=preview_class,
       title="Warren preview",
@@ -360,32 +361,32 @@ fn preview_frame(model : Val[Model]) -> Val[Html] {
 ///|
 fn hover_zone(emit : Emit[Msg], model : Val[Model]) -> Val[Html] {
   model.map(model => {
-  let status_class = "warren-devtool-status \{dev_status_class(model.status)}"
-  let tab_title = if model.pinned {
-    "Drag Warren devtool"
-  } else {
-    "Hover to open Warren devtool"
-  }
-  let pin_title = if model.pinned {
-    "Unpin Warren devtool"
-  } else {
-    "Pin Warren devtool"
-  }
-  let pin_button_class = if model.pinned {
-    "warren-devtool-pin is-pinned"
-  } else {
-    "warren-devtool-pin"
-  }
-  let pin_attrs = @html.Attrs::build().aria_pressed(
-    if model.pinned {
-      "true"
+    let status_class = "warren-devtool-status \{dev_status_class(model.status)}"
+    let tab_title = if model.pinned {
+      "Drag Warren devtool"
     } else {
-      "false"
-    },
-  )
-  let hover_attrs = @html.Attrs::build()
-    .on_mouseenter(_ => emit(HoverStarted))
-    .on_mouseleave(_ => emit(HoverEnded))
+      "Hover to open Warren devtool"
+    }
+    let pin_title = if model.pinned {
+      "Unpin Warren devtool"
+    } else {
+      "Pin Warren devtool"
+    }
+    let pin_button_class = if model.pinned {
+      "warren-devtool-pin is-pinned"
+    } else {
+      "warren-devtool-pin"
+    }
+    let pin_attrs = @html.Attrs::build().aria_pressed(
+      if model.pinned {
+        "true"
+      } else {
+        "false"
+      },
+    )
+    let hover_attrs = @html.Attrs::build()
+      .on_mouseenter(_ => emit(HoverStarted))
+      .on_mouseleave(_ => emit(HoverEnded))
     div(class="warren-devtool-hover-zone", attrs=hover_attrs) <| [
       div(
         class="warren-devtool-tab",
