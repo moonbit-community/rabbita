@@ -23,10 +23,16 @@ fn websocket_sub_loader(
 ) -> @sub.RunningSub? {
   match payload {
     Listen(url, protocols, open~, message~, close~, error~) => {
-      let socket = if protocols.is_empty() {
-        @dom.WebSocket::new(url)
-      } else {
-        @dom.WebSocket::new_with_protocols(url, protocols)
+      let socket = match @dom.WebSocket::open(url, protocols~) {
+        Ok(socket) => socket
+        Err(_) => {
+          if error is Some(cmd) {
+            scheduler.add(cmd)
+          }
+          // Retain the failed subscription until removed so the error command's
+          // state update does not immediately retry the same invalid socket.
+          return Some({ unload: _ => (), update_tagger: _ => (), })
+        }
       }
 
       let mut open_tagger = open
@@ -96,6 +102,8 @@ fn websocket_sub_loader(
 /// At least one callback must be provided; otherwise `@sub.none` is returned.
 ///
 /// `message` only receives text frames. Binary messages are ignored.
+/// Synchronous construction failures dispatch `error` once, if provided.
+/// Remove and re-add the subscription to retry a failed connection.
 #cfg(target="js")
 pub fn listen(
   url : String,
