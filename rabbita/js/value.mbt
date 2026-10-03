@@ -191,6 +191,7 @@ pub fn Value::from_json_string(str : String) -> Value raise {
 extern "js" fn Value::from_json_string_ffi(str : String) -> Value = "JSON.parse"
 
 ///|
+/// Serialize a value to JSON, raising if JSON.stringify throws or returns undefined.
 #cfg(target="js")
 pub fn Value::to_json_string(self : Value) -> String raise {
   Error_::wrap(fn() { self.to_json_string_ffi() })
@@ -205,7 +206,13 @@ pub fn Value::to_json(self : Value) -> Json raise {
 ///|
 #cfg(target="js")
 extern "js" fn Value::to_json_string_ffi(self : Value) -> Value =
-  #| (self) => JSON.stringify(self)
+  #| (self) => {
+  #|   const result = JSON.stringify(self);
+  #|   if (result === undefined) {
+  #|     throw new TypeError('Value cannot be serialized to a JSON string');
+  #|   }
+  #|   return result;
+  #| }
 
 ///|
 #cfg(target="js")
