@@ -226,10 +226,10 @@ fn minifier_command(
 ///|
 async fn has_command(cmd : String) -> Bool {
   let (cmd, args, extra_env) = minifier_command(cmd, ["--version"])
-  try @process.collect_stdout(cmd, args, extra_env~) catch {
+  try @process.collect_output(cmd, args, extra_env~) catch {
     _ => false
   } noraise {
-    (0, _) => true
+    (0, _, _) => true
     _ => false
   }
 }
