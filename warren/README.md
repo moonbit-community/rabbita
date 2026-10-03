@@ -90,10 +90,6 @@ warren build --public-dir shared/public --dist output
 warren build --server-target native
 ```
 
-Warren minifies release JavaScript with the built-in `evol-minifier` library.
-No separate `evol` installation is needed. Minification errors fail the build.
-`warren dev` does not run the minifier.
-
 The default output directory is `dist/`. Warren clears it at the start, copies
 public files, writes the browser artifact as `index.js`, creates or updates
 `index.html`, and copies an optional server artifact under its original
