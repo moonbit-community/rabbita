@@ -2,6 +2,7 @@
 priv struct RenderState {
   render_codeblock : ((String, String) -> @html.Html)?
   render_heading : ((@cmark.BlockHeading) -> @html.Html)?
+  heading_anchors : Bool
   escape_link : Bool
   transform_link : ((String) -> String)?
   defs : Map[String, @cmark.LabelDef]
@@ -33,19 +34,24 @@ priv struct FootnoteUse {
 /// browser navigation for all links, including heading anchors and footnotes.
 /// `transform_link` rewrites source link and image destinations before URL safety
 /// checks. Generated heading anchors and footnote references are not rewritten.
+/// Set `heading_anchors=false` to omit generated heading links while retaining
+/// heading IDs, inline formatting and typography. Defaults to `true`.
 /// `render_heading` receives the cmark heading and replaces the entire heading.
-/// The callback owns inline rendering, styles, IDs and anchor links.
+/// The callback owns inline rendering, styles, IDs and anchor links;
+/// `heading_anchors` does not affect its output.
 pub fn markdown(
   source : String,
   render_codeblock? : (String, String) -> @html.Html,
   escape_link? : Bool = false,
   transform_link? : (String) -> String,
   render_heading? : (@cmark.BlockHeading) -> @html.Html,
+  heading_anchors? : Bool = true,
 ) -> @html.Html {
   let doc = @cmark.Doc::from_string(source, strict=false, heading_auto_ids=true)
   let state : RenderState = {
     render_codeblock,
     render_heading,
+    heading_anchors,
     escape_link,
     transform_link,
     defs: doc.defs,

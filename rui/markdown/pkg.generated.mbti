@@ -7,7 +7,7 @@ import {
 }
 
 // Values
-pub fn markdown(String, render_codeblock? : (String, String) -> @html.Html, escape_link? : Bool, transform_link? : (String) -> String, render_heading? : (@cmark.BlockHeading) -> @html.Html) -> @html.Html
+pub fn markdown(String, render_codeblock? : (String, String) -> @html.Html, escape_link? : Bool, transform_link? : (String) -> String, render_heading? : (@cmark.BlockHeading) -> @html.Html, heading_anchors? : Bool) -> @html.Html
 
 // Errors
 

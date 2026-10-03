@@ -22,32 +22,35 @@ fn render_block(
         return render(v)
       }
       let id = unique_id(state, v.inline.id())
-      let content = @html.fragment([
-        render_inline(state, v.inline),
-        @html.a(
-          class="rui-markdown-anchor",
-          href="#" + id,
-          title="Link to " + plain_text(v.inline),
-          attrs=@html.Attrs::build().aria_label(
-            "Link to " + plain_text(v.inline),
+      let children = [render_inline(state, v.inline)]
+      if state.heading_anchors {
+        children.push(
+          @html.a(
+            class="rui-markdown-anchor",
+            href="#" + id,
+            title="Link to " + plain_text(v.inline),
+            attrs=@html.Attrs::build().aria_label(
+              "Link to " + plain_text(v.inline),
+            ),
+            escape=state.escape_link,
+            @html.span(
+              attrs=@html.Attrs::build().aria_hidden("true"),
+              @svg.svg(width=16, height=16, view_box="0 0 24 24", [
+                @svg.path(
+                  d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
+                  fill="none",
+                  stroke="currentColor",
+                  stroke_width=2,
+                  attrs=@svg.Attrs::build()
+                    .stroke_linecap("round")
+                    .stroke_linejoin("round"),
+                ),
+              ]),
+            ),
           ),
-          escape=state.escape_link,
-          @html.span(
-            attrs=@html.Attrs::build().aria_hidden("true"),
-            @svg.svg(width=16, height=16, view_box="0 0 24 24", [
-              @svg.path(
-                d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
-                fill="none",
-                stroke="currentColor",
-                stroke_width=2,
-                attrs=@svg.Attrs::build()
-                  .stroke_linecap("round")
-                  .stroke_linejoin("round"),
-              ),
-            ]),
-          ),
-        ),
-      ])
+        )
+      }
+      let content = @html.fragment(children)
       match v.level {
         1 => @html.h1(id~, content)
         2 => @html.h2(id~, content)
