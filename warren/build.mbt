@@ -196,8 +196,37 @@ async fn run_build_only(
 }
 
 ///|
+#cfg(not(platform="windows"))
+fn minifier_command(
+  cmd : String,
+  args : Array[String],
+) -> (String, Array[String], Map[String, String]) {
+  (cmd, args, {})
+}
+
+///|
+#cfg(platform="windows")
+fn minifier_command(
+  cmd : String,
+  args : Array[String],
+) -> (String, Array[String], Map[String, String]) {
+  guard cmd == "terser" || cmd == "npm" else { (cmd, args, {}) }
+  // npm installs .cmd launchers, which cannot be spawned directly. Pass the
+  // command through the environment so process's C argv quoting does not
+  // escape the quotes intended for cmd.exe. Arguments here are fixed options
+  // or Windows file paths (which cannot contain double quotes).
+  let command = [cmd, ..args.map(arg => "\"\{arg}\"")].join(" ")
+  (
+    "cmd.exe",
+    ["/d", "/s", "/v:off", "/c", "%WARREN_MINIFIER_COMMAND%"],
+    { "WARREN_MINIFIER_COMMAND": command },
+  )
+}
+
+///|
 async fn has_command(cmd : String) -> Bool {
-  try @process.collect_stdout(cmd, ["--version"]) catch {
+  let (cmd, args, extra_env) = minifier_command(cmd, ["--version"])
+  try @process.collect_stdout(cmd, args, extra_env~) catch {
     _ => false
   } noraise {
     (0, _) => true
@@ -213,7 +242,10 @@ async fn run_minifier(
   label : String,
 ) -> Bool {
   log("build", "Minifying JS with \{label}")
-  try @process.run(cmd, args, cwd=source_path_to_string(cwd)) catch {
+  let (cmd, args, extra_env) = minifier_command(cmd, args)
+  try
+    @process.run(cmd, args, extra_env~, cwd=source_path_to_string(cwd))
+  catch {
     err => {
       log("warn", "\{label} failed: \{err}. Falling back to release JS")
       false
