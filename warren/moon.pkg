@@ -1,4 +1,5 @@
 import {
+  "moonbit-community/evol-minifier" @minifier,
   "moonbitlang/async/fs",
   "moonbitlang/async/process",
   "moonbitlang/async",

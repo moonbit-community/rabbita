@@ -6,6 +6,7 @@ import {
   "moonbitlang/async@0.22.4",
   "moonbitlang/parser@0.2.5",
   "moonbitlang/x@0.5.1",
+  "moonbit-community/evol-minifier@0.1.0",
 }
 
 readme = "README.md"

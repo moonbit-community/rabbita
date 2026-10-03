@@ -196,96 +196,16 @@ async fn run_build_only(
 }
 
 ///|
-#cfg(not(platform="windows"))
-fn minifier_command(
-  cmd : String,
-  args : Array[String],
-) -> (String, Array[String], Map[String, String]) {
-  (cmd, args, {})
-}
-
-///|
-#cfg(platform="windows")
-fn minifier_command(
-  cmd : String,
-  args : Array[String],
-) -> (String, Array[String], Map[String, String]) {
-  guard cmd == "terser" || cmd == "npm" else { (cmd, args, {}) }
-  // npm installs .cmd launchers, which cannot be spawned directly. Pass the
-  // command through the environment so process's C argv quoting does not
-  // escape the quotes intended for cmd.exe. Arguments here are fixed options
-  // or Windows file paths (which cannot contain double quotes).
-  let command = [cmd, ..args.map(arg => "\"\{arg}\"")].join(" ")
-  (
-    "cmd.exe",
-    ["/d", "/s", "/v:off", "/c", "%WARREN_MINIFIER_COMMAND%"],
-    { "WARREN_MINIFIER_COMMAND": command },
+async fn minify_js(src : SourcePath, dst : SourcePath) -> Unit {
+  log("build", "Minifying JS with evol")
+  let source = @fs.read_file(source_path_to_string(src)).text()
+  let output = @minifier.minify(source)
+  @fs.write_file(
+    source_path_to_string(dst),
+    output,
+    create_mode=CreateOrTruncate,
+    permission=0o644,
   )
-}
-
-///|
-async fn has_command(cmd : String) -> Bool {
-  let (cmd, args, extra_env) = minifier_command(cmd, ["--version"])
-  try @process.collect_output(cmd, args, extra_env~) catch {
-    _ => false
-  } noraise {
-    (0, _, _) => true
-    _ => false
-  }
-}
-
-///|
-async fn run_minifier(
-  cmd : String,
-  args : Array[String],
-  cwd : SourcePath,
-  label : String,
-) -> Bool {
-  log("build", "Minifying JS with \{label}")
-  let (cmd, args, extra_env) = minifier_command(cmd, args)
-  try
-    @process.run(cmd, args, extra_env~, cwd=source_path_to_string(cwd))
-  catch {
-    err => {
-      log("warn", "\{label} failed: \{err}. Falling back to release JS")
-      false
-    }
-  } noraise {
-    0 => true
-    code => {
-      log(
-        "warn",
-        "\{label} exited with code \{code}, falling back to release JS",
-      )
-      false
-    }
-  }
-}
-
-///|
-async fn minify_or_copy_js(
-  src : SourcePath,
-  dst : SourcePath,
-  project_root : SourcePath,
-) -> Unit {
-  let src_string = source_path_to_string(src)
-  let dst_string = source_path_to_string(dst)
-  if has_command("evol") {
-    guard !run_minifier(
-      "evol",
-      [src_string, "--output", dst_string],
-      project_root,
-      "evol",
-    ) else {
-      return
-    }
-    copy(src~, dst~)
-    return
-  }
-  log(
-    "warn", "evol not found. Install it with `moon install moonbit-community/evol`. Using Moon release JS without extra minification.",
-  )
-  copy(src~, dst~)
 }
 
 ///|
@@ -315,7 +235,6 @@ async fn write_index_html(dist_dir : SourcePath) -> Unit {
 
 ///|
 async fn assemble_static(
-  project_root : SourcePath,
   public_dir : SourcePath?,
   browser_artifact : SourcePath,
   destination : SourcePath,
@@ -337,11 +256,7 @@ async fn assemble_static(
     copy_dir_contents(dir, destination)
   }
   if release {
-    minify_or_copy_js(
-      browser_artifact,
-      destination.join("index.js"),
-      project_root,
-    )
+    minify_js(browser_artifact, destination.join("index.js"))
   } else {
     let artifact_string = source_path_to_string(browser_artifact)
     let artifact_basename = Path::basename(artifact_string).to_owned()
@@ -421,7 +336,7 @@ async fn build_project(
     "js",
     true,
   )
-  assemble_static(layout.root, layout.public_dir, browser_artifact, dist, true)
+  assemble_static(layout.public_dir, browser_artifact, dist, true)
   let server_output = if layout.server_entry is Some(server_entry) {
     let server_artifact = run_build_only(
       layout.root,

@@ -140,13 +140,7 @@ async fn build_bundle(
     true,
   )
   let static_dir = temp.join("static")
-  assemble_static(
-    layout.root,
-    layout.public_dir,
-    browser_artifact,
-    static_dir,
-    true,
-  )
+  assemble_static(layout.public_dir, browser_artifact, static_dir, true)
   let source = render_bundle_assets(static_dir)
   if layout.server_entry is Some(entry) {
     // A sibling copy preserves both module-relative build rules and relative

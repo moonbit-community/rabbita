@@ -112,13 +112,7 @@ async fn browser_dev(
           "js",
           false,
         )
-        assemble_static(
-          layout.root,
-          layout.public_dir,
-          browser_artifact,
-          next_static,
-          false,
-        )
+        assemble_static(layout.public_dir, browser_artifact, next_static, false)
         publish_browser_static(vfs, next_static, direct)
       } catch {
         error if @async.is_being_cancelled() => raise error
@@ -294,13 +288,7 @@ async fn fullstack_dev(
         "js",
         false,
       )
-      assemble_static(
-        layout.root,
-        layout.public_dir,
-        browser_artifact,
-        static_dir,
-        false,
-      )
+      assemble_static(layout.public_dir, browser_artifact, static_dir, false)
       log("warren", "Building server entry...")
       let server_artifact = run_build_only(
         layout.root,
