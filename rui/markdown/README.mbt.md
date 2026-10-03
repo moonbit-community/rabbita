@@ -78,25 +78,12 @@ URL safety checks run after rewriting. Disallowed schemes produce text instead
 of a link or image. `escape_link` independently controls navigation for the
 resulting links; it does not change image loading.
 
-## Heading anchors
-
-Set `heading_anchors=false` to omit the generated heading link and icon. Heading
-levels, typography, inline formatting and deduplicated IDs remain unchanged, so
-source fragment links still work. This applies to every heading level, including
-headings in quotes, lists and footnotes. The default is `true`.
-
-```mbt check
-///|
-test {
-  let view = @markdown.markdown(
-    "# A compact **heading**",
-    heading_anchors=false,
-  )
-  ignore(view)
-}
-```
-
 ## Custom headings
+
+Set `heading_anchors=false` (default: `true`) to omit generated heading links
+and icons at every level, including nested headings. Levels, typography, inline
+formatting and deduplicated IDs are preserved, so fragment links still work.
+This option does not affect custom `render_heading` output.
 
 Pass `render_heading? : (@cmark.BlockHeading) -> @html.Html` to take over the
 entire heading. `@cmark` refers to `moonbit-community/cmark/cmark`;
@@ -107,8 +94,7 @@ use this callback.
 The callback owns inline rendering, tags, styles, IDs and anchor links.
 Markdown does not wrap the result or render the default anchor. Its
 `transform_link` and `escape_link` options do not apply to HTML created by the
-callback. `heading_anchors` also does not affect the callback's output. Omit the
-callback to retain the standard heading rendering.
+callback. Omit the callback to retain the standard heading rendering.
 
 This example deliberately renders a compact plain-text heading; a host can
 instead render `heading.inline` with its own inline renderer to keep formatting:
