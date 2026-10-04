@@ -57,10 +57,7 @@ pub fn[C : @html.IsChildren] dialog(
               .formnovalidate(true)
               .data_set("rui-close-icon", ""),
             style=[DialogCloseIconButtonStyle],
-            @html.span(
-              attrs=@html.Attrs::build().aria_hidden("true"),
-              ui_x_icon(),
-            ),
+            ui_x_icon(),
           ),
         )
       } else {
