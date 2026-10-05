@@ -43,3 +43,18 @@ test "SSR keeps escaping text in normal elements" {
     ),
   )
 }
+
+///|
+test "SSR writes a camelCase property as its lowercase attribute" {
+  let props : Map[String, @variant.Variant] = {
+    "readOnly": Boolean(true),
+    "noValidate": Boolean(false),
+  }
+  let input = VNode::elem("input", Props::new({}, props, {}, {}), Array([]))
+  inspect(
+    server_side_render(() => input),
+    content=(
+      #|<!DOCTYPE html><input readonly>
+    ),
+  )
+}

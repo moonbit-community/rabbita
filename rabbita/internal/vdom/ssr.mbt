@@ -104,12 +104,17 @@ fn write_property_attrs(
   attrs : Map[String, String],
   props : Map[String, @variant.Variant],
 ) -> Unit {
-  for name, value in props {
-    if name == "textContent" ||
-      name == "innerHTML" ||
-      name == "style" ||
-      (tag == "textarea" && name == "value") ||
-      attrs.contains(name) {
+  for property, value in props {
+    if property == "textContent" ||
+      property == "innerHTML" ||
+      property == "style" ||
+      (tag == "textarea" && property == "value") {
+      continue
+    }
+    // A reflected property is spelt in camelCase (`readOnly`); its HTML
+    // attribute is the same name in lower case.
+    let name = property.to_lower()
+    if attrs.contains(name) {
       continue
     }
     match value {
