@@ -10,6 +10,14 @@ const booleanProperties = [
   ['optional-video', 'autoplay'],
   ['optional-video', 'loop'],
   ['optional-video', 'muted'],
+  // The DOM spells these in camelCase; the lowercase attribute name would
+  // only create a field the browser ignores.
+  ['optional-input', 'readOnly'],
+  ['optional-button', 'formNoValidate'],
+  ['optional-form', 'noValidate'],
+  ['optional-image', 'isMap'],
+  ['optional-video', 'playsInline'],
+  ['optional-frame', 'allowFullscreen'],
 ] as const;
 
 for (const [id, property] of booleanProperties) {
