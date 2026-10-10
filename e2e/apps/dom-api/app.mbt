@@ -28,6 +28,7 @@ priv enum Msg {
   InstallEvents
   RunAsyncApis
   RunMedia
+  RunMediaCollections
   PushUrl
   ReplaceUrl
   HistoryBack
@@ -60,6 +61,10 @@ fn update(model : Model, message : Msg) -> Model {
       { ..model, async_apis: "running", }
     }
     RunMedia => { ..model, media: probe_media(), }
+    RunMediaCollections => {
+      probe_media_collections()
+      model
+    }
     PushUrl => {
       @dom.window().push_url("/dom-api-pushed")
       model
@@ -131,6 +136,8 @@ fn app() -> Val[Html] {
       p(id="async-result", model.async_apis),
       button(on_click=emit(RunMedia), "Run media APIs"),
       p(id="media-result", model.media),
+      button(on_click=emit(RunMediaCollections), "Run media collection APIs"),
+      p(id="media-collections-result", "pending"),
       button(on_click=emit(PushUrl), "Push URL"),
       button(on_click=emit(ReplaceUrl), "Replace URL"),
       button(on_click=emit(HistoryBack), "History back"),
