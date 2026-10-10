@@ -15,7 +15,7 @@ pub extern "js" fn Uint8ClampedArray::length(self : Self) -> Int = "(self) => se
 extern "js" fn Uint8ClampedArray::get_ffi(
   self : Self,
   index : Int,
-) -> @js.Nullable[Int] = "(self, index) => self[index]"
+) -> @js.Optional[Int] = "(self, index) => self[index]"
 
 ///|
 /// Returns the clamped byte at `index`, or `None` when the index is outside the
