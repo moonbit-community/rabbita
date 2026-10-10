@@ -90,3 +90,64 @@ test "Value::from_json" {
     json_val.to_json_string(),
   )
 }
+
+///|
+#cfg(target="js")
+extern "js" fn non_json_values() -> FixedArray[@js.Value] =
+  #| () => [undefined, () => {}, Symbol('value'), {toJSON: () => undefined}]
+
+///|
+#cfg(target="js")
+test "Value::to_json_string rejects non-string stringify results" {
+  for value in non_json_values() {
+    let rejected = try {
+      let _ = value.to_json_string()
+      false
+    } catch {
+      @js.Error_(_) => true
+      _ => false
+    }
+    assert_true(rejected)
+  }
+}
+
+///|
+#cfg(target="js")
+extern "js" fn throwing_json_values() -> FixedArray[@js.Value] =
+  #| () => {
+  #|   const circular = {};
+  #|   circular.self = circular;
+  #|   return [1n, circular];
+  #| }
+
+///|
+#cfg(target="js")
+test "Value::to_json_string still wraps native stringify exceptions" {
+  for value in throwing_json_values() {
+    let rejected = try {
+      let _ = value.to_json_string()
+      false
+    } catch {
+      @js.Error_(_) => true
+      _ => false
+    }
+    assert_true(rejected)
+  }
+}
+
+///|
+#cfg(target="js")
+extern "js" fn nested_non_json_values() -> @js.Value =
+  #| () => ({omitted: undefined, values: [undefined, () => {}, Symbol('value')]})
+
+///|
+#cfg(target="js")
+test "Value::to_json_string preserves valid JSON and nested omissions" {
+  for source in ["null", "false", "0", "\"\"", "[]", "{}"] {
+    assert_eq(@js.Value::from_json_string(source).to_json_string(), source)
+  }
+  assert_eq(
+    nested_non_json_values().to_json_string(),
+    "{\"values\":[null,null,null]}",
+  )
+}
