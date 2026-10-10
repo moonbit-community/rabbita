@@ -52,18 +52,20 @@ test {
 
 ## Parser configuration
 
-`markdown` forwards these optional arguments to cmark's `Doc::from_string`:
+Pass `parser_options : @markdown.ParserOptions` to configure cmark's
+`Doc::from_string`. Omit it to use `ParserOptions::default()`, or use a struct
+spread to override selected fields and reuse the configuration across calls.
 
-| Argument | Default | Effect |
+| Field | Default | Effect |
 | --- | --- | --- |
 | `strict` | `false` | Set `true` for CommonMark without cmark's syntax extensions. |
 | `heading_auto_ids` | `true` | Compute heading IDs; when disabled, default headings have no IDs or anchor links. |
 | `nested_links` | `false` | Allow nested links in the parsed AST. Nested HTML anchors are invalid, so use a custom renderer when enabling this. |
 | `layout` | `false` | Retain source layout information for renderer callbacks. |
 | `locs` | `false` | Retain source locations in AST metadata. |
-| `file` | cmark's unnamed source | Source filename used in location metadata. |
-| `defs` | Fresh map per call | Initial reference/footnote definitions; cmark mutates this map while parsing. |
-| `resolver` | cmark's default resolver | Customize label definition and reference resolution. |
+| `file` | `None` | Use cmark's unnamed source, or supply `Some(filename)` for location metadata. |
+| `defs` | `None` | Create a fresh map per parse, or supply initial reference/footnote definitions; cmark mutates a supplied map, including across calls that reuse it. |
+| `resolver` | `None` | Use cmark's default resolver, or supply a custom label definition and reference resolver. |
 
 cmark 0.4.8 enables tables, task lists, strikethrough, footnotes and math as a
 bundle through `strict=false`; it does not expose individual extension switches.
@@ -74,10 +76,14 @@ also disables the IDs. A custom `render_heading` still owns its complete output.
 ```mbt check
 ///|
 test {
+  let parser_options : @markdown.ParserOptions = {
+    ..@markdown.ParserOptions::default(),
+    strict: true,
+    heading_auto_ids: false,
+  }
   let view = @markdown.markdown(
     "# CommonMark\n\n~~literal tildes~~",
-    strict=true,
-    heading_auto_ids=false,
+    parser_options~,
   )
   ignore(view)
 }

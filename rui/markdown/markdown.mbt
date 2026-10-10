@@ -45,12 +45,12 @@ priv struct FootnoteUse {
 /// `render_heading` receives the cmark heading and replaces the entire heading.
 /// The callback owns inline rendering, styles, IDs and anchor links;
 /// `heading_anchors` does not affect its output.
-/// Parser options are forwarded to cmark's `Doc::from_string`. `strict=false`
+/// `parser_options` is forwarded to cmark's `Doc::from_string`. `strict=false`
 /// enables cmark's bundled extensions; `strict=true` selects CommonMark only.
 /// `heading_auto_ids=false` omits default heading IDs and anchor links.
 /// `layout`, `locs` and `file` preserve source metadata for renderer callbacks.
 /// `defs` supplies initial label definitions and is mutated by cmark during
-/// parsing; omit it for a fresh map on each call. `resolver` controls label
+/// parsing; leave it as `None` for a fresh map on each call. `resolver` controls label
 /// resolution. `nested_links` defaults to `false`, as in cmark.
 /// `render_html_block` replaces escaped HTML blocks with caller-rendered HTML.
 /// `render_inline` receives a complete inline tree, label definitions and a
@@ -72,14 +72,7 @@ pub fn markdown(
   transform_link? : (String) -> String,
   render_heading? : (@cmark.BlockHeading) -> @html.Html,
   heading_anchors? : Bool = true,
-  strict? : Bool = false,
-  heading_auto_ids? : Bool = true,
-  nested_links? : Bool = false,
-  layout? : Bool = false,
-  locs? : Bool = false,
-  file? : String,
-  defs? : Map[String, @cmark.LabelDef],
-  resolver? : @cmark.LabelResolverFn,
+  parser_options? : ParserOptions = ParserOptions::default(),
   render_html_block? : (String) -> @html.Html,
   render_inline? : (
     @cmark.Inline,
@@ -89,14 +82,14 @@ pub fn markdown(
 ) -> @html.Html {
   let doc = @cmark.Doc::from_string(
     source,
-    strict~,
-    heading_auto_ids~,
-    nested_links~,
-    layout~,
-    locs~,
-    file?,
-    defs?,
-    resolver?,
+    strict=parser_options.strict,
+    heading_auto_ids=parser_options.heading_auto_ids,
+    nested_links=parser_options.nested_links,
+    layout=parser_options.layout,
+    locs=parser_options.locs,
+    file?=parser_options.file,
+    defs?=parser_options.defs,
+    resolver?=parser_options.resolver,
   )
   let state : RenderState = {
     render_codeblock,

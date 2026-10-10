@@ -7,11 +7,23 @@ import {
 }
 
 // Values
-pub fn markdown(String, render_codeblock? : (String, String) -> @html.Html, escape_link? : Bool, transform_link? : (String) -> String, render_heading? : (@cmark.BlockHeading) -> @html.Html, heading_anchors? : Bool, strict? : Bool, heading_auto_ids? : Bool, nested_links? : Bool, layout? : Bool, locs? : Bool, file? : String, defs? : Map[String, @cmark.LabelDef], resolver? : @cmark.LabelResolverFn, render_html_block? : (String) -> @html.Html, render_inline? : (@cmark.Inline, Map[String, @cmark.LabelDef], (@cmark.Inline) -> @html.Html) -> @html.Html) -> @html.Html
+pub fn markdown(String, render_codeblock? : (String, String) -> @html.Html, escape_link? : Bool, transform_link? : (String) -> String, render_heading? : (@cmark.BlockHeading) -> @html.Html, heading_anchors? : Bool, parser_options? : ParserOptions, render_html_block? : (String) -> @html.Html, render_inline? : (@cmark.Inline, Map[String, @cmark.LabelDef], (@cmark.Inline) -> @html.Html) -> @html.Html) -> @html.Html
 
 // Errors
 
 // Types and methods
+pub(all) struct ParserOptions {
+  strict : Bool
+  heading_auto_ids : Bool
+  nested_links : Bool
+  layout : Bool
+  locs : Bool
+  file : String?
+  defs : Map[String, @cmark.LabelDef]?
+  resolver : @cmark.LabelResolverFn?
+}
+pub fn ParserOptions::default() -> Self
+pub impl Default for ParserOptions
 
 // Type aliases
 
