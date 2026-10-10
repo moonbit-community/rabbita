@@ -12,17 +12,10 @@ type SVGAnimatedTransformList
 type SVGTransform
 
 ///|
-/// A live, mutable base transform list. Native DOM exceptions propagate.
+/// A live transform list. Native DOM exceptions propagate.
 #cfg(target="js")
 #external
 type SVGTransformList
-
-///|
-/// A live animated transform list, exposing only read operations.
-/// This is a separate type, not a copy of the browser's list.
-#cfg(target="js")
-#external
-type SVGTransformListReadOnly
 
 ///|
 /// Returns the mutable base list. The baseVal property itself is read-only.
@@ -32,11 +25,14 @@ pub extern "js" fn SVGAnimatedTransformList::get_base_val(
 ) -> SVGTransformList = "(self) => self.baseVal"
 
 ///|
-/// Returns the live read-only animated list, including while no animation runs.
+/// Returns the live animated list, including while no animation runs. Like in
+/// the browser this is the same `SVGTransformList` type as `baseVal`; the
+/// animated list is read-only, and mutation attempts throw the native
+/// NoModificationAllowedError.
 #cfg(target="js")
 pub extern "js" fn SVGAnimatedTransformList::get_anim_val(
   self : Self,
-) -> SVGTransformListReadOnly = "(self) => self.animVal"
+) -> SVGTransformList = "(self) => self.animVal"
 
 ///|
 /// Number of items in this live list.
@@ -116,30 +112,3 @@ pub extern "js" fn SVGTransformList::append_item(
 pub extern "js" fn SVGTransformList::consolidate(
   self : Self,
 ) -> @js.Nullable[SVGTransform] = "(self) => self.consolidate()"
-
-///|
-/// Number of items in this live list.
-#cfg(target="js")
-pub extern "js" fn SVGTransformListReadOnly::get_length(self : Self) -> Double = "(self) => self.length"
-
-///|
-/// The SVG numberOfItems alias for length.
-#cfg(target="js")
-pub extern "js" fn SVGTransformListReadOnly::get_number_of_items(
-  self : Self,
-) -> Double = "(self) => self.numberOfItems"
-
-///|
-/// Returns the current item count as an Int.
-#cfg(target="js")
-pub fn SVGTransformListReadOnly::length(self : Self) -> Int {
-  self.get_length().to_int()
-}
-
-///|
-/// Returns the item at index. The browser throws IndexSizeError out of bounds.
-#cfg(target="js")
-pub extern "js" fn SVGTransformListReadOnly::get_item(
-  self : Self,
-  index : Double,
-) -> SVGTransform = "(self, index) => self.getItem(index)"

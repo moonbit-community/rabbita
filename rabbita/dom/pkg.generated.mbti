@@ -2532,7 +2532,7 @@ pub fn ResizeObserver::unobserve(Self, Element) -> Unit
 type ResizeObserverEntry
 
 type SVGAnimatedTransformList
-pub fn SVGAnimatedTransformList::get_anim_val(Self) -> SVGTransformListReadOnly
+pub fn SVGAnimatedTransformList::get_anim_val(Self) -> SVGTransformList
 pub fn SVGAnimatedTransformList::get_base_val(Self) -> SVGTransformList
 
 type SVGElement
@@ -2872,12 +2872,6 @@ pub fn SVGTransformList::insert_item_before(Self, SVGTransform, Double) -> SVGTr
 pub fn SVGTransformList::length(Self) -> Int
 pub fn SVGTransformList::remove_item(Self, Double) -> SVGTransform
 pub fn SVGTransformList::replace_item(Self, SVGTransform, Double) -> SVGTransform
-
-type SVGTransformListReadOnly
-pub fn SVGTransformListReadOnly::get_item(Self, Double) -> SVGTransform
-pub fn SVGTransformListReadOnly::get_length(Self) -> Double
-pub fn SVGTransformListReadOnly::get_number_of_items(Self) -> Double
-pub fn SVGTransformListReadOnly::length(Self) -> Int
 
 type StylePropertyMap
 

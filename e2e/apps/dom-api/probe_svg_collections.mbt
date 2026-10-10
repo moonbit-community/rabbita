@@ -52,7 +52,7 @@ fn probe_svg_collections() -> String {
   element.set_attribute("transform", "translate(10 20) scale(2)")
   let transforms = graphics.get_transform()
   let base = transforms.get_base_val()
-  let animated : @dom.SVGTransformListReadOnly = transforms.get_anim_val()
+  let animated : @dom.SVGTransformList = transforms.get_anim_val()
   record(
     failures,
     base.length() == 2 && base.get_number_of_items() == 2.0,
@@ -144,9 +144,7 @@ fn probe_svg_collections() -> String {
 extern "js" fn transform_type(value : @dom.SVGTransform) -> Int = "value => value.type"
 
 ///|
-extern "js" fn animated_clear_error(
-  list : @dom.SVGTransformListReadOnly,
-) -> String =
+extern "js" fn animated_clear_error(list : @dom.SVGTransformList) -> String =
   #| list => { try { list.clear(); return "no error" } catch (error) { return error.name } }
 
 ///|
