@@ -261,6 +261,11 @@ impl IsElement with fn get_client_rects(s) {
 }
 
 ///|
+/// The live `classList` token list reflected by the `class` attribute.
+#cfg(target="js")
+pub extern "js" fn Element::class_list(self : Self) -> DOMTokenList = "(self) => self.classList"
+
+///|
 #cfg(target="js")
 impl IsElement with fn set_pointer_capture(s, pointer_id) {
   s |> js_identity |> ffi_element_set_pointer_capture(pointer_id)

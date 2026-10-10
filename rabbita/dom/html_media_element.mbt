@@ -258,10 +258,6 @@ type TimeRanges
 
 ///|
 #cfg(target="js")
-type DOMTokenList
-
-///|
-#cfg(target="js")
 type MediaError
 
 ///|

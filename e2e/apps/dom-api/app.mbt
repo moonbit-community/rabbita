@@ -15,6 +15,8 @@ priv struct Model {
   events : String
   async_apis : String
   media : String
+  collections : String
+  drag_probes : String
 } derive(Eq)
 
 ///|
@@ -28,6 +30,8 @@ priv enum Msg {
   InstallEvents
   RunAsyncApis
   RunMedia
+  RunDomCollections
+  InstallDragProbes
   PushUrl
   ReplaceUrl
   HistoryBack
@@ -60,6 +64,11 @@ fn update(model : Model, message : Msg) -> Model {
       { ..model, async_apis: "running", }
     }
     RunMedia => { ..model, media: probe_media(), }
+    RunDomCollections => { ..model, collections: probe_dom_collections(), }
+    InstallDragProbes => {
+      install_drag_probes()
+      { ..model, drag_probes: "ready", }
+    }
     PushUrl => {
       @dom.window().push_url("/dom-api-pushed")
       model
@@ -99,6 +108,8 @@ fn app() -> Val[Html] {
     events: "idle",
     async_apis: "idle",
     media: "idle",
+    collections: "idle",
+    drag_probes: "idle",
   }
   let (model, emit) = @rabbita.create_pure_state(initial, update~)
   model.view(model => {
@@ -131,6 +142,13 @@ fn app() -> Val[Html] {
       p(id="async-result", model.async_apis),
       button(on_click=emit(RunMedia), "Run media APIs"),
       p(id="media-result", model.media),
+      button(on_click=emit(RunDomCollections), "Run DOM collection APIs"),
+      p(id="collections-result", model.collections),
+      button(on_click=emit(InstallDragProbes), "Install drag and drop probes"),
+      p(id="drag-probes-result", model.drag_probes),
+      p(id="dnd-result", "pending"),
+      div(id="dnd-source", "Drag source"),
+      div(id="dnd-target", "Drop target"),
       button(on_click=emit(PushUrl), "Push URL"),
       button(on_click=emit(ReplaceUrl), "Replace URL"),
       button(on_click=emit(HistoryBack), "History back"),
