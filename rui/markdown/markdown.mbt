@@ -2,6 +2,12 @@
 priv struct RenderState {
   render_codeblock : ((String, String) -> @html.Html)?
   render_heading : ((@cmark.BlockHeading) -> @html.Html)?
+  render_html_block : ((String) -> @html.Html)?
+  render_inline : ((
+    @cmark.Inline,
+    Map[String, @cmark.LabelDef],
+    (@cmark.Inline) -> @html.Html,
+  ) -> @html.Html)?
   heading_anchors : Bool
   escape_link : Bool
   transform_link : ((String) -> String)?
@@ -39,6 +45,26 @@ priv struct FootnoteUse {
 /// `render_heading` receives the cmark heading and replaces the entire heading.
 /// The callback owns inline rendering, styles, IDs and anchor links;
 /// `heading_anchors` does not affect its output.
+/// Parser options are forwarded to cmark's `Doc::from_string`. `strict=false`
+/// enables cmark's bundled extensions; `strict=true` selects CommonMark only.
+/// `heading_auto_ids=false` omits default heading IDs and anchor links.
+/// `layout`, `locs` and `file` preserve source metadata for renderer callbacks.
+/// `defs` supplies initial label definitions and is mutated by cmark during
+/// parsing; omit it for a fresh map on each call. `resolver` controls label
+/// resolution. `nested_links` defaults to `false`, as in cmark.
+/// `render_html_block` replaces escaped HTML blocks with caller-rendered HTML.
+/// `render_inline` receives a complete inline tree, label definitions and a
+/// default-rendering function. It handles paragraph, heading and table-cell
+/// content, including inside lists, quotes and footnotes. The default renderer
+/// can be called on any subtree without re-entering the callback.
+///
+/// # Vulnerability Warning
+///
+/// HTML callbacks can inject raw HTML and cause XSS. The application author
+/// must ensure content is trusted, sanitized or isolated. Injected HTML is not
+/// subject to Markdown URL checks, link transforms or Rabbita routing. Custom
+/// inline rendering owns links and footnote references unless it delegates to
+/// the supplied default renderer. Custom headings own their inline rendering.
 pub fn markdown(
   source : String,
   render_codeblock? : (String, String) -> @html.Html,
@@ -46,11 +72,37 @@ pub fn markdown(
   transform_link? : (String) -> String,
   render_heading? : (@cmark.BlockHeading) -> @html.Html,
   heading_anchors? : Bool = true,
+  strict? : Bool = false,
+  heading_auto_ids? : Bool = true,
+  nested_links? : Bool = false,
+  layout? : Bool = false,
+  locs? : Bool = false,
+  file? : String,
+  defs? : Map[String, @cmark.LabelDef],
+  resolver? : @cmark.LabelResolverFn,
+  render_html_block? : (String) -> @html.Html,
+  render_inline? : (
+    @cmark.Inline,
+    Map[String, @cmark.LabelDef],
+    (@cmark.Inline) -> @html.Html,
+  ) -> @html.Html,
 ) -> @html.Html {
-  let doc = @cmark.Doc::from_string(source, strict=false, heading_auto_ids=true)
+  let doc = @cmark.Doc::from_string(
+    source,
+    strict~,
+    heading_auto_ids~,
+    nested_links~,
+    layout~,
+    locs~,
+    file?,
+    defs?,
+    resolver?,
+  )
   let state : RenderState = {
     render_codeblock,
     render_heading,
+    render_html_block,
+    render_inline,
     heading_anchors,
     escape_link,
     transform_link,

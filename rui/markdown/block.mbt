@@ -10,7 +10,7 @@ fn render_block(
         v.map(item => render_block(state, item, tight~)).to_array(),
       )
     Paragraph({ v, .. }) => {
-      let content = render_inline(state, v.inline)
+      let content = render_inline_content(state, v.inline)
       if tight {
         content
       } else {
@@ -21,9 +21,13 @@ fn render_block(
       if state.render_heading is Some(render) {
         return render(v)
       }
-      let id = unique_id(state, v.inline.id())
-      let children = [render_inline(state, v.inline)]
-      if state.heading_anchors {
+      let id = v.id.map(id => {
+        match id {
+          Auto(value) | Id(value) => unique_id(state, value)
+        }
+      })
+      let children = [render_inline_content(state, v.inline)]
+      if state.heading_anchors && id is Some(id) {
         children.push(
           @html.a(
             class="rui-markdown-anchor",
@@ -52,12 +56,12 @@ fn render_block(
       }
       let content = @html.fragment(children)
       match v.level {
-        1 => @html.h1(id~, content)
-        2 => @html.h2(id~, content)
-        3 => @html.h3(id~, content)
-        4 => @html.h4(id~, content)
-        5 => @html.h5(id~, content)
-        _ => @html.h6(id~, content)
+        1 => @html.h1(id?, content)
+        2 => @html.h2(id?, content)
+        3 => @html.h3(id?, content)
+        4 => @html.h4(id?, content)
+        5 => @html.h5(id?, content)
+        _ => @html.h6(id?, content)
       }
     }
     BlockQuote({ v, .. }) => @html.blockquote(render_block(state, v.block))
@@ -65,7 +69,14 @@ fn render_block(
       let info = v.info_string.map(node => node.v).unwrap_or("")
       code_block(lines_text(v.code), info~, render?=state.render_codeblock)
     }
-    HtmlBlock({ v, .. }) => code_block(lines_text(v.0), info="html")
+    HtmlBlock({ v, .. }) => {
+      let source = lines_text(v.0)
+      if state.render_html_block is Some(render) {
+        render(source)
+      } else {
+        code_block(source, info="html")
+      }
+    }
     ExtMathBlock({ v, .. }) =>
       code_block("$$\n" + lines_text(v.code) + "\n$$", info="math")
     ThematicBreak(_) => @html.hr()
@@ -176,7 +187,7 @@ fn render_table(state : RenderState, table : @cmark.Table) -> @html.Html {
         let children : Array[@html.Html] = []
         for index in 0..<table.col_count {
           let content = if cells.get(index) is Some(cell) {
-            render_inline(state, cell.0)
+            render_inline_content(state, cell.0)
           } else {
             @html.nothing
           }

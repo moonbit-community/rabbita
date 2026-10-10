@@ -1,4 +1,16 @@
 ///|
+fn render_inline_content(
+  state : RenderState,
+  inline : @cmark.Inline,
+) -> @html.Html {
+  if state.render_inline is Some(render) {
+    render(inline, state.defs, inline => render_inline(state, inline))
+  } else {
+    render_inline(state, inline)
+  }
+}
+
+///|
 fn render_inline(state : RenderState, inline : @cmark.Inline) -> @html.Html {
   match inline {
     Text({ v, .. }) => @html.text(v)

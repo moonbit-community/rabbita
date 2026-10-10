@@ -50,6 +50,39 @@ test {
 }
 ```
 
+## Parser configuration
+
+`markdown` forwards these optional arguments to cmark's `Doc::from_string`:
+
+| Argument | Default | Effect |
+| --- | --- | --- |
+| `strict` | `false` | Set `true` for CommonMark without cmark's syntax extensions. |
+| `heading_auto_ids` | `true` | Compute heading IDs; when disabled, default headings have no IDs or anchor links. |
+| `nested_links` | `false` | Allow nested links in the parsed AST. Nested HTML anchors are invalid, so use a custom renderer when enabling this. |
+| `layout` | `false` | Retain source layout information for renderer callbacks. |
+| `locs` | `false` | Retain source locations in AST metadata. |
+| `file` | cmark's unnamed source | Source filename used in location metadata. |
+| `defs` | Fresh map per call | Initial reference/footnote definitions; cmark mutates this map while parsing. |
+| `resolver` | cmark's default resolver | Customize label definition and reference resolution. |
+
+cmark 0.4.8 enables tables, task lists, strikethrough, footnotes and math as a
+bundle through `strict=false`; it does not expose individual extension switches.
+Parser strictness does not control HTML rendering or URL safety checks.
+`heading_anchors=false` hides only the anchor controls; `heading_auto_ids=false`
+also disables the IDs. A custom `render_heading` still owns its complete output.
+
+```mbt check
+///|
+test {
+  let view = @markdown.markdown(
+    "# CommonMark\n\n~~literal tildes~~",
+    strict=true,
+    heading_auto_ids=false,
+  )
+  ignore(view)
+}
+```
+
 ## Link and image destinations
 
 Pass `transform_link? : (String) -> String` to rewrite destinations from the
