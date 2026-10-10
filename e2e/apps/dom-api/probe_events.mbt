@@ -482,12 +482,16 @@ fn install_subtype_event_probes(target : @dom.Element) -> Unit {
       ignore(transfer.drop_effect())
       ignore(transfer.effect_allowed())
       let items = transfer.items()
-      items.add("rabbit", "text/plain")
+      record(
+        failures,
+        items.add("rabbit", "text/plain") is Some(_),
+        "data_transfer_add_item",
+      )
       record(failures, items.length() == 1, "data_transfer_add")
       ignore(items.get(0))
       items.remove(0)
       record(failures, items.length() == 0, "data_transfer_remove")
-      items.add("rabbit", "text/plain")
+      ignore(items.add("rabbit", "text/plain"))
       items.clear()
       record(failures, items.length() == 0, "data_transfer_clear")
       transfer.set_drog_image(target, 0, 0)
@@ -499,7 +503,11 @@ fn install_subtype_event_probes(target : @dom.Element) -> Unit {
   @dom.IsEventTarget::add_event_listener(target, "clipboard-probe", event => {
     if @dom.IsEvent::to_clipboard_event(event) is Some(clipboard) {
       let items = clipboard.clipboard_data().items()
-      items.add("copy", "text/plain")
+      record(
+        failures,
+        items.add("copy", "text/plain") is Some(_),
+        "clipboard_event_add_item",
+      )
       record(failures, items.length() == 1, "clipboard_event_data")
       items.clear()
     } else {

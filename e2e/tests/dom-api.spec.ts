@@ -160,6 +160,22 @@ test('media element properties and browser-owned media collections are accessibl
   await expect(page.locator('#media-result')).toHaveText('passed');
 });
 
+test('mutable Uint8ClampedArray, DOMTokenList, and DataTransferItemList wrappers mutate their host objects', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Run DOM collection APIs' }).click();
+  await expect(page.locator('#collections-result')).toHaveText('passed');
+});
+
+test('drag data store items stay writable in dragstart and read-only in drop', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Install drag and drop probes' }).click();
+  await expect(page.locator('#drag-probes-result')).toHaveText('ready');
+  await page.dragAndDrop('#dnd-source', '#dnd-target');
+  await expect(page.locator('#dnd-result')).toHaveText('passed');
+});
+
 test('history and location APIs perform real same-origin navigations', async ({ page }) => {
   await page.goto('/');
 

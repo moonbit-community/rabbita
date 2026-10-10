@@ -530,6 +530,16 @@ pub fn DOMRectList::length(Self) -> Int
 type DOMStringMap
 
 type DOMTokenList
+pub fn DOMTokenList::add(Self, String) -> Unit
+pub fn DOMTokenList::contains(Self, String) -> Bool
+pub fn DOMTokenList::get_value(Self) -> String
+pub fn DOMTokenList::item(Self, Int) -> String?
+pub fn DOMTokenList::length(Self) -> Int
+pub fn DOMTokenList::remove(Self, String) -> Unit
+pub fn DOMTokenList::replace(Self, String, String) -> Bool
+pub fn DOMTokenList::set_value(Self, String) -> Unit
+pub fn DOMTokenList::toggle(Self, String) -> Bool
+pub fn DOMTokenList::toggle_with_force(Self, String, Bool) -> Bool
 
 type DataTransfer
 pub fn DataTransfer::drop_effect(Self) -> String
@@ -537,11 +547,16 @@ pub fn DataTransfer::effect_allowed(Self) -> String
 pub fn DataTransfer::items(Self) -> DataTransferItemList
 pub fn DataTransfer::set_drog_image(Self, Element, Int, Int) -> Unit
 
+type DataTransferItem
+pub fn DataTransferItem::get_as_string(Self, (String) -> Unit) -> Unit
+pub fn DataTransferItem::get_kind(Self) -> String
+pub fn DataTransferItem::get_type(Self) -> String
+
 type DataTransferItemList
-pub fn DataTransferItemList::add(Self, String, String) -> Unit
+pub fn DataTransferItemList::add(Self, String, String) -> DataTransferItem?
 pub fn DataTransferItemList::clear(Self) -> Unit
 #alias("_[_]")
-pub fn DataTransferItemList::get(Self, Int) -> Unit
+pub fn DataTransferItemList::get(Self, Int) -> DataTransferItem?
 pub fn DataTransferItemList::length(Self) -> Int
 pub fn DataTransferItemList::remove(Self, Int) -> Unit
 
@@ -712,6 +727,7 @@ pub fn Element::append_child(Self, Node) -> Unit
 pub fn Element::as_element(Self) -> Self
 pub fn Element::as_event_target(Self) -> EventTarget
 pub fn Element::as_node(Self) -> Node
+pub fn Element::class_list(Self) -> DOMTokenList
 pub fn Element::closest(Self, String) -> Self?
 pub fn Element::contains(Self, Node) -> Bool
 pub fn Element::dispatch_event(Self, Event) -> Unit
@@ -2991,6 +3007,9 @@ pub impl IsUIEvent for UIEvent
 pub impl @js.Cast for UIEvent
 
 type Uint8ClampedArray
+pub fn Uint8ClampedArray::get(Self, Int) -> Int?
+pub fn Uint8ClampedArray::length(Self) -> Int
+pub fn Uint8ClampedArray::set(Self, Int, Int) -> Unit
 
 type VideoFrame
 
