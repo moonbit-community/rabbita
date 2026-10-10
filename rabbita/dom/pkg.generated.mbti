@@ -96,7 +96,17 @@ pub fn AnimationEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for AnimationEvent
 pub impl @js.Cast for AnimationEvent
 
+type AudioTrack
+pub fn AudioTrack::get_id(Self) -> String
+pub fn AudioTrack::get_kind(Self) -> String
+pub fn AudioTrack::get_label(Self) -> String
+
 type AudioTrackList
+#alias("_[_]")
+pub fn AudioTrackList::get(Self, Int) -> AudioTrack?
+pub fn AudioTrackList::get_track_by_id(Self, String) -> AudioTrack?
+pub fn AudioTrackList::iter(Self) -> Iter[AudioTrack]
+pub fn AudioTrackList::length(Self) -> Int
 
 type BeforeUnloadEvent
 pub fn BeforeUnloadEvent::as_event(Self) -> Event
@@ -2885,10 +2895,22 @@ pub impl IsNode for Text
 pub impl @js.Cast for Text
 
 type TextTrack
+pub fn TextTrack::get_id(Self) -> String
+pub fn TextTrack::get_kind(Self) -> String
+pub fn TextTrack::get_label(Self) -> String
 
 type TextTrackList
+#alias("_[_]")
+pub fn TextTrackList::get(Self, Int) -> TextTrack?
+pub fn TextTrackList::get_track_by_id(Self, String) -> TextTrack?
+pub fn TextTrackList::iter(Self) -> Iter[TextTrack]
+pub fn TextTrackList::length(Self) -> Int
 
 type TimeRanges
+pub fn TimeRanges::end(Self, Int) -> Double?
+pub fn TimeRanges::iter(Self) -> Iter[(Double, Double)]
+pub fn TimeRanges::length(Self) -> Int
+pub fn TimeRanges::start(Self, Int) -> Double?
 
 type ToggleEvent
 pub fn ToggleEvent::as_event(Self) -> Event
@@ -2994,7 +3016,17 @@ type Uint8ClampedArray
 
 type VideoFrame
 
+type VideoTrack
+pub fn VideoTrack::get_id(Self) -> String
+pub fn VideoTrack::get_kind(Self) -> String
+pub fn VideoTrack::get_label(Self) -> String
+
 type VideoTrackList
+#alias("_[_]")
+pub fn VideoTrackList::get(Self, Int) -> VideoTrack?
+pub fn VideoTrackList::get_track_by_id(Self, String) -> VideoTrack?
+pub fn VideoTrackList::iter(Self) -> Iter[VideoTrack]
+pub fn VideoTrackList::length(Self) -> Int
 
 type VisualViewport
 pub fn VisualViewport::add_event_listener(Self, String, (Event) -> Unit) -> Unit
