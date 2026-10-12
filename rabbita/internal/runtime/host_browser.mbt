@@ -154,13 +154,13 @@ pub impl Scheduler for BrowserHost with fn set_url_request_injector(
 }
 
 ///|
-pub impl Context for BrowserHost with fn get_origin(_self) {
-  @dom.window().origin()
+pub impl Context for BrowserHost with fn get_base_uri(_self) {
+  @dom.document().base_uri()
 }
 
 ///|
 pub extend BrowserHost with Context::{
-  get_origin,
+  get_base_uri,
   inject_url_changed,
   inject_url_request,
 }

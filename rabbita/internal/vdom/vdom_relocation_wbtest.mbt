@@ -57,7 +57,7 @@ impl @cmd.Scheduler for RelocationTestScheduler with fn set_url_request_injector
 
 ///|
 #cfg(target="js")
-impl @cmd.Context for RelocationTestScheduler with fn get_origin(_self) {
+impl @cmd.Context for RelocationTestScheduler with fn get_base_uri(_self) {
   ""
 }
 

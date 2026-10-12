@@ -151,13 +151,13 @@ pub impl Scheduler for HydrationHost with fn set_url_request_injector(
 }
 
 ///|
-pub impl Context for HydrationHost with fn get_origin(self) {
-  Context::get_origin(self.browser)
+pub impl Context for HydrationHost with fn get_base_uri(self) {
+  Context::get_base_uri(self.browser)
 }
 
 ///|
 pub extend HydrationHost with Context::{
-  get_origin,
+  get_base_uri,
   inject_url_changed,
   inject_url_request,
 }

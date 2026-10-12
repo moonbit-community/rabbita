@@ -57,6 +57,12 @@ pub extend Document with IsEventTarget::{
 pub extern "js" fn document() -> Document = "() => document"
 
 ///|
+/// The document's absolute base URL, including any active `<base href>`.
+/// https://dom.spec.whatwg.org/#dom-node-baseuri
+#cfg(target="js")
+pub extern "js" fn Document::base_uri(self : Self) -> String = "(doc) => doc.baseURI"
+
+///|
 #cfg(target="js")
 pub extern "js" fn Document::create_element(
   self : Self,

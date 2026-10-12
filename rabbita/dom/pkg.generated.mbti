@@ -564,6 +564,7 @@ type Document
 pub fn Document::add_event_listener(Self, String, (Event) -> Unit) -> Unit
 pub fn Document::add_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool, passive? : Bool, once? : Bool) -> Unit
 pub fn Document::as_event_target(Self) -> EventTarget
+pub fn Document::base_uri(Self) -> String
 pub fn Document::create_comment(Self, String) -> Comment
 pub fn Document::create_document_fragment(Self) -> DocumentFragment
 pub fn Document::create_element(Self, String) -> Element

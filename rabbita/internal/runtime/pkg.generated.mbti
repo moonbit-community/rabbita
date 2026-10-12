@@ -25,7 +25,7 @@ pub fn BrowserHost::BrowserHost(element_id? : String, () -> @duplix.Node[@vdom.V
 pub fn BrowserHost::add(Self, @cmd.Cmd) -> Unit
 pub fn BrowserHost::cleanup(Self) -> Unit
 pub fn BrowserHost::flush(Self) -> Unit
-pub fn BrowserHost::get_origin(Self) -> String
+pub fn BrowserHost::get_base_uri(Self) -> String
 pub fn BrowserHost::get_stores(Self) -> @slotmap.SlotMap[Store]
 pub fn BrowserHost::inject_url_changed(Self, String) -> @cmd.Cmd
 pub fn BrowserHost::inject_url_request(Self, String) -> @cmd.Cmd
@@ -41,7 +41,7 @@ pub fn HydrationHost::HydrationHost(() -> @duplix.Node[@vdom.VNode]) -> Self
 pub fn HydrationHost::add(Self, @cmd.Cmd) -> Unit
 pub fn HydrationHost::cleanup(Self) -> Unit
 pub fn HydrationHost::flush(Self) -> Unit
-pub fn HydrationHost::get_origin(Self) -> String
+pub fn HydrationHost::get_base_uri(Self) -> String
 pub fn HydrationHost::get_stores(Self) -> @slotmap.SlotMap[Store]
 pub fn HydrationHost::inject_url_changed(Self, String) -> @cmd.Cmd
 pub fn HydrationHost::inject_url_request(Self, String) -> @cmd.Cmd

@@ -9,7 +9,7 @@ impl Host for DummyHost with fn get_stores(self) {
 }
 
 ///|
-impl Context for DummyHost with fn get_origin(_self) {
+impl Context for DummyHost with fn get_base_uri(_self) {
   ""
 }
 

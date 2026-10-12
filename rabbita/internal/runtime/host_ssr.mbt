@@ -6,7 +6,7 @@ struct SSRHost {
   mut document : @vdom.VDom?
   mut url_request : @cmd.Injector[String]
   mut url_changed : @cmd.Injector[String]
-  origin : String
+  base_uri : String
   path : String
   stores : @slotmap.SlotMap[Store]
 }
@@ -35,7 +35,7 @@ pub fn SSRHost::render_to_string(
 
 ///|
 pub async fn SSRHost::SSRHost(
-  origin~ : String,
+  base_uri~ : String,
   path~ : String,
   builder : GraphBuilder,
 ) -> Self {
@@ -45,7 +45,7 @@ pub async fn SSRHost::SSRHost(
       document: None,
       url_request: _ => @cmd.none,
       url_changed: _ => @cmd.none,
-      origin: origin.trim_end(chars="/").to_owned(),
+      base_uri: base_uri.trim_end(chars="/").to_owned(),
       path,
       transcript: Map([]),
       stores: SlotMap(),
@@ -54,7 +54,7 @@ pub async fn SSRHost::SSRHost(
     (host, ambient_host.protect(host, builder))
   })
   errdefer Host::cleanup(host)
-  let cmd = Context::inject_url_changed(host, host.origin + host.path)
+  let cmd = Context::inject_url_changed(host, host.base_uri + host.path)
   Scheduler::queue_command(host, cmd)
 
   let vnode = for ;; {
@@ -170,13 +170,14 @@ pub impl Scheduler for SSRHost with fn set_url_request_injector(self, injector) 
 }
 
 ///|
-pub impl Context for SSRHost with fn get_origin(self) {
-  self.origin
+pub impl Context for SSRHost with fn get_base_uri(self) {
+  // SSR uses the request URL, independent of any rendered <base href>.
+  self.base_uri + self.path
 }
 
 ///|
 pub extend SSRHost with Context::{
-  get_origin,
+  get_base_uri,
   inject_url_changed,
   inject_url_request,
 }

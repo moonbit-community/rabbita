@@ -83,7 +83,7 @@ fn StoreTestHost::drain(self : Self) -> Unit {
 
 ///|
 #cfg(target="js")
-impl @cmd.Context for StoreTestHost with fn get_origin(_self) {
+impl @cmd.Context for StoreTestHost with fn get_base_uri(_self) {
   "http://localhost"
 }
 

@@ -91,9 +91,9 @@ pub async fn App::render(
   head? : Array[Html] = [],
   timeout? : Int = 10_000,
 ) -> String {
-  let (origin, path) = split_url(url)
+  let (base_uri, path) = split_url(url)
   @async.with_timeout(timeout, () => {
-    let host = @runtime.SSRHost(origin~, path~, () => {
+    let host = @runtime.SSRHost(base_uri~, path~, () => {
       let output = (self.builder)()
       output.0.map(html => html.0)
     })

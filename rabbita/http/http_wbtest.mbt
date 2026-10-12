@@ -6,7 +6,7 @@ type Fetch
 extern "js" fn install_mock_fetch() -> Fetch =
   #| () => {
   #|   const originalFetch = globalThis.fetch;
-  #|   globalThis.fetch = (url) => {
+  #|   globalThis.fetch = (url, options) => {
   #|     const responses = {
   #|       "/not-found": {
   #|         ok: false,
@@ -27,7 +27,11 @@ extern "js" fn install_mock_fetch() -> Fetch =
   #|         body: "success",
   #|       },
   #|     };
-  #|     const response = responses[new URL(url).pathname];
+  #|     const response = responses[new URL(url).pathname] ?? {
+  #|       body: options.method + " " + url,
+  #|       status: 200,
+  #|       statusText: "OK",
+  #|     };
   #|     return Promise.resolve(new Response(response.body, {
   #|       status: response.status,
   #|       statusText: response.statusText,
@@ -45,7 +49,7 @@ extern "js" fn restore_fetch(fetch : Fetch) -> Unit =
 
 ///|
 struct TestScheduler {
-  origin_value : String
+  base_uri : String
   commands : Array[Cmd]
 }
 
@@ -71,8 +75,8 @@ impl @cmd.Scheduler for TestScheduler with fn set_url_request_injector(
 }
 
 ///|
-impl @cmd.Context for TestScheduler with fn get_origin(self) {
-  self.origin_value
+impl @cmd.Context for TestScheduler with fn get_base_uri(self) {
+  self.base_uri
 }
 
 ///|
@@ -105,25 +109,29 @@ async fn TestScheduler::run(self : TestScheduler) -> Unit {
 ///|
 async fn invoke_text_request(
   url : String,
-  origin : String,
-) -> Result[String, HttpError] {
-  let mut result : Result[String, HttpError]? = None
-  let cmd = op.request(
-    Get(
-      url,
-      Text(value => {
-        result = Some(value)
-        @cmd.none
-      }),
-    ),
-  )
-  let scheduler : TestScheduler = { origin_value: origin, commands: [cmd], }
+  base_uri : String,
+  http_method? : String = "GET",
+) -> Result[String, Error] {
+  let mut result : Result[String, Error]? = None
+  let request = match http_method {
+    "GET" => get(url)
+    "POST" => post(url).with_text("body")
+    "PUT" => put(url).with_text("body")
+    "PATCH" => patch(url).with_text("body")
+    "DELETE" => delete(url)
+    _ => fail("unexpected HTTP method")
+  }
+  let cmd = request.expect_text(value => {
+    result = Some(value)
+    @cmd.none
+  })
+  let scheduler : TestScheduler = { base_uri, commands: [cmd], }
   scheduler.run()
   result.unwrap()
 }
 
 ///|
-async test "async HTTP reports non-2xx responses" {
+async test "HTTP methods resolve base URIs and report non-2xx responses" {
   let original_fetch = install_mock_fetch()
   defer restore_fetch(original_fetch)
   guard invoke_text_request(
@@ -145,12 +153,6 @@ async test "async HTTP reports non-2xx responses" {
     fail("expected successful response")
   }
   assert_eq(text, "success")
-}
-
-///|
-async test "async HTTP resolves relative request URLs from the origin" {
-  let original_fetch = install_mock_fetch()
-  defer restore_fetch(original_fetch)
   guard invoke_text_request("/ok", "https://example.test") is Ok(root_relative) else {
     fail("expected root-relative request to succeed")
   }
@@ -159,4 +161,16 @@ async test "async HTTP resolves relative request URLs from the origin" {
     fail("expected path-relative request to succeed")
   }
   assert_eq(path_relative, "success")
+  for http_method in ["GET", "POST", "PUT", "PATCH", "DELETE"] {
+    let result = invoke_text_request(
+      "./examples-manifest.json?lang=en",
+      "https://example.test/uml/",
+      http_method~,
+    )
+    guard result is Ok(text) else { fail("expected \{http_method} to succeed") }
+    assert_eq(
+      text,
+      "\{http_method} https://example.test/uml/./examples-manifest.json?lang=en",
+    )
+  }
 }

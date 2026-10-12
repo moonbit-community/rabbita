@@ -1,8 +1,9 @@
 ///|
 #internal(experimental, "This API is unstable and may change in the future.")
 pub(open) trait Context {
+  /// Base URL used to resolve relative HTTP requests.
   #internal(experimental, "This API is unstable and may change in the future.")
-  fn get_origin(Self) -> String
+  fn get_base_uri(Self) -> String
   #internal(experimental, "This API is unstable and may change in the future.")
   fn inject_url_changed(Self, String) -> Cmd
   #internal(experimental, "This API is unstable and may change in the future.")
@@ -22,7 +23,7 @@ pub(open) trait Scheduler: Context {
 
 ///|
 pub extend &Scheduler with Context::{
-  get_origin,
+  get_base_uri,
   inject_url_changed,
   inject_url_request,
 }

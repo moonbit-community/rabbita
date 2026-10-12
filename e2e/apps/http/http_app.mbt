@@ -10,16 +10,14 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
     StartGet =>
       (
         { ..model, get: "loading", },
-        @http.get("/api/method/get").expect_text(
-          emit.map(value => GetFinished(value)),
-        ),
+        @http.get("api").expect_text(emit.map(value => GetFinished(value))),
       )
     GetFinished(result) =>
       ({ ..model, get: result_text(result), }, @rabbita.none)
     StartPost =>
       (
         { ..model, post: "loading", },
-        @http.post("/api/method/post")
+        @http.post("./api/method/post")
         .with_json({ name: "rabbit", })
         .expect_text(emit.map(value => PostFinished(value))),
       )
@@ -28,7 +26,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
     StartPut =>
       (
         { ..model, put: "loading", },
-        @http.put("/api/method/put")
+        @http.put("./api/method/put")
         .with_text("put-body")
         .expect_text(emit.map(value => PutFinished(value))),
       )
@@ -37,7 +35,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
     StartPatch =>
       (
         { ..model, patch: "loading", },
-        @http.patch("/api/method/patch")
+        @http.patch("./api/method/patch")
         .with_text("patch-body")
         .expect_text(emit.map(value => PatchFinished(value))),
       )
@@ -46,7 +44,7 @@ fn update(model : Model, message : Msg, emit : Emit[Msg]) -> (Model, Cmd) {
     StartDelete =>
       (
         { ..model, delete: "loading", },
-        @http.delete("/api/method/delete").expect_empty(
+        @http.delete("./api/method/delete").expect_empty(
           emit.map(value => DeleteFinished(value)),
         ),
       )

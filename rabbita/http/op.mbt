@@ -123,20 +123,21 @@ fn Body::to_repr(self : Body) -> Repr {
 }
 
 ///|
-fn resolve_request_url(url : String, origin : String) -> String {
+fn resolve_request_url(url : String, base_uri : String) -> String {
   if url.contains("://") {
     return url
   }
+  let base_uri = base_uri.trim_end(chars="/")
   if url.has_prefix("/") {
-    "\{origin}\{url}"
+    "\{base_uri}\{url}"
   } else {
-    "\{origin}/\{url}"
+    "\{base_uri}/\{url}"
   }
 }
 
 ///|
-fn request_target(url : String, origin : String) -> (String, String) raise {
-  let parsed = @url.parse(resolve_request_url(url, origin))
+fn request_target(url : String, base_uri : String) -> (String, String) raise {
+  let parsed = @url.parse(resolve_request_url(url, base_uri))
   let protocol = match parsed.protocol {
     Http => "http"
     Https => "https"
@@ -248,7 +249,7 @@ fn RequestResult::settle(
 ///|
 async fn execute_request(
   extension : @cmd.Extension,
-  origin : String,
+  base_uri : String,
   headers : @async_http.Headers,
 ) -> RequestResult {
   async fn run(
@@ -276,13 +277,13 @@ async fn execute_request(
   match extension {
     Get(url, expect) =>
       run(expect, () => {
-        let url = resolve_request_url(url, origin)
+        let url = resolve_request_url(url, base_uri)
         let (response, response_body) = @async_http.get(url, headers~)
         (response, response_body.binary())
       })
     Delete(url, expect) =>
       run(expect, () => {
-        let (request_origin, path) = request_target(url, origin)
+        let (request_origin, path) = request_target(url, base_uri)
         let client = @async_http.Client(request_origin, headers~)
         defer client.close()
         client.request(Delete, path)
@@ -291,7 +292,7 @@ async fn execute_request(
       })
     Post(url, body, expect) =>
       run(expect, () => {
-        let url = resolve_request_url(url, origin)
+        let url = resolve_request_url(url, base_uri)
         let (response, response_body) = match body {
           Json(json) => {
             let headers = content_type_headers("application/json", headers~)
@@ -315,7 +316,7 @@ async fn execute_request(
       })
     Put(url, body, expect) =>
       run(expect, () => {
-        let url = resolve_request_url(url, origin)
+        let url = resolve_request_url(url, base_uri)
         let (response, response_body) = match body {
           Json(json) => {
             let headers = content_type_headers("application/json", headers~)
@@ -339,7 +340,7 @@ async fn execute_request(
       })
     Patch(url, body, expect) =>
       run(expect, () => {
-        let (request_origin, path) = request_target(url, origin)
+        let (request_origin, path) = request_target(url, base_uri)
         let client = @async_http.Client(request_origin, headers~)
         defer client.close()
         match body {
@@ -377,7 +378,11 @@ async fn execute_request(
 fn init {
   op.on_settle((extension, context) => {
     Async(() => {
-      execute_request(extension, context.get_origin(), settle_request_headers()).settle()
+      execute_request(
+        extension,
+        context.get_base_uri(),
+        settle_request_headers(),
+      ).settle()
     })
   })
 }
@@ -412,7 +417,7 @@ fn init {
 fn init {
   op.on_invoke((extension, context) => {
     Async(() => {
-      execute_request(extension, context.get_origin(), Map([])).to_cmd()
+      execute_request(extension, context.get_base_uri(), Map([])).to_cmd()
     })
   })
 }

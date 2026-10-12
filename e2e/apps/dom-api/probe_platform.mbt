@@ -7,6 +7,25 @@ fn probe_platform() -> String {
   record(failures, window.inner_height() > 0, "inner_height")
   record(failures, window.current_url().contains("4308"), "current_url")
   record(failures, window.origin().contains("127.0.0.1:4308"), "origin")
+  record(failures, document.base_uri() == window.current_url(), "base_uri")
+  if document.get_head() is Some(head) {
+    let base = document.create_element("base")
+    base.set_attribute("href", "/dom-base/")
+    head.append_child(base.as_node())
+    record(
+      failures,
+      document.base_uri() == window.origin() + "/dom-base/",
+      "base_uri_with_base_element",
+    )
+    head.remove_child(base.as_node())
+    record(
+      failures,
+      document.base_uri() == window.current_url(),
+      "base_uri_after_base_removed",
+    )
+  } else {
+    failures.push("missing_head")
+  }
   record(failures, window.get_performance().now() >= 0.0, "performance")
   record(failures, @dom.CSS::supports("display", "block"), "css_supports_true")
   record(

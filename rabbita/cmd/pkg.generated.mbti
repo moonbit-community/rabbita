@@ -88,7 +88,7 @@ pub type Settle = (Json) -> Unit
 
 // Traits
 pub(open) trait Context {
-  fn get_origin(Self) -> String
+  fn get_base_uri(Self) -> String
   fn inject_url_changed(Self, String) -> Cmd
   fn inject_url_request(Self, String) -> Cmd
 }

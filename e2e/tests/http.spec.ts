@@ -1,5 +1,42 @@
 import { expect, test } from '@playwright/test';
 
+for (const baseHref of [undefined, '/assets/', 'https://cdn.example.test/assets/']) {
+  test('relative HTTP URLs use the document base: ' + (baseHref ?? '/uml/'), async ({ page }) => {
+    await page.route('**/api/resource', (route) =>
+      route.fulfill({ contentType: 'text/plain', body: 'resource ready' }),
+    );
+    const urls: string[] = [];
+    await page.route(/\/api(?:\/method\/[^/]+)?$/, async (route) => {
+      urls.push(route.request().url());
+      await route.fulfill({ contentType: 'text/plain', body: 'ok' });
+    });
+    await page.goto('/');
+    const origin = new URL(page.url()).origin;
+    await page.evaluate((baseHref) => {
+      history.replaceState(null, '', '/uml/');
+      if (baseHref) {
+        const base = document.createElement('base');
+        base.href = baseHref;
+        document.head.append(base);
+      }
+    }, baseHref);
+
+    const expectedBase = baseHref
+      ? new URL(baseHref, origin).href
+      : origin + '/uml/';
+    for (const method of ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']) {
+      await page.getByRole('button', { name: 'Send ' + method }).click();
+      await expect(page.locator('#' + method.toLowerCase() + '-status'))
+        .toHaveText(method === 'DELETE' ? 'deleted' : 'ok');
+    }
+    expect(urls).toEqual(
+      ['api', 'api/method/post', 'api/method/put', 'api/method/patch', 'api/method/delete'].map(
+        (path) => expectedBase + path,
+      ),
+    );
+  });
+}
+
 test('GET, POST, PUT, PATCH, and DELETE preserve request semantics', async ({ page }) => {
   const requests: Array<{
     method: string;
@@ -9,7 +46,7 @@ test('GET, POST, PUT, PATCH, and DELETE preserve request semantics', async ({ pa
   await page.route('**/api/resource', (route) =>
     route.fulfill({ contentType: 'text/plain', body: 'resource ready' }),
   );
-  await page.route('**/api/method/**', async (route) => {
+  await page.route(/\/api(?:\/method\/[^/]+)?$/, async (route) => {
     const request = route.request();
     requests.push({
       method: request.method(),
