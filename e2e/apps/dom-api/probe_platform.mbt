@@ -7,11 +7,16 @@ fn probe_platform() -> String {
   record(failures, window.inner_height() > 0, "inner_height")
   record(failures, window.current_url().contains("4308"), "current_url")
   record(failures, window.origin().contains("127.0.0.1:4308"), "origin")
-  record(failures, document.base_uri() == window.current_url(), "base_uri")
+  let original_base_uri = document.base_uri()
+  record(failures, original_base_uri == window.current_url(), "base_uri")
   if document.get_head() is Some(head) {
     let base = document.create_element("base")
     base.set_attribute("href", "/dom-base/")
-    head.append_child(base.as_node())
+    // The first base tag takes precedence over Warren's injected base tag.
+    head.insert_before(
+      base.as_node(),
+      @js.Nullable::from_option(Some(head.get_first_child())),
+    )
     record(
       failures,
       document.base_uri() == window.origin() + "/dom-base/",
@@ -20,7 +25,7 @@ fn probe_platform() -> String {
     head.remove_child(base.as_node())
     record(
       failures,
-      document.base_uri() == window.current_url(),
+      document.base_uri() == original_base_uri,
       "base_uri_after_base_removed",
     )
   } else {

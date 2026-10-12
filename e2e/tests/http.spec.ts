@@ -13,6 +13,8 @@ for (const baseHref of [undefined, '/assets/', 'https://cdn.example.test/assets/
     await page.goto('/');
     const origin = new URL(page.url()).origin;
     await page.evaluate((baseHref) => {
+      // Warren injects a base tag; set up the base explicitly for each case.
+      document.querySelectorAll('base[href]').forEach((base) => base.remove());
       history.replaceState(null, '', '/uml/');
       if (baseHref) {
         const base = document.createElement('base');
