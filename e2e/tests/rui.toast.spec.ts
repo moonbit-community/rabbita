@@ -115,5 +115,14 @@ test('long unbroken toast text stays inside the notification surface', async ({ 
   await expectToastContentContained(narrowToast);
   await narrowToast.getByRole('button', { name: 'Close notification' }).click();
   await expect(narrowToast).toBeHidden();
+
+  await page.getByRole('button', { name: 'Show long title toast' }).click();
+  const narrowTitleToast = page.locator('[data-slot="toast"]');
+  await expect(narrowTitleToast).toBeVisible();
+  await expectToastContentContained(narrowTitleToast);
+  await narrowTitleToast
+    .getByRole('button', { name: 'Close notification' })
+    .click();
+  await expect(narrowTitleToast).toBeHidden();
 });
 
