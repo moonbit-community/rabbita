@@ -72,3 +72,48 @@ test('sonner bounds its queue and dismisses every visible toast', async ({ page 
   await page.getByRole('button', { name: 'Dismiss all toasts' }).click();
   await expect(page.locator('[data-slot="toast"]')).toHaveCount(0);
 });
+
+async function expectToastContentContained(toast: import('@playwright/test').Locator) {
+  const surface = await toast.boundingBox();
+  expect(surface).not.toBeNull();
+  expect(await toast.evaluate(el => el.scrollWidth > el.clientWidth + 1)).toBe(false);
+  for (const slot of ['toast-title', 'toast-description', 'toast-close']) {
+    const item = toast.locator(`[data-slot="${slot}"]`);
+    await expect(item).toBeVisible();
+    const box = await item.boundingBox();
+    expect(box).not.toBeNull();
+    expect(box!.x).toBeGreaterThanOrEqual(surface!.x - 1);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(surface!.x + surface!.width + 1);
+  }
+}
+
+test('long unbroken toast text stays inside the notification surface', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Show long path toast' }).click();
+  const pathToast = page.locator('[data-slot="toast"]').last();
+  await expect(pathToast).toBeVisible();
+  await expect(
+    pathToast.locator('[data-slot="toast-description"]'),
+  ).toContainText('/tmp/abcdefghijklmnopqrstuvwxyz');
+  await expectToastContentContained(pathToast);
+
+  await pathToast.getByRole('button', { name: 'Close notification' }).click();
+  await expect(pathToast).toBeHidden();
+
+  await page.getByRole('button', { name: 'Show long title toast' }).click();
+  const titleToast = page.locator('[data-slot="toast"]').last();
+  await expect(titleToast).toBeVisible();
+  await expectToastContentContained(titleToast);
+
+  await page.setViewportSize({ width: 360, height: 640 });
+  await page.getByRole('button', { name: 'Dismiss all toasts' }).click();
+  await expect(page.locator('[data-slot="toast"]')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Show long path toast' }).click();
+  const narrowToast = page.locator('[data-slot="toast"]');
+  await expect(narrowToast).toBeVisible();
+  await expectToastContentContained(narrowToast);
+  await narrowToast.getByRole('button', { name: 'Close notification' }).click();
+  await expect(narrowToast).toBeHidden();
+});
+
