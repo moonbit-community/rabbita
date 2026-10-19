@@ -35,12 +35,14 @@ fn render_inline(state : RenderState, inline : @cmark.Inline) -> @html.Html {
     ExtStrikethrough({ v, .. }) => @html.del(render_inline(state, v.0))
     ExtMathSpan({ v, .. }) => {
       let source : MathSource = { tex: v.tex(), display: v.display, }
-      if state.render_math is Some(render) {
-        render(source)
-      } else {
+      guard state.render_math is Some(render) else {
         let delimiter = if source.display { "$$" } else { "$" }
-        @html.code(class="language-math", delimiter + source.tex + delimiter)
+        return @html.code(
+          class="language-math",
+          delimiter + source.tex + delimiter,
+        )
       }
+      render(source)
     }
   }
 }
