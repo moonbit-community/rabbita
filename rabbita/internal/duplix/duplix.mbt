@@ -393,7 +393,7 @@ fn[K : Hash + Eq, I : Eq, V, C : Eq] Node::assoc_projected(
       let cell = if values.get(key) is Some(cell) {
         cell
       } else {
-        { value, retained: false }
+        { value, retained: false, }
       }
       cell.value = value
       values[key] = cell
@@ -423,7 +423,7 @@ fn[K : Hash + Eq, I : Eq, V, C : Eq] Node::assoc_projected(
           // A removed key releases its cell; reinsertion gets a fresh lifetime.
           let value_node = map_node([indexed], () => cell.value)
           let result = f(key, value_node)
-          { value: value_node, result, scope, epoch }
+          { value: value_node, result, scope, epoch, }
         })
         cache.set(key, entry)
         entry
@@ -458,7 +458,9 @@ fn[K : Hash + Eq, I : Eq, V, C : Eq] Node::assoc_projected(
     }
   }
   fn compute() {
-    @vector.from_iter(active_results.iter().map(result => result.value.unwrap()))
+    @vector.from_iter(
+      active_results.iter().map(result => result.value.unwrap()),
+    )
   }
 
   {

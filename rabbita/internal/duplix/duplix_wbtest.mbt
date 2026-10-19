@@ -32,7 +32,7 @@ fn[A] child_count(parent : Node[A], child_id : Int32) -> Int32 {
 ///|
 test "removed assoc row releases its source dependency" {
   let (rows, set_rows) = input(@vector.from_array([(1, 10)]))
-  let captured : Array[Node[Int]] = []
+  let captured : Array[Node[Int32]] = []
   let result = rows.assoc((_, row) => {
     captured.push(row)
     row
