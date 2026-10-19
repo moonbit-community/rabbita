@@ -22,7 +22,8 @@ accessible references and return links.
 
 - Raw inline HTML appears as text; HTML blocks appear in a code block.
 - Code fences retain their language class. Code, math and Mermaid remain
-  source; syntax highlighting, formula layout and diagram engines are not included.
+  source by default; syntax highlighting, formula layout and diagram engines are
+  not included. Pass `render_math` to render formulas with an external engine.
   Every code block has a floating copy button at the right of its first line. It copies the full
   source, including text outside the current horizontal scroll position.
 - Relative links and image paths remain unchanged by default and resolve against
@@ -182,6 +183,39 @@ test {
     @html.pre(
       @html.code(attrs=@html.Attrs::build().data_set("info", info), source),
     )
+  })
+  ignore(view)
+}
+```
+
+## Custom math
+
+Pass `render_math? : (@markdown.MathSource) -> @html.Html` to replace both
+inline and block math while keeping Rui's Markdown structure and styling. The
+callback receives `tex`, the source without `$`/`$$` delimiters, and `display`,
+which is `false` for inline math and `true` for `$$…$$` or a math block. It runs
+for math inside paragraphs, headings, lists, blockquotes, tables and footnotes.
+
+`render_math` takes precedence over `render_codeblock`. Inline math replaces the
+default `code.language-math` element; block math replaces the complete code
+frame, so no copy button is rendered and the callback owns the block layout.
+Return the final HTML for the chosen engine, such as KaTeX's `katex.renderToString`
+output or MathML. Rui does not load a math engine or rewrite the TeX source.
+
+The default remains escaped source: inline math is a `code` element and block
+math is a code block containing `$$…$$`, each with the usual copy control. The
+callback result is inserted as HTML; trust or sanitize the source and configure
+the renderer's trust settings yourself.
+
+```mbt check
+///|
+test {
+  let view = @markdown.markdown("Inline $x^2$.\n\n```math\ny = x + 1\n```", render_math=math => {
+    if math.display {
+      @html.div(class="math-display", math.tex)
+    } else {
+      @html.span(class="math-inline", math.tex)
+    }
   })
   ignore(view)
 }

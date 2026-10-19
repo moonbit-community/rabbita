@@ -1,6 +1,7 @@
 ///|
 priv struct RenderState {
   render_codeblock : ((String, String) -> @html.Html)?
+  render_math : ((MathSource) -> @html.Html)?
   render_heading : ((@cmark.BlockHeading) -> @html.Html)?
   render_html_block : ((String) -> @html.Html)?
   render_inline : ((
@@ -28,14 +29,20 @@ priv struct FootnoteUse {
 /// Render Markdown with shadcn Typeset typography and Nova theme tokens.
 ///
 /// Parses CommonMark and cmark's table, task-list, strikethrough, footnote and
-/// math extensions. Raw HTML is displayed as text. Code and math remain source;
-/// no asynchronous highlighter or diagram engine is required. Relative URLs
-/// are preserved by default; only relative URLs and http, https, mailto and tel schemes
-/// are navigable. Wrap the result in `@rui.theme` to inherit dark theme tokens.
+/// math extensions. Raw HTML is displayed as text. By default, code and math
+/// remain source; no asynchronous highlighter or diagram engine is required.
+/// Relative URLs are preserved by default; only relative URLs and http, https,
+/// mailto and tel schemes are navigable. Wrap the result in `@rui.theme` to
+/// inherit dark theme tokens.
 /// `render_codeblock` replaces fenced/indented code content with caller-rendered
 /// HTML (usually `pre`/`code`); the frame still copies the original source.
 /// Its arguments are the source and the complete cmark-parsed fence info string
 /// (for example, `moonbit check`). Indented or unlabelled blocks pass empty info.
+/// `render_math` receives inline and block math as `MathSource`, whose `tex`
+/// excludes the `$`/`$$` delimiters and whose `display` distinguishes inline
+/// from display math. It takes precedence over `render_codeblock` and replaces
+/// the default math output, including the block code frame and copy button.
+/// Without it, math remains escaped source in a code element or code block.
 /// Links use Rabbita's routing by default. Set `escape_link=true` to use native
 /// browser navigation for all links, including heading anchors and footnotes.
 /// `transform_link` rewrites source link and image destinations before URL safety
@@ -65,9 +72,12 @@ priv struct FootnoteUse {
 /// subject to Markdown URL checks, link transforms or Rabbita routing. Custom
 /// inline rendering owns links and footnote references unless it delegates to
 /// the supplied default renderer. Custom headings own their inline rendering.
+/// Custom math rendering inserts its result as HTML; the caller is responsible
+/// for sanitization and the math renderer's trust settings.
 pub fn markdown(
   source : String,
   render_codeblock? : (String, String) -> @html.Html,
+  render_math? : (MathSource) -> @html.Html,
   escape_link~ : Bool = false,
   transform_link? : (String) -> String,
   render_heading? : (@cmark.BlockHeading) -> @html.Html,
@@ -93,6 +103,7 @@ pub fn markdown(
   )
   let state : RenderState = {
     render_codeblock,
+    render_math,
     render_heading,
     render_html_block,
     render_inline,
