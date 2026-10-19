@@ -5,6 +5,7 @@ using @vector {type Vector}
 let uuid : Ref[Int32] = Ref(0)
 
 ///|
+// Advance on computation completion so nested reads get distinct versions.
 let clock : Ref[Double] = Ref(0)
 
 ///|
@@ -41,8 +42,8 @@ struct Node[T] {
   mut value : T?
   mut compute : () -> T
   // Logical clock stamps. Double can represent every integer up to 2^53 - 1
-  // exactly. At 60fps, even 100,000 reads per frame would take about 47 years
-  // to exhaust that range, so wraparound is not a practical concern here.
+  // exactly. At 60fps, even 100,000 computations per frame would take about
+  // 47 years to exhaust that range, so wraparound is not a practical concern.
   mut changed_at : Double
   mut recomputed_at : Double
   scope : ScopeId
@@ -110,6 +111,7 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
     match self.value {
       None => {
         let new = (self.compute)()
+        clock.val += 1
         self.value = Some(new)
         self.recomputed_at = clock.val
         self.changed_at = self.recomputed_at
@@ -119,6 +121,7 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
         if self.childs is [] ||
           self.childs.any(x => x.changed_at() > self.recomputed_at) {
           let new = (self.compute)()
+          clock.val += 1
           self.recomputed_at = clock.val
           if !Eq::equal(old, new) {
             self.changed_at = self.recomputed_at
@@ -434,7 +437,6 @@ fn[A : Eq] Node::internal_read(a : Node[A]) -> A {
 
 ///|
 pub fn[A : Eq] Node::read(a : Node[A]) -> A {
-  clock.val += 1
   a.internal_read()
 }
 

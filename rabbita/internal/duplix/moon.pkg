@@ -5,4 +5,8 @@ import {
   "moonbit-community/rabbita/internal/slotmap",
 }
 
+import {
+  "moonbitlang/core/test",
+} for "test"
+
 supported_targets = "js+native+wasm"
