@@ -10,14 +10,14 @@ type TimeRanges
 ///|
 /// The number of ranges in this snapshot.
 #cfg(target="js")
-pub extern "js" fn TimeRanges::length(self : Self) -> Int = "(r) => r.length"
+pub extern "js" fn TimeRanges::length(self : Self) -> Int32 = "(r) => r.length"
 
 ///|
 /// The position of the start of the range at `index`, or `None` when `index` is
 /// out of range. The native `start` method throws IndexSizeError for such
 /// indexes.
 #cfg(target="js")
-pub fn TimeRanges::start(self : Self, index : Int) -> Double? {
+pub fn TimeRanges::start(self : Self, index : Int32) -> Double? {
   if index >= 0 && index < self.length() {
     Some(self.start_ffi(index))
   } else {
@@ -30,7 +30,7 @@ pub fn TimeRanges::start(self : Self, index : Int) -> Double? {
 /// out of range. The native `end` method throws IndexSizeError for such
 /// indexes.
 #cfg(target="js")
-pub fn TimeRanges::end(self : Self, index : Int) -> Double? {
+pub fn TimeRanges::end(self : Self, index : Int32) -> Double? {
   if index >= 0 && index < self.length() {
     Some(self.end_ffi(index))
   } else {
@@ -58,8 +58,8 @@ pub fn TimeRanges::iter(self : Self) -> Iter[(Double, Double)] {
 
 ///|
 #cfg(target="js")
-extern "js" fn TimeRanges::start_ffi(self : Self, index : Int) -> Double = "(r, i) => r.start(i)"
+extern "js" fn TimeRanges::start_ffi(self : Self, index : Int32) -> Double = "(r, i) => r.start(i)"
 
 ///|
 #cfg(target="js")
-extern "js" fn TimeRanges::end_ffi(self : Self, index : Int) -> Double = "(r, i) => r.end(i)"
+extern "js" fn TimeRanges::end_ffi(self : Self, index : Int32) -> Double = "(r, i) => r.end(i)"
