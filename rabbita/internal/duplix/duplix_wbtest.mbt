@@ -30,24 +30,31 @@ fn[A] child_count(parent : Node[A], child_id : Int32) -> Int32 {
 }
 
 ///|
-test "removed assoc row releases its source dependency" {
+test "removed assoc row retains its last value and releases its source" {
   let (rows, set_rows) = input(@vector.from_array([(1, 10)]))
   let captured : Array[Node[Int32]] = []
   let result = rows.assoc((_, row) => {
     captured.push(row)
-    row
+    constant(0)
   })
-  @test.assert_eq(result.read().to_array(), [10])
+  @test.assert_eq(result.read().to_array(), [0])
   let row = captured[0]
   let source = row.childs[0]
+  @test.assert_eq(row.read(), 10)
+  assert_true(has_dirty_parent(source.dirty_flag(), row.dirty_flag))
+  // Update the row without reading its projection again before removal.
+  set_rows(@vector.from_array([(1, 20)]))
+  @test.assert_eq(result.read().to_array(), [0])
   set_rows(@vector.from_array([]))
   @test.assert_eq(result.read().to_array(), [])
-  @test.assert_eq(row.read(), 10)
+  @test.assert_eq(row.read(), 20)
   @test.assert_eq(row.childs.length(), 0)
   assert_true(!has_dirty_parent(source.dirty_flag(), row.dirty_flag))
-  set_rows(@vector.from_array([(1, 20)]))
-  @test.assert_eq(result.read().to_array(), [20])
+  set_rows(@vector.from_array([(1, 30)]))
+  @test.assert_eq(result.read().to_array(), [0])
   assert_true(!row.dirty_flag.dirty)
+  @test.assert_eq(row.read(), 20)
+  @test.assert_eq(captured[1].read(), 30)
 }
 
 ///|
