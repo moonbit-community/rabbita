@@ -1,8 +1,8 @@
 ///|
 fn[T] map_node(childs : Array[&ErasedNode], compute : () -> T) -> Node[T] {
-  let dirty = { dirty: true, parents: [], id: get_uuid(), }
+  let dirty = { dirty: true, parents: Set([]), id: get_uuid(), }
   // for child in childs {
-  //   child.dirty_flag().parents.push(dirty)
+  //   child.dirty_flag().parents.add(dirty)
   // }
   {
     id: get_uuid(),
@@ -10,6 +10,7 @@ fn[T] map_node(childs : Array[&ErasedNode], compute : () -> T) -> Node[T] {
     value: None,
     compute,
     childs,
+    pull_plan: Static,
     dirty_flag: dirty,
     changed_at: 0,
     recomputed_at: 0,

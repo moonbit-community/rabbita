@@ -4,7 +4,7 @@
 
 ///|
 fn has_dirty_parent(child : DirtyFlag, parent : DirtyFlag) -> Bool {
-  child.parents.any(x => x.id == parent.id)
+  child.parents.contains(parent)
 }
 
 ///|
@@ -27,6 +27,27 @@ fn[A] child_count(parent : Node[A], child_id : Int32) -> Int32 {
     }
   }
   count
+}
+
+///|
+test "removed assoc row releases its source dependency" {
+  let (rows, set_rows) = input(@vector.from_array([(1, 10)]))
+  let captured : Array[Node[Int]] = []
+  let result = rows.assoc((_, row) => {
+    captured.push(row)
+    row
+  })
+  @test.assert_eq(result.read().to_array(), [10])
+  let row = captured[0]
+  let source = row.childs[0]
+  set_rows(@vector.from_array([]))
+  @test.assert_eq(result.read().to_array(), [])
+  @test.assert_eq(row.read(), 10)
+  @test.assert_eq(row.childs.length(), 0)
+  assert_true(!has_dirty_parent(source.dirty_flag(), row.dirty_flag))
+  set_rows(@vector.from_array([(1, 20)]))
+  @test.assert_eq(result.read().to_array(), [20])
+  assert_true(!row.dirty_flag.dirty)
 }
 
 ///|

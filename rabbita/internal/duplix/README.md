@@ -51,4 +51,16 @@ state, where the edges can be rebuilt on demand by the next read.
 
 At no point does the value graph contain a reference cycle.
 
+Dynamic nodes (`bind` and `assoc`) pull their control inputs first, update the
+active dependency edges, and only then pull the selected branches. A removed or
+replaced branch is detached before its pending updates are evaluated.
+
+For `assoc`, an index derived from the source updates value cells for the active
+keys. Each row projection depends on that index, so it sees the current row even
+when another consumer pulls it before the collection output. The cells contain
+values, not row graphs, which avoids a reference cycle from the index back to
+its dependents. Removing a key detaches its row projection from the index;
+retained row handles keep their last value, and reinsertion creates a new cell
+and branch lifetime. No reactive input writes are needed during reconciliation.
+
 

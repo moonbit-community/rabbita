@@ -5,7 +5,6 @@ using @vector {type Vector}
 let uuid : Ref[Int32] = Ref(0)
 
 ///|
-// Advance on computation completion so nested reads get distinct versions.
 let clock : Ref[Double] = Ref(0)
 
 ///|
@@ -23,9 +22,25 @@ fn get_uuid() -> Int32 {
 priv trait ErasedNode {
   fn get_id(Self) -> Int32
   fn childs(Self) -> Array[&ErasedNode]
+  fn pull_plan(Self) -> PullPlan
+  fn prepare_childs(Self) -> Unit
   fn changed_at(Self) -> Double
   fn dirty_flag(Self) -> DirtyFlag
   fn recompute(Self) -> Unit
+}
+
+///|
+priv enum PullPlan {
+  Static
+  // Pull control inputs, prepare the active edges, then pull those edges.
+  Dynamic(Array[&ErasedNode], () -> Unit)
+}
+
+///|
+priv enum PullStep {
+  Visit(&ErasedNode)
+  Prepare(&ErasedNode)
+  Recompute(&ErasedNode)
 }
 
 ///|
@@ -42,18 +57,19 @@ struct Node[T] {
   mut value : T?
   mut compute : () -> T
   // Logical clock stamps. Double can represent every integer up to 2^53 - 1
-  // exactly. At 60fps, even 100,000 computations per frame would take about
-  // 47 years to exhaust that range, so wraparound is not a practical concern.
+  // exactly. At 60fps, even 100,000 reads per frame would take about 47 years
+  // to exhaust that range, so wraparound is not a practical concern here.
   mut changed_at : Double
   mut recomputed_at : Double
   scope : ScopeId
   childs : Array[&ErasedNode]
+  pull_plan : PullPlan
   dirty_flag : DirtyFlag
 }
 
 ///|
 pub fn[T] constant(x : T) -> Node[T] {
-  let dirty_b = { dirty: false, parents: [], id: get_uuid(), }
+  let dirty_b = { dirty: false, parents: Set([]), id: get_uuid(), }
   {
     id: get_uuid(),
     scope: current_scope.val,
@@ -62,6 +78,7 @@ pub fn[T] constant(x : T) -> Node[T] {
     changed_at: 0,
     recomputed_at: 0,
     childs: [],
+    pull_plan: Static,
     dirty_flag: dirty_b,
   }
 }
@@ -98,6 +115,18 @@ impl[T : Eq] ErasedNode for Node[T] with fn childs(self) {
 }
 
 ///|
+impl[T : Eq] ErasedNode for Node[T] with fn pull_plan(self) {
+  self.pull_plan
+}
+
+///|
+impl[T : Eq] ErasedNode for Node[T] with fn prepare_childs(self) {
+  if self.pull_plan is Dynamic(_, prepare) {
+    current_scope.protect(self.scope, prepare)
+  }
+}
+
+///|
 impl[T : Eq] ErasedNode for Node[T] with fn dirty_flag(self) {
   self.dirty_flag
 }
@@ -111,7 +140,6 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
     match self.value {
       None => {
         let new = (self.compute)()
-        clock.val += 1
         self.value = Some(new)
         self.recomputed_at = clock.val
         self.changed_at = self.recomputed_at
@@ -121,7 +149,6 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
         if self.childs is [] ||
           self.childs.any(x => x.changed_at() > self.recomputed_at) {
           let new = (self.compute)()
-          clock.val += 1
           self.recomputed_at = clock.val
           if !Eq::equal(old, new) {
             self.changed_at = self.recomputed_at
@@ -140,7 +167,12 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
 struct DirtyFlag {
   id : Int32
   mut dirty : Bool
-  parents : Array[DirtyFlag]
+  parents : Set[DirtyFlag]
+}
+
+///|
+impl Hash for DirtyFlag with fn hash_combine(self, hasher) {
+  Hash::hash_combine(self.id, hasher)
 }
 
 ///|
@@ -169,7 +201,8 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
     changed_at: 0,
     recomputed_at: 0,
     childs: [],
-    dirty_flag: { dirty: true, parents: [], id: get_uuid(), },
+    pull_plan: Static,
+    dirty_flag: { dirty: true, parents: Set([]), id: get_uuid(), },
   }
 
   fn write(x : T) {
@@ -183,8 +216,8 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
 ///|
 /// child_a ---derived---> parent_b
 pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
-  let dirty_b = { dirty: true, parents: [], id: get_uuid(), }
-  // a.dirty_flag.parents.push(dirty_b)
+  let dirty_b = { dirty: true, parents: Set([]), id: get_uuid(), }
+  // a.dirty_flag.parents.add(dirty_b)
   {
     id: get_uuid(),
     scope: current_scope.val,
@@ -193,6 +226,7 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
     changed_at: 0,
     recomputed_at: 0,
     childs: [a],
+    pull_plan: Static,
     dirty_flag: dirty_b,
   }
 }
@@ -202,38 +236,50 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
 ///                |----> output
 ///   b1 or b2 ----+
 pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
-  let mut b1_dirty_sub : DirtyFlag? = None
+  let mut active : Node[B]? = None
+  let mut selected_at = -1.0
+  let mut selection_prepared = false
   let output_childs : Array[&ErasedNode] = []
-  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
-  fn compute() {
+  let output_dirty_flag = { dirty: true, parents: Set([]), id: get_uuid(), }
+  fn select() {
     let b2 = f(a.value.unwrap())
-    let branch_changed = b1_dirty_sub is None ||
-      (b1_dirty_sub is Some(prev) && prev.id != b2.dirty_flag().id)
+    let branch_changed = active is None ||
+      (active is Some(prev) && prev.id != b2.id)
 
     if branch_changed {
       // delete: b1 ---derived---> output
       // add:    b2 ---derived---> output
-      if b1_dirty_sub is Some(b1) && b1.id != a.dirty_flag().id {
-        if b1.parents.search(output_dirty_flag) is Some(i) {
-          ignore(b1.parents.remove(i))
-        }
-        if output_childs.search_by(x => x.dirty_flag().id == b1.id) is Some(i) {
+      if active is Some(b1) && b1.id != a.id {
+        b1.dirty_flag.parents.remove(output_dirty_flag)
+        if output_childs.search_by(x => x.get_id() == b1.id) is Some(i) {
           ignore(output_childs.remove(i))
         }
       }
 
       if b2.dirty_flag().id != a.dirty_flag().id {
-        b2.dirty_flag().parents.push(output_dirty_flag)
+        b2.dirty_flag().parents.add(output_dirty_flag)
         output_childs.push(b2)
       }
-      b1_dirty_sub = Some(b2.dirty_flag())
     }
-
-    b2.internal_read()
+    active = Some(b2)
+    selected_at = a.changed_at
+  }
+  fn prepare() {
+    selection_prepared = active is None || a.changed_at > selected_at
+    if selection_prepared {
+      select()
+    }
+  }
+  fn compute() {
+    // Preserve bind's callback behavior for updates from the active branch.
+    if !selection_prepared {
+      select()
+    }
+    active.unwrap().internal_read()
   }
 
   // a ---derived--->output
-  // a.dirty_flag.parents.push(output_dirty_flag)
+  // a.dirty_flag.parents.add(output_dirty_flag)
   output_childs.push(a)
 
   {
@@ -244,6 +290,7 @@ pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
     changed_at: 0,
     recomputed_at: 0,
     childs: output_childs,
+    pull_plan: Dynamic([a], prepare),
     dirty_flag: output_dirty_flag,
   }
 }
@@ -315,51 +362,68 @@ pub fn[E : Eq, A : Eq] Node::enumerate_by(
 }
 
 ///|
-priv struct AssocEntry[V, C] {
+priv struct AssocValue[V] {
   mut value : V
-  set_value : (V) -> Unit
+  mut retained : Bool
+}
+
+///|
+priv struct AssocEntry[V, C] {
+  value : Node[V]
   result : Node[C]
   scope : ScopeId
   mut epoch : Int32
 }
 
 ///|
-///             node(entries) ---+
-///                              |
-/// node(v1) --?-> node(c1) -----+
-///                              |---> node(vector(c))
-/// node(v2) --?-> node(c2) -----+
-///   ...                        |
-/// node(vN) --?-> node(cN) -----+
-fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
+fn[K : Hash + Eq, I : Eq, V, C : Eq] Node::assoc_projected(
   a : Node[Vector[I]],
   f : (K, Node[V]) -> Node[C],
   key_of : (I) -> K,
   value_of : (I) -> V,
 ) -> Node[Vector[C]] {
-  let mut epoch = 0
-  let cache : Map[K, AssocEntry[V, C]] = Map([])
-  let output_childs : Array[&ErasedNode] = [a]
-  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
-  fn compute() {
-    epoch += 1
-    let active_results : Array[Node[C]] = []
-    let entries = a.value.unwrap()
-    for item in entries {
+  // Index cells contain values only, so row -> index edges cannot retain rows.
+  let values : Map[K, AssocValue[V]] = Map([])
+  let indexed = a.map(items => {
+    // Keep cells owned by existing branches until collection reconciliation.
+    values.retain((_, cell) => cell.retained)
+    for item in items {
       let key = key_of(item)
       let value = value_of(item)
+      let cell = if values.get(key) is Some(cell) {
+        cell
+      } else {
+        { value, retained: false }
+      }
+      cell.value = value
+      values[key] = cell
+    }
+    items
+  })
+  let mut epoch = 0
+  let mut reconciled_at = -1.0
+  let cache : Map[K, AssocEntry[V, C]] = Map([])
+  let active_results : Array[Node[C]] = []
+  let output_childs : Array[&ErasedNode] = [indexed]
+  let output_dirty_flag = { dirty: true, parents: Set([]), id: get_uuid(), }
+  fn prepare() {
+    guard indexed.changed_at > reconciled_at else { return }
+    reconciled_at = indexed.changed_at
+    epoch += 1
+    active_results.clear()
+    for item in indexed.value.unwrap() {
+      let key = key_of(item)
       let entry = if cache.get(key) is Some(entry) {
-        if entry.value != value {
-          entry.value = value
-          (entry.set_value)(value)
-        }
         entry.epoch = epoch
         entry
       } else {
         let entry = with_scope(scope => {
-          let (value_node, set_value) = input(value)
+          let cell = values[key]
+          cell.retained = true
+          // A removed key releases its cell; reinsertion gets a fresh lifetime.
+          let value_node = map_node([indexed], () => cell.value)
           let result = f(key, value_node)
-          { value, set_value, result, scope, epoch, }
+          { value: value_node, result, scope, epoch }
         })
         cache.set(key, entry)
         entry
@@ -375,9 +439,11 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
     }
     for key in stale_keys {
       if cache.get(key) is Some(entry) {
-        if entry.result.dirty_flag.parents.search(output_dirty_flag) is Some(i) {
-          ignore(entry.result.dirty_flag.parents.remove(i))
-        }
+        // Freeze retained row handles and release their source dependency.
+        entry.value.childs.clear()
+        values.remove(key)
+        indexed.dirty_flag.parents.remove(entry.value.dirty_flag)
+        entry.result.dirty_flag.parents.remove(output_dirty_flag)
         if global_scopes.get(entry.scope.0) is Some(scope) {
           scope.dispose()
         }
@@ -386,18 +452,13 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
     }
 
     output_childs.clear()
-    output_childs.push(a)
-    @vector.from_iter(
-      active_results
-      .iter()
-      .map(result => {
-        output_childs.push(result)
-        if result.dirty_flag.parents.all(x => x.id != output_dirty_flag.id) {
-          result.dirty_flag.parents.push(output_dirty_flag)
-        }
-        result.internal_read()
-      }),
-    )
+    output_childs.push(indexed)
+    for result in active_results {
+      output_childs.push(result)
+    }
+  }
+  fn compute() {
+    @vector.from_iter(active_results.iter().map(result => result.value.unwrap()))
   }
 
   {
@@ -408,6 +469,7 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
     recomputed_at: 0,
     changed_at: 0,
     childs: output_childs,
+    pull_plan: Dynamic([indexed], prepare),
     dirty_flag: output_dirty_flag,
   }
 }
@@ -437,39 +499,52 @@ fn[A : Eq] Node::internal_read(a : Node[A]) -> A {
 
 ///|
 pub fn[A : Eq] Node::read(a : Node[A]) -> A {
+  clock.val += 1
   a.internal_read()
 }
 
 ///|
 fn pull_value(node : &ErasedNode) -> Unit {
-  let stack = [(node, false)]
+  let stack : Array[PullStep] = [Visit(node)]
   let seen = Set([])
-  let recomputes = []
-
-  while stack.pop() is Some((x, expanded)) {
-    guard x.dirty_flag().dirty else { continue }
-    let id = x.get_id()
-    if expanded {
-      recomputes.push(x)
-    } else if !seen.contains(id) {
-      seen.add(id)
-      stack.push((x, true))
-
-      for child in x.childs() {
-        if child.dirty_flag().dirty {
-          stack.push((child, false))
+  while stack.pop() is Some(step) {
+    match step {
+      Visit(node) => {
+        guard node.dirty_flag().dirty else { continue }
+        guard !seen.contains(node.get_id()) else { continue }
+        seen.add(node.get_id())
+        let childs = match node.pull_plan() {
+          Static => {
+            stack.push(Recompute(node))
+            node.childs()
+          }
+          Dynamic(sources, _) => {
+            stack.push(Prepare(node))
+            sources
+          }
+        }
+        for child in childs {
+          if child.dirty_flag().dirty {
+            stack.push(Visit(child))
+          }
         }
       }
-    }
-  }
-
-  for node in recomputes {
-    for child in node.childs() {
-      if child.dirty_flag().parents.all(x => x.id != node.dirty_flag().id) {
-        child.dirty_flag().parents.push(node.dirty_flag())
+      Prepare(node) => {
+        node.prepare_childs()
+        stack.push(Recompute(node))
+        for child in node.childs() {
+          if child.dirty_flag().dirty {
+            stack.push(Visit(child))
+          }
+        }
+      }
+      Recompute(node) => {
+        for child in node.childs() {
+          child.dirty_flag().parents.add(node.dirty_flag())
+        }
+        node.recompute()
       }
     }
-    node.recompute()
   }
 }
 
