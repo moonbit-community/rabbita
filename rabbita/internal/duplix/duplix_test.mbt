@@ -305,13 +305,14 @@ test "assoc_by reads latest row and external input in the same read" {
 
 ///|
 test "assoc propagates latest row and external input through derived nodes in the same read" {
-  let (rows, set_rows) = @duplix.input(
-    @vector.from_array([(1, 10), (2, 100)]),
-  )
+  let (rows, set_rows) = @duplix.input(@vector.from_array([(1, 10), (2, 100)]))
   let (extra, set_extra) = @duplix.input(1)
-  let result = rows.assoc((_, row) =>
-    row.map2(extra, (row, extra) => row + extra).map(value => value * 10))
-  let total = result.map(values => values.fold(init=0, (sum, value) => sum + value))
+  let result = rows.assoc((_, row) => {
+    row.map2(extra, (row, extra) => row + extra).map(value => value * 10)
+  })
+  let total = result.map(values => {
+    values.fold(init=0, (sum, value) => sum + value)
+  })
   @test.assert_eq(total.read(), 1120)
   set_rows(@vector.from_array([(1, 20), (2, 200)]))
   set_extra(2)
