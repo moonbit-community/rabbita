@@ -193,8 +193,10 @@ test {
 Pass `render_math? : (@markdown.MathSource) -> @html.Html` to replace both
 inline and block math while keeping Rui's Markdown structure and styling. The
 callback receives `tex`, the source without `$`/`$$` delimiters, and `display`,
-which is `false` for inline math and `true` for `$$…$$` or a math block. It runs
-for math inside paragraphs, headings, lists, blockquotes, tables and footnotes.
+which is TeX display mode: `false` for `$…$` and `true` for `$$…$$` or a math
+block. It does not by itself make the math block-level, since `$$…$$` can appear
+inside a paragraph. The hook runs for math inside paragraphs, headings, lists,
+blockquotes, tables and footnotes.
 
 `render_math` takes precedence over `render_codeblock`. Inline math replaces the
 default `code.language-math` element; block math replaces the complete code
@@ -211,15 +213,18 @@ the renderer's trust settings yourself.
 ///|
 test {
   let view = @markdown.markdown("Inline $x^2$.\n\n```math\ny = x + 1\n```", render_math=math => {
-    if math.display {
-      @html.div(class="math-display", math.tex)
-    } else {
-      @html.span(class="math-inline", math.tex)
-    }
+    @html.span(
+      class=if math.display { "math-display" } else { "math-inline" },
+      math.tex,
+    )
   })
   ignore(view)
 }
 ```
+
+The example returns inline-compatible markup for both modes, so it is valid
+inside a paragraph. Style `.math-display` with `display:block` when a display
+formula should occupy its own line.
 
 ## Typography reference
 
