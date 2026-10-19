@@ -77,8 +77,13 @@ fn render_block(
         code_block(source, info="html")
       }
     }
-    ExtMathBlock({ v, .. }) =>
-      code_block("$$\n" + lines_text(v.code) + "\n$$", info="math")
+    ExtMathBlock({ v, .. }) => {
+      let source : MathSource = { tex: lines_text(v.code), display: true, }
+      guard state.render_math is Some(render) else {
+        return code_block("$$\n" + source.tex + "\n$$", info="math")
+      }
+      render(source)
+    }
     ThematicBreak(_) => @html.hr()
     List({ v, .. }) => render_list(state, v)
     ExtTable({ v, .. }) => render_table(state, v)

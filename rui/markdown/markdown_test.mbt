@@ -4,6 +4,7 @@
 async fn render(
   source : String,
   render_codeblock? : (String, String) -> @html.Html,
+  render_math? : (@markdown.MathSource) -> @html.Html,
   transform_link? : (String) -> String,
   render_heading? : (@cmark.BlockHeading) -> @html.Html,
 ) -> String {
@@ -15,6 +16,7 @@ async fn render(
           @markdown.markdown(
             source,
             render_codeblock?,
+            render_math?,
             transform_link?,
             render_heading?,
           ),
@@ -289,12 +291,12 @@ async test "repeated footnotes and cycles produce complete backlinks" {
 #cfg(not(target="js"))
 async test "code math and diagrams preserve source" {
   let html = render(
-    "```moonbit\nlet x = \"<tag>\"\n```\n\n```mermaid\ngraph LR; A-->B\n```\n\nInline $x^2$.\n\n$$\ny = x + 1\n$$",
+    "```moonbit\nlet x = \"<tag>\"\n```\n\n```mermaid\ngraph LR; A-->B\n```\n\nInline $x^2$.\n\n$$\ny = x + 1\n$$\n\n```math\nc = a + b\n```",
   )
   for
     expected in [
       "class=\"language-moonbit\"", "&lt;tag&gt;", "graph LR; A--&gt;B", "$x^2$",
-      "y = x + 1",
+      "y = x + 1", "class=\"language-math\"", "$$ y = x + 1 $$", "$$\nc = a + b\n$$",
     ] {
     assert_true(html.contains(expected), msg=expected)
   }
@@ -369,6 +371,54 @@ async test "code renderer receives complete parsed fence info including metadata
   let default_html = render(source)
   assert_true(default_html.contains("class=\"language-moonbit\""))
   assert_true(default_html.contains("class=\"language-json\""))
+}
+
+///|
+#cfg(not(target="js"))
+async test "custom math renderer receives inline and block math without delimiters" {
+  let math : Array[(String, Bool)] = []
+  let blocks : Array[(String, String)] = []
+  let source =
+    #|# Heading $h$
+    #|
+    #|Inline $x^2$ and display $$y$$.
+    #|
+    #|- list $l$
+    #|
+    #|> quote $q$
+    #|
+    #|```math
+    #|a + b
+    #|```
+  let html = render(
+    source,
+    render_codeblock=(source, info) => {
+      blocks.push((source, info))
+      @html.pre(@html.code(source))
+    },
+    render_math=source => {
+      math.push((source.tex, source.display))
+      @html.span(
+        class=if source.display { "math-display" } else { "math-inline" },
+        source.tex,
+      )
+    },
+  )
+  assert_eq(math, [
+    ("h", false),
+    ("x^2", false),
+    ("y", true),
+    ("l", false),
+    ("q", false),
+    ("a + b", true),
+  ])
+  // Math resolves before code blocks: the block renderer must not see it.
+  assert_eq(blocks, [])
+  assert_eq(html.split("class=\"math-inline\"").count() - 1, 4)
+  assert_eq(html.split("class=\"math-display\"").count() - 1, 2)
+  assert_eq(count_tag(html, "pre"), 0)
+  assert_eq(count_tag(html, "button"), 0)
+  assert_eq(count_tag(html, "code"), 0)
 }
 
 ///|

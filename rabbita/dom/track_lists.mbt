@@ -43,13 +43,13 @@ type TextTrack
 ///|
 /// The number of tracks currently in this live collection.
 #cfg(target="js")
-pub extern "js" fn AudioTrackList::length(self : Self) -> Int = "(l) => l.length"
+pub extern "js" fn AudioTrackList::length(self : Self) -> Int32 = "(l) => l.length"
 
 ///|
 /// Returns the track at `index`, or `None` when the index is out of range.
 #cfg(target="js")
 #alias("_[_]")
-pub fn AudioTrackList::get(self : Self, index : Int) -> AudioTrack? {
+pub fn AudioTrackList::get(self : Self, index : Int32) -> AudioTrack? {
   audio_track_list_get_ffi(self, index).to_option()
 }
 
@@ -77,7 +77,7 @@ pub fn AudioTrackList::iter(self : Self) -> Iter[AudioTrack] {
 #cfg(target="js")
 extern "js" fn audio_track_list_get_ffi(
   list : AudioTrackList,
-  index : Int,
+  index : Int32,
 ) -> @js.Nullable[AudioTrack] = "(l, i) => l[i] ?? null"
 
 ///|
@@ -106,13 +106,13 @@ pub extern "js" fn AudioTrack::get_kind(self : Self) -> String = "(t) => t.kind"
 ///|
 /// The number of tracks currently in this live collection.
 #cfg(target="js")
-pub extern "js" fn VideoTrackList::length(self : Self) -> Int = "(l) => l.length"
+pub extern "js" fn VideoTrackList::length(self : Self) -> Int32 = "(l) => l.length"
 
 ///|
 /// Returns the track at `index`, or `None` when the index is out of range.
 #cfg(target="js")
 #alias("_[_]")
-pub fn VideoTrackList::get(self : Self, index : Int) -> VideoTrack? {
+pub fn VideoTrackList::get(self : Self, index : Int32) -> VideoTrack? {
   video_track_list_get_ffi(self, index).to_option()
 }
 
@@ -140,7 +140,7 @@ pub fn VideoTrackList::iter(self : Self) -> Iter[VideoTrack] {
 #cfg(target="js")
 extern "js" fn video_track_list_get_ffi(
   list : VideoTrackList,
-  index : Int,
+  index : Int32,
 ) -> @js.Nullable[VideoTrack] = "(l, i) => l[i] ?? null"
 
 ///|
@@ -169,13 +169,13 @@ pub extern "js" fn VideoTrack::get_kind(self : Self) -> String = "(t) => t.kind"
 ///|
 /// The number of tracks currently in this live collection.
 #cfg(target="js")
-pub extern "js" fn TextTrackList::length(self : Self) -> Int = "(l) => l.length"
+pub extern "js" fn TextTrackList::length(self : Self) -> Int32 = "(l) => l.length"
 
 ///|
 /// Returns the track at `index`, or `None` when the index is out of range.
 #cfg(target="js")
 #alias("_[_]")
-pub fn TextTrackList::get(self : Self, index : Int) -> TextTrack? {
+pub fn TextTrackList::get(self : Self, index : Int32) -> TextTrack? {
   text_track_list_get_ffi(self, index).to_option()
 }
 
@@ -203,7 +203,7 @@ pub fn TextTrackList::iter(self : Self) -> Iter[TextTrack] {
 #cfg(target="js")
 extern "js" fn text_track_list_get_ffi(
   list : TextTrackList,
-  index : Int,
+  index : Int32,
 ) -> @js.Nullable[TextTrack] = "(l, i) => l[i] ?? null"
 
 ///|
