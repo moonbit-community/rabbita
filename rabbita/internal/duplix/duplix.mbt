@@ -46,7 +46,7 @@ struct Node[T] {
   mut changed_at : Double
   mut recomputed_at : Double
   scope : ScopeId
-  childs : Array[&ErasedNode]
+  mut childs : () -> Array[&ErasedNode]
   dirty_flag : DirtyFlag
 }
 
@@ -60,7 +60,7 @@ pub fn[T] constant(x : T) -> Node[T] {
     compute: () => x,
     changed_at: 0,
     recomputed_at: 0,
-    childs: [],
+    childs: () => [],
     dirty_flag: dirty_b,
   }
 }
@@ -93,7 +93,7 @@ impl[T : Eq] ErasedNode for Node[T] with fn changed_at(self) {
 
 ///|
 impl[T : Eq] ErasedNode for Node[T] with fn childs(self) {
-  self.childs
+  (self.childs)()
 }
 
 ///|
@@ -116,8 +116,8 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
         self.dirty_flag().dirty = false
       }
       Some(old) if self.dirty_flag().dirty => {
-        if self.childs is [] ||
-          self.childs.any(x => x.changed_at() > self.recomputed_at) {
+        let childs = (self.childs)()
+        if childs is [] || childs.any(x => x.changed_at() > self.recomputed_at) {
           let new = (self.compute)()
           self.recomputed_at = clock.val
           if !Eq::equal(old, new) {
@@ -165,7 +165,7 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
     compute: () => x,
     changed_at: 0,
     recomputed_at: 0,
-    childs: [],
+    childs: () => [],
     dirty_flag: { dirty: true, parents: [], id: get_uuid(), },
   }
 
@@ -189,49 +189,30 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
     compute: () => f(a.value.unwrap()),
     changed_at: 0,
     recomputed_at: 0,
-    childs: [a],
+    childs: () => [a],
     dirty_flag: dirty_b,
   }
 }
 
 ///|
-///         a -----+
-///                |----> output
-///   b1 or b2 ----+
+/// node(a) --> node(node(b)) --> node(b)
+///  input        selected         output
+///
+/// branch is the Node[B] currently stored in selected.
 pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
-  let mut b1_dirty_sub : DirtyFlag? = None
-  let output_childs : Array[&ErasedNode] = []
+  let selected : Node[Node[B]] = a.map(f)
+  let mut previous : DirtyFlag? = None
   let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
-  fn compute() {
-    let b2 = f(a.value.unwrap())
-    let branch_changed = b1_dirty_sub is None ||
-      (b1_dirty_sub is Some(prev) && prev.id != b2.dirty_flag().id)
-
-    if branch_changed {
-      // delete: b1 ---derived---> output
-      // add:    b2 ---derived---> output
-      if b1_dirty_sub is Some(b1) && b1.id != a.dirty_flag().id {
-        if b1.parents.search(output_dirty_flag) is Some(i) {
-          ignore(b1.parents.remove(i))
-        }
-        if output_childs.search_by(x => x.dirty_flag().id == b1.id) is Some(i) {
-          ignore(output_childs.remove(i))
-        }
+  fn compute() -> B {
+    let branch : Node[B] = selected.value.unwrap()
+    if previous is Some(prev) && prev.id != branch.dirty_flag.id {
+      if prev.parents.search(output_dirty_flag) is Some(i) {
+        ignore(prev.parents.remove(i))
       }
-
-      if b2.dirty_flag().id != a.dirty_flag().id {
-        b2.dirty_flag().parents.push(output_dirty_flag)
-        output_childs.push(b2)
-      }
-      b1_dirty_sub = Some(b2.dirty_flag())
     }
-
-    b2.internal_read()
+    previous = Some(branch.dirty_flag)
+    branch.value.unwrap()
   }
-
-  // a ---derived--->output
-  // a.dirty_flag.parents.push(output_dirty_flag)
-  output_childs.push(a)
 
   {
     id: get_uuid(),
@@ -240,7 +221,14 @@ pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
     compute,
     changed_at: 0,
     recomputed_at: 0,
-    childs: output_childs,
+    childs: () => {
+      // Visit selected first. Refresh childs before visiting the selected branch.
+      if selected.value is Some(branch) {
+        [selected, branch]
+      } else {
+        [selected]
+      }
+    },
     dirty_flag: output_dirty_flag,
   }
 }
@@ -313,100 +301,110 @@ pub fn[E : Eq, A : Eq] Node::enumerate_by(
 
 ///|
 priv struct AssocEntry[V, C] {
-  mut value : V
-  set_value : (V) -> Unit
+  retain_value : Ref[V]
+  value : Node[V]
   result : Node[C]
   scope : ScopeId
   mut epoch : Int32
 }
 
 ///|
-///             node(entries) ---+
-///                              |
-/// node(v1) --?-> node(c1) -----+
-///                              |---> node(vector(c))
-/// node(v2) --?-> node(c2) -----+
-///   ...                        |
-/// node(vN) --?-> node(cN) -----+
+/// 
+///    a : Node[Vector[V]]
+///           |                 +-> v1 : Node[V] -> c1 : Node[C] ---+
+///           v                 |                                   |
+/// indexed : Node[Map[K,V]] ---+-> v2 : Node[V] -> c2 : Node[C] ---+-> output: Node[Vector[C]]
+///                             |               ...                 |
+///                             +-> vN : Node[V] -> cN : Node[C] ---+
+/// 
 fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
   a : Node[Vector[I]],
   f : (K, Node[V]) -> Node[C],
   key_of : (I) -> K,
   value_of : (I) -> V,
 ) -> Node[Vector[C]] {
-  let mut epoch = 0
+  let indexed : Node[(Map[K, V], Array[K])] = a.map(inputs => {
+    let dict = Map([])
+    let order = []
+    for input in inputs {
+      let k = key_of(input)
+      let v = value_of(input)
+      dict[k] = v
+      order.push(k)
+    }
+    (dict, order)
+  })
+
+  let mut epoch : Int32 = 0
   let cache : Map[K, AssocEntry[V, C]] = Map([])
-  let output_childs : Array[&ErasedNode] = [a]
-  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
-  fn compute() {
+
+  let output : Node[Vector[C]] = indexed.bind(pair => {
     epoch += 1
-    let active_results : Array[Node[C]] = []
-    let entries = a.value.unwrap()
-    for item in entries {
-      let key = key_of(item)
-      let value = value_of(item)
-      let entry = if cache.get(key) is Some(entry) {
-        if entry.value != value {
-          entry.value = value
-          (entry.set_value)(value)
+    let (dict, order) = pair
+    let results : Array[Node[C]] = []
+    for k in order {
+      let entry : AssocEntry[V, C] = match cache.get(k) {
+        Some(entry) => {
+          entry.epoch = epoch
+          entry
         }
-        entry.epoch = epoch
-        entry
-      } else {
-        let entry = with_scope(scope => {
-          let (value_node, set_value) = input(value)
-          let result = f(key, value_node)
-          { value, set_value, result, scope, epoch, }
-        })
-        cache.set(key, entry)
-        entry
+        None => {
+          let entry : AssocEntry[V, C] = with_scope(scope => {
+            let retain_value : Ref[V] = Ref(dict[k])
+            let value_node : Node[V] = indexed.map(index => {
+              match index.0.get(k) {
+                Some(v) => {
+                  retain_value.val = v
+                  v
+                }
+                None => retain_value.val
+              }
+            })
+            let c : Node[C] = f(k, value_node)
+            { result: c, scope, epoch, value: value_node, retain_value, }
+          })
+          cache[k] = entry
+          entry
+        }
       }
-      active_results.push(entry.result)
+      results.push(entry.result)
     }
 
-    let stale_keys : Array[K] = []
-    for key, entry in cache {
-      if entry.epoch != epoch {
-        stale_keys.push(key)
-      }
-    }
-    for key in stale_keys {
-      if cache.get(key) is Some(entry) {
-        if entry.result.dirty_flag.parents.search(output_dirty_flag) is Some(i) {
-          ignore(entry.result.dirty_flag.parents.remove(i))
+    let removed : Set[Int32] = Set([])
+    cache.retain((_, entry) => {
+      match entry.epoch == epoch {
+        true => true
+        false => {
+          // NOTE:
+          // If (k, v) is removed from `a` but `node(v) --> node(c)` is still
+          // active, what happens when someone reads `node(c)`?
+          //
+          // Like SolidJS's per-item signals, retain the last known `v` so
+          // `node(c)` can recompute with it even after (k, v) is removed.
+          let value : V = entry.retain_value.val
+          entry.value.compute = () => value
+          entry.value.childs = () => []
+          removed.add(entry.value.dirty_flag.id)
+          if global_scopes.get(entry.scope.0) is Some(scope) {
+            scope.dispose()
+          }
+          false
         }
-        if global_scopes.get(entry.scope.0) is Some(scope) {
-          scope.dispose()
-        }
       }
-      cache.remove(key)
-    }
+    })
+    // Detach all removed nodes in one pass.
+    indexed.dirty_flag.parents.retain(parent => !removed.contains(parent.id))
 
-    output_childs.clear()
-    output_childs.push(a)
-    @vector.from_iter(
-      active_results
-      .iter()
-      .map(result => {
-        output_childs.push(result)
-        if result.dirty_flag.parents.all(x => x.id != output_dirty_flag.id) {
-          result.dirty_flag.parents.push(output_dirty_flag)
-        }
-        result.internal_read()
-      }),
+    let combined : Node[Vector[C]] = map_node(
+      results.map(x => x as &ErasedNode),
+      () => {
+        @vector.from_iter(results.iter().map(result => result.value.unwrap()))
+      },
     )
-  }
+    combined
+  })
 
-  {
-    id: get_uuid(),
-    scope: current_scope.val,
-    value: None,
-    compute,
-    recomputed_at: 0,
-    changed_at: 0,
-    childs: output_childs,
-    dirty_flag: output_dirty_flag,
-  }
+  output
 }
 
 ///|
@@ -439,35 +437,29 @@ pub fn[A : Eq] Node::read(a : Node[A]) -> A {
 }
 
 ///|
+/// Recompute dirty nodes in post-order.
+/// Re-read `childs()` after processing each child, since earlier children
+/// may change later dependencies, as in `a.bind(f)`.
 fn pull_value(node : &ErasedNode) -> Unit {
-  let stack = [(node, false)]
-  let seen = Set([])
-  let recomputes = []
-
-  while stack.pop() is Some((x, expanded)) {
-    guard x.dirty_flag().dirty else { continue }
-    let id = x.get_id()
-    if expanded {
-      recomputes.push(x)
-    } else if !seen.contains(id) {
-      seen.add(id)
-      stack.push((x, true))
-
-      for child in x.childs() {
-        if child.dirty_flag().dirty {
-          stack.push((child, false))
+  let stack : Array[(&ErasedNode, Int32)] = [(node, 0)]
+  while stack.pop() is Some((node, index)) {
+    guard node.dirty_flag().dirty else { continue }
+    // Earlier children may change which later children should be visited.
+    let childs : Array[&ErasedNode] = node.childs()
+    if index < childs.length() {
+      stack.push((node, index + 1))
+      let child = childs[index]
+      if child.dirty_flag().dirty {
+        stack.push((child, 0))
+      }
+    } else {
+      for child in childs {
+        if child.dirty_flag().parents.all(x => x.id != node.dirty_flag().id) {
+          child.dirty_flag().parents.push(node.dirty_flag())
         }
       }
+      node.recompute()
     }
-  }
-
-  for node in recomputes {
-    for child in node.childs() {
-      if child.dirty_flag().parents.all(x => x.id != node.dirty_flag().id) {
-        child.dirty_flag().parents.push(node.dirty_flag())
-      }
-    }
-    node.recompute()
   }
 }
 

@@ -15,7 +15,7 @@ pub fn batch(Array[Cmd]) -> Cmd
 #alias(raw_effect, deprecated)
 pub fn custom_cmd((&Scheduler) -> Unit, kind? : EffectKind) -> Cmd
 
-pub fn delay(Cmd, Int32) -> Cmd
+pub fn delay(Cmd, Int) -> Cmd
 
 pub fn effect(async () -> Unit noraise) -> Cmd
 
@@ -78,7 +78,7 @@ pub fn Runner::settle(Self, Extension, &Context) -> OpCont[(Json, Cmd)] raise Un
 
 // Extensible enum extensions
 pub extenum Extension += {
-  Delay(Cmd, Int32)
+  Delay(Cmd, Int)
   LegacyEffect(EffectKind, (&Scheduler) -> Unit)
   LegacyMessage((&Scheduler) -> Unit)
 }
