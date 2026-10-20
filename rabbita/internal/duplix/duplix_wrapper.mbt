@@ -9,7 +9,7 @@ fn[T] map_node(childs : Array[&ErasedNode], compute : () -> T) -> Node[T] {
     scope: current_scope.val,
     value: None,
     compute,
-    childs,
+    childs: () => childs,
     dirty_flag: dirty,
     changed_at: 0,
     recomputed_at: 0,
