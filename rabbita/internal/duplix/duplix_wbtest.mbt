@@ -21,12 +21,82 @@ fn dirty_parent_count(child : DirtyFlag, parent : DirtyFlag) -> Int32 {
 ///|
 fn[A] child_count(parent : Node[A], child_id : Int32) -> Int32 {
   let mut count = 0
-  for child in parent.childs {
+  for child in (parent.childs)() {
     if child.get_id() == child_id {
       count += 1
     }
   }
   count
+}
+
+///|
+test "removed assoc row retains its last computed value and releases its source" {
+  let (rows, set_rows) = input(@vector.from_array([(1, 10)]))
+  let captured : Array[Node[Int32]] = []
+  let result = rows.assoc((_, row) => {
+    captured.push(row)
+    constant(0)
+  })
+  @test.assert_eq(result.read().to_array(), [0])
+  let row = captured[0]
+  let source = (row.childs)()[0]
+  @test.assert_eq(row.read(), 10)
+  assert_true(has_dirty_parent(source.dirty_flag(), row.dirty_flag))
+  // Update the row without reading its projection again before removal.
+  set_rows(@vector.from_array([(1, 20)]))
+  @test.assert_eq(result.read().to_array(), [0])
+  set_rows(@vector.from_array([]))
+  @test.assert_eq(result.read().to_array(), [])
+  @test.assert_eq(row.read(), 10)
+  @test.assert_eq((row.childs)().length(), 0)
+  assert_true(!has_dirty_parent(source.dirty_flag(), row.dirty_flag))
+  set_rows(@vector.from_array([(1, 30)]))
+  @test.assert_eq(result.read().to_array(), [0])
+  assert_true(!row.dirty_flag.dirty)
+  @test.assert_eq(row.read(), 10)
+  @test.assert_eq(captured[1].read(), 30)
+}
+
+///|
+test "removed assoc row detaches after a direct read before reconciliation" {
+  let (rows, set_rows) = input(@vector.from_array([(1, 10)]))
+  let captured : Array[Node[Int32]] = []
+  let result = rows.assoc((_, row) => {
+    captured.push(row)
+    constant(0)
+  })
+  assert_eq(result.read().to_array(), [0])
+  let row : Node[Int32] = captured[0]
+  let source : &ErasedNode = (row.childs)()[0]
+  assert_eq(row.read(), 10)
+  set_rows(@vector.from_array([]))
+  assert_eq(row.read(), 10)
+  assert_true(has_dirty_parent(source.dirty_flag(), row.dirty_flag))
+  assert_eq(result.read().to_array(), [])
+  assert_eq((row.childs)().length(), 0)
+  assert_true(!has_dirty_parent(source.dirty_flag(), row.dirty_flag))
+  set_rows(@vector.from_array([(1, 30)]))
+  assert_eq(result.read().to_array(), [0])
+  assert_true(!row.dirty_flag.dirty)
+  assert_eq(row.read(), 10)
+  assert_eq(captured[1].read(), 30)
+}
+
+///|
+test "assoc retains the initial value of an unread row after removal" {
+  let (rows, set_rows) = input(@vector.from_array([(1, 10)]))
+  let captured : Array[Node[Int32]] = []
+  let result = rows.assoc((_, row) => {
+    captured.push(row)
+    constant(0)
+  })
+  assert_eq(result.read().to_array(), [0])
+  set_rows(@vector.from_array([(1, 20)]))
+  assert_eq(result.read().to_array(), [0])
+  assert_true(captured[0].value is None)
+  set_rows(@vector.from_array([]))
+  assert_eq(result.read().to_array(), [])
+  assert_eq(captured[0].read(), 10)
 }
 
 ///|
@@ -62,17 +132,20 @@ test "bind detaches previous dynamic dirty parent" {
 }
 
 ///|
-test "bind keeps static selector dirty parent when selector was dynamic child" {
+test "bind keeps selector dependency through selected after switching away" {
   let (selector, set_selector) = input(1)
   let (fallback, _) = input(10)
   let bound = selector.bind(x => if x == 1 { selector } else { fallback })
 
+  let selected : &ErasedNode = (bound.childs)()[0]
   inspect(bound.read(), content="1")
   assert_true(has_dirty_parent(selector.dirty_flag, bound.dirty_flag))
 
   set_selector(2)
   inspect(bound.read(), content="10")
-  assert_true(has_dirty_parent(selector.dirty_flag, bound.dirty_flag))
+  assert_true(!has_dirty_parent(selector.dirty_flag, bound.dirty_flag))
+  assert_true(has_dirty_parent(selector.dirty_flag, selected.dirty_flag()))
+  assert_true(has_dirty_parent(selected.dirty_flag(), bound.dirty_flag))
   assert_true(has_dirty_parent(fallback.dirty_flag, bound.dirty_flag))
 }
 
@@ -110,13 +183,16 @@ test "bind selector branch can switch away and back" {
     }
   })
 
+  let selected : &ErasedNode = (parent.childs)()[0]
   inspect(parent.read(), content="1")
   inspect(child_count(parent, selector.id), content="1")
 
   set_selector(2)
   inspect(parent.read(), content="10")
   assert_true(has_dirty_parent(fallback.dirty_flag, parent.dirty_flag))
-  inspect(child_count(parent, selector.id), content="1")
+  inspect(child_count(parent, selector.id), content="0")
+  assert_true(has_dirty_parent(selector.dirty_flag, selected.dirty_flag()))
+  assert_true(has_dirty_parent(selected.dirty_flag(), parent.dirty_flag))
   inspect(child_count(parent, fallback.id), content="1")
 
   set_selector(1)

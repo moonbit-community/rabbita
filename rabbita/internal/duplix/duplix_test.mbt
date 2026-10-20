@@ -131,44 +131,45 @@ test "bind switches dynamic child and detaches inactive child" {
   inspect(right_runs, content="0")
   inspect(output_runs, content="1")
 
+  // Only changes to use_left rerun the bind callback.
   set_left_input(2)
   inspect(output.read(), content="204")
-  inspect(choose_runs, content="2")
+  inspect(choose_runs, content="1")
   inspect(left_runs, content="2")
   inspect(right_runs, content="0")
   inspect(output_runs, content="2")
 
   set_use_left(false)
   inspect(output.read(), content="2020")
-  inspect(choose_runs, content="3")
+  inspect(choose_runs, content="2")
   inspect(left_runs, content="2")
   inspect(right_runs, content="1")
   inspect(output_runs, content="3")
 
   set_left_input(3)
   inspect(output.read(), content="2020")
-  inspect(choose_runs, content="3")
+  inspect(choose_runs, content="2")
   inspect(left_runs, content="2")
   inspect(right_runs, content="1")
   inspect(output_runs, content="3")
 
   set_right_input(20)
   inspect(output.read(), content="2040")
-  inspect(choose_runs, content="4")
+  inspect(choose_runs, content="2")
   inspect(left_runs, content="2")
   inspect(right_runs, content="2")
   inspect(output_runs, content="4")
 
   set_use_left(true)
   inspect(output.read(), content="206")
-  inspect(choose_runs, content="5")
+  inspect(choose_runs, content="3")
   inspect(left_runs, content="3")
   inspect(right_runs, content="2")
   inspect(output_runs, content="5")
 
   set_right_input(30)
   inspect(output.read(), content="206")
-  inspect(choose_runs, content="5")
+  inspect(choose_runs, content="3")
   inspect(left_runs, content="3")
   inspect(right_runs, content="2")
   inspect(output_runs, content="5")
@@ -203,7 +204,7 @@ test "bind cuts off downstream when switched child has same value" {
   inspect(output_runs, content="1")
   set_right_input(11)
   inspect(output.read(), content="12")
-  inspect(choose_runs, content="3")
+  inspect(choose_runs, content="2")
   inspect(output_runs, content="2")
 }
 
@@ -271,6 +272,31 @@ test "assoc_by reuses keyed child graphs" {
   debug_inspect(values.read(), content="<Vector: [111, 330]>")
   inspect(created, content="4")
   inspect(runs, content="5")
+}
+
+///|
+test "assoc_by reads latest row and external input in the same read" {
+  for external_first in [false, true] {
+    let (rows, set_rows) = @duplix.input(@vector.from_array([(1, 10)]))
+    let (extra, set_extra) = @duplix.input(1)
+    let result = rows.assoc_by(
+      (_, row) => row.map2(extra, (row, extra) => row.1 + extra),
+      by=row => row.0,
+    )
+    @test.assert_eq(result.read().to_array(), [11])
+    if external_first {
+      set_extra(2)
+      set_rows(@vector.from_array([(1, 20)]))
+    } else {
+      set_rows(@vector.from_array([(1, 20)]))
+      set_extra(2)
+    }
+    @test.assert_eq(result.read().to_array(), [22])
+    @test.assert_eq(result.read().to_array(), [22])
+    set_rows(@vector.from_array([(1, 30)]))
+    set_extra(3)
+    @test.assert_eq(result.read().to_array(), [33])
+  }
 }
 
 ///|
@@ -384,6 +410,103 @@ impl @common.Enumerate for Route with fn tag(self) {
     Home => "home"
     Detail => "detail"
   }
+}
+
+///|
+test "assoc_by cleans up entries and preserves retained node reads" {
+  let cleanup_log : Array[Int32] = []
+  let captured_values : Array[@duplix.Node[(Int32, Int32)]] = []
+  let captured_results : Array[@duplix.Node[Int32]] = []
+  let (owner, output, set_source, set_extra) = @duplix.with_scope(owner => {
+    let (source, set_source) = @duplix.input(
+      @vector.from_array([(1, 10), (2, 20)]),
+    )
+    let (extra, set_extra) = @duplix.input(1)
+    let output = source.assoc_by(
+      (key, value) => {
+        @duplix.on_cleanup(() => cleanup_log.push(key))
+        let result = value.map2(extra, (pair, extra) => pair.1 + extra)
+        captured_values.push(value)
+        captured_results.push(result)
+        result
+      },
+      by=pair => pair.0,
+    )
+    (owner, output, set_source, set_extra)
+  })
+
+  assert_eq(output.read().to_array(), [11, 21])
+  set_source(@vector.from_array([(2, 200), (1, 100)]))
+  assert_eq(output.read().to_array(), [201, 101])
+  assert_eq(captured_values.length(), 2)
+  assert_eq(cleanup_log, [])
+
+  set_source(@vector.from_array([(2, 200)]))
+  assert_eq(output.read().to_array(), [201])
+  assert_eq(cleanup_log, [1])
+  set_extra(2)
+  assert_eq(captured_values[0].read(), (1, 100))
+  assert_eq(captured_results[0].read(), 102)
+  assert_eq(output.read().to_array(), [202])
+
+  set_source(@vector.from_array([(1, 300), (2, 200)]))
+  assert_eq(output.read().to_array(), [302, 202])
+  assert_eq(captured_values.length(), 3)
+  assert_true(captured_values[0] != captured_values[2])
+  assert_eq(captured_values[0].read(), (1, 100))
+  assert_eq(captured_results[0].read(), 102)
+  assert_eq(captured_values[2].read(), (1, 300))
+  assert_eq(captured_results[2].read(), 302)
+  assert_eq(cleanup_log, [1])
+
+  owner.cleanup()
+  assert_eq(cleanup_log.length(), 3)
+}
+
+///|
+test "assoc retains each row's last computed value" {
+  let (rows, set_rows) = @duplix.input(@vector.from_array([(1, 10), (2, 100)]))
+  let captured : Array[@duplix.Node[Int32]] = []
+  let result = rows.assoc((_, row) => {
+    captured.push(row)
+    @duplix.constant(0)
+  })
+  assert_eq(result.read().to_array(), [0, 0])
+  assert_eq(captured[0].read(), 10)
+  set_rows(@vector.from_array([(1, 20), (2, 200)]))
+  assert_eq(captured[1].read(), 200)
+  set_rows(@vector.from_array([]))
+  assert_eq(result.read().to_array(), [])
+  assert_eq(captured[0].read(), 10)
+  assert_eq(captured[1].read(), 200)
+}
+
+///|
+test "assoc_by cleans up callbacks registered during result recomputation" {
+  let cleanup_log : Array[Int32] = []
+  let (owner, output, set_source) = @duplix.with_scope(owner => {
+    let (source, set_source) = @duplix.input(
+      @vector.from_array([(1, 10), (2, 20)]),
+    )
+    let output = source.assoc_by(
+      (key, value) => {
+        value.map(pair => {
+          @duplix.on_cleanup(() => cleanup_log.push(key))
+          pair.1
+        })
+      },
+      by=pair => pair.0,
+    )
+    (owner, output, set_source)
+  })
+
+  assert_eq(output.read().to_array(), [10, 20])
+  assert_eq(cleanup_log, [])
+  set_source(@vector.from_array([(2, 20)]))
+  assert_eq(output.read().to_array(), [20])
+  assert_eq(cleanup_log, [1])
+  owner.cleanup()
+  assert_eq(cleanup_log, [1, 2])
 }
 
 ///|
