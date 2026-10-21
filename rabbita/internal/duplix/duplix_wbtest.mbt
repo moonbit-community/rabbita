@@ -19,10 +19,10 @@ fn dirty_parent_count(child : DirtyFlag, parent : DirtyFlag) -> Int32 {
 }
 
 ///|
-fn[A] child_count(parent : Node[A], child_id : Int32) -> Int32 {
+fn[A, B] child_count(parent : Node[A], child : Node[B]) -> Int32 {
   let mut count = 0
-  for child in (parent.childs)() {
-    if child.get_id() == child_id {
+  for candidate in (parent.childs)() {
+    if candidate.dirty_flag().id == child.dirty_flag.id {
       count += 1
     }
   }
@@ -165,7 +165,7 @@ test "bind selector branch should not duplicate selector dependency" {
   debug_inspect(
     [
       dirty_parent_count(selector.dirty_flag, parent.dirty_flag),
-      child_count(parent, selector.id),
+      child_count(parent, selector),
     ],
     content="[1, 1]",
   )
@@ -185,21 +185,21 @@ test "bind selector branch can switch away and back" {
 
   let selected : &ErasedNode = (parent.childs)()[0]
   inspect(parent.read(), content="1")
-  inspect(child_count(parent, selector.id), content="1")
+  inspect(child_count(parent, selector), content="1")
 
   set_selector(2)
   inspect(parent.read(), content="10")
   assert_true(has_dirty_parent(fallback.dirty_flag, parent.dirty_flag))
-  inspect(child_count(parent, selector.id), content="0")
+  inspect(child_count(parent, selector), content="0")
   assert_true(has_dirty_parent(selector.dirty_flag, selected.dirty_flag()))
   assert_true(has_dirty_parent(selected.dirty_flag(), parent.dirty_flag))
-  inspect(child_count(parent, fallback.id), content="1")
+  inspect(child_count(parent, fallback), content="1")
 
   set_selector(1)
   inspect(parent.read(), content="1")
   assert_true(!has_dirty_parent(fallback.dirty_flag, parent.dirty_flag))
-  inspect(child_count(parent, selector.id), content="1")
-  inspect(child_count(parent, fallback.id), content="0")
+  inspect(child_count(parent, selector), content="1")
+  inspect(child_count(parent, fallback), content="0")
 
   set_selector(2)
   inspect(parent.read(), content="10")

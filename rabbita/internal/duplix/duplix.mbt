@@ -20,7 +20,6 @@ fn get_uuid() -> Int32 {
 ///
 /// parent_expr = child1_expr + child2_expr
 priv trait ErasedNode {
-  fn get_id(Self) -> Int32
   fn childs(Self) -> Array[&ErasedNode]
   fn changed_at(Self) -> Double
   fn dirty_flag(Self) -> DirtyFlag
@@ -80,11 +79,6 @@ pub impl[T] Compare for Node[T] with fn compare(a, b) {
 
 ///|
 pub extend Node with Compare::{compare, op_ge, op_gt, op_le, op_lt}
-
-///|
-impl[T : Eq] ErasedNode for Node[T] with fn get_id(self) {
-  self.id
-}
 
 ///|
 impl[T : Eq] ErasedNode for Node[T] with fn changed_at(self) {
