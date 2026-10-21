@@ -1,8 +1,7 @@
 name: publish-module
 run-name: publish ${{ inputs.module }}
 
-# Publishes one sub-module of this repository (other than rabbita itself,
-# which is released by publish.yml) to mooncakes.io as moonbit-community,
+# Publishes one module of this repository to mooncakes.io as moonbit-community,
 # using the org secret MOONCAKES_MOONBIT_COMMUNITY_TOKEN (same as the org
 # workflow template). Each module lives in its own directory.
 
@@ -16,6 +15,7 @@ on:
         options:
           - rui
           - warren
+          - rabbita
 
 permissions: {}
 
