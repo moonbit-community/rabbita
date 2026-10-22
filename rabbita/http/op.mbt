@@ -127,10 +127,11 @@ fn resolve_request_url(url : String, base_uri : String) -> String {
   if url.contains("://") {
     return url
   }
-  let base_uri = base_uri.trim_end(chars="/")
   if url.has_prefix("/") {
-    "\{base_uri}\{url}"
+    let origin = base_uri.split("/").take(3).join("/")
+    "\{origin}\{url}"
   } else {
+    let base_uri = base_uri.trim_end(chars="/")
     "\{base_uri}/\{url}"
   }
 }
