@@ -2473,207 +2473,76 @@ pub fn[C : @html.IsChildren] sidebar_menu_button(
 }
 
 ///|
-fn[C : @html.IsChildren] render_sidebar_menu_button_with_tooltip(
-  id : String,
-  tooltip : String,
-  open : Bool,
-  href : String?,
-  is_active : Bool,
-  variant : SidebarMenuButtonVariant,
-  size : SidebarMenuButtonSize,
-  disabled : Bool,
-  aria_label : String?,
-  target : @html.Target,
-  rel : String?,
-  download : String?,
-  on_click : @cmd.Cmd?,
-  class_ : String?,
-  title : String?,
-  attrs : @html.Attrs?,
-  style : Array[String],
-  tooltip_side : PopupSide,
-  tooltip_align : PopupAlign,
-  tooltip_side_offset : Int32,
-  tooltip_align_offset : Int32,
-  tooltip_show_arrow : Bool,
-  tooltip_attrs : @html.Attrs?,
-  tooltip_style : Array[String],
+/// Render a sidebar menu button and its CSS tooltip as ordinary HTML.
+/// The tooltip is active only in a collapsed desktop icon sidebar; the
+/// existing button or link is the trigger, without nested interactive elements.
+pub fn[C : @html.IsChildren] sidebar_menu_button_with_tooltip(
+  id~ : String,
+  tooltip~ : String,
+  href? : String,
+  is_active~ : Bool = false,
+  variant~ : SidebarMenuButtonVariant = SidebarMenuButtonDefault,
+  size~ : SidebarMenuButtonSize = SidebarMenuDefault,
+  disabled~ : Bool = false,
+  aria_label? : String,
+  target~ : @html.Target = Self,
+  rel? : String,
+  download? : String,
+  on_click? : @cmd.Cmd,
+  class? : String,
+  title? : String,
+  attrs? : @html.Attrs,
+  style~ : Array[String] = [],
+  tooltip_side~ : PopupSide = Right,
+  tooltip_align~ : PopupAlign = Center,
+  tooltip_side_offset~ : Int32 = 4,
+  tooltip_align_offset~ : Int32 = 0,
+  tooltip_show_arrow~ : Bool = true,
+  tooltip_attrs? : @html.Attrs,
+  tooltip_style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let content_id = id + "-tooltip"
-  let trigger_attrs = ui_attrs(attrs)
-    .data_set("tooltip-root", "")
-    .data_set("tooltip-state", if open { "open" } else { "closed" })
-    .data_set("close-on-click", "true")
-    .data_set("hoverable", "true")
-    .data_set("sidebar-collapsed-only", "true")
-  if open {
-    ignore(trigger_attrs.aria_describedby(content_id))
-  }
+  let trigger_attrs = ui_attrs(attrs).aria_describedby(content_id)
   let content_attrs = ui_attrs(tooltip_attrs).data_set("tooltip-owner-id", id)
-  @html.fragment([
-    render_sidebar_menu_button(
-      href,
-      is_active,
-      variant,
-      size,
-      disabled,
-      aria_label,
-      target,
-      rel,
-      download,
-      on_click,
-      Some(id),
-      class_,
-      title,
-      Some(trigger_attrs),
-      style,
-      children,
-    ),
-    tooltip_content(
-      id=content_id,
-      trigger_id=id,
-      open~,
-      side=tooltip_side,
-      align=tooltip_align,
-      side_offset=tooltip_side_offset,
-      align_offset=tooltip_align_offset,
-      show_arrow=tooltip_show_arrow,
-      attrs=content_attrs,
-      style=tooltip_style,
-      tooltip,
-    ),
-  ])
-}
-
-///|
-/// Render a sidebar menu button with a tooltip that is active only while its
-/// desktop icon sidebar is collapsed.
-///
-/// The tooltip reuses the button or anchor as its trigger, so this API never
-/// nests interactive elements. Expanded, off-canvas, fixed, and mobile
-/// sidebars suppress the tooltip automatically.
-#cfg(target="js")
-pub fn[C : @html.IsChildren] sidebar_menu_button_with_tooltip(
-  id~ : String,
-  tooltip~ : String,
-  href? : String,
-  is_active~ : Bool = false,
-  variant~ : SidebarMenuButtonVariant = SidebarMenuButtonDefault,
-  size~ : SidebarMenuButtonSize = SidebarMenuDefault,
-  disabled~ : Bool = false,
-  aria_label? : String,
-  target~ : @html.Target = Self,
-  rel? : String,
-  download? : String,
-  on_click? : @cmd.Cmd,
-  on_tooltip_open_change? : @cmd.Emit[Bool],
-  class? : String,
-  title? : String,
-  attrs? : @html.Attrs,
-  style~ : Array[String] = [],
-  tooltip_side~ : PopupSide = Right,
-  tooltip_align~ : PopupAlign = Center,
-  tooltip_side_offset~ : Int32 = 4,
-  tooltip_align_offset~ : Int32 = 0,
-  tooltip_show_arrow~ : Bool = true,
-  tooltip_attrs? : @html.Attrs,
-  tooltip_style~ : Array[String] = [],
-  children : C,
-) -> @rabbita.Val[@html.Html] {
-  let content_id = id + "-tooltip"
-  let initial_model : TooltipModel = {
-    open: false,
-    trigger_hovered: false,
-    trigger_focused: false,
-    content_hovered: false,
-    generation: 0,
-  }
-  let (model, _) = @rabbita.create_state_with_init(
-    init=emit => {
-      let sync = emit.map(value => TooltipNativeChanged(value))
-      (
-        initial_model,
-        @cmd.batch([
-          floating_bind_sync_cmd(content_id, sync),
-          tooltip_bind_trigger_events_cmd(content_id, id, id, emit),
-        ]),
-      )
-    },
-    update=(current, msg, emit) => {
-      tooltip_update(
-        content_id, true, on_tooltip_open_change, emit, msg, current,
-      )
-    },
-  )
-  model.view(model => {
-    render_sidebar_menu_button_with_tooltip(
-      id,
-      tooltip,
-      model.open,
-      href,
-      is_active,
-      variant,
-      size,
-      disabled,
-      aria_label,
-      target,
-      rel,
-      download,
-      on_click,
-      class,
-      title,
-      attrs,
-      style,
-      tooltip_side,
-      tooltip_align,
-      tooltip_side_offset,
-      tooltip_align_offset,
-      tooltip_show_arrow,
-      tooltip_attrs,
-      tooltip_style,
-      children,
-    )
-  })
-}
-
-///|
-#cfg(not(target="js"))
-pub fn[C : @html.IsChildren] sidebar_menu_button_with_tooltip(
-  id~ : String,
-  tooltip~ : String,
-  href? : String,
-  is_active~ : Bool = false,
-  variant~ : SidebarMenuButtonVariant = SidebarMenuButtonDefault,
-  size~ : SidebarMenuButtonSize = SidebarMenuDefault,
-  disabled~ : Bool = false,
-  aria_label? : String,
-  target~ : @html.Target = Self,
-  rel? : String,
-  download? : String,
-  on_click? : @cmd.Cmd,
-  on_tooltip_open_change? : @cmd.Emit[Bool],
-  class? : String,
-  title? : String,
-  attrs? : @html.Attrs,
-  style~ : Array[String] = [],
-  tooltip_side~ : PopupSide = Right,
-  tooltip_align~ : PopupAlign = Center,
-  tooltip_side_offset~ : Int32 = 4,
-  tooltip_align_offset~ : Int32 = 0,
-  tooltip_show_arrow~ : Bool = true,
-  tooltip_attrs? : @html.Attrs,
-  tooltip_style~ : Array[String] = [],
-  children : C,
-) -> @rabbita.Val[@html.Html] {
-  ignore(on_tooltip_open_change)
-  @rabbita.Val::constant(
-    render_sidebar_menu_button_with_tooltip(
-      id, tooltip, false, href, is_active, variant, size, disabled, aria_label, target,
-      rel, download, on_click, class, title, attrs, style, tooltip_side, tooltip_align,
-      tooltip_side_offset, tooltip_align_offset, tooltip_show_arrow, tooltip_attrs,
-      tooltip_style, children,
-    ),
+  @html.span(
+    style=[TooltipRootStyle, "width:100%"],
+    attrs=@html.Attrs::build()
+      .data_set("slot", "tooltip")
+      .data_set("disabled", ui_bool(disabled))
+      .data_set("sidebar-collapsed-only", "true"),
+    [
+      render_sidebar_menu_button(
+        href,
+        is_active,
+        variant,
+        size,
+        disabled,
+        aria_label,
+        target,
+        rel,
+        download,
+        on_click,
+        Some(id),
+        class,
+        title,
+        Some(trigger_attrs),
+        ui_styles([popup_anchor_style(id)], style),
+        children,
+      ),
+      tooltip_content(
+        id=content_id,
+        trigger_id=id,
+        side=tooltip_side,
+        align=tooltip_align,
+        side_offset=tooltip_side_offset,
+        align_offset=tooltip_align_offset,
+        show_arrow=tooltip_show_arrow,
+        attrs=content_attrs,
+        style=tooltip_style,
+        tooltip,
+      ),
+    ],
   )
 }
 

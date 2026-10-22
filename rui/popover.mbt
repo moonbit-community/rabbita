@@ -215,13 +215,6 @@ priv struct FloatingLayerBinding {
 
 ///|
 #cfg(target="js")
-priv struct TooltipProviderClose {
-  element : @dom.Element
-  closed_at : Ref[Double]
-}
-
-///|
-#cfg(target="js")
 let floating_layers : Map[String, FloatingLayerBinding] = Map([])
 
 ///|
@@ -239,10 +232,6 @@ let floating_stop_positioning : Map[String, () -> Unit] = Map([])
 ///|
 #cfg(target="js")
 let floating_bound_document : Ref[@dom.Document?] = Ref(None)
-
-///|
-#cfg(target="js")
-let tooltip_provider_closes : Array[TooltipProviderClose] = []
 
 ///|
 #cfg(target="js")
@@ -356,34 +345,6 @@ fn floating_event_inside(event : @dom.Event, element : @dom.Element) -> Bool {
 
 ///|
 #cfg(target="js")
-fn tooltip_provider_mark_closed(provider : @dom.Element) -> Unit {
-  let now = if ui_has_window() {
-    @dom.window().get_performance().now()
-  } else {
-    0.0
-  }
-  for entry in tooltip_provider_closes {
-    if floating_same_element(entry.element, provider) {
-      entry.closed_at.val = now
-      return
-    }
-  }
-  tooltip_provider_closes.push({ element: provider, closed_at: Ref(now), })
-}
-
-///|
-#cfg(target="js")
-fn tooltip_provider_last_close(provider : @dom.Element) -> Double? {
-  for entry in tooltip_provider_closes {
-    if floating_same_element(entry.element, provider) {
-      return Some(entry.closed_at.val)
-    }
-  }
-  None
-}
-
-///|
-#cfg(target="js")
 fn floating_restore_focus(layer : FloatingLayerBinding) -> Unit {
   if layer.element.get_attribute("data-restore-focus").unwrap_or("") == "false" {
     return
@@ -444,12 +405,6 @@ fn floating_notify(layer : FloatingLayerBinding, open : Bool) -> Unit {
   }
   if !open {
     floating_stop(layer.id)
-    if layer.element.get_attribute("data-slot").unwrap_or("") ==
-      "tooltip-content" &&
-      layer.element.closest("[data-slot=\"tooltip-provider\"]")
-      is Some(provider) {
-      tooltip_provider_mark_closed(provider)
-    }
     if ui_has_window() {
       @dom.window().queue_microtask(() => floating_restore_focus(layer))
     } else {
@@ -637,28 +592,6 @@ fn floating_capture_return_focus(layer : FloatingLayerBinding) -> Unit {
 
 ///|
 #cfg(target="js")
-fn floating_close_other_tooltips(layer : FloatingLayerBinding) -> Unit {
-  if layer.element.get_attribute("data-slot").unwrap_or("") != "tooltip-content" ||
-    layer.element.closest("[data-slot=\"tooltip-provider\"]") is None {
-    return
-  }
-  guard layer.element.closest("[data-slot=\"tooltip-provider\"]")
-    is Some(provider) else {
-    return
-  }
-  for other in provider.query_selector_all("[data-slot=\"tooltip-content\"]") {
-    if !floating_same_element(other, layer.element) {
-      let other_id = other.get_attribute("id").unwrap_or("")
-      if floating_live_layer(other_id) is Some(other_layer) &&
-        floating_layer_is_open(other_layer) {
-        floating_request_layer_close(other_layer)
-      }
-    }
-  }
-}
-
-///|
-#cfg(target="js")
 fn set_floating_open(id : String, open : Bool) -> Bool {
   guard ui_has_document() else { return false }
   guard ui_element_by_id(id) is Some(element) && element.get_is_connected() else {
@@ -670,7 +603,6 @@ fn set_floating_open(id : String, open : Bool) -> Bool {
   guard floating_live_layer(id) is Some(layer) else { return false }
   if open {
     floating_capture_return_focus(layer)
-    floating_close_other_tooltips(layer)
     if layer.html.to_html_dialog_element() is Some(dialog) {
       if !dialog.open() {
         dialog.show_modal()

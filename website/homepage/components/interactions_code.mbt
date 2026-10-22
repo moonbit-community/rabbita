@@ -2672,7 +2672,7 @@ const IgTooltipSharedCode : String =
   #|  align : @rui.PopupAlign,
   #|  size : @rui.ButtonSize,
   #|  label : String,
-  #|) -> @rabbita.Val[@html.Html] {
+  #|) -> @html.Html {
   #|  @rui.tooltip(
   #|    id~,
   #|    delay=100,

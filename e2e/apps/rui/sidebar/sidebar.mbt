@@ -18,19 +18,16 @@ fn sidebar_fixture() -> Val[Html] {
     size=SidebarMenuDefault,
     [@html.span("Settings")],
   )
-  let menu = overview_button.map2(settings_button, fn(overview, settings) {
-    @rui.sidebar_menu([
-      @rui.sidebar_menu_item([overview]),
-      @rui.sidebar_menu_item([settings]),
-    ])
-  })
-  let provider = @rui.sidebar_provider_with_input(
-    input=menu,
+  let menu = @rui.sidebar_menu([
+    @rui.sidebar_menu_item(overview_button),
+    @rui.sidebar_menu_item(settings_button),
+  ])
+  let provider = @rui.sidebar_provider(
     default_collapsed=false,
     style=[
       "--rui-sidebar-width:20rem;height:17rem;min-height:17rem;overflow:hidden;display:flex;border:1px solid \{fixture_section_border};border-radius:0.625rem",
     ],
-    (scope, menu_html) => {
+    scope => {
       fragment([
         @rui.sidebar(
           scope,
@@ -52,7 +49,7 @@ fn sidebar_fixture() -> Val[Html] {
                   on_click=@rui.sidebar_collapse(scope),
                   @html.span("«"),
                 ),
-                @rui.sidebar_group_content(menu_html),
+                @rui.sidebar_group_content(menu),
               ]),
             ),
             @rui.sidebar_rail(

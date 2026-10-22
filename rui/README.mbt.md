@@ -15,7 +15,8 @@ RUI (`moonbit-community/rui`) is a native component library for
 - No Tailwind, external CSS import, code generator, or extra build step.
 - Shared inline base styles, with `theme` providing tokens and the static rules
   needed for hover, focus, and motion.
-- Interactive state is owned by Rabbita incremental components.
+- Interactive state is owned by Rabbita incremental components where needed;
+  tooltips use ordinary HTML and CSS hover state.
 - Native HTML and ARIA behavior is used where the browser provides it.
 - JavaScript provides browser interaction.
 
@@ -34,6 +35,34 @@ for supported syntax and source-rendering behavior.
 Use `--rui-*` theme tokens, component `style` parameters, and `attrs` for normal
 customization. Copy the relevant `.mbt` source when you need to change a
 component's DOM structure, state model, or interaction policy.
+
+## Tooltips
+
+`tooltip` and `sidebar_menu_button_with_tooltip` return `Html` directly. Place
+these inside `theme` and compose them like buttons, without `Val::map` or
+`Val::view`. Hovering the trigger shows the tooltip; leaving it hides the tooltip.
+CSS handles visibility, positioning, and the entry/exit animations. Tooltip
+construction does not read or modify the DOM or register event listeners. This
+also works when the HTML is mounted later or removed and inserted again.
+
+`tooltip_provider` supplies `delay` and `close_delay` through CSS variables;
+individual tooltips can override them. Both delays default to zero. Entry fades
+and scales in from 95% with a small directional slide; exit fades and scales out
+over 100 ms. Reduced-motion preferences disable these animations. Arrows remain
+available through `show_arrow` and are enabled by default.
+
+Migration: remove `.map`/`.view` wrappers around tooltip results. Tooltip
+`default_open`, `close_on_click`, `hoverable`, `on_open_change`, part `open`,
+sidebar `on_tooltip_open_change`, and provider `timeout` parameters have been
+removed, along with `tooltip_open`, `tooltip_close`, and `tooltip_toggle`.
+Visibility follows trigger hover only; focus, clicks, and Escape do not maintain
+or dismiss tooltip state. `on_trigger_click` remains an optional application
+callback and does not control tooltip visibility.
+
+Tooltips use CSS anchor positioning when supported and absolute positioning
+otherwise. They no longer use the native Popover top layer or automatic
+collision flipping. Ancestor clipping and stacking contexts therefore apply;
+choose the placement and container overflow accordingly.
 
 ## License
 
