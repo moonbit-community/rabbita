@@ -23,6 +23,28 @@ fn toast_fixture() -> Val[Html] {
       ),
       @rui.button(
         size=Sm,
+        variant=Secondary,
+        on_click=scope.show(
+          title="Path copied",
+          description="/tmp/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz.txt",
+          variant=ToastDefault,
+          duration_ms=0,
+        ),
+        "Show long path toast",
+      ),
+      @rui.button(
+        size=Sm,
+        variant=Secondary,
+        on_click=scope.show(
+          title="Unbroken-title-abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
+          description="The title must not widen the notification.",
+          variant=ToastDefault,
+          duration_ms=0,
+        ),
+        "Show long title toast",
+      ),
+      @rui.button(
+        size=Sm,
         variant=Ghost,
         on_click=scope.dismiss_all(),
         "Dismiss all toasts",
