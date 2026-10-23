@@ -208,3 +208,20 @@ test('history and location APIs perform real same-origin navigations', async ({ 
   await page.getByRole('button', { name: 'Load URL', exact: true }).click();
   await expect(page).toHaveURL(/\/dom-api-loaded$/);
 });
+
+test('html.svg and html.math create real namespaced elements with working styles', async ({ page }) => {
+  await page.goto('/');
+
+  const svg = page.locator('#html-svg');
+  const math = page.locator('#html-math');
+  await expect(svg).toBeAttached();
+  await expect(math).toBeAttached();
+
+  expect(await svg.evaluate(element => element.namespaceURI)).toBe('http://www.w3.org/2000/svg');
+  expect(await math.evaluate(element => element.namespaceURI)).toBe('http://www.w3.org/1998/Math/MathML');
+  await expect(svg).toHaveCSS('color', 'rgb(0, 255, 0)');
+  await expect(math).toHaveCSS('color', 'rgb(255, 0, 0)');
+
+  await page.getByRole('button', { name: 'Toggle MathML color' }).click();
+  await expect(math).toHaveCSS('color', 'rgb(0, 0, 255)');
+});
