@@ -3,6 +3,7 @@ import {
   "moonbit-community/rabbita/common",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/sub",
+  "moonbit-community/rabbita/websocket",
 }
 
 supported_targets = "js"
