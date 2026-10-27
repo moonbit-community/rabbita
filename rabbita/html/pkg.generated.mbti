@@ -49,9 +49,9 @@ pub fn[C : IsChildren] cite(style? : Array[String], id? : String, class? : Strin
 
 pub fn[C : IsChildren] code(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn col(style? : Array[String], id? : String, span? : Int, class? : String, title? : String, hidden? : Bool, attrs? : Attrs) -> Html
+pub fn col(style? : Array[String], id? : String, span? : Int32, class? : String, title? : String, hidden? : Bool, attrs? : Attrs) -> Html
 
-pub fn[C : IsChildren] colgroup(style? : Array[String], id? : String, span? : Int, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] colgroup(style? : Array[String], id? : String, span? : Int32, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] data(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
@@ -77,7 +77,7 @@ pub fn[C : IsChildren] em(style? : Array[String], id? : String, class? : String,
 
 pub fn embed(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs) -> Html
 
-pub fn fencedframe(style? : Array[String], id? : String, class? : String, hidden? : Bool, src? : String, title? : String, width? : Int, height? : Int, loading? : String, allow? : String, sandbox? : String, allowfullscreen? : Bool, attrs? : Attrs) -> Html
+pub fn fencedframe(style? : Array[String], id? : String, class? : String, hidden? : Bool, src? : String, title? : String, width? : Int32, height? : Int32, loading? : String, allow? : String, sandbox? : String, allowfullscreen? : Bool, attrs? : Attrs) -> Html
 
 pub fn[C : IsChildren] fieldset(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, disabled? : Bool, name? : String, attrs? : Attrs, C) -> Html
 
@@ -117,11 +117,11 @@ pub fn html(style? : Array[String], id? : String, class? : String, title? : Stri
 
 pub fn[C : IsChildren] i(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn iframe(style? : Array[String], id? : String, class? : String, hidden? : Bool, src? : String, title? : String, width? : Int, height? : Int, loading? : String, allow? : String, sandbox? : String, allowfullscreen? : Bool, attrs? : Attrs) -> Html
+pub fn iframe(style? : Array[String], id? : String, class? : String, hidden? : Bool, src? : String, title? : String, width? : Int32, height? : Int32, loading? : String, allow? : String, sandbox? : String, allowfullscreen? : Bool, attrs? : Attrs) -> Html
 
-pub fn img(style? : Array[String], id? : String, class? : String, hidden? : Bool, src? : String, alt? : String, title? : String, width? : Int, height? : Int, srcset? : String, sizes? : String, loading? : String, decoding? : String, attrs? : Attrs) -> Html
+pub fn img(style? : Array[String], id? : String, class? : String, hidden? : Bool, src? : String, alt? : String, title? : String, width? : Int32, height? : Int32, srcset? : String, sizes? : String, loading? : String, decoding? : String, attrs? : Attrs) -> Html
 
-pub fn input(input_type? : InputType, name? : String, value? : String, checked? : Bool, read_only? : Bool, multiple? : Bool, accept? : String, placeholder? : String, auto_complete? : AutoComplete, style? : Array[String], max? : Int, min? : Int, step? : Int, maxlength? : Int, minlength? : Int, pattern? : String, size? : Int, width? : Int, height? : Int, id? : String, class? : String, title? : String, hidden? : Bool, required? : Bool, autofocus? : Bool, list? : String, inputmode? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : Attrs) -> Html
+pub fn input(input_type? : InputType, name? : String, value? : String, checked? : Bool, read_only? : Bool, multiple? : Bool, accept? : String, placeholder? : String, auto_complete? : AutoComplete, style? : Array[String], max? : Int32, min? : Int32, step? : Int32, maxlength? : Int32, minlength? : Int32, pattern? : String, size? : Int32, width? : Int32, height? : Int32, id? : String, class? : String, title? : String, hidden? : Bool, required? : Bool, autofocus? : Bool, list? : String, inputmode? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : Attrs) -> Html
 
 pub fn[C : IsChildren] ins(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
@@ -131,7 +131,7 @@ pub fn[C : IsChildren] label(style? : Array[String], id? : String, class? : Stri
 
 pub fn[C : IsChildren] legend(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn[C : IsChildren] li(style? : Array[String], value? : Int, id? : String, class? : String, title? : String, hidden? : Bool, on_click? : @cmd.Cmd, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] li(style? : Array[String], value? : Int32, id? : String, class? : String, title? : String, hidden? : Bool, on_click? : @cmd.Cmd, attrs? : Attrs, C) -> Html
 
 pub fn link(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, href? : String, rel? : String, type_? : String, media? : String, sizes? : String, attrs? : Attrs) -> Html
 
@@ -145,13 +145,13 @@ pub fn[C : IsChildren] math(style? : Array[String], id? : String, class? : Strin
 
 pub fn[T : Hash] memo(T, (T) -> Html) -> Html
 
-pub fn[T] memo_by(T, (T) -> Html, by~ : (T) -> Int) -> Html
+pub fn[T] memo_by(T, (T) -> Html, by~ : (T) -> Int32) -> Html
 
 pub fn[C : IsChildren] menu(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn meta(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, charset? : String, name? : String, content? : String, http_equiv? : String, attrs? : Attrs) -> Html
 
-pub fn[C : IsChildren] meter(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, value? : Int, min? : Int, max? : Int, low? : Int, high? : Int, optimum? : Int, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] meter(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, value? : Int32, min? : Int32, max? : Int32, low? : Int32, high? : Int32, optimum? : Int32, attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] nav(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
@@ -163,7 +163,7 @@ pub let nothing : Html
 
 pub fn[C : IsChildren] object(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn[C : IsChildren] ol(style? : Array[String], reversed? : Bool, start? : Int, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] ol(style? : Array[String], reversed? : Bool, start? : Int32, id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] optgroup(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, label? : String, disabled? : Bool, attrs? : Attrs, C) -> Html
 
@@ -177,7 +177,7 @@ pub fn[C : IsChildren] picture(style? : Array[String], id? : String, class? : St
 
 pub fn[C : IsChildren] pre(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn[C : IsChildren] progress(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, value? : Int, max? : Int, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] progress(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, value? : Int32, max? : Int32, attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] q(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
@@ -197,7 +197,7 @@ pub fn[C : IsChildren] search(style? : Array[String], id? : String, class? : Str
 
 pub fn[C : IsChildren] section(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn[C : IsChildren] select(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, disabled? : Bool, name? : String, multiple? : Bool, size? : Int, required? : Bool, autofocus? : Bool, on_change? : @cmd.Emit[String], attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] select(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, disabled? : Bool, name? : String, multiple? : Bool, size? : Int32, required? : Bool, autofocus? : Bool, on_change? : @cmd.Emit[String], attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] selectedcontent(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
@@ -225,17 +225,17 @@ pub fn[C : IsChildren] table(style? : Array[String], id? : String, class? : Stri
 
 pub fn[C : IsChildren] tbody(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn[C : IsChildren] td(style? : Array[String], id? : String, colspan? : Int, rowspan? : Int, headers? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] td(style? : Array[String], id? : String, colspan? : Int32, rowspan? : Int32, headers? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] template(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn text(String) -> Html
 
-pub fn[C : IsChildren] textarea(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, name? : String, value? : String, rows? : Int, cols? : Int, placeholder? : String, read_only? : Bool, disabled? : Bool, maxlength? : Int, minlength? : Int, required? : Bool, autofocus? : Bool, wrap? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] textarea(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, name? : String, value? : String, rows? : Int32, cols? : Int32, placeholder? : String, read_only? : Bool, disabled? : Bool, maxlength? : Int32, minlength? : Int32, required? : Bool, autofocus? : Bool, wrap? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] tfoot(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
-pub fn[C : IsChildren] th(style? : Array[String], id? : String, abbr? : String, colspan? : Int, rowspan? : Int, headers? : String, scope? : Scope, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
+pub fn[C : IsChildren] th(style? : Array[String], id? : String, abbr? : String, colspan? : Int32, rowspan? : Int32, headers? : String, scope? : Scope, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
 pub fn[C : IsChildren] thead(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
@@ -334,7 +334,7 @@ pub fn Attrs::autofocus(Self, Bool) -> Self
 pub fn Attrs::autoplay(Self, Bool) -> Self
 pub fn Attrs::background(Self, String) -> Self
 pub fn Attrs::bgcolor(Self, String) -> Self
-pub fn Attrs::border(Self, Int) -> Self
+pub fn Attrs::border(Self, Int32) -> Self
 pub fn Attrs::build() -> Self
 pub fn Attrs::capture(Self, String) -> Self
 pub fn Attrs::charset(Self, String) -> Self
@@ -344,8 +344,8 @@ pub fn Attrs::class(Self, String) -> Self
 pub fn Attrs::closedby(Self, String) -> Self
 pub fn Attrs::color(Self, String) -> Self
 pub fn Attrs::colorspace(Self, String) -> Self
-pub fn Attrs::cols(Self, Int) -> Self
-pub fn Attrs::colspan(Self, Int) -> Self
+pub fn Attrs::cols(Self, Int32) -> Self
+pub fn Attrs::colspan(Self, Int32) -> Self
 pub fn Attrs::content(Self, String) -> Self
 pub fn Attrs::contenteditable(Self, String) -> Self
 pub fn Attrs::controls(Self, Bool) -> Self
@@ -377,9 +377,9 @@ pub fn Attrs::formmethod(Self, String) -> Self
 pub fn Attrs::formnovalidate(Self, Bool) -> Self
 pub fn Attrs::formtarget(Self, String) -> Self
 pub fn Attrs::headers(Self, String) -> Self
-pub fn Attrs::height(Self, Int) -> Self
+pub fn Attrs::height(Self, Int32) -> Self
 pub fn Attrs::hidden(Self, Bool) -> Self
-pub fn Attrs::high(Self, Int) -> Self
+pub fn Attrs::high(Self, Int32) -> Self
 pub fn Attrs::href(Self, String) -> Self
 pub fn Attrs::hreflang(Self, String) -> Self
 pub fn Attrs::http_equiv(Self, String) -> Self
@@ -402,13 +402,13 @@ pub fn Attrs::language(Self, String) -> Self
 pub fn Attrs::list(Self, String) -> Self
 pub fn Attrs::loading(Self, String) -> Self
 pub fn Attrs::loop_(Self, Bool) -> Self
-pub fn Attrs::low(Self, Int) -> Self
-pub fn Attrs::max(Self, Int) -> Self
-pub fn Attrs::maxlength(Self, Int) -> Self
+pub fn Attrs::low(Self, Int32) -> Self
+pub fn Attrs::max(Self, Int32) -> Self
+pub fn Attrs::maxlength(Self, Int32) -> Self
 pub fn Attrs::media(Self, String) -> Self
 pub fn Attrs::method_(Self, String) -> Self
-pub fn Attrs::min(Self, Int) -> Self
-pub fn Attrs::minlength(Self, Int) -> Self
+pub fn Attrs::min(Self, Int32) -> Self
+pub fn Attrs::minlength(Self, Int32) -> Self
 pub fn Attrs::multiple(Self, Bool) -> Self
 pub fn Attrs::muted(Self, Bool) -> Self
 pub fn Attrs::name(Self, String) -> Self
@@ -453,7 +453,7 @@ pub fn Attrs::on_scroll(Self, (@dom.UIEvent) -> @cmd.Cmd) -> Self
 pub fn Attrs::on_submit(Self, (@dom.Event) -> @cmd.Cmd) -> Self
 pub fn Attrs::on_wheel(Self, (@dom.WheelEvent) -> @cmd.Cmd) -> Self
 pub fn Attrs::open(Self, Bool) -> Self
-pub fn Attrs::optimum(Self, Int) -> Self
+pub fn Attrs::optimum(Self, Int32) -> Self
 pub fn Attrs::part(Self, String) -> Self
 pub fn Attrs::pattern(Self, String) -> Self
 pub fn Attrs::ping(Self, String) -> Self
@@ -468,36 +468,36 @@ pub fn Attrs::rel(Self, String) -> Self
 pub fn Attrs::required(Self, Bool) -> Self
 pub fn Attrs::reversed(Self, Bool) -> Self
 pub fn Attrs::role(Self, String) -> Self
-pub fn Attrs::rows(Self, Int) -> Self
-pub fn Attrs::rowspan(Self, Int) -> Self
+pub fn Attrs::rows(Self, Int32) -> Self
+pub fn Attrs::rowspan(Self, Int32) -> Self
 pub fn Attrs::sandbox(Self, String) -> Self
 pub fn Attrs::scope(Self, Scope) -> Self
 pub fn Attrs::selected(Self, Bool) -> Self
 pub fn Attrs::shape(Self, String) -> Self
-pub fn Attrs::size(Self, Int) -> Self
+pub fn Attrs::size(Self, Int32) -> Self
 pub fn Attrs::sizes(Self, String) -> Self
 pub fn Attrs::slot(Self, String) -> Self
-pub fn Attrs::span(Self, Int) -> Self
+pub fn Attrs::span(Self, Int32) -> Self
 pub fn Attrs::spellcheck(Self, Bool) -> Self
 pub fn Attrs::src(Self, String) -> Self
 pub fn Attrs::srcdoc(Self, String) -> Self
 pub fn Attrs::srclang(Self, String) -> Self
 pub fn Attrs::srcset(Self, String) -> Self
-pub fn Attrs::start(Self, Int) -> Self
-pub fn Attrs::step(Self, Int) -> Self
+pub fn Attrs::start(Self, Int32) -> Self
+pub fn Attrs::step(Self, Int32) -> Self
 pub fn Attrs::style(Self, String, String) -> Self
 pub fn Attrs::style_attr(Self, String) -> Self
 pub fn Attrs::summary(Self, String) -> Self
-pub fn Attrs::tabindex(Self, Int) -> Self
+pub fn Attrs::tabindex(Self, Int32) -> Self
 pub fn Attrs::target(Self, Target) -> Self
 pub fn Attrs::title(Self, String) -> Self
 pub fn Attrs::translate(Self, String) -> Self
 pub fn Attrs::type_(Self, String) -> Self
 pub fn Attrs::usemap(Self, String) -> Self
 pub fn Attrs::value(Self, String) -> Self
-pub fn Attrs::value_int(Self, Int) -> Self
+pub fn Attrs::value_int(Self, Int32) -> Self
 pub fn Attrs::value_prop(Self, String) -> Self
-pub fn Attrs::width(Self, Int) -> Self
+pub fn Attrs::width(Self, Int32) -> Self
 pub fn Attrs::wrap(Self, String) -> Self
 
 pub(all) enum AutoComplete {

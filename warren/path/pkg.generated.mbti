@@ -23,7 +23,7 @@ pub(all) enum Build {
   Debug
 } derive(Eq, Hash, @debug.Debug)
 pub fn Build::equal(Self, Self) -> Bool
-pub fn Build::hash(Self) -> Int
+pub fn Build::hash(Self) -> Int32
 pub fn Build::hash_combine(Self, Hasher) -> Unit
 pub fn Build::not_equal(Self, Self) -> Bool
 pub fn Build::to_repr(Self) -> @debug.Repr
@@ -33,13 +33,13 @@ pub(all) enum Mode {
   Build
 } derive(Eq, Hash, @debug.Debug)
 pub fn Mode::equal(Self, Self) -> Bool
-pub fn Mode::hash(Self) -> Int
+pub fn Mode::hash(Self) -> Int32
 pub fn Mode::hash_combine(Self, Hasher) -> Unit
 pub fn Mode::not_equal(Self, Self) -> Bool
 pub fn Mode::to_repr(Self) -> @debug.Repr
 
 type MooncakesPath derive(Compare, Eq)
-pub fn MooncakesPath::compare(Self, Self) -> Int
+pub fn MooncakesPath::compare(Self, Self) -> Int32
 pub fn MooncakesPath::equal(Self, Self) -> Bool
 pub fn MooncakesPath::join(Self, String) -> Self
 pub fn MooncakesPath::new(String) -> Self
@@ -55,9 +55,9 @@ pub impl Show for MooncakesPath
 pub impl @debug.Debug for MooncakesPath
 
 type SourcePath derive(Compare, Eq, Hash)
-pub fn SourcePath::compare(Self, Self) -> Int
+pub fn SourcePath::compare(Self, Self) -> Int32
 pub fn SourcePath::equal(Self, Self) -> Bool
-pub fn SourcePath::hash(Self) -> Int
+pub fn SourcePath::hash(Self) -> Int32
 pub fn SourcePath::hash_combine(Self, Hasher) -> Unit
 pub fn SourcePath::join(Self, String) -> Self
 pub fn SourcePath::new(String) -> Self
@@ -80,7 +80,7 @@ pub(all) enum Target {
   Native
 } derive(Eq, Hash, @debug.Debug)
 pub fn Target::equal(Self, Self) -> Bool
-pub fn Target::hash(Self) -> Int
+pub fn Target::hash(Self) -> Int32
 pub fn Target::hash_combine(Self, Hasher) -> Unit
 pub fn Target::not_equal(Self, Self) -> Bool
 pub fn Target::to_repr(Self) -> @debug.Repr

@@ -46,7 +46,7 @@ pub(all) struct TourChapter {
 } derive(Eq, @json.FromJson)
 
 pub(all) struct TourModel {
-  chapter_idx : Int
+  chapter_idx : Int32
 } derive(Eq)
 
 // Type aliases

@@ -7,7 +7,7 @@ import {
 }
 
 // Values
-pub fn focus_code_editor_range(String, String, String, String, (String) -> @cmd.Cmd, Int, Int, Int, Int) -> @cmd.Cmd
+pub fn focus_code_editor_range(String, String, String, String, (String) -> @cmd.Cmd, Int32, Int32, Int32, Int32) -> @cmd.Cmd
 
 pub fn sync_code_editor(String, String, String, String, (String) -> @cmd.Cmd) -> @cmd.Cmd
 
