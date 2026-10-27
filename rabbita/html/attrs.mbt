@@ -46,8 +46,16 @@ pub fn Attrs::inner_html(self : Attrs, html : String) -> Attrs {
 }
 
 ///|
-/// Set a raw attribute.
-fn Attrs::attribute(self : Attrs, key : String, value : String) -> Attrs {
+/// Escape hatch for setting a raw HTML attribute not covered by the helpers.
+///
+/// # Vulnerability Warning
+///
+/// Attribute names are not validated and values are not sanitized. Untrusted
+/// names or values can introduce XSS, especially for event-handler attributes
+/// (`on*`), URLs such as `javascript:`, and HTML-valued attributes like `srcdoc`.
+/// HTML escaping alone does not make these contexts safe. Callers must ensure
+/// the name is trusted and the value is safe for the target attribute.
+pub fn Attrs::attribute(self : Attrs, key : String, value : String) -> Attrs {
   self.0.attrs[key] = value
   self
 }
