@@ -469,7 +469,7 @@ pub fn command_input(
   scope~ : CommandScope,
   placeholder~ : String = "Type a command or search...",
   aria_label~ : String = "Search commands",
-  auto_complete~ : @html.AutoComplete = Off,
+  auto_complete~ : String = "off",
   disabled~ : Bool = false,
   on_input? : @cmd.Emit[String],
   id? : String,

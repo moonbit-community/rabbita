@@ -249,7 +249,7 @@ fn showcase_field_page() -> @rabbita.Val[@html.Html] {
                   name="display-name",
                   value=name,
                   required=true,
-                  auto_complete=On,
+                  auto_complete="on",
                   placeholder="Ada Lovelace",
                   on_input=set_form_state.map(value => {
                     state => (value, state.1, state.2, state.3, false)
@@ -278,7 +278,7 @@ fn showcase_field_page() -> @rabbita.Val[@html.Html] {
                   value=email,
                   required=true,
                   invalid=email_invalid,
-                  auto_complete=On,
+                  auto_complete="on",
                   placeholder="ada@example.com",
                   on_input=set_form_state.map(value => {
                     state => (state.0, value, state.2, state.3, false)

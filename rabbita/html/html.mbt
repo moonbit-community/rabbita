@@ -1439,7 +1439,7 @@ pub fn input(
   multiple? : Bool,
   accept? : String,
   placeholder? : String,
-  auto_complete? : AutoComplete,
+  auto_complete? : String,
   style~ : Array[String] = [],
   max? : Int32,
   min? : Int32,

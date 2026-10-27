@@ -121,7 +121,7 @@ pub fn iframe(style? : Array[String], id? : String, class? : String, hidden? : B
 
 pub fn img(style? : Array[String], id? : String, class? : String, hidden? : Bool, src? : String, alt? : String, title? : String, width? : Int32, height? : Int32, srcset? : String, sizes? : String, loading? : String, decoding? : String, attrs? : Attrs) -> Html
 
-pub fn input(input_type? : InputType, name? : String, value? : String, checked? : Bool, read_only? : Bool, multiple? : Bool, accept? : String, placeholder? : String, auto_complete? : AutoComplete, style? : Array[String], max? : Int32, min? : Int32, step? : Int32, maxlength? : Int32, minlength? : Int32, pattern? : String, size? : Int32, width? : Int32, height? : Int32, id? : String, class? : String, title? : String, hidden? : Bool, required? : Bool, autofocus? : Bool, list? : String, inputmode? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : Attrs) -> Html
+pub fn input(input_type? : InputType, name? : String, value? : String, checked? : Bool, read_only? : Bool, multiple? : Bool, accept? : String, placeholder? : String, auto_complete? : String, style? : Array[String], max? : Int32, min? : Int32, step? : Int32, maxlength? : Int32, minlength? : Int32, pattern? : String, size? : Int32, width? : Int32, height? : Int32, id? : String, class? : String, title? : String, hidden? : Bool, required? : Bool, autofocus? : Bool, list? : String, inputmode? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : Attrs) -> Html
 
 pub fn[C : IsChildren] ins(style? : Array[String], id? : String, class? : String, title? : String, hidden? : Bool, attrs? : Attrs, C) -> Html
 
@@ -329,7 +329,7 @@ pub fn Attrs::as_(Self, String) -> Self
 pub fn Attrs::async_(Self, Bool) -> Self
 pub fn Attrs::attribute(Self, String, String) -> Self
 pub fn Attrs::autocapitalize(Self, String) -> Self
-pub fn Attrs::autocomplete(Self, AutoComplete) -> Self
+pub fn Attrs::autocomplete(Self, String) -> Self
 pub fn Attrs::autocorrect(Self, String) -> Self
 pub fn Attrs::autofocus(Self, Bool) -> Self
 pub fn Attrs::autoplay(Self, Bool) -> Self
@@ -500,11 +500,6 @@ pub fn Attrs::value_int(Self, Int32) -> Self
 pub fn Attrs::value_prop(Self, String) -> Self
 pub fn Attrs::width(Self, Int32) -> Self
 pub fn Attrs::wrap(Self, String) -> Self
-
-pub(all) enum AutoComplete {
-  On
-  Off
-}
 
 #alias(T)
 pub(all) struct Html(@vdom.VNode) derive(Eq)

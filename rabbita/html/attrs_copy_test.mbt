@@ -25,9 +25,9 @@ test "Attrs::copy isolates later mutations" {
 
 ///|
 test "input leaves autocomplete to the browser when omitted" {
-  let inherited = @html.input(attrs=@html.Attrs::build().autocomplete(On))
+  let inherited = @html.input(attrs=@html.Attrs::build().autocomplete("on"))
   let omitted = @html.input()
-  let explicit = @html.input(auto_complete=Off)
+  let explicit = @html.input(auto_complete="off")
 
   debug_inspect(vnode_attr(inherited, "autocomplete"), content="Some(\"on\")")
   debug_inspect(vnode_attr(omitted, "autocomplete"), content="None")

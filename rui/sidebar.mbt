@@ -2933,7 +2933,7 @@ pub fn sidebar_input(
   name? : String,
   value? : String,
   placeholder? : String,
-  auto_complete? : @html.AutoComplete,
+  auto_complete? : String,
   id? : String,
   class? : String,
   title? : String,

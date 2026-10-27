@@ -197,7 +197,7 @@ pub fn[C : @html.IsChildren] combobox_chip(scope~ : ComboboxScope, value~ : Stri
 
 pub fn[C : @html.IsChildren] combobox_chips(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn combobox_chips_input(scope~ : ComboboxScope, aria_label? : String, auto_complete? : @html.AutoComplete, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+pub fn combobox_chips_input(scope~ : ComboboxScope, aria_label? : String, auto_complete? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
 
 pub fn combobox_clear(scope~ : ComboboxScope, label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
 
@@ -209,7 +209,7 @@ pub fn[C : @html.IsChildren] combobox_empty(visible? : Bool, id? : String, class
 
 pub fn[C : @html.IsChildren] combobox_group(label_id? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn combobox_input(scope~ : ComboboxScope, aria_label? : String, auto_complete? : @html.AutoComplete, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+pub fn combobox_input(scope~ : ComboboxScope, aria_label? : String, auto_complete? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
 
 pub fn[C : @html.IsChildren] combobox_item(scope~ : ComboboxScope, value~ : String, disabled? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
@@ -233,7 +233,7 @@ pub fn[C : @html.IsChildren] command_empty(scope~ : CommandScope, id? : String, 
 
 pub fn[C : @html.IsChildren] command_group(scope~ : CommandScope, heading? : String, heading_id? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], heading_style? : Array[String], C) -> @html.Html
 
-pub fn command_input(scope~ : CommandScope, placeholder? : String, aria_label? : String, auto_complete? : @html.AutoComplete, disabled? : Bool, on_input? : @cmd.Emit[String], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], input_style? : Array[String]) -> @html.Html
+pub fn command_input(scope~ : CommandScope, placeholder? : String, aria_label? : String, auto_complete? : String, disabled? : Bool, on_input? : @cmd.Emit[String], id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], input_style? : Array[String]) -> @html.Html
 
 pub fn[C : @html.IsChildren] command_item(scope~ : CommandScope, value~ : String, keywords? : Array[String], disabled? : Bool, force_mount? : Bool, on_select? : @cmd.Emit[String], on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
@@ -395,7 +395,7 @@ pub fn[C : @html.IsChildren] hover_card_content(id~ : String, trigger_id~ : Stri
 
 pub fn[C : @html.IsChildren] hover_card_trigger(content_id~ : String, href~ : String, open? : Bool, disabled? : Bool, open_delay? : Int32, close_delay? : Int32, variant? : ButtonVariant, size? : ButtonSize, target? : @html.Target, rel? : String, download? : String, escape? : Bool, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn input(input_type? : @html.InputType, name? : String, value? : String, checked? : Bool, read_only? : Bool, multiple? : Bool, accept? : String, placeholder? : String, auto_complete? : @html.AutoComplete, max? : Int32, min? : Int32, step? : Int32, maxlength? : Int32, minlength? : Int32, pattern? : String, size? : Int32, width? : Int32, height? : Int32, id? : String, class? : String, title? : String, hidden? : Bool, disabled? : Bool, required? : Bool, autofocus? : Bool, list? : String, inputmode? : String, invalid? : Bool, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String], slot? : String) -> @html.Html
+pub fn input(input_type? : @html.InputType, name? : String, value? : String, checked? : Bool, read_only? : Bool, multiple? : Bool, accept? : String, placeholder? : String, auto_complete? : String, max? : Int32, min? : Int32, step? : Int32, maxlength? : Int32, minlength? : Int32, pattern? : String, size? : Int32, width? : Int32, height? : Int32, id? : String, class? : String, title? : String, hidden? : Bool, disabled? : Bool, required? : Bool, autofocus? : Bool, list? : String, inputmode? : String, invalid? : Bool, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String], slot? : String) -> @html.Html
 
 pub fn[C : @html.IsChildren] input_group(disabled? : Bool, invalid? : Bool, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
@@ -661,7 +661,7 @@ pub fn[C : @html.IsChildren] sidebar_group_label(scope? : SidebarScope, hide_whe
 
 pub fn[C : @html.IsChildren] sidebar_header(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn sidebar_input(name? : String, value? : String, placeholder? : String, auto_complete? : @html.AutoComplete, id? : String, class? : String, title? : String, disabled? : Bool, aria_label? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
+pub fn sidebar_input(name? : String, value? : String, placeholder? : String, auto_complete? : String, id? : String, class? : String, title? : String, disabled? : Bool, aria_label? : String, on_change? : @cmd.Emit[String], on_input? : @cmd.Emit[String], attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
 
 pub fn[C : @html.IsChildren] sidebar_inset(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
