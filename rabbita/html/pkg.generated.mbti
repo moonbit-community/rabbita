@@ -327,6 +327,7 @@ pub fn Attrs::aria_valuenow(Self, String) -> Self
 pub fn Attrs::aria_valuetext(Self, String) -> Self
 pub fn Attrs::as_(Self, String) -> Self
 pub fn Attrs::async_(Self, Bool) -> Self
+pub fn Attrs::attribute(Self, String, String) -> Self
 pub fn Attrs::autocapitalize(Self, String) -> Self
 pub fn Attrs::autocomplete(Self, AutoComplete) -> Self
 pub fn Attrs::autocorrect(Self, String) -> Self
