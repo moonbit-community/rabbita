@@ -15,7 +15,7 @@ pub fn animate_motion(id? : String, class? : String, style? : Array[String], att
 
 pub fn animate_transform(id? : String, class? : String, style? : Array[String], attrs? : Attrs) -> Svg
 
-pub fn circle(id? : String, class? : String, style? : Array[String], cx~ : Int, cy~ : Int, r~ : Int, fill? : String, stroke? : String, stroke_width? : Int, fill_opacity? : Int, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn circle(id? : String, class? : String, style? : Array[String], cx~ : Int32, cy~ : Int32, r~ : Int32, fill? : String, stroke? : String, stroke_width? : Int32, fill_opacity? : Int32, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
 pub fn clip_path(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 
@@ -23,7 +23,7 @@ pub fn defs(id? : String, class? : String, style? : Array[String], attrs? : Attr
 
 pub fn desc(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 
-pub fn ellipse(id? : String, class? : String, style? : Array[String], cx~ : Int, cy~ : Int, rx~ : Int, ry~ : Int, fill? : String, stroke? : String, stroke_width? : Int, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn ellipse(id? : String, class? : String, style? : Array[String], cx~ : Int32, cy~ : Int32, rx~ : Int32, ry~ : Int32, fill? : String, stroke? : String, stroke_width? : Int32, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
 pub fn fe_blend(id? : String, class? : String, style? : Array[String], attrs? : Attrs) -> Svg
 
@@ -81,9 +81,9 @@ pub fn foreign_object(id? : String, class? : String, style? : Array[String], att
 
 pub fn g(id? : String, class? : String, style? : Array[String], fill? : String, stroke? : String, transform? : String, opacity? : String, attrs? : Attrs, Array[Svg]) -> Svg
 
-pub fn image(id? : String, class? : String, style? : Array[String], href~ : String, x~ : Int, y~ : Int, width? : Int, height? : Int, preserve_aspect_ratio? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn image(id? : String, class? : String, style? : Array[String], href~ : String, x~ : Int32, y~ : Int32, width? : Int32, height? : Int32, preserve_aspect_ratio? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
-pub fn line(id? : String, class? : String, style? : Array[String], x1~ : Int, y1~ : Int, x2~ : Int, y2~ : Int, fill? : String, stroke? : String, stroke_width? : Int, stroke_linecap? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn line(id? : String, class? : String, style? : Array[String], x1~ : Int32, y1~ : Int32, x2~ : Int32, y2~ : Int32, fill? : String, stroke? : String, stroke_width? : Int32, stroke_linecap? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
 pub fn linear_gradient(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 
@@ -97,17 +97,17 @@ pub fn mpath(id? : String, class? : String, style? : Array[String], attrs? : Att
 
 pub fn node(String, Attrs, Array[Svg], ns? : String) -> Svg
 
-pub fn path(id? : String, class? : String, style? : Array[String], d~ : String, fill? : String, stroke? : String, stroke_width? : Int, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn path(id? : String, class? : String, style? : Array[String], d~ : String, fill? : String, stroke? : String, stroke_width? : Int32, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
 pub fn pattern(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 
-pub fn polygon(id? : String, class? : String, style? : Array[String], points~ : Array[(Int, Int)], fill? : String, stroke? : String, stroke_width? : Int, stroke_linecap? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn polygon(id? : String, class? : String, style? : Array[String], points~ : Array[(Int32, Int32)], fill? : String, stroke? : String, stroke_width? : Int32, stroke_linecap? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
-pub fn polyline(id? : String, class? : String, style? : Array[String], points~ : Array[(Int, Int)], path_length? : Int, fill? : String, stroke? : String, stroke_width? : Int, stroke_linecap? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn polyline(id? : String, class? : String, style? : Array[String], points~ : Array[(Int32, Int32)], path_length? : Int32, fill? : String, stroke? : String, stroke_width? : Int32, stroke_linecap? : String, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
 pub fn radial_gradient(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 
-pub fn rect(id? : String, class? : String, style? : Array[String], x~ : Int, y~ : Int, width~ : Int, height~ : Int, rx? : Int, ry? : Int, fill? : String, stroke? : String, stroke_width? : Int, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn rect(id? : String, class? : String, style? : Array[String], x~ : Int32, y~ : Int32, width~ : Int32, height~ : Int32, rx? : Int32, ry? : Int32, fill? : String, stroke? : String, stroke_width? : Int32, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
 pub fn script(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 
@@ -115,13 +115,13 @@ pub fn set(id? : String, class? : String, style? : Array[String], attrs? : Attrs
 
 pub fn stop(id? : String, class? : String, style? : Array[String], attrs? : Attrs) -> Svg
 
-pub fn svg(id? : String, class? : String, style? : Array[String], width? : Int, height? : Int, view_box? : String, xmlns? : String, attrs? : Attrs, Array[Svg]) -> @html.Html
+pub fn svg(id? : String, class? : String, style? : Array[String], width? : Int32, height? : Int32, view_box? : String, xmlns? : String, attrs? : Attrs, Array[Svg]) -> @html.Html
 
 pub fn svg_style(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 
-pub fn svg_text(id? : String, class? : String, style? : Array[String], x~ : Int, y~ : Int, text~ : String, dx? : Int, dy? : Int, rotate? : String, length_adjust? : String, text_length? : Int, fill? : String, stroke? : String, stroke_width? : Int, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn svg_text(id? : String, class? : String, style? : Array[String], x~ : Int32, y~ : Int32, text~ : String, dx? : Int32, dy? : Int32, rotate? : String, length_adjust? : String, text_length? : Int32, fill? : String, stroke? : String, stroke_width? : Int32, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
-pub fn svg_use(id? : String, class? : String, style? : Array[String], href~ : String, x~ : Int, y~ : Int, width? : Int, height? : Int, stroke? : String, stroke_width? : Int, fill? : String, fill_opacity? : Int, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
+pub fn svg_use(id? : String, class? : String, style? : Array[String], href~ : String, x~ : Int32, y~ : Int32, width? : Int32, height? : Int32, stroke? : String, stroke_width? : Int32, fill? : String, fill_opacity? : Int32, transform? : String, opacity? : String, attrs? : Attrs) -> Svg
 
 pub fn switch(id? : String, class? : String, style? : Array[String], attrs? : Attrs, Array[Svg]) -> Svg
 

@@ -7,13 +7,13 @@ import {
 }
 
 // Values
-pub const DOM_KEY_LOCATION_LEFT : Int = 0x01
+pub const DOM_KEY_LOCATION_LEFT : Int32 = 0x01
 
-pub const DOM_KEY_LOCATION_NUMPAD : Int = 0x03
+pub const DOM_KEY_LOCATION_NUMPAD : Int32 = 0x03
 
-pub const DOM_KEY_LOCATION_RIGHT : Int = 0x02
+pub const DOM_KEY_LOCATION_RIGHT : Int32 = 0x02
 
-pub const DOM_KEY_LOCATION_STANDARD : Int = 0x00
+pub const DOM_KEY_LOCATION_STANDARD : Int32 = 0x00
 
 pub fn[E, R] default_exception_handler(E) -> R
 
@@ -103,10 +103,10 @@ pub fn AudioTrack::get_label(Self) -> String
 
 type AudioTrackList
 #alias("_[_]")
-pub fn AudioTrackList::get(Self, Int) -> AudioTrack?
+pub fn AudioTrackList::get(Self, Int32) -> AudioTrack?
 pub fn AudioTrackList::get_track_by_id(Self, String) -> AudioTrack?
 pub fn AudioTrackList::iter(Self) -> Iter[AudioTrack]
-pub fn AudioTrackList::length(Self) -> Int
+pub fn AudioTrackList::length(Self) -> Int32
 
 type BeforeUnloadEvent
 pub fn BeforeUnloadEvent::as_event(Self) -> Event
@@ -142,9 +142,9 @@ pub impl @js.Cast for BeforeUnloadEvent
 type Blob
 pub async fn Blob::bytes(Self) -> Bytes
 pub fn Blob::from_bytes(Bytes, String) -> Self
-pub fn Blob::get_size(Self) -> Int
+pub fn Blob::get_size(Self) -> Int32
 pub fn Blob::get_type(Self) -> String
-pub fn Blob::slice(Self, Int, end_? : @js.Optional[Int]) -> Self
+pub fn Blob::slice(Self, Int32, end_? : @js.Optional[Int32]) -> Self
 pub async fn Blob::text(Self) -> String
 
 type BlobEvent
@@ -192,12 +192,12 @@ pub fn CSSStyleDeclaration::from(Self) -> @js.Value
 pub fn CSSStyleDeclaration::get(Self, String) -> String
 pub fn CSSStyleDeclaration::get_css_float(Self) -> String
 pub fn CSSStyleDeclaration::get_css_text(Self) -> String
-pub fn CSSStyleDeclaration::get_length(Self) -> Int
+pub fn CSSStyleDeclaration::get_length(Self) -> Int32
 pub fn CSSStyleDeclaration::get_parent_rule(Self) -> CSSRule?
 pub fn CSSStyleDeclaration::get_property_priority(Self, String) -> String
 pub fn CSSStyleDeclaration::get_property_value(Self, String) -> String
 pub fn CSSStyleDeclaration::into(@js.Value) -> Self?
-pub fn CSSStyleDeclaration::item(Self, Int) -> String
+pub fn CSSStyleDeclaration::item(Self, Int32) -> String
 pub fn CSSStyleDeclaration::remove_property(Self, String) -> String
 #alias("_[_]=_")
 pub fn CSSStyleDeclaration::set(Self, String, String) -> Unit
@@ -263,8 +263,8 @@ pub fn CanvasRenderingContext2D::is_point_in_stroke(Self, Double, Double) -> Boo
 pub fn CanvasRenderingContext2D::is_point_in_stroke_with_path(Self, Path2D, Double, Double) -> Bool
 pub fn CanvasRenderingContext2D::line_to(Self, Double, Double) -> Unit
 pub fn CanvasRenderingContext2D::move_to(Self, Double, Double) -> Unit
-pub fn CanvasRenderingContext2D::put_image_data(Self, ImageData, Int, Int) -> Unit
-pub fn CanvasRenderingContext2D::put_image_data_with_dirty(Self, ImageData, Int, Int, Int, Int, Int, Int) -> Unit
+pub fn CanvasRenderingContext2D::put_image_data(Self, ImageData, Int32, Int32) -> Unit
+pub fn CanvasRenderingContext2D::put_image_data_with_dirty(Self, ImageData, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
 pub fn CanvasRenderingContext2D::quardratic_curve_to(Self, Double, Double, Double, Double) -> Unit
 pub fn CanvasRenderingContext2D::rect(Self, Double, Double, Double, Double) -> Unit
 pub fn CanvasRenderingContext2D::reset(Self) -> Unit
@@ -361,7 +361,7 @@ pub fn CloseEvent::as_event(Self) -> Event
 pub fn CloseEvent::composed_path(Self) -> FixedArray[EventTarget]
 pub fn CloseEvent::current_target(Self) -> @js.Nullable[EventTarget]
 pub fn CloseEvent::from(Self) -> @js.Value
-pub fn CloseEvent::get_code(Self) -> Int
+pub fn CloseEvent::get_code(Self) -> Int32
 pub fn CloseEvent::get_default_prevented(Self) -> Bool
 pub fn CloseEvent::get_reason(Self) -> String
 pub fn CloseEvent::get_time_stamp(Self) -> Double
@@ -399,14 +399,14 @@ pub fn Comment::as_node(Self) -> Node
 pub fn Comment::contains(Self, Node) -> Bool
 pub fn Comment::dispatch_event(Self, Event) -> Unit
 pub fn Comment::from(Self) -> @js.Value
-pub fn Comment::get_child(Self, Int) -> Node
-pub fn Comment::get_child_count(Self) -> Int
+pub fn Comment::get_child(Self, Int32) -> Node
+pub fn Comment::get_child_count(Self) -> Int32
 pub fn Comment::get_first_child(Self) -> Node
 pub fn Comment::get_is_connected(Self) -> Bool
 pub fn Comment::get_last_child(Self) -> Node
 pub fn Comment::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn Comment::get_node_name(Self) -> String
-pub fn Comment::get_node_type(Self) -> Int
+pub fn Comment::get_node_type(Self) -> Int32
 pub fn Comment::get_node_value(Self) -> String
 pub fn Comment::get_parent_element(Self) -> Element?
 pub fn Comment::get_parent_node(Self) -> @js.Nullable[Node]
@@ -535,7 +535,7 @@ type DOMRectList
 pub fn DOMRectList::get_length(Self) -> Double
 pub fn DOMRectList::item(Self, Double) -> @js.Nullable[DOMRect]
 pub fn DOMRectList::iter(Self) -> Iter[DOMRect]
-pub fn DOMRectList::length(Self) -> Int
+pub fn DOMRectList::length(Self) -> Int32
 
 type DOMStringMap
 
@@ -543,8 +543,8 @@ type DOMTokenList
 pub fn DOMTokenList::add(Self, String) -> Unit
 pub fn DOMTokenList::contains(Self, String) -> Bool
 pub fn DOMTokenList::get_value(Self) -> String
-pub fn DOMTokenList::item(Self, Int) -> String?
-pub fn DOMTokenList::length(Self) -> Int
+pub fn DOMTokenList::item(Self, Int32) -> String?
+pub fn DOMTokenList::length(Self) -> Int32
 pub fn DOMTokenList::remove(Self, String) -> Unit
 pub fn DOMTokenList::replace(Self, String, String) -> Bool
 pub fn DOMTokenList::set_value(Self, String) -> Unit
@@ -555,7 +555,7 @@ type DataTransfer
 pub fn DataTransfer::drop_effect(Self) -> String
 pub fn DataTransfer::effect_allowed(Self) -> String
 pub fn DataTransfer::items(Self) -> DataTransferItemList
-pub fn DataTransfer::set_drog_image(Self, Element, Int, Int) -> Unit
+pub fn DataTransfer::set_drog_image(Self, Element, Int32, Int32) -> Unit
 
 type DataTransferItem
 pub fn DataTransferItem::get_as_string(Self, (String) -> Unit) -> Unit
@@ -566,9 +566,9 @@ type DataTransferItemList
 pub fn DataTransferItemList::add(Self, String, String) -> DataTransferItem?
 pub fn DataTransferItemList::clear(Self) -> Unit
 #alias("_[_]")
-pub fn DataTransferItemList::get(Self, Int) -> DataTransferItem?
-pub fn DataTransferItemList::length(Self) -> Int
-pub fn DataTransferItemList::remove(Self, Int) -> Unit
+pub fn DataTransferItemList::get(Self, Int32) -> DataTransferItem?
+pub fn DataTransferItemList::length(Self) -> Int32
+pub fn DataTransferItemList::remove(Self, Int32) -> Unit
 
 type Document
 pub fn Document::add_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -630,14 +630,14 @@ pub fn DocumentFragment::as_node(Self) -> Node
 pub fn DocumentFragment::contains(Self, Node) -> Bool
 pub fn DocumentFragment::dispatch_event(Self, Event) -> Unit
 pub fn DocumentFragment::from(Self) -> @js.Value
-pub fn DocumentFragment::get_child(Self, Int) -> Node
-pub fn DocumentFragment::get_child_count(Self) -> Int
+pub fn DocumentFragment::get_child(Self, Int32) -> Node
+pub fn DocumentFragment::get_child_count(Self) -> Int32
 pub fn DocumentFragment::get_first_child(Self) -> Node
 pub fn DocumentFragment::get_is_connected(Self) -> Bool
 pub fn DocumentFragment::get_last_child(Self) -> Node
 pub fn DocumentFragment::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn DocumentFragment::get_node_name(Self) -> String
-pub fn DocumentFragment::get_node_type(Self) -> Int
+pub fn DocumentFragment::get_node_type(Self) -> Int32
 pub fn DocumentFragment::get_node_value(Self) -> String
 pub fn DocumentFragment::get_parent_element(Self) -> Element?
 pub fn DocumentFragment::get_parent_node(Self) -> @js.Nullable[Node]
@@ -681,8 +681,8 @@ pub fn DragEvent::composed_path(Self) -> FixedArray[EventTarget]
 pub fn DragEvent::current_target(Self) -> @js.Nullable[EventTarget]
 pub fn DragEvent::from(Self) -> @js.Value
 pub fn DragEvent::get_alt_key(Self) -> Bool
-pub fn DragEvent::get_button(Self) -> Int
-pub fn DragEvent::get_buttons(Self) -> Int
+pub fn DragEvent::get_button(Self) -> Int32
+pub fn DragEvent::get_buttons(Self) -> Int32
 pub fn DragEvent::get_client_x(Self) -> Double
 pub fn DragEvent::get_client_y(Self) -> Double
 pub fn DragEvent::get_ctrl_key(Self) -> Bool
@@ -746,8 +746,8 @@ pub fn Element::from(Self) -> @js.Value
 pub fn Element::get_animations(Self) -> FixedArray[Animation]
 pub fn Element::get_attribute(Self, String) -> String?
 pub fn Element::get_bounding_client_rect(Self) -> DOMRect
-pub fn Element::get_child(Self, Int) -> Node
-pub fn Element::get_child_count(Self) -> Int
+pub fn Element::get_child(Self, Int32) -> Node
+pub fn Element::get_child_count(Self) -> Int32
 pub fn Element::get_children(Self) -> HTMLCollection
 pub fn Element::get_client_height(Self) -> Double
 pub fn Element::get_client_left(Self) -> Double
@@ -759,7 +759,7 @@ pub fn Element::get_is_connected(Self) -> Bool
 pub fn Element::get_last_child(Self) -> Node
 pub fn Element::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn Element::get_node_name(Self) -> String
-pub fn Element::get_node_type(Self) -> Int
+pub fn Element::get_node_type(Self) -> Int32
 pub fn Element::get_node_value(Self) -> String
 pub fn Element::get_parent_element(Self) -> Self?
 pub fn Element::get_parent_node(Self) -> @js.Nullable[Node]
@@ -770,14 +770,14 @@ pub fn Element::get_scroll_left(Self) -> Double
 pub fn Element::get_scroll_top(Self) -> Double
 pub fn Element::get_scroll_width(Self) -> Double
 pub fn Element::has_attribute(Self, String) -> Bool
-pub fn Element::has_pointer_capture(Self, Int) -> Bool
+pub fn Element::has_pointer_capture(Self, Int32) -> Bool
 pub fn Element::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn Element::into(@js.Value) -> Self?
 pub fn Element::is_same_node(Self, Node) -> Bool
 pub fn Element::matches(Self, String) -> Bool
 pub fn Element::query_selector(Self, String) -> Self?
 pub fn Element::query_selector_all(Self, String) -> NodeList[Self]
-pub fn Element::release_pointer_capture(Self, Int) -> Unit
+pub fn Element::release_pointer_capture(Self, Int32) -> Unit
 pub fn Element::remove_attribute(Self, String) -> Unit
 pub fn Element::remove_child(Self, Node) -> Unit
 pub fn Element::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -789,7 +789,7 @@ pub fn Element::scroll_into_view_with_options(Self, behavior? : String, block? :
 pub fn Element::set_attribute(Self, String, String) -> Unit
 pub fn Element::set_inner_html(Self, String) -> Unit
 pub fn Element::set_node_value(Self, @js.Nullable[String]) -> Unit
-pub fn Element::set_pointer_capture(Self, Int) -> Unit
+pub fn Element::set_pointer_capture(Self, Int32) -> Unit
 pub fn Element::set_property(Self, String, @js.Value) -> Unit
 pub fn Element::set_scroll_left(Self, Double) -> Unit
 pub fn Element::set_scroll_top(Self, Double) -> Unit
@@ -945,8 +945,8 @@ pub fn HTMLCanvasElement::get_auto_capitalize(Self) -> String
 pub fn HTMLCanvasElement::get_auto_correct(Self) -> Bool
 pub fn HTMLCanvasElement::get_auto_focus(Self) -> Bool
 pub fn HTMLCanvasElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn HTMLCanvasElement::get_child(Self, Int) -> Node
-pub fn HTMLCanvasElement::get_child_count(Self) -> Int
+pub fn HTMLCanvasElement::get_child(Self, Int32) -> Node
+pub fn HTMLCanvasElement::get_child_count(Self) -> Int32
 pub fn HTMLCanvasElement::get_children(Self) -> HTMLCollection
 pub fn HTMLCanvasElement::get_client_height(Self) -> Double
 pub fn HTMLCanvasElement::get_client_left(Self) -> Double
@@ -961,7 +961,7 @@ pub fn HTMLCanvasElement::get_draggable(Self) -> Bool
 pub fn HTMLCanvasElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLCanvasElement::get_enter_key_hint(Self) -> String
 pub fn HTMLCanvasElement::get_first_child(Self) -> Node
-pub fn HTMLCanvasElement::get_height(Self) -> Int
+pub fn HTMLCanvasElement::get_height(Self) -> Int32
 pub fn HTMLCanvasElement::get_hidden(Self) -> @js.Value
 pub fn HTMLCanvasElement::get_inert(Self) -> Bool
 pub fn HTMLCanvasElement::get_inner_text(Self) -> String
@@ -972,7 +972,7 @@ pub fn HTMLCanvasElement::get_lang(Self) -> String
 pub fn HTMLCanvasElement::get_last_child(Self) -> Node
 pub fn HTMLCanvasElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLCanvasElement::get_node_name(Self) -> String
-pub fn HTMLCanvasElement::get_node_type(Self) -> Int
+pub fn HTMLCanvasElement::get_node_type(Self) -> Int32
 pub fn HTMLCanvasElement::get_node_value(Self) -> String
 pub fn HTMLCanvasElement::get_nonce(Self) -> String
 pub fn HTMLCanvasElement::get_offset_height(Self) -> Double
@@ -992,14 +992,14 @@ pub fn HTMLCanvasElement::get_scroll_top(Self) -> Double
 pub fn HTMLCanvasElement::get_scroll_width(Self) -> Double
 pub fn HTMLCanvasElement::get_spellcheck(Self) -> Bool
 pub fn HTMLCanvasElement::get_style(Self) -> CSSStyleDeclaration
-pub fn HTMLCanvasElement::get_tab_index(Self) -> Int
+pub fn HTMLCanvasElement::get_tab_index(Self) -> Int32
 pub fn HTMLCanvasElement::get_title(Self) -> String
 pub fn HTMLCanvasElement::get_translate(Self) -> Bool
 pub fn HTMLCanvasElement::get_virtual_keyboard_policy(Self) -> String
-pub fn HTMLCanvasElement::get_width(Self) -> Int
+pub fn HTMLCanvasElement::get_width(Self) -> Int32
 pub fn HTMLCanvasElement::get_writing_suggestions(Self) -> String
 pub fn HTMLCanvasElement::has_attribute(Self, String) -> Bool
-pub fn HTMLCanvasElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLCanvasElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn HTMLCanvasElement::hide_popover(Self) -> Unit
 pub fn HTMLCanvasElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn HTMLCanvasElement::into(@js.Value) -> Self?
@@ -1007,7 +1007,7 @@ pub fn HTMLCanvasElement::is_same_node(Self, Node) -> Bool
 pub fn HTMLCanvasElement::matches(Self, String) -> Bool
 pub fn HTMLCanvasElement::query_selector(Self, String) -> Element?
 pub fn HTMLCanvasElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn HTMLCanvasElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLCanvasElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLCanvasElement::remove_attribute(Self, String) -> Unit
 pub fn HTMLCanvasElement::remove_child(Self, Node) -> Unit
 pub fn HTMLCanvasElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -1035,14 +1035,14 @@ pub fn HTMLCanvasElement::set_lang(Self, String) -> Unit
 pub fn HTMLCanvasElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLCanvasElement::set_nonce(Self, String) -> Unit
 pub fn HTMLCanvasElement::set_outer_text(Self, String) -> Unit
-pub fn HTMLCanvasElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLCanvasElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLCanvasElement::set_popover(Self, String?) -> Unit
 pub fn HTMLCanvasElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLCanvasElement::set_scroll_left(Self, Double) -> Unit
 pub fn HTMLCanvasElement::set_scroll_top(Self, Double) -> Unit
 pub fn HTMLCanvasElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLCanvasElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-pub fn HTMLCanvasElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLCanvasElement::set_tab_index(Self, Int32) -> Unit
 pub fn HTMLCanvasElement::set_title(Self, String) -> Unit
 pub fn HTMLCanvasElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLCanvasElement::set_virtual_keyboard_policy(Self, String) -> Unit
@@ -1078,7 +1078,7 @@ type HTMLCollection
 pub fn HTMLCollection::get_length(Self) -> Double
 pub fn HTMLCollection::item(Self, Double) -> @js.Nullable[Element]
 pub fn HTMLCollection::iter(Self) -> Iter[Element]
-pub fn HTMLCollection::length(Self) -> Int
+pub fn HTMLCollection::length(Self) -> Int32
 pub fn HTMLCollection::named_item(Self, String) -> @js.Nullable[Element]
 
 type HTMLDialogElement
@@ -1109,8 +1109,8 @@ pub fn HTMLDialogElement::get_auto_capitalize(Self) -> String
 pub fn HTMLDialogElement::get_auto_correct(Self) -> Bool
 pub fn HTMLDialogElement::get_auto_focus(Self) -> Bool
 pub fn HTMLDialogElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn HTMLDialogElement::get_child(Self, Int) -> Node
-pub fn HTMLDialogElement::get_child_count(Self) -> Int
+pub fn HTMLDialogElement::get_child(Self, Int32) -> Node
+pub fn HTMLDialogElement::get_child_count(Self) -> Int32
 pub fn HTMLDialogElement::get_children(Self) -> HTMLCollection
 pub fn HTMLDialogElement::get_client_height(Self) -> Double
 pub fn HTMLDialogElement::get_client_left(Self) -> Double
@@ -1134,7 +1134,7 @@ pub fn HTMLDialogElement::get_lang(Self) -> String
 pub fn HTMLDialogElement::get_last_child(Self) -> Node
 pub fn HTMLDialogElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLDialogElement::get_node_name(Self) -> String
-pub fn HTMLDialogElement::get_node_type(Self) -> Int
+pub fn HTMLDialogElement::get_node_type(Self) -> Int32
 pub fn HTMLDialogElement::get_node_value(Self) -> String
 pub fn HTMLDialogElement::get_nonce(Self) -> String
 pub fn HTMLDialogElement::get_offset_height(Self) -> Double
@@ -1154,13 +1154,13 @@ pub fn HTMLDialogElement::get_scroll_top(Self) -> Double
 pub fn HTMLDialogElement::get_scroll_width(Self) -> Double
 pub fn HTMLDialogElement::get_spellcheck(Self) -> Bool
 pub fn HTMLDialogElement::get_style(Self) -> CSSStyleDeclaration
-pub fn HTMLDialogElement::get_tab_index(Self) -> Int
+pub fn HTMLDialogElement::get_tab_index(Self) -> Int32
 pub fn HTMLDialogElement::get_title(Self) -> String
 pub fn HTMLDialogElement::get_translate(Self) -> Bool
 pub fn HTMLDialogElement::get_virtual_keyboard_policy(Self) -> String
 pub fn HTMLDialogElement::get_writing_suggestions(Self) -> String
 pub fn HTMLDialogElement::has_attribute(Self, String) -> Bool
-pub fn HTMLDialogElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLDialogElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn HTMLDialogElement::hide_popover(Self) -> Unit
 pub fn HTMLDialogElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn HTMLDialogElement::into(@js.Value) -> Self?
@@ -1169,7 +1169,7 @@ pub fn HTMLDialogElement::matches(Self, String) -> Bool
 pub fn HTMLDialogElement::open(Self) -> Bool
 pub fn HTMLDialogElement::query_selector(Self, String) -> Element?
 pub fn HTMLDialogElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn HTMLDialogElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLDialogElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLDialogElement::remove_attribute(Self, String) -> Unit
 pub fn HTMLDialogElement::remove_child(Self, Node) -> Unit
 pub fn HTMLDialogElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -1199,14 +1199,14 @@ pub fn HTMLDialogElement::set_lang(Self, String) -> Unit
 pub fn HTMLDialogElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLDialogElement::set_nonce(Self, String) -> Unit
 pub fn HTMLDialogElement::set_outer_text(Self, String) -> Unit
-pub fn HTMLDialogElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLDialogElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLDialogElement::set_popover(Self, String?) -> Unit
 pub fn HTMLDialogElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLDialogElement::set_scroll_left(Self, Double) -> Unit
 pub fn HTMLDialogElement::set_scroll_top(Self, Double) -> Unit
 pub fn HTMLDialogElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLDialogElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-pub fn HTMLDialogElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLDialogElement::set_tab_index(Self, Int32) -> Unit
 pub fn HTMLDialogElement::set_title(Self, String) -> Unit
 pub fn HTMLDialogElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLDialogElement::set_virtual_keyboard_policy(Self, String) -> Unit
@@ -1267,8 +1267,8 @@ pub fn HTMLElement::get_auto_capitalize(Self) -> String
 pub fn HTMLElement::get_auto_correct(Self) -> Bool
 pub fn HTMLElement::get_auto_focus(Self) -> Bool
 pub fn HTMLElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn HTMLElement::get_child(Self, Int) -> Node
-pub fn HTMLElement::get_child_count(Self) -> Int
+pub fn HTMLElement::get_child(Self, Int32) -> Node
+pub fn HTMLElement::get_child_count(Self) -> Int32
 pub fn HTMLElement::get_children(Self) -> HTMLCollection
 pub fn HTMLElement::get_client_height(Self) -> Double
 pub fn HTMLElement::get_client_left(Self) -> Double
@@ -1292,7 +1292,7 @@ pub fn HTMLElement::get_lang(Self) -> String
 pub fn HTMLElement::get_last_child(Self) -> Node
 pub fn HTMLElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLElement::get_node_name(Self) -> String
-pub fn HTMLElement::get_node_type(Self) -> Int
+pub fn HTMLElement::get_node_type(Self) -> Int32
 pub fn HTMLElement::get_node_value(Self) -> String
 pub fn HTMLElement::get_nonce(Self) -> String
 pub fn HTMLElement::get_offset_height(Self) -> Double
@@ -1312,13 +1312,13 @@ pub fn HTMLElement::get_scroll_top(Self) -> Double
 pub fn HTMLElement::get_scroll_width(Self) -> Double
 pub fn HTMLElement::get_spellcheck(Self) -> Bool
 pub fn HTMLElement::get_style(Self) -> CSSStyleDeclaration
-pub fn HTMLElement::get_tab_index(Self) -> Int
+pub fn HTMLElement::get_tab_index(Self) -> Int32
 pub fn HTMLElement::get_title(Self) -> String
 pub fn HTMLElement::get_translate(Self) -> Bool
 pub fn HTMLElement::get_virtual_keyboard_policy(Self) -> String
 pub fn HTMLElement::get_writing_suggestions(Self) -> String
 pub fn HTMLElement::has_attribute(Self, String) -> Bool
-pub fn HTMLElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn HTMLElement::hide_popover(Self) -> Unit
 pub fn HTMLElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn HTMLElement::into(@js.Value) -> Self?
@@ -1326,7 +1326,7 @@ pub fn HTMLElement::is_same_node(Self, Node) -> Bool
 pub fn HTMLElement::matches(Self, String) -> Bool
 pub fn HTMLElement::query_selector(Self, String) -> Element?
 pub fn HTMLElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn HTMLElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLElement::remove_attribute(Self, String) -> Unit
 pub fn HTMLElement::remove_child(Self, Node) -> Unit
 pub fn HTMLElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -1354,14 +1354,14 @@ pub fn HTMLElement::set_lang(Self, String) -> Unit
 pub fn HTMLElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLElement::set_nonce(Self, String) -> Unit
 pub fn HTMLElement::set_outer_text(Self, String) -> Unit
-pub fn HTMLElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLElement::set_popover(Self, String?) -> Unit
 pub fn HTMLElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLElement::set_scroll_left(Self, Double) -> Unit
 pub fn HTMLElement::set_scroll_top(Self, Double) -> Unit
 pub fn HTMLElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-pub fn HTMLElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLElement::set_tab_index(Self, Int32) -> Unit
 pub fn HTMLElement::set_title(Self, String) -> Unit
 pub fn HTMLElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLElement::set_virtual_keyboard_policy(Self, String) -> Unit
@@ -1421,8 +1421,8 @@ pub fn HTMLImageElement::get_auto_capitalize(Self) -> String
 pub fn HTMLImageElement::get_auto_correct(Self) -> Bool
 pub fn HTMLImageElement::get_auto_focus(Self) -> Bool
 pub fn HTMLImageElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn HTMLImageElement::get_child(Self, Int) -> Node
-pub fn HTMLImageElement::get_child_count(Self) -> Int
+pub fn HTMLImageElement::get_child(Self, Int32) -> Node
+pub fn HTMLImageElement::get_child_count(Self) -> Int32
 pub fn HTMLImageElement::get_children(Self) -> HTMLCollection
 pub fn HTMLImageElement::get_client_height(Self) -> Double
 pub fn HTMLImageElement::get_client_left(Self) -> Double
@@ -1455,7 +1455,7 @@ pub fn HTMLImageElement::get_natural_height(Self) -> Double
 pub fn HTMLImageElement::get_natural_width(Self) -> Double
 pub fn HTMLImageElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLImageElement::get_node_name(Self) -> String
-pub fn HTMLImageElement::get_node_type(Self) -> Int
+pub fn HTMLImageElement::get_node_type(Self) -> Int32
 pub fn HTMLImageElement::get_node_value(Self) -> String
 pub fn HTMLImageElement::get_nonce(Self) -> String
 pub fn HTMLImageElement::get_offset_height(Self) -> Double
@@ -1479,7 +1479,7 @@ pub fn HTMLImageElement::get_spellcheck(Self) -> Bool
 pub fn HTMLImageElement::get_src(Self) -> String
 pub fn HTMLImageElement::get_srcset(Self) -> String
 pub fn HTMLImageElement::get_style(Self) -> CSSStyleDeclaration
-pub fn HTMLImageElement::get_tab_index(Self) -> Int
+pub fn HTMLImageElement::get_tab_index(Self) -> Int32
 pub fn HTMLImageElement::get_title(Self) -> String
 pub fn HTMLImageElement::get_translate(Self) -> Bool
 pub fn HTMLImageElement::get_use_map(Self) -> String
@@ -1489,7 +1489,7 @@ pub fn HTMLImageElement::get_writing_suggestions(Self) -> String
 pub fn HTMLImageElement::get_x(Self) -> Double
 pub fn HTMLImageElement::get_y(Self) -> Double
 pub fn HTMLImageElement::has_attribute(Self, String) -> Bool
-pub fn HTMLImageElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLImageElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn HTMLImageElement::hide_popover(Self) -> Unit
 pub fn HTMLImageElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn HTMLImageElement::into(@js.Value) -> Self?
@@ -1499,7 +1499,7 @@ pub fn HTMLImageElement::new() -> Self
 pub fn HTMLImageElement::new_with_size(Double, Double) -> Self
 pub fn HTMLImageElement::query_selector(Self, String) -> Element?
 pub fn HTMLImageElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn HTMLImageElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLImageElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLImageElement::remove_attribute(Self, String) -> Unit
 pub fn HTMLImageElement::remove_child(Self, Node) -> Unit
 pub fn HTMLImageElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -1533,7 +1533,7 @@ pub fn HTMLImageElement::set_loading(Self, String) -> Unit
 pub fn HTMLImageElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLImageElement::set_nonce(Self, String) -> Unit
 pub fn HTMLImageElement::set_outer_text(Self, String) -> Unit
-pub fn HTMLImageElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLImageElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLImageElement::set_popover(Self, String?) -> Unit
 pub fn HTMLImageElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLImageElement::set_referrer_policy(Self, String) -> Unit
@@ -1544,7 +1544,7 @@ pub fn HTMLImageElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLImageElement::set_src(Self, String) -> Unit
 pub fn HTMLImageElement::set_srcset(Self, String) -> Unit
 pub fn HTMLImageElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-pub fn HTMLImageElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLImageElement::set_tab_index(Self, Int32) -> Unit
 pub fn HTMLImageElement::set_title(Self, String) -> Unit
 pub fn HTMLImageElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLImageElement::set_use_map(Self, String) -> Unit
@@ -1605,8 +1605,8 @@ pub fn HTMLInputElement::get_auto_capitalize(Self) -> String
 pub fn HTMLInputElement::get_auto_correct(Self) -> Bool
 pub fn HTMLInputElement::get_auto_focus(Self) -> Bool
 pub fn HTMLInputElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn HTMLInputElement::get_child(Self, Int) -> Node
-pub fn HTMLInputElement::get_child_count(Self) -> Int
+pub fn HTMLInputElement::get_child(Self, Int32) -> Node
+pub fn HTMLInputElement::get_child_count(Self) -> Int32
 pub fn HTMLInputElement::get_children(Self) -> HTMLCollection
 pub fn HTMLInputElement::get_client_height(Self) -> Double
 pub fn HTMLInputElement::get_client_left(Self) -> Double
@@ -1630,7 +1630,7 @@ pub fn HTMLInputElement::get_lang(Self) -> String
 pub fn HTMLInputElement::get_last_child(Self) -> Node
 pub fn HTMLInputElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLInputElement::get_node_name(Self) -> String
-pub fn HTMLInputElement::get_node_type(Self) -> Int
+pub fn HTMLInputElement::get_node_type(Self) -> Int32
 pub fn HTMLInputElement::get_node_value(Self) -> String
 pub fn HTMLInputElement::get_nonce(Self) -> String
 pub fn HTMLInputElement::get_offset_height(Self) -> Double
@@ -1650,13 +1650,13 @@ pub fn HTMLInputElement::get_scroll_top(Self) -> Double
 pub fn HTMLInputElement::get_scroll_width(Self) -> Double
 pub fn HTMLInputElement::get_spellcheck(Self) -> Bool
 pub fn HTMLInputElement::get_style(Self) -> CSSStyleDeclaration
-pub fn HTMLInputElement::get_tab_index(Self) -> Int
+pub fn HTMLInputElement::get_tab_index(Self) -> Int32
 pub fn HTMLInputElement::get_title(Self) -> String
 pub fn HTMLInputElement::get_translate(Self) -> Bool
 pub fn HTMLInputElement::get_virtual_keyboard_policy(Self) -> String
 pub fn HTMLInputElement::get_writing_suggestions(Self) -> String
 pub fn HTMLInputElement::has_attribute(Self, String) -> Bool
-pub fn HTMLInputElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLInputElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn HTMLInputElement::hide_popover(Self) -> Unit
 pub fn HTMLInputElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn HTMLInputElement::into(@js.Value) -> Self?
@@ -1664,7 +1664,7 @@ pub fn HTMLInputElement::is_same_node(Self, Node) -> Bool
 pub fn HTMLInputElement::matches(Self, String) -> Bool
 pub fn HTMLInputElement::query_selector(Self, String) -> Element?
 pub fn HTMLInputElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn HTMLInputElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLInputElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLInputElement::remove_attribute(Self, String) -> Unit
 pub fn HTMLInputElement::remove_child(Self, Node) -> Unit
 pub fn HTMLInputElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -1692,14 +1692,14 @@ pub fn HTMLInputElement::set_lang(Self, String) -> Unit
 pub fn HTMLInputElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLInputElement::set_nonce(Self, String) -> Unit
 pub fn HTMLInputElement::set_outer_text(Self, String) -> Unit
-pub fn HTMLInputElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLInputElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLInputElement::set_popover(Self, String?) -> Unit
 pub fn HTMLInputElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLInputElement::set_scroll_left(Self, Double) -> Unit
 pub fn HTMLInputElement::set_scroll_top(Self, Double) -> Unit
 pub fn HTMLInputElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLInputElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-pub fn HTMLInputElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLInputElement::set_tab_index(Self, Int32) -> Unit
 pub fn HTMLInputElement::set_title(Self, String) -> Unit
 pub fn HTMLInputElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLInputElement::set_value(Self, String) -> Unit
@@ -1768,8 +1768,8 @@ pub fn HTMLMediaElement::get_auto_focus(Self) -> Bool
 pub fn HTMLMediaElement::get_autoplay(Self) -> Bool
 pub fn HTMLMediaElement::get_bounding_client_rect(Self) -> DOMRect
 pub fn HTMLMediaElement::get_buffered(Self) -> TimeRanges
-pub fn HTMLMediaElement::get_child(Self, Int) -> Node
-pub fn HTMLMediaElement::get_child_count(Self) -> Int
+pub fn HTMLMediaElement::get_child(Self, Int32) -> Node
+pub fn HTMLMediaElement::get_child_count(Self) -> Int32
 pub fn HTMLMediaElement::get_children(Self) -> HTMLCollection
 pub fn HTMLMediaElement::get_client_height(Self) -> Double
 pub fn HTMLMediaElement::get_client_left(Self) -> Double
@@ -1805,10 +1805,10 @@ pub fn HTMLMediaElement::get_last_child(Self) -> Node
 pub fn HTMLMediaElement::get_loop(Self) -> Bool
 pub fn HTMLMediaElement::get_media_keys(Self) -> MediaKeys?
 pub fn HTMLMediaElement::get_muted(Self) -> Bool
-pub fn HTMLMediaElement::get_network_state(Self) -> Int
+pub fn HTMLMediaElement::get_network_state(Self) -> Int32
 pub fn HTMLMediaElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLMediaElement::get_node_name(Self) -> String
-pub fn HTMLMediaElement::get_node_type(Self) -> Int
+pub fn HTMLMediaElement::get_node_type(Self) -> Int32
 pub fn HTMLMediaElement::get_node_value(Self) -> String
 pub fn HTMLMediaElement::get_nonce(Self) -> String
 pub fn HTMLMediaElement::get_offset_height(Self) -> Double
@@ -1827,7 +1827,7 @@ pub fn HTMLMediaElement::get_preload(Self) -> String
 pub fn HTMLMediaElement::get_preserves_pitch(Self) -> Bool
 pub fn HTMLMediaElement::get_previous_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLMediaElement::get_property(Self, String) -> @js.Optional[String]
-pub fn HTMLMediaElement::get_ready_state(Self) -> Int
+pub fn HTMLMediaElement::get_ready_state(Self) -> Int32
 pub fn HTMLMediaElement::get_remote(Self) -> RemotePlayback
 pub fn HTMLMediaElement::get_scroll_height(Self) -> Double
 pub fn HTMLMediaElement::get_scroll_left(Self) -> Double
@@ -1840,7 +1840,7 @@ pub fn HTMLMediaElement::get_spellcheck(Self) -> Bool
 pub fn HTMLMediaElement::get_src(Self) -> String
 pub fn HTMLMediaElement::get_src_object(Self) -> @js.Value?
 pub fn HTMLMediaElement::get_style(Self) -> CSSStyleDeclaration
-pub fn HTMLMediaElement::get_tab_index(Self) -> Int
+pub fn HTMLMediaElement::get_tab_index(Self) -> Int32
 pub fn HTMLMediaElement::get_text_tracks(Self) -> TextTrackList
 pub fn HTMLMediaElement::get_title(Self) -> String
 pub fn HTMLMediaElement::get_translate(Self) -> Bool
@@ -1849,7 +1849,7 @@ pub fn HTMLMediaElement::get_virtual_keyboard_policy(Self) -> String
 pub fn HTMLMediaElement::get_volume(Self) -> Double
 pub fn HTMLMediaElement::get_writing_suggestions(Self) -> String
 pub fn HTMLMediaElement::has_attribute(Self, String) -> Bool
-pub fn HTMLMediaElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLMediaElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn HTMLMediaElement::hide_popover(Self) -> Unit
 pub fn HTMLMediaElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn HTMLMediaElement::into(@js.Value) -> Self?
@@ -1859,7 +1859,7 @@ pub fn HTMLMediaElement::matches(Self, String) -> Bool
 pub fn HTMLMediaElement::pause(Self) -> Unit
 pub fn HTMLMediaElement::query_selector(Self, String) -> Element?
 pub fn HTMLMediaElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn HTMLMediaElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLMediaElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLMediaElement::remove_attribute(Self, String) -> Unit
 pub fn HTMLMediaElement::remove_child(Self, Node) -> Unit
 pub fn HTMLMediaElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -1898,7 +1898,7 @@ pub fn HTMLMediaElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLMediaElement::set_nonce(Self, String) -> Unit
 pub fn HTMLMediaElement::set_outer_text(Self, String) -> Unit
 pub fn HTMLMediaElement::set_playback_rate(Self, Double) -> Unit
-pub fn HTMLMediaElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLMediaElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLMediaElement::set_popover(Self, String?) -> Unit
 pub fn HTMLMediaElement::set_preload(Self, String) -> Unit
 pub fn HTMLMediaElement::set_preserves_pitch(Self, Bool) -> Unit
@@ -1909,7 +1909,7 @@ pub fn HTMLMediaElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLMediaElement::set_src(Self, String) -> Unit
 pub fn HTMLMediaElement::set_src_object(Self, @js.Value?) -> Unit
 pub fn HTMLMediaElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-pub fn HTMLMediaElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLMediaElement::set_tab_index(Self, Int32) -> Unit
 pub fn HTMLMediaElement::set_title(Self, String) -> Unit
 pub fn HTMLMediaElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLMediaElement::set_virtual_keyboard_policy(Self, String) -> Unit
@@ -1981,8 +1981,8 @@ pub fn HTMLVideoElement::get_auto_focus(Self) -> Bool
 pub fn HTMLVideoElement::get_autoplay(Self) -> Bool
 pub fn HTMLVideoElement::get_bounding_client_rect(Self) -> DOMRect
 pub fn HTMLVideoElement::get_buffered(Self) -> TimeRanges
-pub fn HTMLVideoElement::get_child(Self, Int) -> Node
-pub fn HTMLVideoElement::get_child_count(Self) -> Int
+pub fn HTMLVideoElement::get_child(Self, Int32) -> Node
+pub fn HTMLVideoElement::get_child_count(Self) -> Int32
 pub fn HTMLVideoElement::get_children(Self) -> HTMLCollection
 pub fn HTMLVideoElement::get_client_height(Self) -> Double
 pub fn HTMLVideoElement::get_client_left(Self) -> Double
@@ -2018,10 +2018,10 @@ pub fn HTMLVideoElement::get_last_child(Self) -> Node
 pub fn HTMLVideoElement::get_loop(Self) -> Bool
 pub fn HTMLVideoElement::get_media_keys(Self) -> MediaKeys?
 pub fn HTMLVideoElement::get_muted(Self) -> Bool
-pub fn HTMLVideoElement::get_network_state(Self) -> Int
+pub fn HTMLVideoElement::get_network_state(Self) -> Int32
 pub fn HTMLVideoElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLVideoElement::get_node_name(Self) -> String
-pub fn HTMLVideoElement::get_node_type(Self) -> Int
+pub fn HTMLVideoElement::get_node_type(Self) -> Int32
 pub fn HTMLVideoElement::get_node_value(Self) -> String
 pub fn HTMLVideoElement::get_nonce(Self) -> String
 pub fn HTMLVideoElement::get_offset_height(Self) -> Double
@@ -2040,7 +2040,7 @@ pub fn HTMLVideoElement::get_preload(Self) -> String
 pub fn HTMLVideoElement::get_preserves_pitch(Self) -> Bool
 pub fn HTMLVideoElement::get_previous_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLVideoElement::get_property(Self, String) -> @js.Optional[String]
-pub fn HTMLVideoElement::get_ready_state(Self) -> Int
+pub fn HTMLVideoElement::get_ready_state(Self) -> Int32
 pub fn HTMLVideoElement::get_remote(Self) -> RemotePlayback
 pub fn HTMLVideoElement::get_scroll_height(Self) -> Double
 pub fn HTMLVideoElement::get_scroll_left(Self) -> Double
@@ -2053,7 +2053,7 @@ pub fn HTMLVideoElement::get_spellcheck(Self) -> Bool
 pub fn HTMLVideoElement::get_src(Self) -> String
 pub fn HTMLVideoElement::get_src_object(Self) -> @js.Value?
 pub fn HTMLVideoElement::get_style(Self) -> CSSStyleDeclaration
-pub fn HTMLVideoElement::get_tab_index(Self) -> Int
+pub fn HTMLVideoElement::get_tab_index(Self) -> Int32
 pub fn HTMLVideoElement::get_text_tracks(Self) -> TextTrackList
 pub fn HTMLVideoElement::get_title(Self) -> String
 pub fn HTMLVideoElement::get_translate(Self) -> Bool
@@ -2062,7 +2062,7 @@ pub fn HTMLVideoElement::get_virtual_keyboard_policy(Self) -> String
 pub fn HTMLVideoElement::get_volume(Self) -> Double
 pub fn HTMLVideoElement::get_writing_suggestions(Self) -> String
 pub fn HTMLVideoElement::has_attribute(Self, String) -> Bool
-pub fn HTMLVideoElement::has_pointer_capture(Self, Int) -> Bool
+pub fn HTMLVideoElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn HTMLVideoElement::hide_popover(Self) -> Unit
 pub fn HTMLVideoElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn HTMLVideoElement::into(@js.Value) -> Self?
@@ -2072,7 +2072,7 @@ pub fn HTMLVideoElement::matches(Self, String) -> Bool
 pub fn HTMLVideoElement::pause(Self) -> Unit
 pub fn HTMLVideoElement::query_selector(Self, String) -> Element?
 pub fn HTMLVideoElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn HTMLVideoElement::release_pointer_capture(Self, Int) -> Unit
+pub fn HTMLVideoElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLVideoElement::remove_attribute(Self, String) -> Unit
 pub fn HTMLVideoElement::remove_child(Self, Node) -> Unit
 pub fn HTMLVideoElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -2111,7 +2111,7 @@ pub fn HTMLVideoElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLVideoElement::set_nonce(Self, String) -> Unit
 pub fn HTMLVideoElement::set_outer_text(Self, String) -> Unit
 pub fn HTMLVideoElement::set_playback_rate(Self, Double) -> Unit
-pub fn HTMLVideoElement::set_pointer_capture(Self, Int) -> Unit
+pub fn HTMLVideoElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn HTMLVideoElement::set_popover(Self, String?) -> Unit
 pub fn HTMLVideoElement::set_preload(Self, String) -> Unit
 pub fn HTMLVideoElement::set_preserves_pitch(Self, Bool) -> Unit
@@ -2122,7 +2122,7 @@ pub fn HTMLVideoElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLVideoElement::set_src(Self, String) -> Unit
 pub fn HTMLVideoElement::set_src_object(Self, @js.Value?) -> Unit
 pub fn HTMLVideoElement::set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-pub fn HTMLVideoElement::set_tab_index(Self, Int) -> Unit
+pub fn HTMLVideoElement::set_tab_index(Self, Int32) -> Unit
 pub fn HTMLVideoElement::set_title(Self, String) -> Unit
 pub fn HTMLVideoElement::set_translate(Self, Bool) -> Unit
 pub fn HTMLVideoElement::set_virtual_keyboard_policy(Self, String) -> Unit
@@ -2166,10 +2166,10 @@ type ImageBitmapRenderingContext
 type ImageData
 pub fn ImageData::get_color_space(Self) -> String
 pub fn ImageData::get_data(Self) -> Uint8ClampedArray
-pub fn ImageData::get_height(Self) -> Int
-pub fn ImageData::get_width(Self) -> Int
-pub fn ImageData::new(Int, Int, @js.Optional[ImageDataSettings]) -> Self
-pub fn ImageData::new_with_data(Uint8ClampedArray, Int, Int, settings? : @js.Optional[ImageDataSettings]) -> Self
+pub fn ImageData::get_height(Self) -> Int32
+pub fn ImageData::get_width(Self) -> Int32
+pub fn ImageData::new(Int32, Int32, @js.Optional[ImageDataSettings]) -> Self
+pub fn ImageData::new_with_data(Uint8ClampedArray, Int32, Int32, settings? : @js.Optional[ImageDataSettings]) -> Self
 
 type ImageDataSettings
 pub fn ImageDataSettings::new(String) -> Self
@@ -2232,7 +2232,7 @@ pub fn KeyboardEvent::get_time_stamp(Self) -> Double
 pub fn KeyboardEvent::into(@js.Value) -> Self?
 pub fn KeyboardEvent::is_composing(Self) -> Bool
 pub fn KeyboardEvent::key(Self) -> String
-pub fn KeyboardEvent::location(Self) -> Int
+pub fn KeyboardEvent::location(Self) -> Int32
 pub fn KeyboardEvent::meta_key(Self) -> Bool
 pub fn KeyboardEvent::prevent_default(Self) -> Unit
 pub fn KeyboardEvent::repeat(Self) -> Bool
@@ -2339,8 +2339,8 @@ pub fn MouseEvent::composed_path(Self) -> FixedArray[EventTarget]
 pub fn MouseEvent::current_target(Self) -> @js.Nullable[EventTarget]
 pub fn MouseEvent::from(Self) -> @js.Value
 pub fn MouseEvent::get_alt_key(Self) -> Bool
-pub fn MouseEvent::get_button(Self) -> Int
-pub fn MouseEvent::get_buttons(Self) -> Int
+pub fn MouseEvent::get_button(Self) -> Int32
+pub fn MouseEvent::get_buttons(Self) -> Int32
 pub fn MouseEvent::get_client_x(Self) -> Double
 pub fn MouseEvent::get_client_y(Self) -> Double
 pub fn MouseEvent::get_ctrl_key(Self) -> Bool
@@ -2407,14 +2407,14 @@ pub fn Node::as_node(Self) -> Self
 pub fn Node::contains(Self, Self) -> Bool
 pub fn Node::dispatch_event(Self, Event) -> Unit
 pub fn Node::from(Self) -> @js.Value
-pub fn Node::get_child(Self, Int) -> Self
-pub fn Node::get_child_count(Self) -> Int
+pub fn Node::get_child(Self, Int32) -> Self
+pub fn Node::get_child_count(Self) -> Int32
 pub fn Node::get_first_child(Self) -> Self
 pub fn Node::get_is_connected(Self) -> Bool
 pub fn Node::get_last_child(Self) -> Self
 pub fn Node::get_next_sibling(Self) -> @js.Nullable[Self]
 pub fn Node::get_node_name(Self) -> String
-pub fn Node::get_node_type(Self) -> Int
+pub fn Node::get_node_type(Self) -> Int32
 pub fn Node::get_node_value(Self) -> String
 pub fn Node::get_parent_element(Self) -> Element?
 pub fn Node::get_parent_node(Self) -> @js.Nullable[Self]
@@ -2454,7 +2454,7 @@ type NodeList[T]
 pub fn[T] NodeList::get_length(Self[T]) -> Double
 pub fn[T] NodeList::item(Self[T], Double) -> @js.Nullable[T]
 pub fn[T] NodeList::iter(Self[T]) -> Iter[T]
-pub fn[T] NodeList::length(Self[T]) -> Int
+pub fn[T] NodeList::length(Self[T]) -> Int32
 
 type OffscreenCanvas
 
@@ -2475,8 +2475,8 @@ pub fn PointerEvent::from(Self) -> @js.Value
 pub fn PointerEvent::get_alt_key(Self) -> Bool
 pub fn PointerEvent::get_altitude_angle(Self) -> Double
 pub fn PointerEvent::get_azimuth_angle(Self) -> Double
-pub fn PointerEvent::get_button(Self) -> Int
-pub fn PointerEvent::get_buttons(Self) -> Int
+pub fn PointerEvent::get_button(Self) -> Int32
+pub fn PointerEvent::get_buttons(Self) -> Int32
 pub fn PointerEvent::get_client_x(Self) -> Double
 pub fn PointerEvent::get_client_y(Self) -> Double
 pub fn PointerEvent::get_ctrl_key(Self) -> Bool
@@ -2491,7 +2491,7 @@ pub fn PointerEvent::get_offset_x(Self) -> Double
 pub fn PointerEvent::get_offset_y(Self) -> Double
 pub fn PointerEvent::get_page_x(Self) -> Double
 pub fn PointerEvent::get_page_y(Self) -> Double
-pub fn PointerEvent::get_pointer_id(Self) -> Int
+pub fn PointerEvent::get_pointer_id(Self) -> Int32
 pub fn PointerEvent::get_pointer_type(Self) -> String
 pub fn PointerEvent::get_pressure(Self) -> Double
 pub fn PointerEvent::get_related_target(Self) -> EventTarget?
@@ -2499,10 +2499,10 @@ pub fn PointerEvent::get_screen_x(Self) -> Double
 pub fn PointerEvent::get_screen_y(Self) -> Double
 pub fn PointerEvent::get_shift_key(Self) -> Bool
 pub fn PointerEvent::get_tangential_pressure(Self) -> Double
-pub fn PointerEvent::get_tilt_x(Self) -> Int
-pub fn PointerEvent::get_tilt_y(Self) -> Int
+pub fn PointerEvent::get_tilt_x(Self) -> Int32
+pub fn PointerEvent::get_tilt_y(Self) -> Int32
 pub fn PointerEvent::get_time_stamp(Self) -> Double
-pub fn PointerEvent::get_twist(Self) -> Int
+pub fn PointerEvent::get_twist(Self) -> Int32
 pub fn PointerEvent::get_width(Self) -> Double
 pub fn PointerEvent::get_x(Self) -> Double
 pub fn PointerEvent::get_y(Self) -> Double
@@ -2565,8 +2565,8 @@ pub fn SVGElement::get_attribute(Self, String) -> String?
 pub fn SVGElement::get_attribute_style_map(Self) -> StylePropertyMap
 pub fn SVGElement::get_auto_focus(Self) -> Bool
 pub fn SVGElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn SVGElement::get_child(Self, Int) -> Node
-pub fn SVGElement::get_child_count(Self) -> Int
+pub fn SVGElement::get_child(Self, Int32) -> Node
+pub fn SVGElement::get_child_count(Self) -> Int32
 pub fn SVGElement::get_children(Self) -> HTMLCollection
 pub fn SVGElement::get_client_height(Self) -> Double
 pub fn SVGElement::get_client_left(Self) -> Double
@@ -2579,7 +2579,7 @@ pub fn SVGElement::get_is_connected(Self) -> Bool
 pub fn SVGElement::get_last_child(Self) -> Node
 pub fn SVGElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn SVGElement::get_node_name(Self) -> String
-pub fn SVGElement::get_node_type(Self) -> Int
+pub fn SVGElement::get_node_type(Self) -> Int32
 pub fn SVGElement::get_node_value(Self) -> String
 pub fn SVGElement::get_nonce(Self) -> String
 pub fn SVGElement::get_owner_svg_element(Self) -> Self?
@@ -2592,17 +2592,17 @@ pub fn SVGElement::get_scroll_left(Self) -> Double
 pub fn SVGElement::get_scroll_top(Self) -> Double
 pub fn SVGElement::get_scroll_width(Self) -> Double
 pub fn SVGElement::get_style(Self) -> CSSStyleDeclaration
-pub fn SVGElement::get_tab_index(Self) -> Int
+pub fn SVGElement::get_tab_index(Self) -> Int32
 pub fn SVGElement::get_viewport_element(Self) -> Self?
 pub fn SVGElement::has_attribute(Self, String) -> Bool
-pub fn SVGElement::has_pointer_capture(Self, Int) -> Bool
+pub fn SVGElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn SVGElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn SVGElement::into(@js.Value) -> Self?
 pub fn SVGElement::is_same_node(Self, Node) -> Bool
 pub fn SVGElement::matches(Self, String) -> Bool
 pub fn SVGElement::query_selector(Self, String) -> Element?
 pub fn SVGElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn SVGElement::release_pointer_capture(Self, Int) -> Unit
+pub fn SVGElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn SVGElement::remove_attribute(Self, String) -> Unit
 pub fn SVGElement::remove_child(Self, Node) -> Unit
 pub fn SVGElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -2616,12 +2616,12 @@ pub fn SVGElement::set_auto_focus(Self, Bool) -> Unit
 pub fn SVGElement::set_inner_html(Self, String) -> Unit
 pub fn SVGElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn SVGElement::set_nonce(Self, String) -> Unit
-pub fn SVGElement::set_pointer_capture(Self, Int) -> Unit
+pub fn SVGElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn SVGElement::set_property(Self, String, @js.Value) -> Unit
 pub fn SVGElement::set_scroll_left(Self, Double) -> Unit
 pub fn SVGElement::set_scroll_top(Self, Double) -> Unit
 pub fn SVGElement::set_style(Self, CSSStyleDeclaration) -> Unit
-pub fn SVGElement::set_tab_index(Self, Int) -> Unit
+pub fn SVGElement::set_tab_index(Self, Int32) -> Unit
 pub fn SVGElement::to_clipboard(Self) -> Clipboard?
 pub fn SVGElement::to_comment(Self) -> Comment?
 pub fn SVGElement::to_document(Self) -> Document?
@@ -2668,8 +2668,8 @@ pub fn SVGGraphicsElement::get_attribute_style_map(Self) -> StylePropertyMap
 pub fn SVGGraphicsElement::get_auto_focus(Self) -> Bool
 pub fn SVGGraphicsElement::get_bbox(Self) -> DOMRect
 pub fn SVGGraphicsElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn SVGGraphicsElement::get_child(Self, Int) -> Node
-pub fn SVGGraphicsElement::get_child_count(Self) -> Int
+pub fn SVGGraphicsElement::get_child(Self, Int32) -> Node
+pub fn SVGGraphicsElement::get_child_count(Self) -> Int32
 pub fn SVGGraphicsElement::get_children(Self) -> HTMLCollection
 pub fn SVGGraphicsElement::get_client_height(Self) -> Double
 pub fn SVGGraphicsElement::get_client_left(Self) -> Double
@@ -2683,7 +2683,7 @@ pub fn SVGGraphicsElement::get_is_connected(Self) -> Bool
 pub fn SVGGraphicsElement::get_last_child(Self) -> Node
 pub fn SVGGraphicsElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn SVGGraphicsElement::get_node_name(Self) -> String
-pub fn SVGGraphicsElement::get_node_type(Self) -> Int
+pub fn SVGGraphicsElement::get_node_type(Self) -> Int32
 pub fn SVGGraphicsElement::get_node_value(Self) -> String
 pub fn SVGGraphicsElement::get_nonce(Self) -> String
 pub fn SVGGraphicsElement::get_owner_svg_element(Self) -> SVGElement?
@@ -2699,18 +2699,18 @@ pub fn SVGGraphicsElement::get_scroll_top(Self) -> Double
 pub fn SVGGraphicsElement::get_scroll_width(Self) -> Double
 pub fn SVGGraphicsElement::get_style(Self) -> CSSStyleDeclaration
 pub fn SVGGraphicsElement::get_system_language(Self) -> SVGStringList
-pub fn SVGGraphicsElement::get_tab_index(Self) -> Int
+pub fn SVGGraphicsElement::get_tab_index(Self) -> Int32
 pub fn SVGGraphicsElement::get_transform(Self) -> SVGAnimatedTransformList
 pub fn SVGGraphicsElement::get_viewport_element(Self) -> SVGElement?
 pub fn SVGGraphicsElement::has_attribute(Self, String) -> Bool
-pub fn SVGGraphicsElement::has_pointer_capture(Self, Int) -> Bool
+pub fn SVGGraphicsElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn SVGGraphicsElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn SVGGraphicsElement::into(@js.Value) -> Self?
 pub fn SVGGraphicsElement::is_same_node(Self, Node) -> Bool
 pub fn SVGGraphicsElement::matches(Self, String) -> Bool
 pub fn SVGGraphicsElement::query_selector(Self, String) -> Element?
 pub fn SVGGraphicsElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn SVGGraphicsElement::release_pointer_capture(Self, Int) -> Unit
+pub fn SVGGraphicsElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn SVGGraphicsElement::remove_attribute(Self, String) -> Unit
 pub fn SVGGraphicsElement::remove_child(Self, Node) -> Unit
 pub fn SVGGraphicsElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -2724,12 +2724,12 @@ pub fn SVGGraphicsElement::set_auto_focus(Self, Bool) -> Unit
 pub fn SVGGraphicsElement::set_inner_html(Self, String) -> Unit
 pub fn SVGGraphicsElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn SVGGraphicsElement::set_nonce(Self, String) -> Unit
-pub fn SVGGraphicsElement::set_pointer_capture(Self, Int) -> Unit
+pub fn SVGGraphicsElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn SVGGraphicsElement::set_property(Self, String, @js.Value) -> Unit
 pub fn SVGGraphicsElement::set_scroll_left(Self, Double) -> Unit
 pub fn SVGGraphicsElement::set_scroll_top(Self, Double) -> Unit
 pub fn SVGGraphicsElement::set_style(Self, CSSStyleDeclaration) -> Unit
-pub fn SVGGraphicsElement::set_tab_index(Self, Int) -> Unit
+pub fn SVGGraphicsElement::set_tab_index(Self, Int32) -> Unit
 pub fn SVGGraphicsElement::to_clipboard(Self) -> Clipboard?
 pub fn SVGGraphicsElement::to_comment(Self) -> Comment?
 pub fn SVGGraphicsElement::to_document(Self) -> Document?
@@ -2775,8 +2775,8 @@ pub fn SVGImageElement::get_attribute(Self, String) -> String?
 pub fn SVGImageElement::get_attribute_style_map(Self) -> StylePropertyMap
 pub fn SVGImageElement::get_auto_focus(Self) -> Bool
 pub fn SVGImageElement::get_bounding_client_rect(Self) -> DOMRect
-pub fn SVGImageElement::get_child(Self, Int) -> Node
-pub fn SVGImageElement::get_child_count(Self) -> Int
+pub fn SVGImageElement::get_child(Self, Int32) -> Node
+pub fn SVGImageElement::get_child_count(Self) -> Int32
 pub fn SVGImageElement::get_children(Self) -> HTMLCollection
 pub fn SVGImageElement::get_client_height(Self) -> Double
 pub fn SVGImageElement::get_client_left(Self) -> Double
@@ -2789,7 +2789,7 @@ pub fn SVGImageElement::get_is_connected(Self) -> Bool
 pub fn SVGImageElement::get_last_child(Self) -> Node
 pub fn SVGImageElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn SVGImageElement::get_node_name(Self) -> String
-pub fn SVGImageElement::get_node_type(Self) -> Int
+pub fn SVGImageElement::get_node_type(Self) -> Int32
 pub fn SVGImageElement::get_node_value(Self) -> String
 pub fn SVGImageElement::get_nonce(Self) -> String
 pub fn SVGImageElement::get_owner_svg_element(Self) -> SVGElement?
@@ -2802,17 +2802,17 @@ pub fn SVGImageElement::get_scroll_left(Self) -> Double
 pub fn SVGImageElement::get_scroll_top(Self) -> Double
 pub fn SVGImageElement::get_scroll_width(Self) -> Double
 pub fn SVGImageElement::get_style(Self) -> CSSStyleDeclaration
-pub fn SVGImageElement::get_tab_index(Self) -> Int
+pub fn SVGImageElement::get_tab_index(Self) -> Int32
 pub fn SVGImageElement::get_viewport_element(Self) -> SVGElement?
 pub fn SVGImageElement::has_attribute(Self, String) -> Bool
-pub fn SVGImageElement::has_pointer_capture(Self, Int) -> Bool
+pub fn SVGImageElement::has_pointer_capture(Self, Int32) -> Bool
 pub fn SVGImageElement::insert_before(Self, Node, @js.Nullable[Node]) -> Unit
 pub fn SVGImageElement::into(@js.Value) -> Self?
 pub fn SVGImageElement::is_same_node(Self, Node) -> Bool
 pub fn SVGImageElement::matches(Self, String) -> Bool
 pub fn SVGImageElement::query_selector(Self, String) -> Element?
 pub fn SVGImageElement::query_selector_all(Self, String) -> NodeList[Element]
-pub fn SVGImageElement::release_pointer_capture(Self, Int) -> Unit
+pub fn SVGImageElement::release_pointer_capture(Self, Int32) -> Unit
 pub fn SVGImageElement::remove_attribute(Self, String) -> Unit
 pub fn SVGImageElement::remove_child(Self, Node) -> Unit
 pub fn SVGImageElement::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -2826,12 +2826,12 @@ pub fn SVGImageElement::set_auto_focus(Self, Bool) -> Unit
 pub fn SVGImageElement::set_inner_html(Self, String) -> Unit
 pub fn SVGImageElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn SVGImageElement::set_nonce(Self, String) -> Unit
-pub fn SVGImageElement::set_pointer_capture(Self, Int) -> Unit
+pub fn SVGImageElement::set_pointer_capture(Self, Int32) -> Unit
 pub fn SVGImageElement::set_property(Self, String, @js.Value) -> Unit
 pub fn SVGImageElement::set_scroll_left(Self, Double) -> Unit
 pub fn SVGImageElement::set_scroll_top(Self, Double) -> Unit
 pub fn SVGImageElement::set_style(Self, CSSStyleDeclaration) -> Unit
-pub fn SVGImageElement::set_tab_index(Self, Int) -> Unit
+pub fn SVGImageElement::set_tab_index(Self, Int32) -> Unit
 pub fn SVGImageElement::to_clipboard(Self) -> Clipboard?
 pub fn SVGImageElement::to_comment(Self) -> Comment?
 pub fn SVGImageElement::to_document(Self) -> Document?
@@ -2865,7 +2865,7 @@ pub fn SVGStringList::get_length(Self) -> Double
 pub fn SVGStringList::get_number_of_items(Self) -> Double
 pub fn SVGStringList::initialize(Self, String) -> String
 pub fn SVGStringList::insert_item_before(Self, String, Double) -> String
-pub fn SVGStringList::length(Self) -> Int
+pub fn SVGStringList::length(Self) -> Int32
 pub fn SVGStringList::remove_item(Self, Double) -> String
 pub fn SVGStringList::replace_item(Self, String, Double) -> String
 
@@ -2880,7 +2880,7 @@ pub fn SVGTransformList::get_length(Self) -> Double
 pub fn SVGTransformList::get_number_of_items(Self) -> Double
 pub fn SVGTransformList::initialize(Self, SVGTransform) -> SVGTransform
 pub fn SVGTransformList::insert_item_before(Self, SVGTransform, Double) -> SVGTransform
-pub fn SVGTransformList::length(Self) -> Int
+pub fn SVGTransformList::length(Self) -> Int32
 pub fn SVGTransformList::remove_item(Self, Double) -> SVGTransform
 pub fn SVGTransformList::replace_item(Self, SVGTransform, Double) -> SVGTransform
 
@@ -2895,14 +2895,14 @@ pub fn Text::as_node(Self) -> Node
 pub fn Text::contains(Self, Node) -> Bool
 pub fn Text::dispatch_event(Self, Event) -> Unit
 pub fn Text::from(Self) -> @js.Value
-pub fn Text::get_child(Self, Int) -> Node
-pub fn Text::get_child_count(Self) -> Int
+pub fn Text::get_child(Self, Int32) -> Node
+pub fn Text::get_child_count(Self) -> Int32
 pub fn Text::get_first_child(Self) -> Node
 pub fn Text::get_is_connected(Self) -> Bool
 pub fn Text::get_last_child(Self) -> Node
 pub fn Text::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn Text::get_node_name(Self) -> String
-pub fn Text::get_node_type(Self) -> Int
+pub fn Text::get_node_type(Self) -> Int32
 pub fn Text::get_node_value(Self) -> String
 pub fn Text::get_parent_element(Self) -> Element?
 pub fn Text::get_parent_node(Self) -> @js.Nullable[Node]
@@ -2945,16 +2945,16 @@ pub fn TextTrack::get_label(Self) -> String
 
 type TextTrackList
 #alias("_[_]")
-pub fn TextTrackList::get(Self, Int) -> TextTrack?
+pub fn TextTrackList::get(Self, Int32) -> TextTrack?
 pub fn TextTrackList::get_track_by_id(Self, String) -> TextTrack?
 pub fn TextTrackList::iter(Self) -> Iter[TextTrack]
-pub fn TextTrackList::length(Self) -> Int
+pub fn TextTrackList::length(Self) -> Int32
 
 type TimeRanges
-pub fn TimeRanges::end(Self, Int) -> Double?
+pub fn TimeRanges::end(Self, Int32) -> Double?
 pub fn TimeRanges::iter(Self) -> Iter[(Double, Double)]
-pub fn TimeRanges::length(Self) -> Int
-pub fn TimeRanges::start(Self, Int) -> Double?
+pub fn TimeRanges::length(Self) -> Int32
+pub fn TimeRanges::start(Self, Int32) -> Double?
 
 type ToggleEvent
 pub fn ToggleEvent::as_event(Self) -> Event
@@ -3057,9 +3057,9 @@ pub impl IsUIEvent for UIEvent
 pub impl @js.Cast for UIEvent
 
 type Uint8ClampedArray
-pub fn Uint8ClampedArray::get(Self, Int) -> Int?
-pub fn Uint8ClampedArray::length(Self) -> Int
-pub fn Uint8ClampedArray::set(Self, Int, Int) -> Unit
+pub fn Uint8ClampedArray::get(Self, Int32) -> Int32?
+pub fn Uint8ClampedArray::length(Self) -> Int32
+pub fn Uint8ClampedArray::set(Self, Int32, Int32) -> Unit
 
 type VideoFrame
 
@@ -3070,10 +3070,10 @@ pub fn VideoTrack::get_label(Self) -> String
 
 type VideoTrackList
 #alias("_[_]")
-pub fn VideoTrackList::get(Self, Int) -> VideoTrack?
+pub fn VideoTrackList::get(Self, Int32) -> VideoTrack?
 pub fn VideoTrackList::get_track_by_id(Self, String) -> VideoTrack?
 pub fn VideoTrackList::iter(Self) -> Iter[VideoTrack]
-pub fn VideoTrackList::length(Self) -> Int
+pub fn VideoTrackList::length(Self) -> Int32
 
 type VisualViewport
 pub fn VisualViewport::add_event_listener(Self, String, (Event) -> Unit) -> Unit
@@ -3120,13 +3120,13 @@ pub fn WebSocket::add_event_listener_with_options(Self, String, (Event) -> Unit,
 pub fn WebSocket::as_event_target(Self) -> EventTarget
 pub fn WebSocket::close(Self) -> Unit
 pub fn WebSocket::close_quietly(Self) -> Unit
-pub fn WebSocket::close_safe(Self, code? : Int, reason? : String) -> Result[Unit, String]
-pub fn WebSocket::close_with_code_reason(Self, Int, String) -> Unit
+pub fn WebSocket::close_safe(Self, code? : Int32, reason? : String) -> Result[Unit, String]
+pub fn WebSocket::close_with_code_reason(Self, Int32, String) -> Unit
 pub fn WebSocket::dispatch_event(Self, Event) -> Unit
 pub fn WebSocket::from(Self) -> @js.Value
-pub fn WebSocket::get_buffered_amount(Self) -> Int
+pub fn WebSocket::get_buffered_amount(Self) -> Int32
 pub fn WebSocket::get_protocol(Self) -> String
-pub fn WebSocket::get_ready_state(Self) -> Int
+pub fn WebSocket::get_ready_state(Self) -> Int32
 pub fn WebSocket::get_url(Self) -> String
 pub fn WebSocket::into(@js.Value) -> Self?
 pub fn WebSocket::new(String) -> Self
@@ -3166,13 +3166,13 @@ pub fn WheelEvent::composed_path(Self) -> FixedArray[EventTarget]
 pub fn WheelEvent::current_target(Self) -> @js.Nullable[EventTarget]
 pub fn WheelEvent::from(Self) -> @js.Value
 pub fn WheelEvent::get_alt_key(Self) -> Bool
-pub fn WheelEvent::get_button(Self) -> Int
-pub fn WheelEvent::get_buttons(Self) -> Int
+pub fn WheelEvent::get_button(Self) -> Int32
+pub fn WheelEvent::get_buttons(Self) -> Int32
 pub fn WheelEvent::get_client_x(Self) -> Double
 pub fn WheelEvent::get_client_y(Self) -> Double
 pub fn WheelEvent::get_ctrl_key(Self) -> Bool
 pub fn WheelEvent::get_default_prevented(Self) -> Bool
-pub fn WheelEvent::get_delta_mode(Self) -> Int
+pub fn WheelEvent::get_delta_mode(Self) -> Int32
 pub fn WheelEvent::get_delta_x(Self) -> Double
 pub fn WheelEvent::get_delta_y(Self) -> Double
 pub fn WheelEvent::get_delta_z(Self) -> Double
@@ -3223,8 +3223,8 @@ pub fn Window::add_event_listener_with_options(Self, String, (Event) -> Unit, ca
 pub fn Window::alert(Self, String) -> Unit
 pub fn Window::as_event_target(Self) -> EventTarget
 pub fn Window::cancel_animation_frame(Self, Double) -> Unit
-pub fn Window::clear_interval(Self, Int) -> Unit
-pub fn Window::clear_timeout(Self, Int) -> Unit
+pub fn Window::clear_interval(Self, Int32) -> Unit
+pub fn Window::clear_timeout(Self, Int32) -> Unit
 pub fn Window::confirm(Self, String) -> Bool
 pub fn Window::current_url(Self) -> String
 pub fn Window::dispatch_event(Self, Event) -> Unit
@@ -3254,8 +3254,8 @@ pub fn Window::scroll_to_bottom(Self, behavior? : String) -> Unit
 pub fn Window::scroll_to_top(Self, behavior? : String) -> Unit
 pub fn Window::scroll_x(Self) -> Double
 pub fn Window::scroll_y(Self) -> Double
-pub fn Window::set_interval(Self, () -> Unit, Int) -> Int
-pub fn Window::set_timeout(Self, () -> Unit, Int) -> Int
+pub fn Window::set_interval(Self, () -> Unit, Int32) -> Int32
+pub fn Window::set_timeout(Self, () -> Unit, Int32) -> Int32
 pub fn Window::to_clipboard(Self) -> Clipboard?
 pub fn Window::to_comment(Self) -> Comment?
 pub fn Window::to_document(Self) -> Document?
@@ -3300,9 +3300,9 @@ pub trait IsElement : IsNode {
   fn get_client_left(Self) -> Double
   fn get_client_top(Self) -> Double
   fn get_client_rects(Self) -> DOMRectList
-  fn set_pointer_capture(Self, Int) -> Unit
-  fn release_pointer_capture(Self, Int) -> Unit
-  fn has_pointer_capture(Self, Int) -> Bool
+  fn set_pointer_capture(Self, Int32) -> Unit
+  fn release_pointer_capture(Self, Int32) -> Unit
+  fn has_pointer_capture(Self, Int32) -> Bool
   fn set_attribute(Self, String, String) -> Unit
   fn get_attribute(Self, String) -> String?
   fn remove_attribute(Self, String) -> Unit
@@ -3406,7 +3406,7 @@ pub trait IsHTMLMediaElement : IsHtmlElement {
   fn get_media_keys(Self) -> MediaKeys?
   fn get_muted(Self) -> Bool
   fn set_muted(Self, Bool) -> Unit
-  fn get_network_state(Self) -> Int
+  fn get_network_state(Self) -> Int32
   fn get_paused(Self) -> Bool
   fn get_playback_rate(Self) -> Double
   fn set_playback_rate(Self, Double) -> Unit
@@ -3415,7 +3415,7 @@ pub trait IsHTMLMediaElement : IsHtmlElement {
   fn set_preload(Self, String) -> Unit
   fn get_preserves_pitch(Self) -> Bool
   fn set_preserves_pitch(Self, Bool) -> Unit
-  fn get_ready_state(Self) -> Int
+  fn get_ready_state(Self) -> Int32
   fn get_remote(Self) -> RemotePlayback
   fn get_seekable(Self) -> TimeRanges
   fn get_seeking(Self) -> Bool
@@ -3487,8 +3487,8 @@ pub trait IsHtmlElement : IsElement {
   fn set_spellcheck(Self, Bool) -> Unit
   fn get_style(Self) -> CSSStyleDeclaration
   fn set_style_declaration(Self, CSSStyleDeclaration) -> Unit
-  fn get_tab_index(Self) -> Int
-  fn set_tab_index(Self, Int) -> Unit
+  fn get_tab_index(Self) -> Int32
+  fn set_tab_index(Self, Int32) -> Unit
   fn get_title(Self) -> String
   fn set_title(Self, String) -> Unit
   fn get_translate(Self) -> Bool
@@ -3510,8 +3510,8 @@ pub trait IsHtmlElement : IsElement {
 pub trait IsMouseEvent : IsUIEvent {
   fn as_mouse_event(Self) -> MouseEvent
   fn get_alt_key(Self) -> Bool
-  fn get_button(Self) -> Int
-  fn get_buttons(Self) -> Int
+  fn get_button(Self) -> Int32
+  fn get_buttons(Self) -> Int32
   fn get_client_x(Self) -> Double
   fn get_client_y(Self) -> Double
   fn get_ctrl_key(Self) -> Bool
@@ -3533,7 +3533,7 @@ pub trait IsMouseEvent : IsUIEvent {
 
 pub trait IsNode : IsEventTarget {
   fn as_node(Self) -> Node
-  fn get_node_type(Self) -> Int
+  fn get_node_type(Self) -> Int32
   fn get_node_name(Self) -> String
   fn get_node_value(Self) -> String
   fn set_node_value(Self, @js.Nullable[String]) -> Unit
@@ -3549,8 +3549,8 @@ pub trait IsNode : IsEventTarget {
   fn remove_child(Self, Node) -> Unit
   fn replace_child(Self, Node, Node) -> Unit
   fn insert_before(Self, Node, @js.Nullable[Node]) -> Unit
-  fn get_child(Self, Int) -> Node
-  fn get_child_count(Self) -> Int
+  fn get_child(Self, Int32) -> Node
+  fn get_child_count(Self) -> Int32
   fn is_same_node(Self, Node) -> Bool
 }
 
@@ -3565,8 +3565,8 @@ pub trait IsSVGElement : IsElement {
   fn get_owner_svg_element(Self) -> SVGElement?
   fn get_style(Self) -> CSSStyleDeclaration
   fn set_style(Self, CSSStyleDeclaration) -> Unit
-  fn get_tab_index(Self) -> Int
-  fn set_tab_index(Self, Int) -> Unit
+  fn get_tab_index(Self) -> Int32
+  fn set_tab_index(Self, Int32) -> Unit
   fn get_viewport_element(Self) -> SVGElement?
   fn blur(Self) -> Unit
   fn focus(Self) -> Unit

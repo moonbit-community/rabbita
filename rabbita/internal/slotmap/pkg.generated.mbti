@@ -7,9 +7,9 @@ package "moonbit-community/rabbita/internal/slotmap"
 
 // Types and methods
 type Id derive(Compare, Eq, Hash)
-pub fn Id::compare(Self, Self) -> Int
+pub fn Id::compare(Self, Self) -> Int32
 pub fn Id::equal(Self, Self) -> Bool
-pub fn Id::hash(Self) -> Int
+pub fn Id::hash(Self) -> Int32
 pub fn Id::hash_combine(Self, Hasher) -> Unit
 pub fn Id::not_equal(Self, Self) -> Bool
 pub fn Id::op_ge(Self, Self) -> Bool

@@ -12,13 +12,13 @@ import {
 // Types and methods
 pub(all) enum Variant {
   Boolean(Bool)
-  Integer(Int)
+  Integer(Int32)
   Floating(Double)
   String(String)
 } derive(Compare, Eq, Hash, @debug.Debug)
-pub fn Variant::compare(Self, Self) -> Int
+pub fn Variant::compare(Self, Self) -> Int32
 pub fn Variant::equal(Self, Self) -> Bool
-pub fn Variant::hash(Self) -> Int
+pub fn Variant::hash(Self) -> Int32
 pub fn Variant::hash_combine(Self, Hasher) -> Unit
 pub fn Variant::not_equal(Self, Self) -> Bool
 pub fn Variant::op_ge(Self, Self) -> Bool
