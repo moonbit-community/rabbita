@@ -74,6 +74,16 @@ pub fn[T] Optional::to_option(Self[T]) -> T?
 pub fn[T] Optional::undefined() -> Self[T]
 pub fn[T] Optional::unwrap(Self[T]) -> T
 
+pub(all) struct Promise[T](@js_async.Promise[T])
+pub fn[T] Promise::catch_(Self[T], (Value) -> T raise) -> Self[T]
+pub fn[T] Promise::finally_(Self[T], () -> Unit raise) -> Self[T]
+pub fn[T, U] Promise::flat_map(Self[T], (T) -> Self[U] raise) -> Self[U]
+pub fn[T] Promise::from_async(async () -> T, abort_signal? : @js_async.AbortSignal) -> Self[T]
+pub fn[T] Promise::reject(Value) -> Self[T]
+pub fn[T] Promise::resolve(T) -> Self[T]
+pub fn[T, U] Promise::then(Self[T], (T) -> U raise) -> Self[U]
+pub async fn[T] Promise::wait(Self[T], abort_controller? : @js_async.AbortController) -> T
+
 type Symbol
 pub fn Symbol::make() -> Self
 pub fn Symbol::make_with_number(Double) -> Self
@@ -200,7 +210,6 @@ pub impl Show for Value
 pub impl @json.FromJson for Value
 
 // Type aliases
-pub using @js_async {type Promise}
 
 // Traits
 pub(open) trait Cast {

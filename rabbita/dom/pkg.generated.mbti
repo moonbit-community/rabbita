@@ -3,7 +3,6 @@ package "moonbit-community/rabbita/dom"
 
 import {
   "moonbit-community/rabbita/js",
-  "moonbitlang/async/js_async",
 }
 
 // Values
@@ -298,7 +297,7 @@ pub fn Clipboard::as_event_target(Self) -> EventTarget
 pub fn Clipboard::dispatch_event(Self, Event) -> Unit
 pub fn Clipboard::from(Self) -> @js.Value
 pub fn Clipboard::into(@js.Value) -> Self?
-pub fn Clipboard::read_text(Self) -> @js_async.Promise[String]
+pub fn Clipboard::read_text(Self) -> @js.Promise[String]
 pub fn Clipboard::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
 pub fn Clipboard::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
 pub fn Clipboard::to_clipboard(Self) -> Self?
@@ -320,7 +319,7 @@ pub fn Clipboard::to_svg_graphics_element(Self) -> SVGGraphicsElement?
 pub fn Clipboard::to_svg_image_element(Self) -> SVGImageElement?
 pub fn Clipboard::to_text(Self) -> Text?
 pub fn Clipboard::to_window(Self) -> Window?
-pub fn Clipboard::write_text(Self, String) -> @js_async.Promise[Unit]
+pub fn Clipboard::write_text(Self, String) -> @js.Promise[Unit]
 pub impl IsEventTarget for Clipboard
 pub impl @js.Cast for Clipboard
 
