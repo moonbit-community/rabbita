@@ -8,7 +8,7 @@ import {
 }
 
 // Values
-pub fn close(String, code? : Int, reason? : String, failed? : @cmd.Emit[String]) -> @cmd.Cmd
+pub fn close(String, code? : Int32, reason? : String, failed? : @cmd.Emit[String]) -> @cmd.Cmd
 
 pub fn connect(String, String, protocols? : FixedArray[String], on_event~ : @cmd.Emit[Event], failed? : @cmd.Emit[String]) -> @cmd.Cmd
 
@@ -22,7 +22,7 @@ pub fn state(String, reply~ : @cmd.Emit[Result[Snapshot, String]]) -> @cmd.Cmd
 
 // Types and methods
 pub struct CloseInfo {
-  code : Int
+  code : Int32
   reason : String
   clean : Bool
 } derive(@debug.Debug)
@@ -67,7 +67,7 @@ pub struct Snapshot {
   id : String
   url : String
   protocol : String
-  buffered_amount : Int
+  buffered_amount : Int32
   ready_state : ReadyState
 } derive(@debug.Debug)
 pub fn Snapshot::output(Self, &Logger) -> Unit

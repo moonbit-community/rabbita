@@ -16,7 +16,7 @@ pub(all) enum Protocol {
   Https
   Other(String)
 } derive(Compare, Eq, @debug.Debug)
-pub fn Protocol::compare(Self, Self) -> Int
+pub fn Protocol::compare(Self, Self) -> Int32
 pub fn Protocol::equal(Self, Self) -> Bool
 pub fn Protocol::not_equal(Self, Self) -> Bool
 pub fn Protocol::op_ge(Self, Self) -> Bool
@@ -31,12 +31,12 @@ pub impl Show for Protocol
 pub(all) struct Url {
   protocol : Protocol
   host : String
-  port : Int?
+  port : Int32?
   path : String
   query : String?
   fragment : String?
 } derive(Compare, Eq, @debug.Debug)
-pub fn Url::compare(Self, Self) -> Int
+pub fn Url::compare(Self, Self) -> Int32
 pub fn Url::equal(Self, Self) -> Bool
 pub fn Url::not_equal(Self, Self) -> Bool
 pub fn Url::op_ge(Self, Self) -> Bool
@@ -52,7 +52,7 @@ pub(all) enum UrlRequest {
   Internal(Url)
   External(String)
 } derive(Compare, Eq, @debug.Debug)
-pub fn UrlRequest::compare(Self, Self) -> Int
+pub fn UrlRequest::compare(Self, Self) -> Int32
 pub fn UrlRequest::equal(Self, Self) -> Bool
 pub fn UrlRequest::not_equal(Self, Self) -> Bool
 pub fn UrlRequest::op_ge(Self, Self) -> Bool

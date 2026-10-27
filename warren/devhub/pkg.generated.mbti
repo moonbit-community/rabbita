@@ -26,9 +26,9 @@ pub fn ClientMsg::to_repr(Self) -> @debug.Repr
 pub struct Devhub {
   // private fields
 }
-pub async fn Devhub::Devhub(UInt, @vfs.VirtualFileSystem, html_fallback_path? : String) -> Self
+pub async fn Devhub::Devhub(UInt32, @vfs.VirtualFileSystem, html_fallback_path? : String) -> Self
 pub fn Devhub::broadcast(Self, BroadcastMsg) -> Unit
-pub fn Devhub::port(Self) -> Int
+pub fn Devhub::port(Self) -> Int32
 pub async fn Devhub::run_forever(Self) -> Unit
 pub async fn Devhub::wait_client(Self) -> ClientMsg
 

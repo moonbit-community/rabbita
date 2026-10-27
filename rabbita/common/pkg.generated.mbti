@@ -11,9 +11,9 @@ import {
 
 // Types and methods
 type Id derive(Compare, Eq, Hash)
-pub fn Id::compare(Self, Self) -> Int
+pub fn Id::compare(Self, Self) -> Int32
 pub fn Id::equal(Self, Self) -> Bool
-pub fn Id::hash(Self) -> Int
+pub fn Id::hash(Self) -> Int32
 pub fn Id::hash_combine(Self, Hasher) -> Unit
 pub fn Id::not_equal(Self, Self) -> Bool
 pub fn Id::op_ge(Self, Self) -> Bool
@@ -26,7 +26,7 @@ pub impl Show for Id
 
 type InstId derive(Eq, Hash)
 pub fn InstId::equal(Self, Self) -> Bool
-pub fn InstId::hash(Self) -> Int
+pub fn InstId::hash(Self) -> Int32
 pub fn InstId::hash_combine(Self, Hasher) -> Unit
 pub fn InstId::not_equal(Self, Self) -> Bool
 
@@ -36,9 +36,9 @@ pub fn Keyboard::code(Self) -> String
 pub fn Keyboard::ctrl_key(Self) -> Bool
 pub fn Keyboard::is_composing(Self) -> Bool
 pub fn Keyboard::key(Self) -> String
-pub fn Keyboard::location(Self) -> Int
+pub fn Keyboard::location(Self) -> Int32
 pub fn Keyboard::meta_key(Self) -> Bool
-pub fn Keyboard::new(key~ : String, code~ : String, alt_key~ : Bool, ctrl_key~ : Bool, shift_key~ : Bool, meta_key~ : Bool, is_composing~ : Bool, repeat~ : Bool, location~ : Int) -> Self
+pub fn Keyboard::new(key~ : String, code~ : String, alt_key~ : Bool, ctrl_key~ : Bool, shift_key~ : Bool, meta_key~ : Bool, is_composing~ : Bool, repeat~ : Bool, location~ : Int32) -> Self
 pub fn Keyboard::repeat(Self) -> Bool
 pub fn Keyboard::shift_key(Self) -> Bool
 pub fn Keyboard::to_repr(Self) -> @debug.Repr

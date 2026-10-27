@@ -12,7 +12,7 @@ pub fn batch(Array[Sub]) -> Sub
 
 pub fn custom_sub(String, Scope, Error, SubLoader) -> Sub
 
-pub fn every(Int, @cmd.Cmd) -> Sub
+pub fn every(Int32, @cmd.Cmd) -> Sub
 
 pub let none : Sub
 
