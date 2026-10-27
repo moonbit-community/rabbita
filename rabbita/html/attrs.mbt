@@ -110,12 +110,6 @@ fn Target::to_string(self : Target) -> String {
 }
 
 ///|
-pub(all) enum AutoComplete {
-  On
-  Off
-}
-
-///|
 pub(all) enum Scope {
   Row
   Col
@@ -193,13 +187,14 @@ pub fn Attrs::autocapitalize(self : Attrs, value : String) -> Attrs {
 }
 
 ///|
+/// Sets the autocomplete keyword or ordered, space-separated autofill tokens.
+/// For example: `"on"`, `"off"`, `"username"`, `"current-password"`,
+/// `"one-time-code"`, or `"section-login username webauthn"`.
+/// The value is passed through unchanged; callers must supply valid HTML tokens.
+///
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/autocomplete)
-pub fn Attrs::autocomplete(self : Attrs, value : AutoComplete) -> Attrs {
-  let s = match value {
-    On => "on"
-    Off => "off"
-  }
-  self.attribute("autocomplete", s)
+pub fn Attrs::autocomplete(self : Attrs, value : String) -> Attrs {
+  self.attribute("autocomplete", value)
 }
 
 ///|

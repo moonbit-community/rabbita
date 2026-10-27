@@ -706,7 +706,7 @@ fn combobox_input_surface(
   slot : String,
   layout_style : String,
   aria_label : String,
-  auto_complete : @html.AutoComplete,
+  auto_complete : String,
   id : String?,
   class : String?,
   title : String?,
@@ -769,7 +769,7 @@ fn combobox_input_surface(
 pub fn combobox_input(
   scope~ : ComboboxScope,
   aria_label~ : String = "Search options",
-  auto_complete~ : @html.AutoComplete = Off,
+  auto_complete~ : String = "off",
   id? : String,
   class? : String,
   title? : String,
@@ -799,7 +799,7 @@ pub fn combobox_input(
 pub fn combobox_chips_input(
   scope~ : ComboboxScope,
   aria_label~ : String = "Search options",
-  auto_complete~ : @html.AutoComplete = Off,
+  auto_complete~ : String = "off",
   id? : String,
   class? : String,
   title? : String,

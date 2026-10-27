@@ -466,7 +466,7 @@ const FormsFieldCompositionCode : String =
   #|                  name="display-name",
   #|                  value=name,
   #|                  required=true,
-  #|                  auto_complete=@html.On,
+  #|                  auto_complete="on",
   #|                  placeholder="Ada Lovelace",
   #|                  on_input=set_state.map(value => state => (
   #|                    value,
@@ -497,7 +497,7 @@ const FormsFieldCompositionCode : String =
   #|                  value=email,
   #|                  required=true,
   #|                  invalid=email_invalid,
-  #|                  auto_complete=@html.On,
+  #|                  auto_complete="on",
   #|                  placeholder="ada@example.com",
   #|                  on_input=set_state.map(value => state => (
   #|                    state.0,

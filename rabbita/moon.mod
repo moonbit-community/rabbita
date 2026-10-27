@@ -1,6 +1,6 @@
 name = "moonbit-community/rabbita"
 
-version = "0.16.7"
+version = "0.17.0"
 
 readme = "README.md"
 
