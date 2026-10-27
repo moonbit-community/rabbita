@@ -6,6 +6,8 @@ import {
 import {
   "moonbitlang/core/json",
   "moonbitlang/core/debug",
+  "moonbitlang/async",
+  "moonbitlang/async/js_async",
 } for "test"
 
 // Imports are used only by JS declarations and tests.
