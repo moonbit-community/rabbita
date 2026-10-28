@@ -849,8 +849,10 @@ pub fn[C : IsChildren] address(
 /// 
 /// - `target`: an optional `Target` that specifies where to open the link.
 /// 
-/// If the user holds the `ctrl` key (or the command key on macOS) while clicking the link,
-/// the click event will be handled by the browser, and the `UrlRequest` will not be triggered either.
+/// Only unmodified primary-button clicks targeting the current window are captured.
+/// Ctrl, Meta, Shift, or Alt clicks, non-primary clicks, download links, and targets
+/// other than the empty string or `_self` retain browser-native behavior.
+/// Events already canceled with `preventDefault` do not trigger `UrlRequest`.
 ///
 /// If `App::with_route(url_request=...)` is not configured, browser native navigation
 /// is used as well.
