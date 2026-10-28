@@ -230,6 +230,7 @@ pub extend HTMLMediaElement with IsHTMLMediaElement::{
   get_volume,
   load,
   pause,
+  play,
   seek_to_next_frame,
   set_autoplay,
   set_controls,
@@ -239,10 +240,12 @@ pub extend HTMLMediaElement with IsHTMLMediaElement::{
   set_default_playback_rate,
   set_disable_remote_playback,
   set_loop,
+  set_media_keys,
   set_muted,
   set_playback_rate,
   set_preload,
   set_preserves_pitch,
+  set_sink_id,
   set_src,
   set_src_object,
   set_volume,
@@ -323,13 +326,15 @@ pub trait IsHTMLMediaElement: IsHtmlElement {
   fn fast_seek(Self, Double) -> Unit = _
   fn load(Self) -> Unit = _
   fn pause(Self) -> Unit = _
-  // TODO: play() returns Promise<void>
-  // play(Self) -> @js.Promise[Unit] = _
-  fn seek_to_next_frame(Self) -> Unit = _
-  // TODO: setMediaKeys() returns Promise<void>
-  // set_media_keys(Self, MediaKeys?) -> @js.Promise[Unit] = _
-  // TODO: setSinkId() returns Promise<void>  
-  // set_sink_id(Self, String) -> @js.Promise[Unit] = _
+  /// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
+  fn play(Self) -> @js.Promise[Unit] = _
+  /// Deprecated and non-standard. Requires native seekToNextFrame support.
+  /// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/seekToNextFrame
+  fn seek_to_next_frame(Self) -> @js.Promise[Unit] = _
+  /// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/setMediaKeys
+  fn set_media_keys(Self, MediaKeys?) -> @js.Promise[Unit] = _
+  /// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/setSinkId
+  fn set_sink_id(Self, String) -> @js.Promise[Unit] = _
 }
 
 ///|
@@ -694,8 +699,29 @@ impl IsHTMLMediaElement with fn pause(s) {
 
 ///|
 #cfg(target="js")
+impl IsHTMLMediaElement with fn play(s) {
+  ffi_html_media_element_play(s.as_html_media_element())
+}
+
+///|
+#cfg(target="js")
 impl IsHTMLMediaElement with fn seek_to_next_frame(s) {
   ffi_html_media_element_seek_to_next_frame(s.as_html_media_element())
+}
+
+///|
+#cfg(target="js")
+impl IsHTMLMediaElement with fn set_media_keys(s, keys) {
+  ffi_html_media_element_set_media_keys(
+    s.as_html_media_element(),
+    @js.Nullable::from_option(keys),
+  )
+}
+
+///|
+#cfg(target="js")
+impl IsHTMLMediaElement with fn set_sink_id(s, sink_id) {
+  ffi_html_media_element_set_sink_id(s.as_html_media_element(), sink_id)
 }
 
 ///|
@@ -1034,6 +1060,26 @@ extern "js" fn ffi_html_media_element_pause(s : HTMLMediaElement) -> Unit = "(s)
 
 ///|
 #cfg(target="js")
+extern "js" fn ffi_html_media_element_play(
+  s : HTMLMediaElement,
+) -> @js.Promise[Unit] = "(s) => s.play()"
+
+///|
+#cfg(target="js")
 extern "js" fn ffi_html_media_element_seek_to_next_frame(
   s : HTMLMediaElement,
-) -> Unit = "(s) => s.seekToNextFrame?.()"
+) -> @js.Promise[Unit] = "(s) => s.seekToNextFrame()"
+
+///|
+#cfg(target="js")
+extern "js" fn ffi_html_media_element_set_media_keys(
+  s : HTMLMediaElement,
+  keys : @js.Nullable[MediaKeys],
+) -> @js.Promise[Unit] = "(s, keys) => s.setMediaKeys(keys)"
+
+///|
+#cfg(target="js")
+extern "js" fn ffi_html_media_element_set_sink_id(
+  s : HTMLMediaElement,
+  sink_id : String,
+) -> @js.Promise[Unit] = "(s, sinkId) => s.setSinkId(sinkId)"

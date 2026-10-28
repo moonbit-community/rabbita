@@ -312,7 +312,6 @@ fn probe_media() -> String {
       ignore(@dom.IsHTMLMediaElement::can_play_type(media, "video/webm"))
       ignore(@dom.IsHTMLMediaElement::capture_stream(media))
       @dom.IsHTMLMediaElement::fast_seek(media, 0.0)
-      @dom.IsHTMLMediaElement::seek_to_next_frame(media)
       @dom.IsHTMLMediaElement::pause(media)
       @dom.IsHTMLMediaElement::load(media)
       record(

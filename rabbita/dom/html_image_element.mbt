@@ -369,5 +369,9 @@ pub extern "js" fn HTMLImageElement::get_x(self : Self) -> Double = "(self) => s
 #cfg(target="js")
 pub extern "js" fn HTMLImageElement::get_y(self : Self) -> Double = "(self) => self.y"
 
-// TODO: Implement the decode method and promise handling.
-// pub extern "js" fn HTMLImageElement::decode() -> @js.Promise[Unit]
+///|
+/// Resolves when the image has been decoded, or rejects if decoding fails.
+/// https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decode
+#cfg(target="js")
+pub extern "js" fn HTMLImageElement::decode(self : Self) -> @js.Promise[Unit] =
+  #| (self) => self.decode()

@@ -309,7 +309,7 @@ async fn execute_request(
           }
           BlobBody(content_type, blob) => {
             let headers = content_type_headers(content_type, headers~)
-            @async_http.post(url, blob.bytes(), headers~)
+            @async_http.post(url, read_blob_body(blob), headers~)
           }
           Empty => @async_http.post(url, b"", headers~)
         }
@@ -333,7 +333,7 @@ async fn execute_request(
           }
           BlobBody(content_type, blob) => {
             let headers = content_type_headers(content_type, headers~)
-            @async_http.put(url, blob.bytes(), headers~)
+            @async_http.put(url, read_blob_body(blob), headers~)
           }
           Empty => @async_http.put(url, b"", headers~)
         }
@@ -363,7 +363,7 @@ async fn execute_request(
           BlobBody(content_type, blob) => {
             let headers = content_type_headers(content_type)
             client.request(Patch, path, extra_headers=headers)
-            client.write(blob.bytes())
+            client.write(read_blob_body(blob))
           }
           Empty => client.request(Patch, path)
         }

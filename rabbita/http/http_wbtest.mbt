@@ -7,6 +7,11 @@ extern "js" fn install_mock_fetch() -> Fetch =
   #| () => {
   #|   const originalFetch = globalThis.fetch;
   #|   globalThis.fetch = (url, options) => {
+  #|     if (new URL(url).pathname === '/echo-blob') {
+  #|       return new Response(options.body).text().then(body => new Response(
+  #|         options.method + ' ' + new Headers(options.headers).get('content-type') + ' ' + body
+  #|       ));
+  #|     }
   #|     const responses = {
   #|       "/not-found": {
   #|         ok: false,
@@ -172,5 +177,36 @@ async test "HTTP methods resolve base URIs and report non-2xx responses" {
       text,
       "\{http_method} https://example.test/uml/./examples-manifest.json?lang=en",
     )
+  }
+}
+
+///|
+async test "HTTP blob request bodies are read before POST PUT and PATCH" {
+  let original_fetch = install_mock_fetch()
+  defer restore_fetch(original_fetch)
+  for http_method in ["POST", "PUT", "PATCH"] {
+    let blob = @dom.Blob::from_bytes(b"rabbit", "text/plain")
+    let request = match http_method {
+      "POST" => post("/echo-blob")
+      "PUT" => put("/echo-blob")
+      "PATCH" => patch("/echo-blob")
+      _ => fail("unexpected method")
+    }
+    let mut result : Result[String, Error]? = None
+    let command = request
+      .with_blob(blob)
+      .expect_text(value => {
+        result = Some(value)
+        @cmd.none
+      })
+    let scheduler : TestScheduler = {
+      base_uri: "https://example.test",
+      commands: [command],
+    }
+    scheduler.run()
+    guard result is Some(Ok(body)) else {
+      fail("expected blob request to succeed")
+    }
+    assert_eq(body, "\{http_method} text/plain rabbit")
   }
 }

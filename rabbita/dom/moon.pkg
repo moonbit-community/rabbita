@@ -2,4 +2,13 @@ import {
   "moonbit-community/rabbita/js",
 }
 
+import {
+  "moonbit-community/rabbita/js",
+  "moonbitlang/async",
+} for "test"
+
 warnings = "-unused_package"
+
+options(
+  targets: { "promise_test.mbt": [ "js" ] },
+)

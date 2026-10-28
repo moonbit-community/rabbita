@@ -67,25 +67,17 @@ pub fn Blob::slice(
 }
 
 ///|
+/// Reads the blob as UTF-8 text.
+/// https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
 #cfg(target="js")
-extern "js" fn Blob::text_ffi(self : Self) -> @js.Promise[String] = "(self) => self.text()"
+pub extern "js" fn Blob::text(self : Self) -> @js.Promise[String] = "(self) => self.text()"
 
 ///|
+/// Reads the blob as bytes using the native Blob.bytes() method.
+/// https://developer.mozilla.org/en-US/docs/Web/API/Blob/bytes
 #cfg(target="js")
-pub async fn Blob::text(self : Self) -> String {
-  self.text_ffi().wait()
-}
-
-///|
-#cfg(target="js")
-extern "js" fn Blob::bytes_ffi(self : Self) -> @js.Promise[Bytes] =
-  #| (self) => self.arrayBuffer().then((buffer) => new Uint8Array(buffer))
-
-///|
-#cfg(target="js")
-pub async fn Blob::bytes(self : Self) -> Bytes {
-  self.bytes_ffi().wait()
-}
+pub extern "js" fn Blob::bytes(self : Self) -> @js.Promise[Bytes] =
+  #| (self) => self.bytes()
 
 ///|
 #cfg(not(target="js"))

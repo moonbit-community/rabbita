@@ -34,9 +34,9 @@ fn probe_async_apis() -> Unit {
   record(failures, slice.get_size() == 3, "blob_slice")
   @js.Promise::from_async(() => {
     try {
-      let text = blob.text()
-      let bytes = blob.bytes()
-      let sliced_text = slice.text()
+      let text = blob.text().wait()
+      let bytes = blob.bytes().wait()
+      let sliced_text = slice.text().wait()
       let clipboard = @dom.window().navigator().clipboard()
       record(
         failures,
@@ -53,6 +53,7 @@ fn probe_async_apis() -> Unit {
         clipboard_text == "rabbit clipboard",
         "clipboard_roundtrip",
       )
+      probe_dom_promises(failures)
     } catch {
       error => failures.push("async_io: \{error}")
     } noraise {

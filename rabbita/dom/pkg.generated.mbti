@@ -36,6 +36,8 @@ pub fn Animation::as_event_target(Self) -> EventTarget
 pub fn Animation::dispatch_event(Self, Event) -> Unit
 pub fn Animation::finish(Self) -> Unit
 pub fn Animation::from(Self) -> @js.Value
+pub fn Animation::get_finished(Self) -> @js.Promise[Self]
+pub fn Animation::get_ready(Self) -> @js.Promise[Self]
 pub fn Animation::into(@js.Value) -> Self?
 pub fn Animation::remove_event_listener(Self, String, (Event) -> Unit) -> Unit
 pub fn Animation::remove_event_listener_with_options(Self, String, (Event) -> Unit, capture? : Bool) -> Unit
@@ -139,12 +141,12 @@ pub impl IsEvent for BeforeUnloadEvent
 pub impl @js.Cast for BeforeUnloadEvent
 
 type Blob
-pub async fn Blob::bytes(Self) -> Bytes
+pub fn Blob::bytes(Self) -> @js.Promise[Bytes]
 pub fn Blob::from_bytes(Bytes, String) -> Self
 pub fn Blob::get_size(Self) -> Int32
 pub fn Blob::get_type(Self) -> String
 pub fn Blob::slice(Self, Int32, end_? : @js.Optional[Int32]) -> Self
-pub async fn Blob::text(Self) -> String
+pub fn Blob::text(Self) -> @js.Promise[String]
 
 type BlobEvent
 pub fn BlobEvent::as_event(Self) -> Event
@@ -1405,6 +1407,7 @@ pub fn HTMLImageElement::blur(Self) -> Unit
 pub fn HTMLImageElement::click(Self) -> Unit
 pub fn HTMLImageElement::closest(Self, String) -> Element?
 pub fn HTMLImageElement::contains(Self, Node) -> Bool
+pub fn HTMLImageElement::decode(Self) -> @js.Promise[Unit]
 pub fn HTMLImageElement::dispatch_event(Self, Event) -> Unit
 pub fn HTMLImageElement::focus(Self) -> Unit
 pub fn HTMLImageElement::focus_with_options(Self, prevent_scroll? : Bool, focus_visible? : Bool) -> Unit
@@ -1856,6 +1859,7 @@ pub fn HTMLMediaElement::is_same_node(Self, Node) -> Bool
 pub fn HTMLMediaElement::load(Self) -> Unit
 pub fn HTMLMediaElement::matches(Self, String) -> Bool
 pub fn HTMLMediaElement::pause(Self) -> Unit
+pub fn HTMLMediaElement::play(Self) -> @js.Promise[Unit]
 pub fn HTMLMediaElement::query_selector(Self, String) -> Element?
 pub fn HTMLMediaElement::query_selector_all(Self, String) -> NodeList[Element]
 pub fn HTMLMediaElement::release_pointer_capture(Self, Int32) -> Unit
@@ -1867,7 +1871,7 @@ pub fn HTMLMediaElement::remove_property(Self, String) -> Unit
 pub fn HTMLMediaElement::replace_child(Self, Node, Node) -> Unit
 pub fn HTMLMediaElement::scroll_into_view(Self, behavior? : String) -> Unit
 pub fn HTMLMediaElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
-pub fn HTMLMediaElement::seek_to_next_frame(Self) -> Unit
+pub fn HTMLMediaElement::seek_to_next_frame(Self) -> @js.Promise[Unit]
 pub fn HTMLMediaElement::set_access_key(Self, String) -> Unit
 pub fn HTMLMediaElement::set_attribute(Self, String, String) -> Unit
 pub fn HTMLMediaElement::set_auto_capitalize(Self, String) -> Unit
@@ -1892,6 +1896,7 @@ pub fn HTMLMediaElement::set_inner_text(Self, String) -> Unit
 pub fn HTMLMediaElement::set_input_mode(Self, String) -> Unit
 pub fn HTMLMediaElement::set_lang(Self, String) -> Unit
 pub fn HTMLMediaElement::set_loop(Self, Bool) -> Unit
+pub fn HTMLMediaElement::set_media_keys(Self, MediaKeys?) -> @js.Promise[Unit]
 pub fn HTMLMediaElement::set_muted(Self, Bool) -> Unit
 pub fn HTMLMediaElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLMediaElement::set_nonce(Self, String) -> Unit
@@ -1904,6 +1909,7 @@ pub fn HTMLMediaElement::set_preserves_pitch(Self, Bool) -> Unit
 pub fn HTMLMediaElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLMediaElement::set_scroll_left(Self, Double) -> Unit
 pub fn HTMLMediaElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLMediaElement::set_sink_id(Self, String) -> @js.Promise[Unit]
 pub fn HTMLMediaElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLMediaElement::set_src(Self, String) -> Unit
 pub fn HTMLMediaElement::set_src_object(Self, @js.Value?) -> Unit
@@ -2069,6 +2075,7 @@ pub fn HTMLVideoElement::is_same_node(Self, Node) -> Bool
 pub fn HTMLVideoElement::load(Self) -> Unit
 pub fn HTMLVideoElement::matches(Self, String) -> Bool
 pub fn HTMLVideoElement::pause(Self) -> Unit
+pub fn HTMLVideoElement::play(Self) -> @js.Promise[Unit]
 pub fn HTMLVideoElement::query_selector(Self, String) -> Element?
 pub fn HTMLVideoElement::query_selector_all(Self, String) -> NodeList[Element]
 pub fn HTMLVideoElement::release_pointer_capture(Self, Int32) -> Unit
@@ -2080,7 +2087,7 @@ pub fn HTMLVideoElement::remove_property(Self, String) -> Unit
 pub fn HTMLVideoElement::replace_child(Self, Node, Node) -> Unit
 pub fn HTMLVideoElement::scroll_into_view(Self, behavior? : String) -> Unit
 pub fn HTMLVideoElement::scroll_into_view_with_options(Self, behavior? : String, block? : String, inline? : String, container? : String) -> Unit
-pub fn HTMLVideoElement::seek_to_next_frame(Self) -> Unit
+pub fn HTMLVideoElement::seek_to_next_frame(Self) -> @js.Promise[Unit]
 pub fn HTMLVideoElement::set_access_key(Self, String) -> Unit
 pub fn HTMLVideoElement::set_attribute(Self, String, String) -> Unit
 pub fn HTMLVideoElement::set_auto_capitalize(Self, String) -> Unit
@@ -2105,6 +2112,7 @@ pub fn HTMLVideoElement::set_inner_text(Self, String) -> Unit
 pub fn HTMLVideoElement::set_input_mode(Self, String) -> Unit
 pub fn HTMLVideoElement::set_lang(Self, String) -> Unit
 pub fn HTMLVideoElement::set_loop(Self, Bool) -> Unit
+pub fn HTMLVideoElement::set_media_keys(Self, MediaKeys?) -> @js.Promise[Unit]
 pub fn HTMLVideoElement::set_muted(Self, Bool) -> Unit
 pub fn HTMLVideoElement::set_node_value(Self, @js.Nullable[String]) -> Unit
 pub fn HTMLVideoElement::set_nonce(Self, String) -> Unit
@@ -2117,6 +2125,7 @@ pub fn HTMLVideoElement::set_preserves_pitch(Self, Bool) -> Unit
 pub fn HTMLVideoElement::set_property(Self, String, @js.Value) -> Unit
 pub fn HTMLVideoElement::set_scroll_left(Self, Double) -> Unit
 pub fn HTMLVideoElement::set_scroll_top(Self, Double) -> Unit
+pub fn HTMLVideoElement::set_sink_id(Self, String) -> @js.Promise[Unit]
 pub fn HTMLVideoElement::set_spellcheck(Self, Bool) -> Unit
 pub fn HTMLVideoElement::set_src(Self, String) -> Unit
 pub fn HTMLVideoElement::set_src_object(Self, @js.Value?) -> Unit
@@ -3433,7 +3442,10 @@ pub trait IsHTMLMediaElement : IsHtmlElement {
   fn fast_seek(Self, Double) -> Unit
   fn load(Self) -> Unit
   fn pause(Self) -> Unit
-  fn seek_to_next_frame(Self) -> Unit
+  fn play(Self) -> @js.Promise[Unit]
+  fn seek_to_next_frame(Self) -> @js.Promise[Unit]
+  fn set_media_keys(Self, MediaKeys?) -> @js.Promise[Unit]
+  fn set_sink_id(Self, String) -> @js.Promise[Unit]
 }
 
 pub trait IsHtmlElement : IsElement {

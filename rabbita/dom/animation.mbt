@@ -60,6 +60,22 @@ pub impl @js.Cast for Animation with fn from(value) {
 pub extern "js" fn Animation::finish(self : Self) -> Unit = "(self) => self.finish()"
 
 ///|
+/// The current promise that resolves to this animation when playback finishes.
+/// https://developer.mozilla.org/en-US/docs/Web/API/Animation/finished
+#cfg(target="js")
+pub extern "js" fn Animation::get_finished(
+  self : Self,
+) -> @js.Promise[Animation] =
+  #| (self) => self.finished
+
+///|
+/// The current promise that resolves to this animation when it is ready to play.
+/// https://developer.mozilla.org/en-US/docs/Web/API/Animation/ready
+#cfg(target="js")
+pub extern "js" fn Animation::get_ready(self : Self) -> @js.Promise[Animation] =
+  #| (self) => self.ready
+
+///|
 #cfg(target="js")
 extern "js" fn ffi_to_animation(value : @js.Value) -> @js.Nullable[Animation] =
   #| (value) => typeof Animation !== "undefined"
