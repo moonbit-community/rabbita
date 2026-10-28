@@ -2,6 +2,44 @@ import { expect, test } from '@playwright/test';
 
 const transparent = 'rgba(0, 0, 0, 0)';
 
+for (const openingKey of ['ArrowDown', 'ArrowUp']) {
+  test(`closed dropdown leaves Escape available and still opens with ${openingKey}`, async ({ page }) => {
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: 'Workspace menu' });
+    const menu = page.getByRole('menu', { name: 'Workspace menu' });
+    await page.evaluate(() => {
+      let escapes = 0;
+      document.documentElement.dataset.appEscapes = '0';
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !event.defaultPrevented) {
+          document.documentElement.dataset.appEscapes = String(++escapes);
+        }
+      });
+    });
+
+    await trigger.focus();
+    await expect(menu).toBeHidden();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('html')).toHaveAttribute('data-app-escapes', '1');
+
+    await page.keyboard.press(openingKey);
+    await expect(menu).toBeVisible();
+    await expect(menu.getByRole('menuitem', {
+      name: openingKey === 'ArrowDown' ? 'New tab' : 'Invite member',
+    })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(menu).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await expect(page.locator('html')).toHaveAttribute('data-app-escapes', '1');
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator('html')).toHaveAttribute('data-app-escapes', '2');
+    await expect(menu).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+}
+
 test('dropdown menu opens, exposes items, and closes after a selection', async ({ page }) => {
   await page.goto('/');
 

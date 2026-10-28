@@ -68,6 +68,40 @@ test('context menu checkbox and radio items retain owned state', async ({ page }
   await expect(target).toBeFocused();
 });
 
+test('closed context menu leaves Escape available to the application', async ({ page }) => {
+  await page.goto('/');
+
+  const target = page.locator('[data-slot="context-menu-trigger"]');
+  const menu = page.getByRole('menu', { name: 'Fixture canvas menu' });
+  await page.evaluate(() => {
+    let escapes = 0;
+    document.documentElement.dataset.appEscapes = '0';
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !event.defaultPrevented) {
+        document.documentElement.dataset.appEscapes = String(++escapes);
+      }
+    });
+  });
+
+  await target.focus();
+  await expect(menu).toBeHidden();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('html')).toHaveAttribute('data-app-escapes', '1');
+
+  await page.keyboard.press('Shift+F10');
+  await expect(menu).toBeVisible();
+  await expectStableFocus(menu.getByRole('menuitem', { name: 'Duplicate fixture' }));
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeHidden();
+  await expectStableFocus(target);
+  await expect(page.locator('html')).toHaveAttribute('data-app-escapes', '1');
+
+  await page.keyboard.press('Escape');
+  await expect(page.locator('html')).toHaveAttribute('data-app-escapes', '2');
+  await expect(menu).toBeHidden();
+  await expect(target).toBeFocused();
+});
+
 test('context menu keyboard navigation skips disabled items and opens submenu', async ({ page }) => {
   await page.goto('/');
 
@@ -98,4 +132,12 @@ test('context menu keyboard navigation skips disabled items and opens submenu', 
   await expect(submenuTrigger).toHaveAttribute('aria-expanded', 'true');
   await expect(submenuItem).toBeVisible();
   await expectStableFocus(submenuItem);
+
+  await page.keyboard.press('Escape');
+  await expect(submenuItem).toBeHidden();
+  await expect(menu).toBeVisible();
+  await expectStableFocus(submenuTrigger);
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeHidden();
+  await expectStableFocus(target);
 });
