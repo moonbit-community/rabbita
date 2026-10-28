@@ -556,8 +556,10 @@ fn menu_handle_keydown(
     return
   }
   if key == "Escape" {
-    event.prevent_default()
-    (binding.dispatch.val)(1, -1, "", "")
+    if binding.root.get_attribute("data-state").unwrap_or("") == "open" {
+      event.prevent_default()
+      (binding.dispatch.val)(1, -1, "", "")
+    }
     return
   }
   if items.length() == 0 {
