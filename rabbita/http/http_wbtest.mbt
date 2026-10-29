@@ -107,6 +107,8 @@ async fn TestScheduler::run(self : TestScheduler) -> Unit {
 }
 
 ///|
+// The response callback receives success/failure as data.
+#warnings("-result_error_return")
 async fn invoke_text_request(
   url : String,
   base_uri : String,

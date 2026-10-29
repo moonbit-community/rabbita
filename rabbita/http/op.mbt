@@ -170,6 +170,8 @@ fn settle_request_headers() -> @async_http.Headers {
 }
 
 ///|
+// The response callback receives success/failure as data.
+#warnings("-result_error_return")
 fn decode_json(response_body : Bytes) -> Result[Json, HttpError] {
   try @json.parse(@utf8.decode(response_body[:])) catch {
     @utf8.Malformed(_) => Err(RequestError("Malformed UTF-8 response body"))
@@ -180,6 +182,8 @@ fn decode_json(response_body : Bytes) -> Result[Json, HttpError] {
 }
 
 ///|
+// The response callback receives success/failure as data.
+#warnings("-result_error_return")
 fn decode_text(response_body : Bytes) -> Result[String, HttpError] {
   try @utf8.decode(response_body[:]) catch {
     Malformed(_) => Err(RequestError("Malformed UTF-8 response body"))
@@ -189,6 +193,8 @@ fn decode_text(response_body : Bytes) -> Result[String, HttpError] {
 }
 
 ///|
+// The response callback receives success/failure as data.
+#warnings("-result_error_return")
 fn decode_bytes(
   response : @async_http.Response,
   response_body : Bytes,

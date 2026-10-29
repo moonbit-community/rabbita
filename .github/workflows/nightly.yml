@@ -12,6 +12,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/nightly.yml
+      - rabbita/**
+      - warren/devtool/**
 
 permissions:
   contents: read
@@ -50,6 +52,18 @@ jobs:
             moon check --target "$target" 2>&1 | tee -a "$RUNNER_TEMP/nightly-check.log"
             echo "::endgroup::"
           done
+
+      - name: Test Rabbita on supported backends
+        env:
+          MOON_WORK: "off"
+        run: |
+          for target in js native wasm; do
+            moon -C rabbita test --target "$target"
+            moon -C rabbita test --target "$target" --release
+          done
+
+      - name: Check standalone Warren devtool
+        run: moon -C warren/devtool check --target js --deny-warn
 
       # Nightly deprecates APIs ahead of stable, so warnings here are a heads-up
       # rather than a failure: `--deny-warn` is the stable job's gate, not ours.
