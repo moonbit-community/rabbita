@@ -6,15 +6,14 @@ package "local/devtool"
 // Errors
 
 // Types and methods
-type DevStatus
+type DevStatus derive(Eq)
 
-type DragState
+type DragState derive(Eq)
 
-type Model
+type Model derive(Eq)
 
 type Msg
 
 // Type aliases
 
 // Traits
-

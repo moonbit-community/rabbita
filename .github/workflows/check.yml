@@ -35,12 +35,6 @@ jobs:
         run: |
           moon update
 
-      # - name: moon test
-      #   run: |
-      #     cd rabbita
-      #     moon test --target js --serial --release
-      #     moon test --target js --serial
-
       - name: moon check
         run: |
           cd rabbita
@@ -51,6 +45,18 @@ jobs:
           cd rabbita
           moon info . --target js
           git diff --exit-code
+
+      - name: Test Rabbita on supported backends
+        env:
+          MOON_WORK: "off"
+        run: |
+          for target in js native wasm; do
+            moon -C rabbita test --target "$target"
+            moon -C rabbita test --target "$target" --release
+          done
+
+      - name: Check standalone Warren devtool
+        run: moon -C warren/devtool check --target js --deny-warn
 
       - name: Markdown rendering tests
         run: |
