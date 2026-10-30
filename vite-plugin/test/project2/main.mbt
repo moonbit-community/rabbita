@@ -16,7 +16,7 @@ pub(all) enum Message {
 
 ///|
 struct Model {
-  count : Int
+  count : Int32
 } derive(Eq)
 
 ///|
