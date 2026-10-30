@@ -46,11 +46,12 @@ jobs:
           moon info . --target js
           git diff --exit-code
 
-      - name: Test Rabbita on supported backends
+      - name: Strictly check and test Rabbita on supported backends
         env:
           MOON_WORK: "off"
         run: |
           for target in js native wasm; do
+            moon -C rabbita check --target "$target" --deny-warn
             moon -C rabbita test --target "$target"
             moon -C rabbita test --target "$target" --release
           done
@@ -60,7 +61,9 @@ jobs:
 
       - name: Markdown rendering tests
         run: |
+          moon -C rui check markdown --target native --deny-warn
           moon -C rui test markdown --target native
+          moon -C rui check markdown --target js --deny-warn
           moon -C rui test markdown --target js
 
       - name: format diff
@@ -157,6 +160,13 @@ jobs:
 
       - name: moon update
         run: moon update
+
+      - name: Check browser fixture targets and formatting
+        run: |
+          for project in project1 project2 project3 project4 project6; do
+            moon -C "vite-plugin/test/$project" check --target js --deny-warn
+            moon -C "vite-plugin/test/$project" fmt --check
+          done
 
       - name: Install plugin dependencies
         working-directory: vite-plugin
