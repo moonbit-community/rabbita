@@ -3,6 +3,7 @@ import {
   "moonbit-community/rabbita/dom",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/js",
+  "moonbitlang/async/js_async",
 }
 
 supported_targets = "js"

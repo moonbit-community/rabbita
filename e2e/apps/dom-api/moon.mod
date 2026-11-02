@@ -4,6 +4,7 @@ version = "0.1.0"
 
 import {
   "moonbit-community/rabbita@0.15.6",
+  "moonbitlang/async@0.22.4",
 }
 
 license = "Apache-2.0"

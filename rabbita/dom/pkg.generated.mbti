@@ -3,6 +3,7 @@ package "moonbit-community/rabbita/dom"
 
 import {
   "moonbit-community/rabbita/js",
+  "moonbitlang/async/js_async",
 }
 
 // Values
@@ -17,6 +18,8 @@ pub const DOM_KEY_LOCATION_STANDARD : Int32 = 0x00
 pub fn[E, R] default_exception_handler(E) -> R
 
 pub fn document() -> Document
+
+pub fn[T : IsRequestInfo] fetch(T, init? : RequestInit) -> @js.Promise[Response]
 
 pub let namespace_html : String
 
@@ -96,6 +99,10 @@ pub fn AnimationEvent::to_ui_event(Self) -> UIEvent?
 pub fn AnimationEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for AnimationEvent
 pub impl @js.Cast for AnimationEvent
+
+type ArrayBuffer
+pub fn ArrayBuffer::get_byte_length(Self) -> Double
+pub fn ArrayBuffer::to_bytes(Self) -> Bytes
 
 type AudioTrack
 pub fn AudioTrack::get_id(Self) -> String
@@ -916,6 +923,17 @@ pub fn FocusEvent::to_wheel_event(Self) -> WheelEvent?
 pub impl IsEvent for FocusEvent
 pub impl IsUIEvent for FocusEvent
 pub impl @js.Cast for FocusEvent
+
+type FormData
+pub fn FormData::append(Self, String, String) -> Unit
+pub fn FormData::append_blob(Self, String, Blob, filename? : String) -> Unit
+pub fn FormData::delete(Self, String) -> Unit
+pub fn FormData::get(Self, String) -> @js.Nullable[@js.Value]
+pub fn FormData::get_all(Self, String) -> @js.JsArray[@js.Value]
+pub fn FormData::has(Self, String) -> Bool
+pub fn FormData::new() -> Self
+pub fn FormData::set(Self, String, String) -> Unit
+pub fn FormData::set_blob(Self, String, Blob, filename? : String) -> Unit
 
 type GPUCanvasContext
 
@@ -2164,6 +2182,19 @@ pub impl IsHtmlElement for HTMLVideoElement
 pub impl IsNode for HTMLVideoElement
 pub impl @js.Cast for HTMLVideoElement
 
+type Headers
+pub fn Headers::append(Self, String, String) -> Unit
+pub fn Headers::delete(Self, String) -> Unit
+pub fn Headers::for_each(Self, (String, String, Self) -> Unit) -> Unit
+pub fn Headers::from(Self) -> @js.Value
+pub fn Headers::get(Self, String) -> @js.Nullable[String]
+pub fn Headers::get_set_cookie(Self) -> @js.JsArray[String]
+pub fn Headers::has(Self, String) -> Bool
+pub fn Headers::into(@js.Value) -> Self?
+pub fn Headers::new(init? : FixedArray[(String, String)]) -> Self
+pub fn Headers::set(Self, String, String) -> Unit
+pub impl @js.Cast for Headers
+
 type ImageBitmap
 pub fn ImageBitmap::from(Self) -> @js.Value
 pub fn ImageBitmap::into(@js.Value) -> Self?
@@ -2542,6 +2573,39 @@ pub impl @js.Cast for PointerEvent
 
 type RemotePlayback
 
+type Request
+pub fn Request::array_buffer(Self) -> @js.Promise[ArrayBuffer]
+pub fn Request::blob(Self) -> @js.Promise[Blob]
+pub fn Request::bytes(Self) -> @js.Promise[Bytes]
+pub fn Request::clone(Self) -> Self
+pub fn Request::form_data(Self) -> @js.Promise[FormData]
+pub fn Request::from(Self) -> @js.Value
+pub fn Request::get_body(Self) -> @js.Nullable[@js_async.JsReadableStream]
+pub fn Request::get_body_used(Self) -> Bool
+pub fn Request::get_cache(Self) -> String
+pub fn Request::get_credentials(Self) -> String
+pub fn Request::get_destination(Self) -> String
+pub fn Request::get_duplex(Self) -> String
+pub fn Request::get_headers(Self) -> Headers
+pub fn Request::get_integrity(Self) -> String
+pub fn Request::get_keepalive(Self) -> Bool
+pub fn Request::get_method(Self) -> String
+pub fn Request::get_mode(Self) -> String
+pub fn Request::get_redirect(Self) -> String
+pub fn Request::get_referrer(Self) -> String
+pub fn Request::get_referrer_policy(Self) -> String
+pub fn Request::get_signal(Self) -> @js_async.AbortSignal
+pub fn Request::get_url(Self) -> String
+pub fn Request::into(@js.Value) -> Self?
+pub fn Request::json(Self) -> @js.Promise[Json]
+pub fn[T : IsRequestInfo] Request::new(T, init? : RequestInit) -> Self
+pub fn Request::text(Self) -> @js.Promise[String]
+pub impl IsRequestInfo for Request
+pub impl @js.Cast for Request
+
+type RequestInit
+pub fn RequestInit::new(method_? : String, headers? : Headers, body? : @js.Value, mode? : String, credentials? : String, cache? : String, redirect? : String, referrer? : String, referrer_policy? : String, integrity? : String, keepalive? : Bool, signal? : @js.Nullable[@js_async.AbortSignal], duplex? : String, priority? : String) -> Self
+
 type ResizeObserver
 pub fn ResizeObserver::disconnect(Self) -> Unit
 pub fn ResizeObserver::new((FixedArray[ResizeObserverEntry], Self) -> Unit) -> Self
@@ -2549,6 +2613,34 @@ pub fn ResizeObserver::observe(Self, Element) -> Unit
 pub fn ResizeObserver::unobserve(Self, Element) -> Unit
 
 type ResizeObserverEntry
+
+type Response
+pub fn Response::array_buffer(Self) -> @js.Promise[ArrayBuffer]
+pub fn Response::blob(Self) -> @js.Promise[Blob]
+pub fn Response::bytes(Self) -> @js.Promise[Bytes]
+pub fn Response::clone(Self) -> Self
+pub fn Response::error() -> Self
+pub fn Response::form_data(Self) -> @js.Promise[FormData]
+pub fn Response::from(Self) -> @js.Value
+pub fn Response::get_body(Self) -> @js.Nullable[@js_async.JsReadableStream]
+pub fn Response::get_body_used(Self) -> Bool
+pub fn Response::get_headers(Self) -> Headers
+pub fn Response::get_ok(Self) -> Bool
+pub fn Response::get_redirected(Self) -> Bool
+pub fn Response::get_status(Self) -> Int32
+pub fn Response::get_status_text(Self) -> String
+pub fn Response::get_type(Self) -> String
+pub fn Response::get_url(Self) -> String
+pub fn Response::into(@js.Value) -> Self?
+pub fn Response::json(Self) -> @js.Promise[Json]
+pub fn Response::new(body? : @js.Value, init? : ResponseInit) -> Self
+pub fn Response::redirect(String, status? : Int32) -> Self
+pub fn Response::text(Self) -> @js.Promise[String]
+pub fn Response::with_json(Json, init? : ResponseInit) -> Self
+pub impl @js.Cast for Response
+
+type ResponseInit
+pub fn ResponseInit::new(status? : Int32, status_text? : String, headers? : Headers) -> Self
 
 type SVGAnimatedTransformList
 pub fn SVGAnimatedTransformList::get_anim_val(Self) -> SVGTransformList
@@ -3564,6 +3656,10 @@ pub trait IsNode : IsEventTarget {
   fn get_child_count(Self) -> Int32
   fn is_same_node(Self, Node) -> Bool
 }
+
+pub trait IsRequestInfo : @js.Cast {
+}
+pub impl IsRequestInfo for String
 
 pub trait IsSVGElement : IsElement {
   fn as_svg_element(Self) -> SVGElement

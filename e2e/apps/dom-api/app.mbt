@@ -14,6 +14,7 @@ priv struct Model {
   timers : String
   events : String
   async_apis : String
+  fetch_apis : String
   media : String
   collections : String
   drag_probes : String
@@ -30,6 +31,7 @@ priv enum Msg {
   RunTimers
   InstallEvents
   RunAsyncApis
+  RunFetchApis
   RunMedia
   RunDomCollections
   InstallDragProbes
@@ -65,6 +67,10 @@ fn update(model : Model, message : Msg) -> Model {
     RunAsyncApis => {
       probe_async_apis()
       { ..model, async_apis: "running", }
+    }
+    RunFetchApis => {
+      probe_fetch_apis()
+      { ..model, fetch_apis: "running", }
     }
     RunMedia => { ..model, media: probe_media(), }
     RunDomCollections => { ..model, collections: probe_dom_collections(), }
@@ -115,6 +121,7 @@ fn app() -> Val[Html] {
     timers: "idle",
     events: "idle",
     async_apis: "idle",
+    fetch_apis: "idle",
     media: "idle",
     collections: "idle",
     drag_probes: "idle",
@@ -149,6 +156,8 @@ fn app() -> Val[Html] {
       input(id="input-target", value="before"),
       button(on_click=emit(RunAsyncApis), "Run blob and clipboard APIs"),
       p(id="async-result", model.async_apis),
+      button(on_click=emit(RunFetchApis), "Run Fetch APIs"),
+      p(id="fetch-result", model.fetch_apis),
       button(on_click=emit(RunMedia), "Run media APIs"),
       p(id="media-result", model.media),
       button(on_click=emit(RunDomCollections), "Run DOM collection APIs"),

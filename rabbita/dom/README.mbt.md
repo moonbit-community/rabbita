@@ -52,6 +52,38 @@ test {
 }
 ```
 
+### Fetch
+
+`fetch` and the `Request` constructor use the sealed `IsRequestInfo` marker trait.
+Both `String` and `Request` implement this trait and can be passed directly.
+Native value conversion uses their existing `@js.Cast` implementations.
+Body readers return native promises. HTTP error
+statuses fulfill the fetch promise; check `get_ok()` or `get_status()` explicitly.
+
+```mbt nocheck
+///|
+async test {
+  let text = @dom.fetch("/api/message")
+    .flat_map(response => response.text())
+    .wait()
+  println(text)
+}
+```
+
+`Headers::new(init=[("X-Rabbit", "first"), ("X-Rabbit", "second")])` accepts
+`FixedArray[(String, String)]`, preserving duplicate names. The binding converts
+each tuple to the two-element JS array expected by the native constructor.
+Omitting `init` creates empty headers.
+
+`RequestInit::new` and `ResponseInit::new` omit unspecified fields and pass supplied
+values through to the browser. `body` accepts native JS body values wrapped with
+`@js.Value::cast_from`, such as a `String`, `Bytes`, `Blob`, or `FormData`.
+`Request::json()` and `Response::json()` return `Promise[Json]`, converting the
+native parsing result to MoonBit `Json`. Conversion failures reject the promise.
+`Response::with_json` accepts MoonBit `Json`, converts it internally, and calls
+the native `Response.json()` factory. Browser support, validation errors, body
+consumption, and abort behavior follow the native Fetch API.
+
 ## Nullability and optional parameters
 
 - Values that can be `null` use `@js.Nullable[T]`. Convert them with
