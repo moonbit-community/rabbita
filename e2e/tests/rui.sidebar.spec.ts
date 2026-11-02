@@ -28,8 +28,28 @@ test('collapsed icon sidebar opens a tooltip on hover', async ({ page }) => {
   await expect(tooltip).toBeHidden();
   await overview.hover();
   await expect(tooltip).toBeVisible();
+  await expect(tooltip).toHaveCSS('opacity', '1');
+  const buttonBox = await overview.boundingBox();
+  const tooltipBox = await tooltip.boundingBox();
+  expect(tooltipBox!.x).toBeCloseTo(buttonBox!.x + buttonBox!.width + 4, 0);
+  await expect(tooltip).toHaveCSS('pointer-events', 'none');
 
   await page.getByText('Workspace overview', { exact: true }).hover();
+  await expect(tooltip).toBeHidden();
+});
+
+test('sidebar CSS suppresses tooltips when expanded even if the pointer stays on the trigger', async ({ page }) => {
+  await page.goto('/');
+  const trigger = page.locator('#fixture-sidebar-overview');
+  const tooltip = page.getByRole('tooltip', { name: 'Overview', exact: true });
+  await trigger.hover();
+  await expect(tooltip).toBeHidden();
+  const toggle = page.getByRole('button', { name: 'Toggle sidebar', exact: true });
+  await toggle.click();
+  await trigger.hover();
+  await expect(tooltip).toBeVisible();
+  // Expand with the keyboard while the pointer remains on the menu button.
+  await toggle.press('Enter');
   await expect(tooltip).toBeHidden();
 });
 

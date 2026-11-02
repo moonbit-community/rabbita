@@ -1182,7 +1182,7 @@ fn ui_interaction_stylesheet() -> @html.Html {
   // here so SSR does not escape CSS selectors; no caller input reaches it.
   let attrs = @html.Attrs::build()
     .data_set("rui-style", "interactions")
-    .inner_html(UiInteractionCss)
+    .inner_html(UiInteractionCss + TooltipInteractionCss)
   @html.style_tag(attrs~, ([] : Array[@html.Html]))
 }
 

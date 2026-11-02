@@ -1385,7 +1385,7 @@ fn ig_tooltip_variant(
   align : @rui.PopupAlign,
   size : @rui.ButtonSize,
   label : String,
-) -> @rabbita.Val[@html.Html] {
+) -> @html.Html {
   @rui.tooltip(
     id~,
     delay=100,
@@ -2673,8 +2673,10 @@ fn ig_overlay_page(selected : String) -> @rabbita.Val[@html.Html] {
     showcase_static_page(@html.nothing)
   }
   let tooltip_component = if selected == "" || selected == "tooltip" {
-    tooltip_top_view.view4(
-      tooltip_right_view, tooltip_bottom_view, tooltip_left_view, ig_tooltip_component,
+    showcase_static_page(
+      ig_tooltip_component(
+        tooltip_top_view, tooltip_right_view, tooltip_bottom_view, tooltip_left_view,
+      ),
     )
   } else {
     showcase_static_page(@html.nothing)
