@@ -15,9 +15,9 @@ RUI (`moonbit-community/rui`) is a native component library for
 - No Tailwind, external CSS import, code generator, or extra build step.
 - Shared inline base styles, with `theme` providing tokens and the static rules
   needed for hover, focus, and motion.
-- Interactive state is owned by Rabbita incremental components.
+- Interactive state is owned by Rabbita incremental components where needed.
 - Native HTML and ARIA behavior is used where the browser provides it.
-- JavaScript provides browser interaction.
+- CSS handles hover and motion; JavaScript provides stateful interactions.
 
 RUI includes components for forms, data display, navigation, disclosure,
 overlays, menus, and feedback. Exact APIs and copyable examples are available

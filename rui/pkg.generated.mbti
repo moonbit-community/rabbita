@@ -677,7 +677,7 @@ pub fn[C : @html.IsChildren] sidebar_menu_badge(id? : String, class? : String, t
 
 pub fn[C : @html.IsChildren] sidebar_menu_button(href? : String, is_active? : Bool, variant? : SidebarMenuButtonVariant, size? : SidebarMenuButtonSize, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] sidebar_menu_button_with_tooltip(id~ : String, tooltip~ : String, href? : String, is_active? : Bool, variant? : SidebarMenuButtonVariant, size? : SidebarMenuButtonSize, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, on_click? : @cmd.Cmd, on_tooltip_open_change? : @cmd.Emit[Bool], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], tooltip_side? : PopupSide, tooltip_align? : PopupAlign, tooltip_side_offset? : Int32, tooltip_align_offset? : Int32, tooltip_show_arrow? : Bool, tooltip_attrs? : @html.Attrs, tooltip_style? : Array[String], C) -> @rabbita.Val[@html.Html]
+pub fn[C : @html.IsChildren] sidebar_menu_button_with_tooltip(id~ : String, tooltip~ : String, href? : String, is_active? : Bool, variant? : SidebarMenuButtonVariant, size? : SidebarMenuButtonSize, disabled? : Bool, aria_label? : String, target? : @html.Target, rel? : String, download? : String, on_click? : @cmd.Cmd, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], tooltip_side? : PopupSide, tooltip_align? : PopupAlign, tooltip_side_offset? : Int32, tooltip_align_offset? : Int32, tooltip_show_arrow? : Bool, tooltip_attrs? : @html.Attrs, tooltip_style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] sidebar_menu_item(id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
@@ -763,21 +763,15 @@ pub fn[C : @html.IsChildren] toggle_group(default_values? : Array[String], multi
 
 pub fn[C : @html.IsChildren] toggle_group_item(scope~ : ToggleGroupScope, value~ : String, disabled? : Bool, aria_label? : String, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn[T : @html.IsChildren, C : @html.IsChildren] tooltip(id~ : String, default_open? : Bool, disabled? : Bool, delay? : Int32, close_delay? : Int32, close_on_click? : Bool, hoverable? : Bool, side? : PopupSide, align? : PopupAlign, side_offset? : Int32, align_offset? : Int32, show_arrow? : Bool, trigger_variant? : ButtonVariant, trigger_size? : ButtonSize, on_open_change? : @cmd.Emit[Bool], on_trigger_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], arrow_attrs? : @html.Attrs, arrow_style? : Array[String], T, C) -> @rabbita.Val[@html.Html]
+pub fn[T : @html.IsChildren, C : @html.IsChildren] tooltip(id~ : String, disabled? : Bool, delay? : Int32, close_delay? : Int32, side? : PopupSide, align? : PopupAlign, side_offset? : Int32, align_offset? : Int32, show_arrow? : Bool, trigger_variant? : ButtonVariant, trigger_size? : ButtonSize, on_trigger_click? : @cmd.Cmd, attrs? : @html.Attrs, style? : Array[String], trigger_attrs? : @html.Attrs, trigger_style? : Array[String], content_attrs? : @html.Attrs, content_style? : Array[String], arrow_attrs? : @html.Attrs, arrow_style? : Array[String], T, C) -> @html.Html
 
 pub fn tooltip_arrow(side? : PopupSide, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @html.Html
 
-pub fn tooltip_close(String) -> @cmd.Cmd
+pub fn[C : @html.IsChildren] tooltip_content(id~ : String, trigger_id~ : String, side? : PopupSide, align? : PopupAlign, side_offset? : Int32, align_offset? : Int32, show_arrow? : Bool, class? : String, title? : String, attrs? : @html.Attrs, arrow_attrs? : @html.Attrs, style? : Array[String], arrow_style? : Array[String], C) -> @html.Html
 
-pub fn[C : @html.IsChildren] tooltip_content(id~ : String, trigger_id~ : String, open? : Bool, side? : PopupSide, align? : PopupAlign, side_offset? : Int32, align_offset? : Int32, show_arrow? : Bool, class? : String, title? : String, attrs? : @html.Attrs, arrow_attrs? : @html.Attrs, style? : Array[String], arrow_style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] tooltip_provider(delay? : Int32, close_delay? : Int32, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
-pub fn tooltip_open(String) -> @cmd.Cmd
-
-pub fn[C : @html.IsChildren] tooltip_provider(delay? : Int32, close_delay? : Int32, timeout? : Int32, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
-
-pub fn tooltip_toggle(String) -> @cmd.Cmd
-
-pub fn[C : @html.IsChildren] tooltip_trigger(content_id~ : String, open? : Bool, disabled? : Bool, variant? : ButtonVariant, size? : ButtonSize, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
+pub fn[C : @html.IsChildren] tooltip_trigger(content_id~ : String, disabled? : Bool, variant? : ButtonVariant, size? : ButtonSize, on_click? : @cmd.Cmd, id? : String, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
 pub fn[C : @html.IsChildren] typography_blockquote(id? : String, class? : String, title? : String, hidden? : Bool, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
