@@ -116,6 +116,104 @@ fn INode::relocate(
 
 ///|
 #cfg(target="js")
+fn style_sheet(element : @dom.Element) -> @dom.CSSStyleDeclaration? {
+  if element.to_html_element() is Some(html) {
+    Some(html.get_style())
+  } else if element.to_svg_element() is Some(svg) {
+    Some(svg.get_style())
+  } else {
+    // MathML and other namespaced elements are neither HTML nor SVG elements;
+    // their inline styles are applied through the style attribute instead.
+    None
+  }
+}
+
+///|
+#cfg(target="js")
+fn style_attribute_text(
+  attrs : Map[String, String],
+  styles : Map[String, String],
+) -> String {
+  let builder = StringBuilder()
+  let mut need_separator = false
+  if attrs.get("style") is Some(text) && !text.is_empty() {
+    builder.write_string(text)
+    need_separator = !text.has_suffix(";")
+  }
+  for name, value in styles {
+    if need_separator {
+      builder.write_char(';')
+    }
+    builder.write_string(name)
+    builder.write_char(':')
+    builder.write_string(value)
+    need_separator = true
+  }
+  builder.to_string()
+}
+
+///|
+#cfg(target="js")
+fn insert_element_styles(
+  element : @dom.Element,
+  attrs : Map[String, String],
+  styles : Map[String, String],
+) -> Unit {
+  match style_sheet(element) {
+    Some(sheet) =>
+      for name, value in styles {
+        sheet.set_property(name, value)
+      }
+    None => {
+      let text = style_attribute_text(attrs, styles)
+      if !text.is_empty() {
+        element.set_attribute("style", text)
+      }
+    }
+  }
+}
+
+///|
+#cfg(target="js")
+fn update_element_styles(
+  element : @dom.Element,
+  old_styles : Map[String, String],
+  attrs : Map[String, String],
+  styles : Map[String, String],
+) -> Unit {
+  match style_sheet(element) {
+    Some(sheet) => {
+      for key, _ in old_styles {
+        if !styles.contains(key) {
+          sheet.remove_property(key) |> ignore
+        }
+      }
+      for key, value2 in styles {
+        if old_styles.get(key) is Some(value1) {
+          if value1 != value2 {
+            sheet.set_property(key, value2)
+          }
+        } else {
+          sheet.set_property(key, value2)
+        }
+      }
+    }
+    None => {
+      if old_styles.is_empty() && styles.is_empty() {
+        return
+      }
+      let text = style_attribute_text(attrs, styles)
+      if text.is_empty() {
+        element.remove_attribute("style")
+      } else {
+        element.set_attribute("style", text)
+      }
+    }
+  }
+}
+
+///|
+#cfg(target="js")
 fn insert_props(
   element : @dom.Element,
   tag : String,
@@ -139,16 +237,7 @@ fn insert_props(
   for name, value in properties {
     element.set_property(name, variant_to_js_value(value))
   }
-  let sheet = if element.to_html_element() is Some(html) {
-    html.get_style()
-  } else if element.to_svg_element() is Some(svg) {
-    svg.get_style()
-  } else {
-    panic()
-  }
-  for name, value in styles {
-    sheet.set_property(name, value)
-  }
+  insert_element_styles(element, attrs, styles)
   { props, slots, }
 }
 
@@ -653,27 +742,7 @@ fn diff_props(
       parent.set_property(key, variant_to_js_value(value2))
     }
   }
-  let stylesheet = if parent.to_html_element() is Some(html) {
-    html.get_style()
-  } else if parent.to_svg_element() is Some(svg) {
-    svg.get_style()
-  } else {
-    panic()
-  }
-  for key, _ in old.props.styles {
-    if !new.styles.contains(key) {
-      stylesheet.remove_property(key) |> ignore
-    }
-  }
-  for key, value2 in new.styles {
-    if old.props.styles.get(key) is Some(value1) {
-      if value1 != value2 {
-        stylesheet.set_property(key, value2)
-      }
-    } else {
-      stylesheet.set_property(key, value2)
-    }
-  }
+  update_element_styles(parent, old.props.styles, new.attrs, new.styles)
   { props: new, slots, }
 }
 

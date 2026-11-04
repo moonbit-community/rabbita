@@ -18,6 +18,7 @@ priv struct Model {
   collections : String
   drag_probes : String
   svg_collections : String
+  math_color : String
 } derive(Eq)
 
 ///|
@@ -35,6 +36,7 @@ priv enum Msg {
   InstallDragProbes
   RunSvgCollections
   RunMediaCollections
+  ToggleMathColor
   PushUrl
   ReplaceUrl
   HistoryBack
@@ -76,6 +78,10 @@ fn update(model : Model, message : Msg) -> Model {
     RunMediaCollections => {
       probe_media_collections()
       model
+    }
+    ToggleMathColor => {
+      ..model,
+      math_color: if model.math_color == "red" { "blue" } else { "red" },
     }
     PushUrl => {
       @dom.window().push_url("/dom-api-pushed")
@@ -119,6 +125,7 @@ fn app() -> Val[Html] {
     collections: "idle",
     drag_probes: "idle",
     svg_collections: "idle",
+    math_color: "red",
   }
   let (model, emit) = @rabbita.create_pure_state(initial, update~)
   model.view(model => {
@@ -160,6 +167,17 @@ fn app() -> Val[Html] {
       div(id="dnd-target", "Drop target"),
       button(on_click=emit(RunSvgCollections), "Run SVG collection APIs"),
       p(id="svg-collections-result", model.svg_collections),
+      @html.svg(
+        id="html-svg",
+        style=["width:16px;height:16px;color:lime"],
+        [@html.text("svg")],
+      ),
+      @html.math(
+        id="html-math",
+        style=["color:\{model.math_color}"],
+        [@html.text("math")],
+      ),
+      button(on_click=emit(ToggleMathColor), "Toggle MathML color"),
       button(on_click=emit(RunMediaCollections), "Run media collection APIs"),
       p(id="media-collections-result", "pending"),
       button(on_click=emit(PushUrl), "Push URL"),

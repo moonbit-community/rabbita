@@ -2671,7 +2671,12 @@ pub fn[C : IsChildren] svg(
   push_style(style, attrs)
   push_class(class, attrs)
   push_id(id, attrs)
-  VNode::elem("svg", attrs.to_props(), children)
+  VNode::elem(
+    "svg",
+    attrs.to_props(),
+    children,
+    namespace_uri=@dom.namespace_svg,
+  )
 }
 
 ///|
@@ -2691,7 +2696,12 @@ pub fn[C : IsChildren] math(
   push_style(style, attrs)
   push_class(class, attrs)
   push_id(id, attrs)
-  VNode::elem("math", attrs.to_props(), children)
+  VNode::elem(
+    "math",
+    attrs.to_props(),
+    children,
+    namespace_uri=@dom.namespace_mathml,
+  )
 }
 
 ///|
