@@ -6,3 +6,5 @@ import {
 options(
   link: { "js": { "exports": [ "button", "on", "send" ], "format": "esm" } },
 )
+
+supported_targets = "js"

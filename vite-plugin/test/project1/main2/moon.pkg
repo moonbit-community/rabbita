@@ -5,3 +5,5 @@ import {
 }
 
 pkgtype(kind: "executable")
+
+supported_targets = "js"
