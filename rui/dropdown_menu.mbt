@@ -188,6 +188,9 @@ pub fn dropdown_menu(
           if open == current.open {
             (current, @cmd.none)
           } else {
+            if !open {
+              menu_invalidate_focus(id + "-root")
+            }
             let next = {
               ..current,
               open,
@@ -223,6 +226,9 @@ pub fn dropdown_menu(
           if open == current.open {
             (current, @cmd.none)
           } else {
+            if !open {
+              menu_invalidate_focus(id + "-root")
+            }
             (
               { ..current, open, submenus: [], },
               @cmd.batch([

@@ -40,6 +40,29 @@ for (const openingKey of ['ArrowDown', 'ArrowUp']) {
   });
 }
 
+test('dropdown initial focus does not run after Escape dismissal', async ({ page }) => {
+  await page.clock.install();
+  await page.goto('/');
+  await page.clock.runFor(100);
+
+  await page.getByRole('button', { name: 'Mount focus menu' }).click();
+  const origin = page.getByRole('button', { name: 'Focus origin' });
+  await origin.focus();
+  await page.clock.runFor(16);
+
+  const menu = page.getByRole('menu', { name: 'Focus menu' });
+  await expect(menu).toBeVisible();
+  await menu.dispatchEvent('keydown', {
+    key: 'Escape',
+    bubbles: true,
+    cancelable: true,
+  });
+  await page.clock.runFor(32);
+
+  await expect(menu).toBeHidden();
+  await expect(origin).toBeFocused();
+});
+
 test('dropdown menu opens, exposes items, and closes after a selection', async ({ page }) => {
   await page.goto('/');
 
