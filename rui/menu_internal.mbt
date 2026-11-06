@@ -279,6 +279,31 @@ let menu_surface_bindings : Map[String, MenuSurfaceBinding] = Map([])
 let menu_pending_edges : Map[String, String] = Map([])
 
 ///|
+/// Generation counter for the initial-focus frame loop. Closing a menu bumps
+/// the generation so callbacks scheduled before the close cannot focus an item
+/// from the closing menu after focus has been restored.
+#cfg(target="js")
+let menu_focus_generations : Map[String, Ref[Int]] = Map([])
+
+///|
+#cfg(target="js")
+fn menu_focus_generation(id : String) -> Int {
+  match menu_focus_generations.get(id) {
+    Some(generation) => generation.val
+    None => 0
+  }
+}
+
+///|
+#cfg(target="js")
+fn menu_invalidate_focus(id : String) -> Unit {
+  match menu_focus_generations.get(id) {
+    Some(generation) => generation.val = generation.val + 1
+    None => menu_focus_generations[id] = Ref(1)
+  }
+}
+
+///|
 #cfg(target="js")
 fn menu_request_frame(callback : () -> Unit) -> Unit {
   ui_after_request_frame(callback)
@@ -836,7 +861,9 @@ fn focus_menu_item(id : String, content_id : String, index : Int32) -> Bool {
 ///|
 #cfg(target="js")
 fn focus_first_menu_item(id : String, found : (Int32) -> Unit) -> Unit {
+  let generation = menu_focus_generation(id)
   fn focus_when_visible(attempt : Int32) -> Unit {
+    guard menu_focus_generation(id) == generation else { return }
     guard ui_element_by_id(id) is Some(root) else { return }
     let binding = if menu_surface_bindings.get(id) is Some(binding) &&
       binding.root.is_same_node(root.as_node()) {
