@@ -343,18 +343,22 @@ pub fn VDom::initialize_with_hydration(
 #cfg(target="js")
 fn new_captured_link_listener(scheduler : &Scheduler) -> @dom.Listener {
   event => {
-    if event.to_mouse_event() is Some(mouse_event) &&
-      !(mouse_event.get_meta_key() || mouse_event.get_ctrl_key()) {
-      event.prevent_default()
-      let href = event
-        .current_target()
-        .unwrap()
-        .to_element()
-        .unwrap()
-        .get_property("href")
-        .unwrap()
-      scheduler.add(scheduler.inject_url_request(href))
+    guard !event.get_default_prevented() else { return }
+    guard event.to_mouse_event() is Some(mouse_event) else { return }
+    if mouse_event.get_button() != 0 ||
+      mouse_event.get_meta_key() ||
+      mouse_event.get_ctrl_key() ||
+      mouse_event.get_shift_key() ||
+      mouse_event.get_alt_key() {
+      return
     }
+    let link = event.current_target().unwrap().to_element().unwrap()
+    let target = link.get_attribute("target").unwrap_or("")
+    guard target.is_empty() || target.to_lower() == "_self" else { return }
+    guard !link.has_attribute("download") else { return }
+    let href = link.get_property("href").unwrap()
+    event.prevent_default()
+    scheduler.add(scheduler.inject_url_request(href))
   }
 }
 
