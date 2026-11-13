@@ -6,12 +6,13 @@ struct ArtifactPath {
 }
 
 ///|
+#derive(Eq, Hash, Debug)
 pub(all) enum Target {
   Wasm
   WasmGC
   Js
   Native
-} derive(Eq, Hash, Debug)
+}
 
 ///|
 pub extend Target with Eq::{equal, not_equal}
@@ -23,10 +24,11 @@ pub extend Target with Hash::{hash, hash_combine}
 pub extend Target with Debug::{to_repr}
 
 ///|
+#derive(Eq, Hash, Debug)
 pub(all) enum Build {
   Release
   Debug
-} derive(Eq, Hash, Debug)
+}
 
 ///|
 pub extend Build with Eq::{equal, not_equal}
@@ -38,10 +40,11 @@ pub extend Build with Hash::{hash, hash_combine}
 pub extend Build with Debug::{to_repr}
 
 ///|
+#derive(Eq, Hash, Debug)
 pub(all) enum Mode {
   Check
   Build
-} derive(Eq, Hash, Debug)
+}
 
 ///|
 pub extend Mode with Eq::{equal, not_equal}

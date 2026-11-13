@@ -1,11 +1,12 @@
 ///|
 /// Edge from which a [`drawer`] enters the viewport.
+#derive(Debug, Eq)
 pub(all) enum DrawerDirection {
   DrawerTop
   DrawerRight
   DrawerBottom
   DrawerLeft
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend DrawerDirection with Debug::{to_repr}

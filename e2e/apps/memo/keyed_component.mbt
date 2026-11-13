@@ -1,19 +1,21 @@
 ///|
+#derive(Eq, Hash)
 priv enum KeyedShape {
   Element
   Fragment
   Empty
   Text
-} derive(Eq, Hash)
+}
 
 ///|
+#derive(Eq)
 priv struct KeyedState {
   reversed : Bool
   shown : Bool
   trailing_marker : Bool
   shape : KeyedShape
   value : Int32
-} derive(Eq)
+}
 
 ///|
 fn keyed_memo_row(

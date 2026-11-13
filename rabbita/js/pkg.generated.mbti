@@ -173,7 +173,7 @@ pub fn[Arg, Result] Value::apply_with_symbol(Self, Symbol, FixedArray[Arg]) -> R
 pub fn[T] Value::cast(Self) -> T
 pub fn[T] Value::cast_from(T) -> Self
 pub fn Value::extends(Self, Self) -> Self
-pub fn Value::from_json(Json) -> Self raise
+pub fn Value::from_json(@json.Json) -> Self raise
 pub fn Value::from_json_string(String) -> Self raise
 pub fn[T] Value::get_with_index(Self, Int32) -> T
 pub fn[T] Value::get_with_string(Self, String) -> T
@@ -193,7 +193,7 @@ pub fn Value::output(Self, &Logger) -> Unit
 pub fn[T] Value::set_with_index(Self, Int32, T) -> Unit
 pub fn[T] Value::set_with_string(Self, String, T) -> Unit
 pub fn[T] Value::set_with_symbol(Self, Symbol, T) -> Unit
-pub fn Value::to_json(Self) -> Json raise
+pub fn Value::to_json(Self) -> @json.Json raise
 pub fn Value::to_json_string(Self) -> String raise
 pub fn Value::to_string(Self) -> String
 pub impl Show for Value

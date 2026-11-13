@@ -2,10 +2,11 @@
 using @devhub {type Devhub}
 
 ///|
+#derive(Eq)
 struct ArtifactDigest {
   hash : Int32
   length : Int32
-} derive(Eq)
+}
 
 ///|
 struct RunningServer {

@@ -26,7 +26,8 @@ priv struct Scope {
 }
 
 ///|
-struct ScopeId(@slotmap.Id) derive(Hash, Eq)
+#derive(Hash, Eq)
+struct ScopeId(@slotmap.Id)
 
 ///|
 pub extend ScopeId with Hash::{hash, hash_combine}

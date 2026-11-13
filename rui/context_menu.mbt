@@ -18,6 +18,7 @@ struct ContextMenuSubScope {
 }
 
 ///|
+#derive(Eq)
 #cfg(target="js")
 priv struct ContextMenuModel {
   menu : MenuCoreModel
@@ -25,7 +26,7 @@ priv struct ContextMenuModel {
   y : Int32
   point_x : Int32
   point_y : Int32
-} derive(Eq)
+}
 
 ///|
 #cfg(target="js")

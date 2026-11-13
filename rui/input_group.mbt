@@ -1,10 +1,11 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum InputGroupAddonAlign {
   InputInlineStart
   InputInlineEnd
   InputBlockStart
   InputBlockEnd
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend InputGroupAddonAlign with Debug::{to_repr}
@@ -13,12 +14,13 @@ pub extend InputGroupAddonAlign with Debug::{to_repr}
 pub extend InputGroupAddonAlign with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum InputGroupButtonSize {
   InputButtonXs
   InputButtonSm
   InputButtonIconXs
   InputButtonIconSm
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend InputGroupButtonSize with Debug::{to_repr}

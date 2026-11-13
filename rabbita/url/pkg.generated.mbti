@@ -11,11 +11,12 @@ pub fn parse(String) -> Url raise
 // Errors
 
 // Types and methods
+#derive(Compare, Eq, @debug.Debug)
 pub(all) enum Protocol {
   Http
   Https
   Other(String)
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn Protocol::compare(Self, Self) -> Int32
 pub fn Protocol::equal(Self, Self) -> Bool
 pub fn Protocol::not_equal(Self, Self) -> Bool
@@ -28,6 +29,7 @@ pub fn Protocol::to_repr(Self) -> @debug.Repr
 pub fn Protocol::to_string(Self) -> String
 pub impl Show for Protocol
 
+#derive(Compare, Eq, @debug.Debug)
 pub(all) struct Url {
   protocol : Protocol
   host : String
@@ -35,7 +37,7 @@ pub(all) struct Url {
   path : String
   query : String?
   fragment : String?
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn Url::compare(Self, Self) -> Int32
 pub fn Url::equal(Self, Self) -> Bool
 pub fn Url::not_equal(Self, Self) -> Bool
@@ -48,10 +50,11 @@ pub fn Url::to_repr(Self) -> @debug.Repr
 pub fn Url::to_string(Self) -> String
 pub impl Show for Url
 
+#derive(Compare, Eq, @debug.Debug)
 pub(all) enum UrlRequest {
   Internal(Url)
   External(String)
-} derive(Compare, Eq, @debug.Debug)
+}
 pub fn UrlRequest::compare(Self, Self) -> Int32
 pub fn UrlRequest::equal(Self, Self) -> Bool
 pub fn UrlRequest::not_equal(Self, Self) -> Bool

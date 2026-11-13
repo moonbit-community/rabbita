@@ -281,6 +281,7 @@ fn bind_hover_card_events(
 }
 
 ///|
+#derive(Eq)
 #cfg(target="js")
 priv struct HoverCardModel {
   open : Bool
@@ -289,7 +290,7 @@ priv struct HoverCardModel {
   content_hovered : Bool
   content_focused : Bool
   generation : Int32
-} derive(Eq)
+}
 
 ///|
 #cfg(target="js")

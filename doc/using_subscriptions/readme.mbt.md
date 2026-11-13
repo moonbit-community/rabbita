@@ -21,10 +21,11 @@ enum Msg {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   width : Double
   height : Double
-} derive(Eq)
+}
 
 ///|
 fn subscriptions(model : Model, emit : Emit[Msg]) -> @sub.Sub {

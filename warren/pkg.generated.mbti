@@ -17,7 +17,8 @@ pub let templates : TemplatesFixture
 // Errors
 
 // Types and methods
-type ArtifactDigest derive(Eq)
+#derive(Eq)
+type ArtifactDigest
 
 pub struct DefaultFixture {
   main : MainFixture

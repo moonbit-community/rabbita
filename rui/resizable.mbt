@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum ResizablePanelSide {
   FirstPanel
   SecondPanel
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ResizablePanelSide with Debug::{to_repr}

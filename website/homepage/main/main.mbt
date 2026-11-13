@@ -42,18 +42,20 @@ using @html {
 using @rabbita {type Html, type Val, type Cmd, batch, none}
 
 ///|
+#derive(Eq)
 enum Theme {
   System
   Light
   Dark
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 enum Page {
   Home
   Tour(TourModel)
   Components(String)
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for Page with fn tag(self) {
@@ -71,9 +73,10 @@ enum Msg {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   page : Page
-} derive(Eq)
+}
 
 ///|
 let github_url : String = "https://github.com/moonbit-community/rabbita"
@@ -362,17 +365,19 @@ fn hamburger(is_open : Bool) -> Html {
 }
 
 ///|
+#derive(Eq)
 enum NavPage {
   NavHome
   NavTour
   NavComponents
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct NavModel {
   theme : Theme
   current : NavPage
-} derive(Eq)
+}
 
 ///|
 fn nav_link_attrs(is_current : Bool) -> @html.Attrs {
@@ -548,9 +553,10 @@ struct HeroTabEntry {
 let hero_tabs : Array[HeroTabEntry] = [{ label: "Counter", src: code_counter, }]
 
 ///|
+#derive(Eq)
 struct HeroViewModel {
   hero_tab : Int32
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for HeroViewModel with fn tag(self) {
@@ -695,10 +701,11 @@ fn cmp_card(js_src : String, mb_src : String) -> Val[Html] {
 }
 
 ///|
+#derive(Eq)
 struct ComparisonViewModel {
   cmp_idx : Int32
   cmp_anim : Bool
-} derive(Eq)
+}
 
 ///|
 enum ComparisonMsg {

@@ -1,9 +1,10 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum ChartIndicator {
   ChartDot
   ChartLine
   ChartDashed
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ChartIndicator with Debug::{to_repr}

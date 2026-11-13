@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum AccordionType {
   Single
   Multiple
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AccordionType with Debug::{to_repr}

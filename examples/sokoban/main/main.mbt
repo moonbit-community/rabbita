@@ -17,23 +17,26 @@ using @sub {type Sub, on_key_down}
 using @vector {type Vector, from_array, singleton}
 
 ///|
+#derive(Eq)
 enum Tile {
   Wall
   Floor
   Goal
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct Pos {
   x : Int32
   y : Int32
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct World {
   player : Pos
   crates : Vector[Pos]
-} derive(Eq)
+}
 
 ///|
 enum Msg {
@@ -113,10 +116,11 @@ fn delta_from_key(event : Keyboard) -> Pos? {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   history : Vector[World]
   cursor : Int32
-} derive(Eq)
+}
 
 ///|
 fn update(msg : Msg, model : Model) -> Model {

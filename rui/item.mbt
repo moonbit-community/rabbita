@@ -1,9 +1,10 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum ItemVariant {
   ItemDefault
   ItemOutline
   ItemMuted
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ItemVariant with Debug::{to_repr}
@@ -12,10 +13,11 @@ pub extend ItemVariant with Debug::{to_repr}
 pub extend ItemVariant with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum ItemSize {
   ItemDefaultSize
   ItemSm
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ItemSize with Debug::{to_repr}
@@ -24,11 +26,12 @@ pub extend ItemSize with Debug::{to_repr}
 pub extend ItemSize with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum ItemMediaVariant {
   ItemMediaDefault
   ItemMediaIcon
   ItemMediaImage
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ItemMediaVariant with Debug::{to_repr}

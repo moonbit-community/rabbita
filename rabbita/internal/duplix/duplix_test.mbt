@@ -399,10 +399,11 @@ test "assoc disposes removed entry scopes" {
 }
 
 ///|
+#derive(Eq)
 enum Route {
   Home
   Detail
-} derive(Eq)
+}
 
 ///|
 impl @common.Enumerate for Route with fn tag(self) {

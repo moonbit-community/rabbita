@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum NativeSelectSize {
   NativeSelectDefault
   NativeSelectSm
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend NativeSelectSize with Debug::{to_repr}

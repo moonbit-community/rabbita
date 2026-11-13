@@ -12,7 +12,8 @@ import {
 // Errors
 
 // Types and methods
-type VirtualFileSystem derive(@debug.Debug)
+#derive(@debug.Debug)
+type VirtualFileSystem
 pub fn VirtualFileSystem::clear(Self) -> Unit
 pub fn VirtualFileSystem::mount(Self, String, VirtualFs) -> Unit
 #as_free_fn
@@ -21,12 +22,13 @@ pub async fn VirtualFileSystem::read(Self, String) -> &@io.Data?
 pub fn VirtualFileSystem::to_repr(Self) -> @debug.Repr
 pub fn VirtualFileSystem::unmount(Self, String) -> Unit
 
+#derive(@debug.Debug)
 pub(all) enum VirtualFs {
   DirectoryMapping(@path.SourcePath)
   FileMapping(@path.SourcePath)
   DirectoryContent(Map[String, VirtualFs])
   FileContent(String)
-} derive(@debug.Debug)
+}
 pub fn VirtualFs::to_repr(Self) -> @debug.Repr
 
 // Type aliases
