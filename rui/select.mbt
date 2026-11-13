@@ -16,13 +16,14 @@ pub fn select_option(
 }
 
 ///|
+#derive(Eq)
 priv struct SelectModel {
   open : Bool
   value : String?
   active : Int32
   search : String
   search_generation : Int32
-} derive(Eq)
+}
 
 ///|
 priv enum SelectMsg {

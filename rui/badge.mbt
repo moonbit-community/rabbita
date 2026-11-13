@@ -1,4 +1,5 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum BadgeVariant {
   Default
   Secondary
@@ -6,7 +7,7 @@ pub(all) enum BadgeVariant {
   Outline
   Ghost
   Link
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend BadgeVariant with Debug::{to_repr}

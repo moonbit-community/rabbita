@@ -212,10 +212,11 @@ test "bind selector branch can switch away and back" {
 }
 
 ///|
+#derive(Eq)
 enum WbRoute {
   WbHome
   WbDetail
-} derive(Eq)
+}
 
 ///|
 pub extend WbRoute with Eq::{equal, not_equal}

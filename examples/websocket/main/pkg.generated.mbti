@@ -6,19 +6,25 @@ package "example/websocket/main"
 // Errors
 
 // Types and methods
-type ChatEntry derive(Eq)
+#derive(Eq)
+type ChatEntry
 
-type ClientPanelModel derive(Eq)
+#derive(Eq)
+type ClientPanelModel
 
-type ListenPanelModel derive(Eq)
+#derive(Eq)
+type ListenPanelModel
 
-type Model derive(Eq)
+#derive(Eq)
+type Model
 
 type Msg
 
-type SharedConfigModel derive(Eq)
+#derive(Eq)
+type SharedConfigModel
 
-type TranscriptPanelModel derive(Eq)
+#derive(Eq)
+type TranscriptPanelModel
 
 // Type aliases
 

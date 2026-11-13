@@ -28,9 +28,10 @@ its `Model` and the `Msg` values that can update it:
 
 ```moonbit check
 ///|
+#derive(Eq)
 struct Model {
   count : Int32
-} derive(Eq)
+}
 
 ///|
 enum Msg {

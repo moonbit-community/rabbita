@@ -658,9 +658,10 @@ pub(all) enum Body {
 }
 
 ///|
+#derive(FromJson, ToJson)
 pub(all) suberror HttpError {
   RequestError(String)
-} derive(FromJson, ToJson)
+}
 
 ///|
 pub extend HttpError with FromJson::{from_json}

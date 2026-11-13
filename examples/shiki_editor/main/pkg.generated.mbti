@@ -6,7 +6,8 @@ package "example/shiki_editor/main"
 // Errors
 
 // Types and methods
-type ControlsState derive(Eq)
+#derive(Eq)
+type ControlsState
 
 // Type aliases
 

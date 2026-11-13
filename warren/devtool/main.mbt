@@ -23,21 +23,24 @@ let mobile_tab_width = 84
 let mobile_breakpoint = 560
 
 ///|
+#derive(Eq)
 struct DragState {
   start_x : Int32
   start_left : Int32
   moved : Bool
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 enum DevStatus {
   Ready
   Building
   Reloading
   BuildFailed
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct Model {
   pinned : Bool
   hovered : Bool
@@ -50,7 +53,7 @@ struct Model {
   reconnecting : Bool
   status : DevStatus
   build_diagnostics : String
-} derive(Eq)
+}
 
 ///|
 enum Msg {

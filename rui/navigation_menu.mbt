@@ -1,9 +1,10 @@
 ///|
+#derive(Eq)
 struct NavigationMenuModel {
   value : String?
   index : Int32
   focus_index : Int32
-} derive(Eq)
+}
 
 ///|
 pub extend NavigationMenuModel with Eq::{equal, not_equal}

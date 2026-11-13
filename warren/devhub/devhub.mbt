@@ -1,17 +1,19 @@
 ///|
+#derive(Debug)
 pub(all) enum BroadcastMsg {
   Building
   Reload
   BuildFailed(String)
-} derive(Debug)
+}
 
 ///|
 pub extend BroadcastMsg with Debug::{to_repr}
 
 ///|
+#derive(Debug)
 pub(all) enum ClientMsg {
   Text(String)
-} derive(Debug)
+}
 
 ///|
 pub extend ClientMsg with Debug::{to_repr}

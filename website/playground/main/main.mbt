@@ -5,6 +5,7 @@ using @html {a, button, div, iframe, li, nothing, option, pre, select, span, ul}
 using @rabbita {type Cmd, type Emit, type Html, type Val}
 
 ///|
+#derive(Eq)
 struct Diagnostic {
   level : String
   path : String
@@ -13,7 +14,7 @@ struct Diagnostic {
   end_line : Int32
   end_column : Int32
   message : String
-} derive(Eq)
+}
 
 ///|
 enum Msg {
@@ -37,21 +38,24 @@ enum Msg {
 }
 
 ///|
+#derive(Eq)
 enum SourceTab {
   Mbt
   Html
   Css
   MoonPkg
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 enum ExampleAsset {
   RepoSource(Int32)
   RepoCss
   RepoMoonPkg
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct Model {
   active_tab : SourceTab
   mbt : String
@@ -72,38 +76,42 @@ struct Model {
   run_id : Int32
   example_id : String
   example_load : ExampleLoad?
-} derive(Eq)
+}
 
 ///|
+#derive(Eq, FromJson)
 struct Example {
   id : String
   label : String
   sources : Array[String]
   css : String
   moon_pkg : String
-} derive(Eq, FromJson)
+}
 
 ///|
+#derive(FromJson)
 struct ExampleManifest {
   examples : Array[Example]
-} derive(FromJson)
+}
 
 ///|
+#derive(Eq)
 struct LoadedExample {
   mbt : String
   html : String
   css : String
   moon_pkg : String
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct ExampleLoad {
   token : Int32
   example_id : String
   sources : Array[String?]
   css : String?
   moon_pkg : String?
-} derive(Eq)
+}
 
 ///|
 fn initial_model() -> Model {
@@ -809,10 +817,11 @@ fn tab_input(emit : Emit[Msg], tab : SourceTab) -> (String) -> Cmd {
 }
 
 ///|
+#derive(Eq)
 struct BuildStateModel {
   status : String
   compiling : Bool
-} derive(Eq)
+}
 
 ///|
 fn rebuild_button_state(model : BuildStateModel) -> String {
@@ -886,11 +895,12 @@ fn tab_button(emit : Emit[Msg], active : SourceTab, tab : SourceTab) -> Html {
 }
 
 ///|
+#derive(Eq)
 struct ExampleSelectModel {
   examples_ready : Bool
   examples : Array[Example]
   example_id : String
-} derive(Eq)
+}
 
 ///|
 fn example_select(emit : Emit[Msg], model : ExampleSelectModel) -> Html {
@@ -929,11 +939,12 @@ fn package_docs_url(pkg : String) -> String {
 }
 
 ///|
+#derive(Eq)
 struct PackageMenuModel {
   asset_packages : Array[String]
   asset_status : String
   package_menu_open : Bool
-} derive(Eq)
+}
 
 ///|
 fn package_menu(emit : Emit[Msg], model : PackageMenuModel) -> Html {
@@ -992,11 +1003,12 @@ fn code_panel() -> Html {
 }
 
 ///|
+#derive(Eq)
 struct ResultBodyModel {
   status : String
   log : String
   diagnostics : Array[Diagnostic]
-} derive(Eq)
+}
 
 ///|
 fn show_diagnostics(model : ResultBodyModel) -> Bool {

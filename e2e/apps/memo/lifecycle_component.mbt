@@ -1,4 +1,5 @@
 ///|
+#derive(Eq, Hash)
 priv enum Shape {
   PlainElement
   PlainText
@@ -7,7 +8,7 @@ priv enum Shape {
   MemoText
   MemoFragment
   NestedMemo
-} derive(Eq, Hash)
+}
 
 ///|
 fn memo_shape(

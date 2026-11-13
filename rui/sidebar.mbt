@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum SidebarSide {
   SidebarLeft
   SidebarRight
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SidebarSide with Debug::{to_repr}
@@ -11,11 +12,12 @@ pub extend SidebarSide with Debug::{to_repr}
 pub extend SidebarSide with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum SidebarVariant {
   SidebarDefault
   SidebarFloating
   SidebarInset
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SidebarVariant with Debug::{to_repr}
@@ -24,11 +26,12 @@ pub extend SidebarVariant with Debug::{to_repr}
 pub extend SidebarVariant with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum SidebarCollapsible {
   SidebarOffcanvas
   SidebarIcon
   SidebarFixed
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SidebarCollapsible with Debug::{to_repr}
@@ -37,11 +40,12 @@ pub extend SidebarCollapsible with Debug::{to_repr}
 pub extend SidebarCollapsible with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum SidebarMenuButtonSize {
   SidebarMenuSm
   SidebarMenuDefault
   SidebarMenuLg
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SidebarMenuButtonSize with Debug::{to_repr}
@@ -50,10 +54,11 @@ pub extend SidebarMenuButtonSize with Debug::{to_repr}
 pub extend SidebarMenuButtonSize with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum SidebarMenuButtonVariant {
   SidebarMenuButtonDefault
   SidebarMenuButtonOutline
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SidebarMenuButtonVariant with Debug::{to_repr}
@@ -62,12 +67,13 @@ pub extend SidebarMenuButtonVariant with Debug::{to_repr}
 pub extend SidebarMenuButtonVariant with Eq::{equal, not_equal}
 
 ///|
+#derive(Eq)
 #cfg(target="js")
 priv struct SidebarState {
   collapsed : Bool
   mobile_open : Bool
   desktop_width : Int32?
-} derive(Eq)
+}
 
 ///|
 #cfg(target="js")

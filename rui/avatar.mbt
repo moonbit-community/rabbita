@@ -1,9 +1,10 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum AvatarSize {
   Default
   Sm
   Lg
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AvatarSize with Debug::{to_repr}
@@ -12,11 +13,12 @@ pub extend AvatarSize with Debug::{to_repr}
 pub extend AvatarSize with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum AvatarImageStatus {
   AvatarLoading
   AvatarLoaded
   AvatarError
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AvatarImageStatus with Debug::{to_repr}

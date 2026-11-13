@@ -13,14 +13,15 @@ pub fn view() -> @rabbita.Val[@html.Html]
 // Errors
 
 // Types and methods
+#derive(Eq, @json.FromJson, @json.ToJson)
 pub(all) struct Issue {
   content : String
   status : String
-} derive(Eq, ToJson, @json.FromJson)
+}
 pub fn Issue::equal(Self, Self) -> Bool
-pub fn Issue::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn Issue::from_json(@json.Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
 pub fn Issue::not_equal(Self, Self) -> Bool
-pub fn Issue::to_json(Self) -> Json
+pub fn Issue::to_json(Self) -> @json.Json
 
 // Type aliases
 

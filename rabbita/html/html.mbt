@@ -6,8 +6,9 @@ using @cmd {type Cmd, type Emit}
 
 ///|
 /// An HTML value produced by the constructors in this package.
+#derive(Eq)
 #alias(T)
-pub(all) struct Html(@vdom.VNode) derive(Eq)
+pub(all) struct Html(@vdom.VNode)
 
 ///|
 pub extend Html with Eq::{equal, not_equal}

@@ -14,31 +14,43 @@ pub fn sync_code_editor(String, String, String, String, (String) -> @cmd.Cmd) ->
 // Errors
 
 // Types and methods
-type BuildStateModel derive(Eq)
+#derive(Eq)
+type BuildStateModel
 
-type Diagnostic derive(Eq)
+#derive(Eq)
+type Diagnostic
 
-type Example derive(Eq, @json.FromJson)
+#derive(Eq, @json.FromJson)
+type Example
 
-type ExampleAsset derive(Eq)
+#derive(Eq)
+type ExampleAsset
 
-type ExampleLoad derive(Eq)
+#derive(Eq)
+type ExampleLoad
 
-type ExampleManifest derive(@json.FromJson)
+#derive(@json.FromJson)
+type ExampleManifest
 
-type ExampleSelectModel derive(Eq)
+#derive(Eq)
+type ExampleSelectModel
 
-type LoadedExample derive(Eq)
+#derive(Eq)
+type LoadedExample
 
-type Model derive(Eq)
+#derive(Eq)
+type Model
 
 type Msg
 
-type PackageMenuModel derive(Eq)
+#derive(Eq)
+type PackageMenuModel
 
-type ResultBodyModel derive(Eq)
+#derive(Eq)
+type ResultBodyModel
 
-type SourceTab derive(Eq)
+#derive(Eq)
+type SourceTab
 
 // Type aliases
 

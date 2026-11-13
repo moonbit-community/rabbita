@@ -10,12 +10,13 @@ import {
 // Errors
 
 // Types and methods
+#derive(Compare, Eq, Hash, @debug.Debug)
 pub(all) enum Variant {
   Boolean(Bool)
   Integer(Int32)
   Floating(Double)
   String(String)
-} derive(Compare, Eq, Hash, @debug.Debug)
+}
 pub fn Variant::compare(Self, Self) -> Int32
 pub fn Variant::equal(Self, Self) -> Bool
 pub fn Variant::hash(Self) -> Int32

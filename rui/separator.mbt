@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum SeparatorOrientation {
   Horizontal
   Vertical
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SeparatorOrientation with Debug::{to_repr}

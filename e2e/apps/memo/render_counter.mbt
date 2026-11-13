@@ -4,10 +4,11 @@ priv struct RenderCounter {
 }
 
 ///|
+#derive(Eq)
 priv struct CounterSnapshot {
   reading : Int32
   value : Int32
-} derive(Eq)
+}
 
 ///|
 // Expose a snapshot through an independent view so reading the count does not

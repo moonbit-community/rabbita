@@ -12,10 +12,11 @@ priv enum Msg {
 }
 
 ///|
+#derive(FromJson, ToJson, Eq)
 pub(all) struct Issue {
   content : String
   status : String
-} derive(FromJson, ToJson, Eq)
+}
 
 ///|
 pub extend Issue with FromJson::{from_json}

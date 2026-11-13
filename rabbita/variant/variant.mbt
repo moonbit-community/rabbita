@@ -1,10 +1,11 @@
 ///|
+#derive(Debug, Eq, Compare, Hash)
 pub(all) enum Variant {
   Boolean(Bool)
   Integer(Int32)
   Floating(Double)
   String(String)
-} derive(Debug, Eq, Compare, Hash)
+}
 
 ///|
 pub extend Variant with Debug::{to_repr}

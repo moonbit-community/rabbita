@@ -1,9 +1,10 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum FieldOrientation {
   FieldVertical
   FieldHorizontal
   FieldResponsive
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend FieldOrientation with Debug::{to_repr}
@@ -12,10 +13,11 @@ pub extend FieldOrientation with Debug::{to_repr}
 pub extend FieldOrientation with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum FieldLegendVariant {
   FieldLegend
   FieldLabelLegend
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend FieldLegendVariant with Debug::{to_repr}

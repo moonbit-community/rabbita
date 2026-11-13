@@ -5,10 +5,11 @@ using @rabbita {type Cmd, type Emit, type Html, type Val}
 using @html {button, div, h1, p}
 
 ///|
+#derive(Eq)
 priv struct Model {
   location : String
   count : Int32
-} derive(Eq)
+}
 
 ///|
 priv enum Msg {

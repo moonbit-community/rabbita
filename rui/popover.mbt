@@ -1,10 +1,11 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum PopupSide {
   Top
   Right
   Bottom
   Left
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend PopupSide with Debug::{to_repr}
@@ -13,11 +14,12 @@ pub extend PopupSide with Debug::{to_repr}
 pub extend PopupSide with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum PopupAlign {
   Start
   Center
   End
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend PopupAlign with Debug::{to_repr}

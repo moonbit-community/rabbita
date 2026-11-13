@@ -1,8 +1,9 @@
 ///|
+#derive(Eq)
 priv struct CommandModel {
   query : String
   active : Int32
-} derive(Eq)
+}
 
 ///|
 priv enum CommandMessage {

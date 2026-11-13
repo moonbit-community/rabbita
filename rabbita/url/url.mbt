@@ -2,10 +2,11 @@
 /// Represent the URL change request from the user, trigger by `@html.a` tag.
 /// The `Internal` means the target URL is in the same domain.
 /// The `External` means the target URL is in another site.
+#derive(Debug, Eq, Compare)
 pub(all) enum UrlRequest {
   Internal(Url)
   External(String)
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend UrlRequest with Debug::{to_repr}
@@ -35,6 +36,7 @@ pub extend UrlRequest with Show::{output, to_string}
 /// ```
 /// 
 /// This diagram is from https://package.elm-lang.org/packages/elm/url/latest/Url
+#derive(Debug, Eq, Compare)
 pub(all) struct Url {
   protocol : Protocol
   host : String
@@ -42,7 +44,7 @@ pub(all) struct Url {
   path : String
   query : String?
   fragment : String?
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend Url with Debug::{to_repr}
@@ -62,11 +64,12 @@ pub impl Show for Url with fn output(self, buf) {
 pub extend Url with Show::{output}
 
 ///|
+#derive(Debug, Eq, Compare)
 pub(all) enum Protocol {
   Http
   Https
   Other(String)
-} derive(Debug, Eq, Compare)
+}
 
 ///|
 pub extend Protocol with Debug::{to_repr}

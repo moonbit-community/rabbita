@@ -10,12 +10,14 @@
 /// directly from Elm's home page logo animation.
 
 ///|
+#derive(Eq)
 enum LogoShape {
   Static(Double, Double, Double)
   Moving(Double, Double, Double, Double, Double, Double, Double, Double, Double)
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct LogoModel {
   tb1 : LogoShape
   tb2 : LogoShape
@@ -24,7 +26,7 @@ struct LogoModel {
   par : LogoShape
   ts1 : LogoShape
   ts2 : LogoShape
-} derive(Eq)
+}
 
 ///|
 struct Target {
