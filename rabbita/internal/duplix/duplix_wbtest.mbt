@@ -4,7 +4,7 @@
 
 ///|
 fn has_dirty_parent(child : DirtyFlag, parent : DirtyFlag) -> Bool {
-  child.parents.any(x => x.id == parent.id)
+  child.parents.iter().any(x => x.id == parent.id)
 }
 
 ///|
@@ -352,4 +352,71 @@ test "scope dispose recurses into sub scopes and runs cleanups" {
   parent.cleanup()
   debug_inspect(cleanup_log, content="[\"child\", \"parent\"]")
   assert_true(global_scopes.get(parent.0) is None)
+}
+
+///|
+test "parents past the index threshold register once on a clean shared child" {
+  let parent_count = PARENT_INDEX_THRESHOLD * 2
+  let (shared, set_shared) = input(0)
+  let (trigger, set_trigger) = input(0)
+  let parents = Array::makei(parent_count, i => {
+    shared.map2(trigger, (shared, trigger) => shared + trigger + i)
+  })
+  let total = map_node(parents.map(parent => parent as &ErasedNode), () => {
+    parents.fold(init=0, (sum, parent) => sum + parent.value.unwrap())
+  })
+  assert_eq(total.read(), parent_count * (parent_count - 1) / 2)
+  // Each trigger change re-dirties every parent while `shared` stays clean,
+  // so every read re-adds parents that `shared` already holds.
+  for round in [1, 2, 3] {
+    set_trigger(round)
+    assert_eq(
+      total.read(),
+      parent_count * round + parent_count * (parent_count - 1) / 2,
+    )
+  }
+  for parent in parents {
+    assert_eq(dirty_parent_count(shared.dirty_flag, parent.dirty_flag), 1)
+  }
+  // Every retained edge still carries an invalidation of the shared child.
+  set_shared(100)
+  assert_eq(
+    total.read(),
+    parent_count * 103 + parent_count * (parent_count - 1) / 2,
+  )
+}
+
+///|
+test "assoc rows removed past the index threshold release the shared source" {
+  let row_count = PARENT_INDEX_THRESHOLD * 2
+  let (rows, set_rows) = input(
+    @vector.from_array(Array::makei(row_count, i => (i, i))),
+  )
+  let captured : Map[Int32, Node[Int32]] = Map([])
+  let result = rows.assoc((key, row) => {
+    captured[key] = row
+    row.map(value => value)
+  })
+  assert_eq(result.read().length(), row_count)
+  let source = (captured[0].childs)()[0]
+  // Keep only the even keys; the odd rows leave the shared source.
+  set_rows(
+    @vector.from_array(Array::makei(row_count / 2, i => (i * 2, i * 2 + 1000))),
+  )
+  assert_eq(
+    result.read().to_array(),
+    Array::makei(row_count / 2, i => i * 2 + 1000),
+  )
+  for key, row in captured {
+    let expected = if key % 2 == 0 { 1 } else { 0 }
+    assert_eq(dirty_parent_count(source.dirty_flag(), row.dirty_flag), expected)
+  }
+  // A key that comes back gets a fresh row registered exactly once.
+  let removed_row = captured[1]
+  set_rows(@vector.from_array([(0, 1), (1, 2)]))
+  assert_eq(result.read().to_array(), [1, 2])
+  let readded_row = captured[1]
+  assert_true(!physical_equal(readded_row, removed_row))
+  assert_eq(dirty_parent_count(source.dirty_flag(), readded_row.dirty_flag), 1)
+  assert_eq(dirty_parent_count(source.dirty_flag(), removed_row.dirty_flag), 0)
 }
