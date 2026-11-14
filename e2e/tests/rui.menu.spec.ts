@@ -175,3 +175,16 @@ test('menubar roves across triggers and opens a menu from the keyboard', async (
   await expect(helpMenu).toBeHidden();
   await expect(help).toBeFocused();
 });
+
+test('clicking an open menu trigger closes it instead of reopening', async ({ page }) => {
+  await page.goto('/');
+
+  const trigger = page.getByRole('button', { name: 'Workspace menu' });
+  const menu = page.getByRole('menu', { name: 'Workspace menu' });
+
+  await trigger.click();
+  await expect(menu).toBeVisible();
+
+  await trigger.click({ delay: 80 });
+  await expect(menu).toBeHidden();
+});
