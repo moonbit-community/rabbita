@@ -475,9 +475,24 @@ fn floating_bind_document_events() -> Unit {
     "pointerdown",
     event => {
       guard floating_top_layer() is Some(layer) else { return }
+      let trigger = ui_element_by_id(
+        layer.element.get_attribute("data-trigger-id").unwrap_or(""),
+      )
+      // Dropdown and popover triggers toggle themselves on click, so the
+      // preceding pointerdown must not close the layer first. A context-menu
+      // trigger opens from contextmenu and has no click toggle, so left-click
+      // on it stays an ordinary light-dismiss press.
+      let trigger_toggles_on_click = layer.element
+        .get_attribute("data-slot")
+        .unwrap_or("") !=
+        "context-menu-content"
+      let inside_trigger = trigger_toggles_on_click &&
+        trigger is Some(trigger) &&
+        floating_event_inside(event, trigger)
       if layer.element.get_attribute("data-light-dismiss").unwrap_or("") ==
         "true" &&
-        !floating_event_inside(event, layer.element) {
+        !floating_event_inside(event, layer.element) &&
+        !inside_trigger {
         floating_request_layer_close(layer)
       }
     },

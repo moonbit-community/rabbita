@@ -41,6 +41,19 @@ test('context menu opens on right click and activates a normal item', async ({ p
   await expect(page.locator('#fixture-context-menu-output')).toHaveText('duplicated');
 });
 
+test('left-clicking a context-menu trigger still light-dismisses the menu', async ({ page }) => {
+  await page.goto('/');
+
+  const target = page.locator('[data-slot="context-menu-trigger"]');
+  const menu = page.getByRole('menu', { name: 'Fixture canvas menu' });
+
+  await target.click({ button: 'right' });
+  await expect(menu).toBeVisible();
+
+  await target.click();
+  await expect(menu).toBeHidden();
+});
+
 test('context menu checkbox and radio items retain owned state', async ({ page }) => {
   await page.goto('/');
 
