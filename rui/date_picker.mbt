@@ -1,9 +1,10 @@
 ///|
 /// A caller-defined quick choice rendered inside [`date_picker`].
+#derive(Debug, Eq)
 struct DatePickerPreset {
   label : String
   value : CalendarDate
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend DatePickerPreset with Debug::{to_repr}
@@ -22,10 +23,11 @@ pub fn date_picker_preset(
 ///|
 /// An opaque range value. `end()` is `None` while the user is choosing the
 /// second boundary.
+#derive(Debug, Eq)
 struct DateRange {
   start : CalendarDate
   end : CalendarDate?
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend DateRange with Debug::{to_repr}
@@ -55,20 +57,22 @@ pub fn DateRange::end(self : DateRange) -> CalendarDate? {
 }
 
 ///|
+#derive(Eq)
 priv struct DatePickerModel {
   open : Bool
   visible : CalendarDate
   value : CalendarDate?
   focused : CalendarDate
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 priv struct DateRangePickerModel {
   open : Bool
   visible : CalendarDate
   value : DateRange?
   focused : CalendarDate
-} derive(Eq)
+}
 
 ///|
 #cfg(target="js")

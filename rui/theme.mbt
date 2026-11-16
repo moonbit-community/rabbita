@@ -1095,10 +1095,11 @@ const UiInteractionCss : String =
   #|
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum ColorMode {
   Light
   Dark
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ColorMode with Debug::{to_repr}

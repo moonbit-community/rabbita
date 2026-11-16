@@ -2,20 +2,22 @@
 using @path {type SourcePath}
 
 ///|
+#derive(Debug)
 pub(all) enum VirtualFs {
   DirectoryMapping(SourcePath)
   FileMapping(SourcePath)
   DirectoryContent(Map[String, VirtualFs])
   FileContent(String)
-} derive(Debug)
+}
 
 ///|
 pub extend VirtualFs with Debug::{to_repr}
 
 ///|
+#derive(Debug)
 struct VirtualFileSystem {
   roots : Map[String, VirtualFs]
-} derive(Debug)
+}
 
 ///|
 pub extend VirtualFileSystem with Debug::{to_repr}

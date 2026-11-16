@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum CarouselOrientation {
   CarouselHorizontal
   CarouselVertical
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend CarouselOrientation with Debug::{to_repr}
@@ -23,11 +24,12 @@ struct CarouselScope {
 }
 
 ///|
+#derive(Eq)
 #cfg(target="js")
 priv struct CarouselModel {
   index : Int32
   max_index : Int32
-} derive(Eq)
+}
 
 ///|
 #cfg(target="js")

@@ -11,12 +11,13 @@ enum Msg {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   frame_count : Int32
   last_frame_ms : Double
   logo : LogoModel
   logo_pattern_index : Int32
-} derive(Eq)
+}
 
 ///|
 fn update(model : Model, msg : Msg, _ : Emit[Msg]) -> (Model, Cmd) {

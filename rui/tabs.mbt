@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum TabsOrientation {
   TabsHorizontal
   TabsVertical
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend TabsOrientation with Debug::{to_repr}
@@ -15,10 +16,11 @@ pub extend TabsOrientation with Eq::{equal, not_equal}
 ///
 /// `TabsDefault` uses the compact muted surface. `TabsLine` removes that
 /// surface and marks the active trigger with the Nova edge indicator.
+#derive(Debug, Eq)
 pub(all) enum TabsListVariant {
   TabsDefault
   TabsLine
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend TabsListVariant with Debug::{to_repr}

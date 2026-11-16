@@ -72,7 +72,8 @@ pub fn[A : Eq, B : Eq, C : Eq, D : Eq, E : Eq, F : Eq, G : Eq, H : Eq, I : Eq] N
 pub impl[T] Compare for Node[T]
 pub impl[T] Eq for Node[T]
 
-type ScopeId derive(Eq, Hash)
+#derive(Eq, Hash)
+type ScopeId
 pub fn ScopeId::cleanup(Self) -> Unit
 pub fn ScopeId::equal(Self, Self) -> Bool
 pub fn ScopeId::hash(Self) -> Int32

@@ -8,6 +8,7 @@ using @common {type Keyboard, type Mouse, type Scroll, type Viewport}
 using @rabbita {type Cmd, type Emit, type Html, type Val}
 
 ///|
+#derive(Eq)
 enum Tab {
   Every
   Resize
@@ -16,7 +17,7 @@ enum Tab {
   KeyUp
   VisibilityChange
   MouseMove
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for Tab with fn tag(self) {
@@ -37,6 +38,7 @@ enum Msg {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   active_tab : Tab
   tick_count : Int32
@@ -61,7 +63,7 @@ struct Model {
   mouse_moves : Int32
   mouse_x : Double
   mouse_y : Double
-} derive(Eq)
+}
 
 ///|
 fn tab_id(tab : Tab) -> Int32 {

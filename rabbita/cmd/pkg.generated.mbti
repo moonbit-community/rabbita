@@ -3,6 +3,7 @@ package "moonbit-community/rabbita/cmd"
 
 import {
   "moonbitlang/core/debug",
+  "moonbitlang/core/json",
 }
 
 // Values
@@ -58,8 +59,8 @@ pub fn Op::Op() -> Self
 pub fn Op::on_debug(Self, (Extension) -> @debug.Repr raise Unhandled) -> Unit
 pub fn Op::on_identify(Self, (Extension) -> String raise Unhandled) -> Unit
 pub fn Op::on_invoke(Self, (Extension, &Context) -> OpCont[Cmd] raise Unhandled) -> Unit
-pub fn Op::on_resume(Self, (Extension, Json, &Context) -> Cmd raise HydrateExn) -> Unit
-pub fn Op::on_settle(Self, (Extension, &Context) -> OpCont[(Json, Cmd)] raise Unhandled) -> Unit
+pub fn Op::on_resume(Self, (Extension, @json.Json, &Context) -> Cmd raise HydrateExn) -> Unit
+pub fn Op::on_settle(Self, (Extension, &Context) -> OpCont[(@json.Json, Cmd)] raise Unhandled) -> Unit
 pub fn Op::request(Self, Extension) -> Cmd
 
 pub(all) enum OpCont[T] {
@@ -73,8 +74,8 @@ pub(all) enum OpCont[T] {
 type Runner
 pub fn Runner::identify(Self, Extension) -> String raise Unhandled
 pub fn Runner::invoke(Self, Extension, &Context) -> OpCont[Cmd] raise Unhandled
-pub fn Runner::resume_(Self, Extension, Json, &Context) -> Cmd raise HydrateExn
-pub fn Runner::settle(Self, Extension, &Context) -> OpCont[(Json, Cmd)] raise Unhandled
+pub fn Runner::resume_(Self, Extension, @json.Json, &Context) -> Cmd raise HydrateExn
+pub fn Runner::settle(Self, Extension, &Context) -> OpCont[(@json.Json, Cmd)] raise Unhandled
 
 // Extensible enum extensions
 pub extenum Extension += {
@@ -84,7 +85,7 @@ pub extenum Extension += {
 }
 
 // Type aliases
-pub type Settle = (Json) -> Unit
+pub type Settle = (@json.Json) -> Unit
 
 // Traits
 pub(open) trait Context {

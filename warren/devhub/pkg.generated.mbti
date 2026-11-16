@@ -11,16 +11,18 @@ import {
 // Errors
 
 // Types and methods
+#derive(@debug.Debug)
 pub(all) enum BroadcastMsg {
   Building
   Reload
   BuildFailed(String)
-} derive(@debug.Debug)
+}
 pub fn BroadcastMsg::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) enum ClientMsg {
   Text(String)
-} derive(@debug.Debug)
+}
 pub fn ClientMsg::to_repr(Self) -> @debug.Repr
 
 pub struct Devhub {

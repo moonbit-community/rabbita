@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum ContentAlignment {
   AlignStart
   AlignEnd
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ContentAlignment with Debug::{to_repr}

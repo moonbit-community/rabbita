@@ -1,5 +1,6 @@
 ///|
-struct MooncakesPath(String) derive(Eq, Compare)
+#derive(Eq, Compare)
+struct MooncakesPath(String)
 
 ///|
 pub extend MooncakesPath with Eq::{equal, not_equal}

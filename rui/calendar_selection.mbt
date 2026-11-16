@@ -1,16 +1,18 @@
 ///|
+#derive(Eq)
 priv struct CalendarRangeModel {
   visible : CalendarDate
   selected : DateRange?
   focused : CalendarDate
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 priv struct CalendarMultipleModel {
   visible : CalendarDate
   selected : Array[CalendarDate]
   focused : CalendarDate
-} derive(Eq)
+}
 
 ///|
 #cfg(target="js")

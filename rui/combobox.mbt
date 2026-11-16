@@ -15,12 +15,13 @@ pub fn combobox_option(
 }
 
 ///|
+#derive(Eq)
 priv struct ComboboxModel {
   open : Bool
   query : String
   values : Array[String]
   active : Int32
-} derive(Eq)
+}
 
 ///|
 priv enum ComboboxMsg {

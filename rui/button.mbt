@@ -1,4 +1,5 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum ButtonVariant {
   Default
   Outline
@@ -6,7 +7,7 @@ pub(all) enum ButtonVariant {
   Ghost
   Destructive
   Link
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ButtonVariant with Debug::{to_repr}
@@ -15,6 +16,7 @@ pub extend ButtonVariant with Debug::{to_repr}
 pub extend ButtonVariant with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum ButtonSize {
   Default
   Xs
@@ -24,7 +26,7 @@ pub(all) enum ButtonSize {
   IconXs
   IconSm
   IconLg
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ButtonSize with Debug::{to_repr}

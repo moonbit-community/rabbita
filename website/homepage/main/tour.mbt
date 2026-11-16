@@ -1,9 +1,10 @@
 // ─── Types ────────────────────────────────────────────────────────────────
 
 ///|
+#derive(Eq)
 pub(all) struct TourModel {
   chapter_idx : Int32
-} derive(Eq)
+}
 
 ///|
 pub let init_tour : TourModel = { chapter_idx: 0, }
@@ -16,11 +17,12 @@ struct TocEntry {
 }
 
 ///|
+#derive(Eq)
 enum ChapterLoad {
   ChapterPending
   ChapterLoaded(String)
   ChapterFailed
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for ChapterLoad with fn tag(self) {
@@ -32,11 +34,12 @@ impl @rabbita.Enumerate for ChapterLoad with fn tag(self) {
 }
 
 ///|
+#derive(Eq, FromJson)
 pub(all) struct TourChapter {
   title : String
   path : String // e.g. "001_intro" — used as URL slug and to locate doc files
   section : String // section name for sidebar grouping
-} derive(Eq, FromJson)
+}
 
 // ─── Tour Chapters (default fallback) ────────────────────────────────────
 
@@ -578,10 +581,11 @@ fn tour_toc(toc : Array[TocEntry], base_url : String) -> Html {
 }
 
 ///|
+#derive(Eq)
 struct TourBodyModel {
   chapters : Array[TourChapter]
   tour : TourModel
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for TourBodyModel with fn tag(self) {

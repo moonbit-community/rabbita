@@ -6,11 +6,14 @@ package "example/animation/main"
 // Errors
 
 // Types and methods
-type LogoModel derive(Eq)
+#derive(Eq)
+type LogoModel
 
-type LogoShape derive(Eq)
+#derive(Eq)
+type LogoShape
 
-type Model derive(Eq)
+#derive(Eq)
+type Model
 
 type Msg
 

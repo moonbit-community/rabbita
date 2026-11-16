@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum ToggleVariant {
   Default
   Outline
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ToggleVariant with Debug::{to_repr}
@@ -11,11 +12,12 @@ pub extend ToggleVariant with Debug::{to_repr}
 pub extend ToggleVariant with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum ToggleSize {
   Default
   Sm
   Lg
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend ToggleSize with Debug::{to_repr}

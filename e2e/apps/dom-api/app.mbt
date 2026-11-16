@@ -5,6 +5,7 @@ using @rabbita {type Html, type Val}
 using @html {button, div, h1, input, p}
 
 ///|
+#derive(Eq)
 priv struct Model {
   nodes : String
   canvas : String
@@ -18,7 +19,7 @@ priv struct Model {
   collections : String
   drag_probes : String
   svg_collections : String
-} derive(Eq)
+}
 
 ///|
 priv enum Msg {

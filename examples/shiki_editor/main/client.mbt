@@ -125,10 +125,11 @@ fn stack_class(theme : String) -> String {
 }
 
 ///|
+#derive(Eq)
 struct ControlsState {
   lang : String
   theme : String
-} derive(Eq)
+}
 
 ///|
 fn controls_view(

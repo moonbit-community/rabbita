@@ -1,14 +1,17 @@
 ///|
+#derive(FromJson)
 priv struct Payload {
   value : String
-} derive(FromJson)
+}
 
 ///|
+#derive(ToJson)
 priv struct RequestPayload {
   name : String
-} derive(ToJson)
+}
 
 ///|
+#derive(Eq)
 priv struct Model {
   get : String
   post : String
@@ -20,7 +23,7 @@ priv struct Model {
   blob : String
   bytes : String
   failure : String
-} derive(Eq)
+}
 
 ///|
 priv enum Msg {

@@ -11,6 +11,7 @@ extern "js" fn resolved(value : String) -> @js.Promise[String] = "(value) => Pro
 extern "js" fn rejected() -> @js.Promise[String] = "() => Promise.reject(new Error('expected failure'))"
 
 ///|
+#derive(Eq)
 priv struct Model {
   initialized : String
   delayed : String
@@ -18,7 +19,7 @@ priv struct Model {
   attempted : String
   batch_a : Bool
   batch_b : Bool
-} derive(Eq)
+}
 
 ///|
 priv enum Msg {

@@ -1,9 +1,10 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum MarkerVariant {
   MarkerDefault
   MarkerSeparator
   MarkerBorder
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend MarkerVariant with Debug::{to_repr}

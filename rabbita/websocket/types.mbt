@@ -3,12 +3,13 @@ using @debug {trait Debug, type Repr}
 
 ///|
 /// Close event information surfaced by `@websocket.connect(...)`.
+#derive(Debug)
 #warnings("-struct_never_constructed")
 pub struct CloseInfo {
   code : Int32
   reason : String
   clean : Bool
-} derive(Debug)
+}
 
 ///|
 pub extend CloseInfo with Debug::{to_repr}
@@ -23,12 +24,13 @@ pub extend CloseInfo with Show::{output, to_string}
 
 ///|
 /// Inbound events emitted by a managed WebSocket connection.
+#derive(Debug)
 pub(all) enum Event {
   Opened
   Message(String)
   Closed(CloseInfo)
   Errored
-} derive(Debug)
+}
 
 ///|
 pub extend Event with Debug::{to_repr}
@@ -80,12 +82,13 @@ pub extend Payload with Debug::{to_repr}
 
 ///|
 /// Browser `WebSocket.readyState` mapped to a MoonBit enum.
+#derive(Debug)
 pub(all) enum ReadyState {
   Connecting
   Open
   Closing
   Closed
-} derive(Debug)
+}
 
 ///|
 pub extend ReadyState with Debug::{to_repr}
@@ -100,6 +103,7 @@ pub extend ReadyState with Show::{output, to_string}
 
 ///|
 /// Snapshot of the current connection state for a named socket.
+#derive(Debug)
 #warnings("-struct_never_constructed")
 pub struct Snapshot {
   id : String
@@ -107,7 +111,7 @@ pub struct Snapshot {
   protocol : String
   buffered_amount : Int32
   ready_state : ReadyState
-} derive(Debug)
+}
 
 ///|
 pub extend Snapshot with Debug::{to_repr}

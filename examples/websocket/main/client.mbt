@@ -8,11 +8,12 @@ using @rabbita {type Cmd, type Emit, type Html, type Val}
 using @websocket {type CloseInfo, type Event, type ReadyState, type Snapshot}
 
 ///|
+#derive(Eq)
 struct ChatEntry {
   tone : String
   label : String
   body : String
-} derive(Eq)
+}
 
 ///|
 enum Msg {
@@ -38,6 +39,7 @@ enum Msg {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   url_input : String
   protocols_input : String
@@ -65,7 +67,7 @@ struct Model {
   client_socket_url : String
   client_state_note : String
   transcript : Array[ChatEntry]
-} derive(Eq)
+}
 
 ///|
 fn command_socket_id() -> String {
@@ -613,13 +615,15 @@ fn transcript_entry(entry : ChatEntry) -> Html {
 }
 
 ///|
+#derive(Eq)
 struct SharedConfigModel {
   url_input : String
   protocols_input : String
   nickname_input : String
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct ListenPanelModel {
   url_input : String
   listening : Bool
@@ -631,9 +635,10 @@ struct ListenPanelModel {
   listen_last_message : String
   listen_last_close : String
   listen_log : Array[String]
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct ClientPanelModel {
   url_input : String
   nickname_input : String
@@ -650,12 +655,13 @@ struct ClientPanelModel {
   client_buffered_amount : Int32
   client_socket_url : String
   client_state_note : String
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 struct TranscriptPanelModel {
   transcript : Array[ChatEntry]
-} derive(Eq)
+}
 
 ///|
 fn client_can_send(model : ClientPanelModel) -> Bool {

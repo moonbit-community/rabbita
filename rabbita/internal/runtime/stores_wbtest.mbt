@@ -1,9 +1,10 @@
 ///|
+#derive(Eq)
 #cfg(target="js")
 enum CleanupBranch {
   Active
   Inactive
-} derive(Eq)
+}
 
 ///|
 #cfg(target="js")

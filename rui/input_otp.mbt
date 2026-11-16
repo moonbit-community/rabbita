@@ -1,7 +1,8 @@
 ///|
+#derive(Eq)
 priv struct InputOtpModel {
   value : String
-} derive(Eq)
+}
 
 ///|
 priv enum InputOtpMsg {

@@ -5,6 +5,7 @@ using @rabbita {type Cmd, type Emit, type Html, type Val}
 using @html {button, div, h1, p}
 
 ///|
+#derive(Eq)
 priv struct Model {
   active : Bool
   resize_count : Int32
@@ -16,7 +17,7 @@ priv struct Model {
   old_tagger_count : Int32
   new_tagger_count : Int32
   barrier : Int32
-} derive(Eq)
+}
 
 ///|
 priv enum Msg {

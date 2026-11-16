@@ -1,11 +1,12 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum AttachmentState {
   AttachmentIdle
   AttachmentUploading
   AttachmentProcessing
   AttachmentError
   AttachmentDone
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AttachmentState with Debug::{to_repr}
@@ -14,11 +15,12 @@ pub extend AttachmentState with Debug::{to_repr}
 pub extend AttachmentState with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum AttachmentSize {
   AttachmentDefaultSize
   AttachmentSm
   AttachmentXs
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AttachmentSize with Debug::{to_repr}
@@ -27,10 +29,11 @@ pub extend AttachmentSize with Debug::{to_repr}
 pub extend AttachmentSize with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum AttachmentOrientation {
   AttachmentHorizontal
   AttachmentVertical
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AttachmentOrientation with Debug::{to_repr}
@@ -39,10 +42,11 @@ pub extend AttachmentOrientation with Debug::{to_repr}
 pub extend AttachmentOrientation with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum AttachmentMediaVariant {
   AttachmentIcon
   AttachmentImage
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AttachmentMediaVariant with Debug::{to_repr}

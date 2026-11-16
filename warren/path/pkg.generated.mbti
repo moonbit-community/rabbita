@@ -18,27 +18,30 @@ pub fn ArtifactPath::to_repr(Self) -> @debug.Repr
 pub fn ArtifactPath::to_string(Self, Target, Build, Mode) -> SourcePath
 pub impl @debug.Debug for ArtifactPath
 
+#derive(Eq, Hash, @debug.Debug)
 pub(all) enum Build {
   Release
   Debug
-} derive(Eq, Hash, @debug.Debug)
+}
 pub fn Build::equal(Self, Self) -> Bool
 pub fn Build::hash(Self) -> Int32
 pub fn Build::hash_combine(Self, Hasher) -> Unit
 pub fn Build::not_equal(Self, Self) -> Bool
 pub fn Build::to_repr(Self) -> @debug.Repr
 
+#derive(Eq, Hash, @debug.Debug)
 pub(all) enum Mode {
   Check
   Build
-} derive(Eq, Hash, @debug.Debug)
+}
 pub fn Mode::equal(Self, Self) -> Bool
 pub fn Mode::hash(Self) -> Int32
 pub fn Mode::hash_combine(Self, Hasher) -> Unit
 pub fn Mode::not_equal(Self, Self) -> Bool
 pub fn Mode::to_repr(Self) -> @debug.Repr
 
-type MooncakesPath derive(Compare, Eq)
+#derive(Compare, Eq)
+type MooncakesPath
 pub fn MooncakesPath::compare(Self, Self) -> Int32
 pub fn MooncakesPath::equal(Self, Self) -> Bool
 pub fn MooncakesPath::join(Self, String) -> Self
@@ -54,7 +57,8 @@ pub fn MooncakesPath::to_string(Self) -> String
 pub impl Show for MooncakesPath
 pub impl @debug.Debug for MooncakesPath
 
-type SourcePath derive(Compare, Eq, Hash)
+#derive(Compare, Eq, Hash)
+type SourcePath
 pub fn SourcePath::compare(Self, Self) -> Int32
 pub fn SourcePath::equal(Self, Self) -> Bool
 pub fn SourcePath::hash(Self) -> Int32
@@ -73,12 +77,13 @@ pub fn SourcePath::to_string(Self) -> String
 pub impl Show for SourcePath
 pub impl @debug.Debug for SourcePath
 
+#derive(Eq, Hash, @debug.Debug)
 pub(all) enum Target {
   Wasm
   WasmGC
   Js
   Native
-} derive(Eq, Hash, @debug.Debug)
+}
 pub fn Target::equal(Self, Self) -> Bool
 pub fn Target::hash(Self) -> Int32
 pub fn Target::hash_combine(Self, Hasher) -> Unit

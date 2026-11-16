@@ -2,7 +2,8 @@
 pub type Path = @p.Path
 
 ///|
-struct SourcePath(String) derive(Eq, Compare, Hash)
+#derive(Eq, Compare, Hash)
+struct SourcePath(String)
 
 ///|
 pub extend SourcePath with Eq::{equal, not_equal}

@@ -6,15 +6,19 @@ package "example/sokoban/main"
 // Errors
 
 // Types and methods
-type Model derive(Eq)
+#derive(Eq)
+type Model
 
 type Msg
 
-type Pos derive(Eq)
+#derive(Eq)
+type Pos
 
-type Tile derive(Eq)
+#derive(Eq)
+type Tile
 
-type World derive(Eq)
+#derive(Eq)
+type World
 
 // Type aliases
 

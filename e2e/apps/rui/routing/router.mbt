@@ -1,10 +1,11 @@
 ///|
+#derive(Eq)
 priv enum Route {
   Index
   Forms
   Modals
   Missing(String)
-} derive(Eq)
+}
 
 ///|
 priv enum Msg {

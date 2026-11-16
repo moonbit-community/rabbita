@@ -24,18 +24,20 @@ The route state and navigation messages are ordinary MoonBit types:
 type Id = String
 
 ///|
+#derive(Eq)
 struct Article {
   id : Id
   title : String
   content : String
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 enum Route {
   Home
   Article(Article)
   NotFound
-} derive(Eq)
+}
 
 ///|
 enum Msg {
