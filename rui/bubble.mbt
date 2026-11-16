@@ -1,4 +1,5 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum BubbleVariant {
   BubbleDefault
   BubbleSecondary
@@ -7,7 +8,7 @@ pub(all) enum BubbleVariant {
   BubbleOutline
   BubbleGhost
   BubbleDestructive
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend BubbleVariant with Debug::{to_repr}
@@ -16,10 +17,11 @@ pub extend BubbleVariant with Debug::{to_repr}
 pub extend BubbleVariant with Eq::{equal, not_equal}
 
 ///|
+#derive(Debug, Eq)
 pub(all) enum BubbleReactionSide {
   ReactionTop
   ReactionBottom
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend BubbleReactionSide with Debug::{to_repr}

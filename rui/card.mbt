@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum CardSize {
   Default
   Sm
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend CardSize with Debug::{to_repr}

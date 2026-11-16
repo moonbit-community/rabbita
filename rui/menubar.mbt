@@ -1,10 +1,11 @@
 ///|
+#derive(Eq)
 struct MenubarModel {
   active_value : String?
   active_index : Int32
   focus_index : Int32
   menu : MenuCoreModel
-} derive(Eq)
+}
 
 ///|
 pub extend MenubarModel with Eq::{equal, not_equal}

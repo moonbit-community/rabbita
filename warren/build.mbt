@@ -6,9 +6,10 @@ let build_entry_script =
   #|    <script src="/index.js" type="module"></script>
 
 ///|
+#derive(FromJson)
 priv struct MoonBuildOutput {
   artifacts_path : Array[String]
-} derive(FromJson)
+}
 
 ///|
 fn source_path_to_string(path : SourcePath) -> String {

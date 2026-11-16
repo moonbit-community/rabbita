@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum EmptyMediaVariant {
   EmptyMediaDefault
   EmptyMediaIcon
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend EmptyMediaVariant with Debug::{to_repr}

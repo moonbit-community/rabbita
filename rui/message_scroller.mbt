@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum MessageScrollDirection {
   ScrollStart
   ScrollEnd
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend MessageScrollDirection with Debug::{to_repr}
@@ -11,10 +12,11 @@ pub extend MessageScrollDirection with Debug::{to_repr}
 pub extend MessageScrollDirection with Eq::{equal, not_equal}
 
 ///|
+#derive(Eq)
 priv struct MessageScrollerPosition {
   at_start : Bool
   at_end : Bool
-} derive(Eq)
+}
 
 ///|
 priv enum MessageScrollerMsg {

@@ -423,10 +423,11 @@ pub fn[K : Hash + Eq, V : Eq, C : Eq] Val::assoc_by(
 /// # Example
 ///
 /// ```mbt nocheck
+/// #derive(Eq)
 /// priv enum Tab {
 ///   First
 ///   Second
-/// } derive(Eq)
+/// }
 ///
 /// impl @rabbita.Enumerate for Tab with fn tag(self) {
 ///   match self {
@@ -481,10 +482,11 @@ pub fn[E : Eq, C : Eq] Val::enumerate_by(
 /// # Example
 ///
 /// ```mbt nocheck
+/// #derive(Eq)
 /// priv enum Page {
 ///   Home
 ///   Settings
-/// } derive(Eq)
+/// }
 ///
 /// impl @rabbita.Enumerate for Page with fn tag(self) {
 ///   match self {

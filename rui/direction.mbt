@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum TextDirection {
   Ltr
   Rtl
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend TextDirection with Debug::{to_repr}

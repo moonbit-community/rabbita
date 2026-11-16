@@ -1,23 +1,25 @@
 ///|
+#derive(Eq)
 struct MenuCoreModel {
   open : Bool
   active : Int32
   checked : Array[String]
   radios : Array[(String, String)]
   submenus : Array[String]
-} derive(Eq)
+}
 
 ///|
 pub extend MenuCoreModel with Eq::{equal, not_equal}
 
 ///|
+#derive(Eq)
 enum MenuSubmenuChange {
   MenuOpenSubmenu(String)
   MenuSwitchSubmenu(String, String)
   MenuCloseSubmenu(String)
   MenuCloseSubmenusUnder(String)
   MenuCloseAllSubmenus
-} derive(Eq)
+}
 
 ///|
 pub extend MenuSubmenuChange with Eq::{equal, not_equal}
@@ -36,10 +38,11 @@ priv struct MenuScope {
 }
 
 ///|
+#derive(Eq)
 enum MenuIndicatorPlacement {
   MenuIndicatorInlineStart
   MenuIndicatorInlineEnd
-} derive(Eq)
+}
 
 ///|
 pub extend MenuIndicatorPlacement with Eq::{equal, not_equal}

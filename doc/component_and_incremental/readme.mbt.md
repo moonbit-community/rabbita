@@ -94,10 +94,11 @@ Deriving smaller values lets equality stop work closer to the changed field:
 
 ```moonbit check
 ///|
+#derive(Eq)
 struct Dashboard {
   count : Int32
   status : String
-} derive(Eq)
+}
 
 ///|
 fn dashboard(model : Val[Dashboard]) -> Val[Html] {
@@ -213,11 +214,12 @@ The item's expansion flag is component-local state, so it uses `create_variable`
 
 ```moonbit check
 ///|
+#derive(Eq)
 struct Todo {
   id : Int32
   title : String
   details : String
-} derive(Eq)
+}
 
 ///|
 fn todo_item(id : Int32, todo : Val[Todo]) -> Val[Html] {
@@ -255,10 +257,11 @@ to the resulting `Html` values.
 
 ```moonbit check
 ///|
+#derive(Eq)
 enum Panel {
   Overview
   Preferences
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for Panel with fn tag(self) {

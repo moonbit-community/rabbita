@@ -1,14 +1,16 @@
 ///|
+#derive(Eq)
 priv struct ListModel {
   reversed : Bool
   has_first : Bool
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 priv struct RowState {
   clicks : Int32
   draft : String
-} derive(Eq)
+}
 
 ///|
 priv enum ListMsg {
@@ -36,10 +38,11 @@ fn list_items(model : ListModel) -> @vector.Vector[(Int32, String)] {
 }
 
 ///|
+#derive(Eq)
 priv enum CacheTab {
   CacheA
   CacheB
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for CacheTab with fn tag(self) {
@@ -50,10 +53,11 @@ impl @rabbita.Enumerate for CacheTab with fn tag(self) {
 }
 
 ///|
+#derive(Eq)
 priv enum SwitchTab {
   SwitchA
   SwitchB
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for SwitchTab with fn tag(self) {

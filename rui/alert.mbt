@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum AlertVariant {
   Default
   Destructive
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend AlertVariant with Debug::{to_repr}

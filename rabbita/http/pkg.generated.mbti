@@ -19,15 +19,16 @@ pub fn post(String) -> RequestWithBody
 pub fn put(String) -> RequestWithBody
 
 // Errors
+#derive(@json.FromJson, @json.ToJson)
 pub(all) suberror HttpError {
   RequestError(String)
-} derive(ToJson, @json.FromJson)
-pub fn HttpError::from_json(Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
-pub fn HttpError::to_json(Self) -> Json
+}
+pub fn HttpError::from_json(@json.Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn HttpError::to_json(Self) -> @json.Json
 
 // Types and methods
 pub(all) enum Body {
-  Json(Json)
+  Json(@json.Json)
   Text(String)
   BytesBody(String, Bytes)
   BlobBody(String, @dom.Blob)
@@ -49,7 +50,7 @@ pub fn[T : @json.FromJson] RequestWithBody::expect_json(Self, @cmd.Emit[Result[T
 pub fn RequestWithBody::expect_text(Self, @cmd.Emit[Result[String, Error]]) -> @cmd.Cmd
 pub fn RequestWithBody::with_blob(Self, @dom.Blob) -> Request
 pub fn RequestWithBody::with_bytes(Self, String, Bytes) -> Request
-pub fn[T : ToJson] RequestWithBody::with_json(Self, T) -> Request
+pub fn[T : @json.ToJson] RequestWithBody::with_json(Self, T) -> Request
 pub fn RequestWithBody::with_text(Self, String) -> Request
 
 // Type aliases

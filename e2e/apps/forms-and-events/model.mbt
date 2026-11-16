@@ -1,4 +1,5 @@
 ///|
+#derive(Eq)
 priv struct Model {
   text : String
   changed : String
@@ -11,7 +12,7 @@ priv struct Model {
   checked : Bool
   handler_a : Int32
   handler_b : Int32
-} derive(Eq)
+}
 
 ///|
 priv enum Msg {

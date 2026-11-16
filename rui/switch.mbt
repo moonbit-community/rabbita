@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum SwitchSize {
   Default
   Sm
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SwitchSize with Debug::{to_repr}

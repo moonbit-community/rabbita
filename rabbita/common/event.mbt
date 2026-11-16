@@ -1,9 +1,10 @@
 ///|
+#derive(Debug)
 struct Mouse {
   screen : Pos
   offset : Pos
   client : Pos
-} derive(Debug)
+}
 
 ///|
 pub extend Mouse with Debug::{to_repr}
@@ -29,10 +30,11 @@ pub fn Mouse::client_pos(self : Mouse) -> Pos {
 }
 
 ///|
+#derive(Debug)
 pub(all) struct Pos {
   x : Double
   y : Double
-} derive(Debug)
+}
 
 ///|
 pub extend Pos with Debug::{to_repr}
@@ -46,6 +48,7 @@ pub impl Show for Pos with fn output(self, buf) {
 pub extend Pos with Show::{output, to_string}
 
 ///|
+#derive(Debug)
 struct Keyboard {
   key_value : String
   code_value : String
@@ -56,7 +59,7 @@ struct Keyboard {
   composing : Bool
   repeated : Bool
   location_value : Int32
-} derive(Debug)
+}
 
 ///|
 pub extend Keyboard with Debug::{to_repr}
@@ -132,11 +135,12 @@ pub fn Keyboard::location(self : Keyboard) -> Int32 {
 }
 
 ///|
+#derive(Debug)
 struct Scroll {
   scroll_offset : Pos
   scroll_width : Double
   scroll_height : Double
-} derive(Debug)
+}
 
 ///|
 pub extend Scroll with Debug::{to_repr}
@@ -162,10 +166,11 @@ pub fn Scroll::height(self : Self) -> Double {
 }
 
 ///|
+#derive(Debug)
 pub(all) struct Viewport {
   width : Double
   height : Double
-} derive(Debug)
+}
 
 ///|
 pub extend Viewport with Debug::{to_repr}

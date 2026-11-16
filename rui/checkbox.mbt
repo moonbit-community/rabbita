@@ -1,8 +1,9 @@
 ///|
+#derive(Eq)
 priv struct CheckboxModel {
   checked : Bool
   indeterminate : Bool
-} derive(Eq)
+}
 
 ///|
 priv enum CheckboxMsg {

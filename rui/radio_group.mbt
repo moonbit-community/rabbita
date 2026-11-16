@@ -1,8 +1,9 @@
 ///|
+#derive(Debug, Eq)
 pub(all) enum RadioGroupOrientation {
   RadioVertical
   RadioHorizontal
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend RadioGroupOrientation with Debug::{to_repr}

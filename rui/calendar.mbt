@@ -3,11 +3,12 @@
 ///
 /// Construction is intentionally opaque so every value stays inside the
 /// supported year range and always names a real day.
+#derive(Debug, Eq)
 struct CalendarDate {
   year : Int32
   month : Int32
   day : Int32
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend CalendarDate with Debug::{to_repr}
@@ -16,11 +17,12 @@ pub extend CalendarDate with Debug::{to_repr}
 pub extend CalendarDate with Eq::{equal, not_equal}
 
 ///|
+#derive(Eq)
 priv struct CalendarModel {
   visible : CalendarDate
   selected : CalendarDate?
   focused : CalendarDate
-} derive(Eq)
+}
 
 ///|
 priv enum CalendarSelectionMode {

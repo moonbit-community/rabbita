@@ -16,6 +16,7 @@ struct DataTableColumn[T] {
 }
 
 ///|
+#derive(Eq)
 priv struct DataTableModel {
   query : String
   sort_key : String?
@@ -24,7 +25,7 @@ priv struct DataTableModel {
   selected : Array[String]
   hidden_columns : Array[String]
   columns_open : Bool
-} derive(Eq)
+}
 
 ///|
 priv enum DataTableMsg {

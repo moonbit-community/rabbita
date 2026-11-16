@@ -373,10 +373,11 @@ fn load_shiki_highlight(
 }
 
 ///|
+#derive(Eq)
 struct Config {
   lang : String
   theme : String
-} derive(Eq)
+}
 
 ///|
 pub extend Config with Eq::{equal, not_equal}

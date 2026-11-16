@@ -1,11 +1,12 @@
 ///|
 /// Edge from which a [`sheet`] enters the viewport.
+#derive(Debug, Eq)
 pub(all) enum SheetSide {
   SheetTop
   SheetRight
   SheetBottom
   SheetLeft
-} derive(Debug, Eq)
+}
 
 ///|
 pub extend SheetSide with Debug::{to_repr}

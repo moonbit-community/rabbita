@@ -1637,6 +1637,7 @@ fn forms_native_select_variants() -> @html.Html {
 }
 
 ///|
+#derive(Eq)
 priv struct FormsOtpStageViews {
   continuous : @html.Html
   pattern : @html.Html
@@ -1647,7 +1648,7 @@ priv struct FormsOtpStageViews {
   alphanumeric : @html.Html
   invalid : @html.Html
   disabled : @html.Html
-} derive(Eq)
+}
 
 ///|
 fn forms_otp_variants() -> @rabbita.Val[@html.Html] {
