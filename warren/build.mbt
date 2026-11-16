@@ -287,11 +287,8 @@ async fn copy_server_artifact(
   artifact : SourcePath,
   destination : SourcePath,
   target : ServerTarget,
-  output_name? : String,
 ) -> SourcePath {
-  let basename = output_name.unwrap_or(
-    Path::basename(source_path_to_string(artifact)).to_owned(),
-  )
+  let basename = Path::basename(source_path_to_string(artifact)).to_owned()
   let output = destination.join(basename)
   guard !@fs.exists(source_path_to_string(output)) else {
     fail(

@@ -7,11 +7,16 @@ import {
   "moonbitlang/core/env",
   "moonbitlang/core/json",
   "moonbitlang/core/string",
+  "moonbitlang/moon_config",
   "moonbit-community/warren/log",
   "moonbit-community/warren/path",
   "moonbit-community/warren/vfs",
   "moonbit-community/warren/devhub",
 }
+
+import {
+  "moonbitlang/core/test",
+} for "wbtest"
 
 supported_targets = "native"
 
