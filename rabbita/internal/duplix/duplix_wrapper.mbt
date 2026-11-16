@@ -1,9 +1,6 @@
 ///|
 fn[T] map_node(childs : Array[&ErasedNode], compute : () -> T) -> Node[T] {
-  let dirty = { dirty: true, parents: Parents::new(), id: get_uuid(), }
-  // for child in childs {
-  //   child.dirty_flag().parents.push(dirty)
-  // }
+  let dirty = { dirty: true, parents: Map([]), id: get_uuid(), }
   {
     id: get_uuid(),
     scope: current_scope.val,

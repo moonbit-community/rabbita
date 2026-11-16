@@ -4,13 +4,13 @@
 
 ///|
 fn has_dirty_parent(child : DirtyFlag, parent : DirtyFlag) -> Bool {
-  child.parents.iter().any(x => x.id == parent.id)
+  child.parents.contains(parent.id)
 }
 
 ///|
 fn dirty_parent_count(child : DirtyFlag, parent : DirtyFlag) -> Int32 {
   let mut count = 0
-  for candidate in child.parents {
+  for candidate in child.parents.values() {
     if candidate.id == parent.id {
       count += 1
     }
@@ -355,8 +355,8 @@ test "scope dispose recurses into sub scopes and runs cleanups" {
 }
 
 ///|
-test "parents past the index threshold register once on a clean shared child" {
-  let parent_count = PARENT_INDEX_THRESHOLD * 2
+test "parents register once on a clean shared child" {
+  let parent_count = 32
   let (shared, set_shared) = input(0)
   let (trigger, set_trigger) = input(0)
   let parents = Array::makei(parent_count, i => {
@@ -387,8 +387,8 @@ test "parents past the index threshold register once on a clean shared child" {
 }
 
 ///|
-test "assoc rows removed past the index threshold release the shared source" {
-  let row_count = PARENT_INDEX_THRESHOLD * 2
+test "removed assoc rows release the shared source" {
+  let row_count = 32
   let (rows, set_rows) = input(
     @vector.from_array(Array::makei(row_count, i => (i, i))),
   )
