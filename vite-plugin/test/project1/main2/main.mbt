@@ -12,9 +12,10 @@ pub(all) enum Message {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   count : Int32
-} derive(Eq)
+}
 
 ///|
 fn update(model : Model, msg : Message) -> Model {

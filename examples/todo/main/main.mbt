@@ -11,18 +11,20 @@ using @rabbita {type Val, none, type Emit, type Html }
 using @html {button, div, h1, input, li, nav, span, ul, form, text, p}
 
 ///|
+#derive(Eq)
 struct Todo {
   title : String
   done : Bool
-} derive(Eq)
+}
 
 ///|
+#derive(Eq)
 enum TodoTab {
   All
   Active
   Done
   Stats
-} derive(Eq)
+}
 
 ///|
 impl @rabbita.Enumerate for TodoTab with tag(self) {
@@ -55,12 +57,13 @@ fn TodoTab::empty_text(self : Self) -> String {
 }
 
 ///|
+#derive(Eq)
 struct Model {
   title : String
   items : SortedMap[Int, Todo]
   next : Int
   tab : TodoTab
-} derive(Eq)
+}
 
 ///|
 enum Msg {
@@ -84,10 +87,11 @@ enum TodoMsg {
 }
 
 ///|
+#derive(Eq)
 struct TodoModel {
   folded : Bool
   tick : Int
-} derive(Eq)
+}
 
 ///|
 fn todo(id : Int, todo : Val[Todo], emit : Emit[Msg]) -> Val[Html] {
