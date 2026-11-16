@@ -51,7 +51,7 @@ struct Node[T] {
 
 ///|
 pub fn[T] constant(x : T) -> Node[T] {
-  let dirty_b = { dirty: false, parents: [], id: get_uuid(), }
+  let dirty_b = { dirty: false, parents: Map([]), id: get_uuid(), }
   {
     id: get_uuid(),
     scope: current_scope.val,
@@ -131,7 +131,7 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
 struct DirtyFlag {
   id : Int32
   mut dirty : Bool
-  parents : Array[DirtyFlag]
+  parents : Map[Int32, DirtyFlag]
 }
 
 ///|
@@ -160,7 +160,7 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
     changed_at: 0,
     recomputed_at: 0,
     childs: () => [],
-    dirty_flag: { dirty: true, parents: [], id: get_uuid(), },
+    dirty_flag: { dirty: true, parents: Map([]), id: get_uuid(), },
   }
 
   fn write(x : T) {
@@ -174,8 +174,7 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
 ///|
 /// child_a ---derived---> parent_b
 pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
-  let dirty_b = { dirty: true, parents: [], id: get_uuid(), }
-  // a.dirty_flag.parents.push(dirty_b)
+  let dirty_b = { dirty: true, parents: Map([]), id: get_uuid(), }
   {
     id: get_uuid(),
     scope: current_scope.val,
@@ -196,13 +195,11 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
 pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
   let selected : Node[Node[B]] = a.map(f)
   let mut previous : DirtyFlag? = None
-  let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
+  let output_dirty_flag = { dirty: true, parents: Map([]), id: get_uuid(), }
   fn compute() -> B {
     let branch : Node[B] = selected.value.unwrap()
     if previous is Some(prev) && prev.id != branch.dirty_flag.id {
-      if prev.parents.search(output_dirty_flag) is Some(i) {
-        ignore(prev.parents.remove(i))
-      }
+      prev.parents.remove(output_dirty_flag.id)
     }
     previous = Some(branch.dirty_flag)
     branch.value.unwrap()
@@ -387,7 +384,7 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
       }
     })
     // Detach all removed nodes in one pass.
-    indexed.dirty_flag.parents.retain(parent => !removed.contains(parent.id))
+    indexed.dirty_flag.parents.retain((id, _) => !removed.contains(id))
 
     let combined : Node[Vector[C]] = map_node(
       results.map(x => x as &ErasedNode),
@@ -448,9 +445,8 @@ fn pull_value(node : &ErasedNode) -> Unit {
       }
     } else {
       for child in childs {
-        if child.dirty_flag().parents.all(x => x.id != node.dirty_flag().id) {
-          child.dirty_flag().parents.push(node.dirty_flag())
-        }
+        let parent = node.dirty_flag()
+        child.dirty_flag().parents[parent.id] = parent
       }
       node.recompute()
     }
@@ -466,7 +462,7 @@ fn push_dirty(node : &ErasedNode) -> Unit {
     } else {
       guard !x.dirty else { continue }
       x.dirty = true
-      for p in x.parents {
+      for p in x.parents.values() {
         traverses.push((p, false))
       }
       traverses.push((x, true))
