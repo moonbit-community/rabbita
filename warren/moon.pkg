@@ -14,10 +14,6 @@ import {
   "moonbit-community/warren/devhub",
 }
 
-import {
-  "moonbitlang/core/test",
-} for "wbtest"
-
 supported_targets = "native"
 
 warnings = "-text_segment_excceed"
