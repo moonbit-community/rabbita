@@ -124,7 +124,8 @@ memory. Large files use multiline `Bytes` literals to stay within compiler
 source-line limits without allocating and rebuilding their contents at startup.
 Their original bytes are preserved; resources are neither base64-encoded nor
 extracted at startup. The HTML still loads `/index.js` through its normal
-script URL. Symlinks and special files in bundle inputs are rejected.
+script URL. Symlinks and special files in public assets and server entry sources
+are rejected.
 
 For a browser-only project (including `.mbtx`), Warren generates a small
 static HTTP server using Moonback 0.8.3's `from_assets()` middleware.
@@ -194,16 +195,24 @@ Moonback applications can pass the map directly to
 from `moonbitlang/moonback/middlewares/unstable_static` (Moonback 0.8.3 or later).
 Rabbita's `Server(assets=...)` uses this middleware internally.
 
-Warren compiles a temporary sibling copy of the server entry with a generated
-`warren_assets.mbt`. It does not edit the original stub or package manifest.
-Imports retain their module/workspace context; entry-local files and relative
-references to neighboring files are preserved. Custom build rules that
-hard-code the original entry's package path need to accommodate the copied
-entry. Server compilation writes to a temporary build directory; both the
-temporary source and build artifacts are cleaned up on success and failure.
-Browser compilation continues to use the normal build cache. Browser and
-server compilation finish before the previous `dist/` is replaced, so a
-compilation failure retains the previous bundle.
+Warren builds the server in a temporary sibling snapshot of its module, or of
+the enclosing workspace when one exists. This preserves the original module
+name and package paths, including access to server-scoped `internal` packages.
+The snapshot also preserves relative references to neighboring native files
+and local dependencies outside its root. Absolute workspace member paths inside
+the original root are redirected to their snapshot copies.
+
+Only the snapshot receives the generated `warren_assets.mbt`; the original stub
+and manifests remain unchanged. No project migration is needed. Creating the
+snapshot requires write access to the module/workspace root's parent directory
+and space for a source copy, including cached dependencies. Git metadata, Moon
+build directories, and the selected output directory are excluded. Custom build
+rules must not rely on the original absolute source location or Git metadata.
+Server compilation writes to a separate temporary build directory; both the
+snapshot and build artifacts are cleaned up on success and failure. Browser
+compilation continues to use the normal build cache. Browser and server
+compilation finish before the previous `dist/` is replaced, so a compilation
+failure retains the previous bundle.
 
 ## New project
 

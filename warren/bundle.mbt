@@ -88,35 +88,153 @@ async fn render_bundle_assets(dir : SourcePath) -> String {
 }
 
 ///|
-async fn copy_bundle_entry(src : SourcePath, dst : SourcePath) -> Unit {
-  for
-    name in @fs.readdir(
-      source_path_to_string(src),
-      include_hidden=true,
-      sort=true,
-    ) {
-    if name == "_build" ||
-      name == ".git" ||
-      name == ".mooncakes" ||
-      name == "dist" {
-      continue
+async fn bundle_project_root(entry : SourcePath) -> SourcePath {
+  let mut module_root = None
+  for current = entry {
+    if @fs.exists(source_path_to_string(current.join("moon.work"))) {
+      return current
     }
-    let file = src.join(name)
-    match @fs.kind(source_path_to_string(file), follow_symlink=false) {
-      Directory => {
-        @fs.mkdir(source_path_to_string(dst.join(name)), permission=0o700)
-        copy_bundle_entry(file, dst.join(name))
+    if module_root is None &&
+      (
+        @fs.exists(source_path_to_string(current.join("moon.mod"))) ||
+        @fs.exists(source_path_to_string(current.join("moon.mod.json")))
+      ) {
+      module_root = Some(current)
+    }
+    let parent = SourcePath::new(
+      Path::dirname(source_path_to_string(current)).to_string(),
+    )
+    if parent == current {
+      break
+    }
+    continue parent
+  }
+  module_root.unwrap_or_error(
+    Failure("Cannot find the server's MoonBit module."),
+  )
+}
+
+///|
+fn bundle_snapshot_path(
+  path : SourcePath,
+  root : SourcePath,
+  staging : SourcePath,
+) -> SourcePath {
+  if path_is_inside(path.to_string(), root.to_string(), allow_equal=true) {
+    staging.join(path.relative(root))
+  } else {
+    path
+  }
+}
+
+///|
+async fn stage_bundle_project(
+  root : SourcePath,
+  staging : SourcePath,
+  server_entry : SourcePath,
+  dist : SourcePath,
+) -> Unit {
+  async fn copy_tree(src : SourcePath, dst : SourcePath) -> Unit {
+    for
+      name in @fs.readdir(
+        source_path_to_string(src),
+        include_hidden=true,
+        sort=true,
+      ) {
+      let file = src.join(name)
+      if name == "_build" || name == ".git" || file == dist {
+        continue
       }
-      Regular => {
-        copy(src=file, dst=dst.join(name))
-        if @fs.can_execute(source_path_to_string(file)) {
-          chmod_executable(dst.join(name))
+      let output = dst.join(name)
+      match @fs.kind(source_path_to_string(file), follow_symlink=false) {
+        Directory => {
+          @fs.mkdir(source_path_to_string(output), permission=0o700)
+          copy_tree(file, output)
         }
+        Regular => {
+          copy(src=file, dst=output)
+          if @fs.can_execute(source_path_to_string(file)) {
+            chmod_executable(output)
+          }
+        }
+        SymLink => {
+          guard !path_is_inside(
+            file.to_string(),
+            server_entry.to_string(),
+            allow_equal=true,
+          ) else {
+            fail("Bundle server sources must not contain links: `\{file}`")
+          }
+          if file == root.join("moon.work") {
+            copy(src=file, dst=output)
+          } else {
+            // Do not traverse unrelated links (including directory cycles).
+            let target = SourcePath::new(@fs.realpath(file.to_string()))
+            @fs.symlink(
+              target=bundle_snapshot_path(target, root, staging).to_string(),
+              output.to_string(),
+            )
+          }
+        }
+        _ => fail("Cannot stage special file for bundling: `\{file}`")
       }
-      _ =>
-        fail(
-          "Bundle server sources must not contain links or special files: `\{file}`",
+    }
+  }
+  copy_tree(root, staging)
+  let workspace = root.join("moon.work")
+  if @fs.exists(workspace.to_string()) {
+    let source = @fs.read_file(workspace.to_string()).text()
+    let parsed = @moon_config.parse_moon_work(source)
+    guard parsed.diagnostics.errors.is_empty() else {
+      fail(
+        "Cannot stage moon.work: \{parsed.diagnostics.errors.map(report => report.msg).join("\n")}",
+      )
+    }
+    for statement in parsed.ast.0 {
+      guard statement
+        is Assign({ key: "members", value: Array(items~, loc~), .. }) else {
+        continue
+      }
+      let mut changed = false
+      let paths : Array[String] = []
+      for item in items {
+        guard item is String(str~, ..) else {
+          fail("Expected a workspace member path.")
+        }
+        let original = SourcePath::new(
+          @fs.realpath(resolve_from(root.to_string(), str)),
         )
+        let mapped = bundle_snapshot_path(original, root, staging)
+        let path = if mapped == original {
+          str
+        } else if Path::is_absolute(str) {
+          mapped.to_string()
+        } else {
+          mapped.relative(staging)
+        }
+        changed = changed || path != str
+        paths.push(path)
+      }
+      guard changed else { break }
+      let output = StringBuilder()
+      // Parser locations count Unicode characters, not UTF-16 code units.
+      let mut index = 0
+      for ch in source.iter() {
+        if index == loc.start.cnum {
+          output.write_string(Json(paths).stringify())
+        }
+        if index < loc.start.cnum || index >= loc.end.cnum {
+          output.write_char(ch)
+        }
+        index += 1
+      }
+      @fs.write_file(
+        staging.join("moon.work").to_string(),
+        output.to_string(),
+        create_mode=CreateOrTruncate,
+        permission=0o600,
+      )
+      break
     }
   }
 }
@@ -143,11 +261,15 @@ async fn build_bundle(
   assemble_static(layout.public_dir, browser_artifact, static_dir, true)
   let source = render_bundle_assets(static_dir)
   if layout.server_entry is Some(entry) {
-    // A sibling copy preserves both module-relative build rules and relative
-    // paths to neighboring native stubs/libraries in the entry manifest.
+    let root = bundle_project_root(entry)
+    // Moving the module/workspace as a whole preserves package identities.
+    // A sibling snapshot also preserves relative references outside its root.
     let parent = SourcePath::new(
-      Path::dirname(source_path_to_string(entry)).to_string(),
+      Path::dirname(source_path_to_string(root)).to_string(),
     )
+    guard parent != root else {
+      fail("Cannot create a sibling bundle snapshot of the filesystem root.")
+    }
     let unique_name = Path::basename(temp_string)
       .to_owned()
       .replace_all(old=".", new="_")
@@ -155,29 +277,23 @@ async fn build_bundle(
     let staging = parent.join(unique_name)
     @fs.mkdir(source_path_to_string(staging), permission=0o700)
     defer @fs.rmdir(source_path_to_string(staging), recursive=true)
-    copy_bundle_entry(entry, staging)
+    stage_bundle_project(root, staging, entry, dist)
+    let staged_entry = staging.join(entry.relative(root))
     @fs.write_file(
-      source_path_to_string(staging.join("warren_assets.mbt")),
+      source_path_to_string(staged_entry.join("warren_assets.mbt")),
       source,
       create_mode=CreateOrTruncate,
       permission=0o600,
     )
     let artifact = run_build_only(
-      layout.root,
       staging,
+      staged_entry,
       "native",
       true,
       target_dir~,
     )
-    let artifact_name = Path::basename(source_path_to_string(artifact)).to_owned()
-    let entry_name = Path::basename(source_path_to_string(entry)).to_owned()
-    let output_name = if artifact_name.has_prefix(unique_name) {
-      "\{entry_name}\{artifact_name[unique_name.length():]}"
-    } else {
-      artifact_name
-    }
     ensure_clean_dir(dist)
-    ignore(copy_server_artifact(artifact, dist, Native, output_name~))
+    ignore(copy_server_artifact(artifact, dist, Native))
   } else {
     let entry = temp.join("server.mbtx")
     @fs.write_file(
