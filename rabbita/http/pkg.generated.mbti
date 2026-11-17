@@ -23,7 +23,7 @@ pub fn put(String) -> RequestWithBody
 pub(all) suberror HttpError {
   RequestError(String)
 }
-pub fn HttpError::from_json(@json.Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn HttpError::from_json(@json.Json, @json.DecodeContext) -> Self raise @json.JsonDecodeError
 pub fn HttpError::to_json(Self) -> @json.Json
 
 // Types and methods
