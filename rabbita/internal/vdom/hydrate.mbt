@@ -404,15 +404,15 @@ fn hydrate_root(
             "head",
             head_props,
             head_children,
-            namespace_uri=head_namespace_uri
+            namespace_uri=head_namespace_uri,
           ),
           Elem(
             "body",
             body_props,
             body_children,
-            namespace_uri=body_namespace_uri
+            namespace_uri=body_namespace_uri,
           ),
-        ]
+        ],
       ),
       ..
     ) => {

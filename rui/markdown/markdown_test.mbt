@@ -428,12 +428,10 @@ async test "complete async 0.22.2 README preserves packages tasks code and final
   assert_eq(count_tag(html, "h1"), 1)
   assert_eq(count_tag(html, "h2"), 5)
   assert_eq(count_tag(html, "pre"), 2)
-  assert_eq(html.split("role=\"checkbox\"").count() - 1, 20)
-  assert_eq(html.split("aria-checked=\"true\"").count() - 1, 19)
-  // cmark 0.4.8 retains six nested task markers as paragraph text. This is a
-  // pinned-fixture observation, not the desired behavior of a future parser.
-  assert_eq(html.split("- [X] ").count() - 1, 4)
-  assert_eq(html.split("- [ ] ").count() - 1, 2)
+  assert_eq(html.split("role=\"checkbox\"").count() - 1, 26)
+  assert_eq(html.split("aria-checked=\"true\"").count() - 1, 23)
+  assert_false(html.contains("- [X] "))
+  assert_false(html.contains("- [ ] "))
   assert_true(html.contains("moon add moonbitlang/async@0.22.1"))
   assert_true(
     html.contains("href=\"#structured-concurrency-and-error-propagation\""),

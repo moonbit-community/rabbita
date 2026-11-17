@@ -7,7 +7,7 @@ import {
   "moonbit-community/rui@0.5.0",
   "Yoorkin/shiki@0.1.2",
   "moonbitlang/async@0.22.4",
-  "moonbit-community/cmark@0.4.12",
+  "moonbit-community/cmark@0.4.17",
 }
 
 readme = "README.md"

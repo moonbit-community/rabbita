@@ -77,8 +77,8 @@ const MarkdownListsSource : String =
   #|11. Next ordered parent.
   #|
   #|- [x] Completed parent task
-  #|      - [ ] Nested pending task whose description wraps over several lines on a narrow screen.
-  #|      - A regular bullet beside task items.
+  #|  - [ ] Nested pending task whose description wraps over several lines on a narrow screen.
+  #|  - A regular bullet beside task items.
   #|- [ ] Another parent task
   #|
   #|- A loose item with multiple blocks.
@@ -125,7 +125,7 @@ const MarkdownUsageCode : String =
 fn markdown_demo() -> @html.Html {
   showcase_component_demos(
     "Markdown",
-    "Synchronous Markdown rendering with cmark 0.4.8, shadcn Typeset typography and Nova theme tokens. HTML, code, math and diagrams remain source where no renderer is provided.",
+    "Synchronous Markdown rendering with cmark 0.4.17, shadcn Typeset typography and Nova theme tokens. HTML, code, math and diagrams remain source where no renderer is provided.",
     [
       showcase_demo_section(
         "Markdown syntax",
@@ -147,7 +147,7 @@ fn markdown_demo() -> @html.Html {
       ),
       showcase_demo_section(
         "List indentation",
-        "Three levels of bullets, mixed numbering and loose items. cmark 0.4.8 requires six spaces for children of an unordered task; two or four spaces currently flatten them.",
+        "Three levels of bullets, mixed numbering, nested tasks and loose items.",
         showcase_demo_stage(
           @markdown.markdown(MarkdownListsSource),
           MarkdownUsageCode,
@@ -180,7 +180,7 @@ fn markdown_demo() -> @html.Html {
       ),
       showcase_demo_section(
         "Async README",
-        "The complete, unmodified moonbitlang/async 0.22.2 README (149 lines, Apache-2.0). Known cmark 0.4.8 limitation: 20 of 26 tasks become checkboxes; six nested task markers remain text. The source is preserved.",
+        "The complete, unmodified moonbitlang/async 0.22.2 README (149 lines, Apache-2.0), including nested task lists. The source is preserved.",
         showcase_demo_stage(
           @markdown.markdown(markdown_async_readme),
           MarkdownUsageCode,

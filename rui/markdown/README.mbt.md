@@ -14,7 +14,7 @@ test {
 and RUI Nova theme tokens. No external CSS or initialization is needed. Wrap it in
 `@rui.theme(mode=Dark, ...)` to inherit dark tokens, as with other RUI components.
 
-The parser is `moonbit-community/cmark@0.4.8`, with its common syntax extensions
+The parser is `moonbit-community/cmark@0.4.17`, with its common syntax extensions
 enabled: tables (including column alignment), task lists, strikethrough,
 footnotes and math. Headings receive readable IDs, deduplicated within each
 document and expose visible, keyboard-accessible anchor links; footnotes include
@@ -68,7 +68,7 @@ spread to override selected fields and reuse the configuration across calls.
 | `defs` | `None` | Create a fresh map per parse, or supply initial reference/footnote definitions; cmark mutates a supplied map, including across calls that reuse it. |
 | `resolver` | `None` | Use cmark's default resolver, or supply a custom label definition and reference resolver. |
 
-cmark 0.4.8 enables tables, task lists, strikethrough, footnotes and math as a
+cmark enables tables, task lists, strikethrough, footnotes and math as a
 bundle through `strict=false`; it does not expose individual extension switches.
 Parser strictness does not control HTML rendering or URL safety checks.
 `heading_anchors=false` hides only the anchor controls; `heading_auto_ids=false`
@@ -241,16 +241,3 @@ heading anchors and code-copy controls. Task checkboxes center on the first
 text line, including wrapped and nested items. Code frames retain 16px
 padding to fit the copy control without covering the second line.
 No font is downloaded by this package.
-
-## Known cmark 0.4.8 task-list limitation
-
-Tracked upstream in [cmark issue #149](https://github.com/moonbit-community/cmark.mbt/issues/149).
-
-Under an unordered task such as `- [x] parent`, cmark currently counts `[x] `
-as part of the required continuation indentation. Children indented with two
-or four spaces can become sibling items or literal paragraph text. Use six spaces for that task's
-children and continuation blocks until cmark fixes this behavior. Ordinary
-nested bullets use the usual two-space indentation. This is a parser limitation,
-not a difference in visual list padding; this package does not rewrite input
-to work around it. The unmodified async 0.22.2 README demonstrates this: 20 of
-26 task markers render as checkboxes, while six nested markers remain text.

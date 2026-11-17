@@ -11,7 +11,7 @@ priv suberror WebsocketSubscription {
     open~ : Cmd?,
     message~ : Emit[String]?,
     close~ : Emit[CloseInfo]?,
-    error~ : Cmd?
+    error~ : Cmd?,
   )
 }
 

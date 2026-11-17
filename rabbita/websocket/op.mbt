@@ -9,7 +9,7 @@ extenum @cmd.Extension += {
     String,
     FixedArray[String],
     @cmd.Emit[Event],
-    @cmd.Emit[String]?
+    @cmd.Emit[String]?,
   )
   WebSocketSend(String, Payload, @cmd.Emit[String]?)
   WebSocketClose(String, Int32?, String?, @cmd.Emit[String]?)

@@ -219,16 +219,15 @@ for (const colorScheme of ['light', 'dark'] as const) {
 }
 
 
-test('complete async 0.22.2 README retains source text and exposes the documented nested-task parser limitation', async ({ page }) => {
+test('complete async 0.22.2 README retains source text and renders nested tasks', async ({ page }) => {
   const readme = page.locator(markdown).nth(4);
   await expect(readme.locator('h1')).toHaveText('Asynchronous programming library for MoonBit');
   await expect(readme.locator('h2')).toHaveCount(5);
   await expect(readme.locator('pre')).toHaveCount(2);
-  // Six nested markers stay literal text with cmark 0.4.8; do not conceal this limitation.
-  await expect(readme.getByRole('checkbox')).toHaveCount(20);
-  await expect(readme).toContainText('- [X] graceful cancellation');
-  await expect(readme).toContainText('- [ ] implement other IO primitives');
-  await expect(readme.locator('[role=checkbox][aria-checked=true]')).toHaveCount(19);
+  await expect(readme.getByRole('checkbox')).toHaveCount(26);
+  await expect(readme).not.toContainText('- [X] ');
+  await expect(readme).not.toContainText('- [ ] ');
+  await expect(readme.locator('[role=checkbox][aria-checked=true]')).toHaveCount(23);
   await expect(readme.locator('ul').first().locator('ul')).toHaveCount(2);
   await expect(readme.locator('code.language-bash')).toHaveText('moon add moonbitlang/async@0.22.1');
   await expect(readme.locator('code').last()).toHaveText('@async.Queue');

@@ -31,5 +31,6 @@ archive is shared by package tests and the website showcase.
 - `../async_readme_test.mbt` is the checked-in generated test embedding.
 
 The published README's install command still names `0.22.1`; that text is
-preserved. Its four-space task nesting exercises the documented cmark 0.4.8
-limitation and is not rewritten to conceal that behavior.
+preserved. Its four-space task nesting covers the regression reported in
+[cmark issue #149](https://github.com/moonbit-community/cmark.mbt/issues/149);
+the source is not rewritten to work around parser behavior.

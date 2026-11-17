@@ -388,9 +388,9 @@ pub fn VDom::initialize(
           [
             Elem("head", head_props, head_children, ..),
             Elem("body", body_props, body_children, ..),
-          ]
+          ],
         ),
-        namespace_uri=None
+        namespace_uri=None,
       ),
     ) => {
       let head = {
@@ -469,10 +469,10 @@ fn diff_document(
           [
             Elem("head", old_head_props, old_head_children, head_element, ..),
             Elem("body", old_body_props, old_body_children, body_element, ..),
-          ]
+          ],
         ),
         html_element,
-        namespace_uri=None
+        namespace_uri=None,
       ),
       Elem(
         "html",
@@ -481,9 +481,9 @@ fn diff_document(
           [
             Elem("head", new_head_props, new_head_children, ..),
             Elem("body", new_body_props, new_body_children, ..),
-          ]
+          ],
         ),
-        namespace_uri=None
+        namespace_uri=None,
       ),
     ) => {
       let props = diff_props(old_props, new_props, scheduler, html_element)
