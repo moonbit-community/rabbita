@@ -90,8 +90,8 @@ fn dirname(path : String) -> String {
 
 ///|
 fn relative(root : String, path : String) -> String {
-  let normalized_root = if root.has_suffix("/") {
-    root[:-1].to_owned()
+  let normalized_root = if root.strip_suffix("/") is Some(prefix) {
+    prefix.to_owned()
   } else {
     root
   }
@@ -131,29 +131,6 @@ async fn copy_file(source : String, target : String) -> Unit raise {
     create_mode=CreateOrTruncate,
     permission=0o644,
   )
-}
-
-///|
-async fn copy_core_file(source : String, target : String) -> Unit raise {
-  ensure_parent(target)
-  if source.has_suffix(".gz") {
-    let (code, data) = @process.collect_stdout(
-      "gzip",
-      ["-dc", source],
-      inherit_env=true,
-    )
-    if code != 0 {
-      abort("gzip failed for \{source}")
-    }
-    @fs.write_file(
-      target,
-      data,
-      create_mode=CreateOrTruncate,
-      permission=0o644,
-    )
-  } else {
-    copy_file(source, target)
-  }
 }
 
 ///|
@@ -365,7 +342,6 @@ fn render_package(pkg : PackageAsset) -> String {
 ///|
 fn render_manifest(
   core_url : String,
-  abort_url : String?,
   core_interfaces : Array[CoreInterface],
   packages : Array[PackageAsset],
 ) -> String {
@@ -393,11 +369,6 @@ fn render_manifest(
     package_entries.push(quoted(pkg.id) + ":" + render_package(pkg))
   }
 
-  let abort_entry = match abort_url {
-    Some(url) => "," + quoted("abort") + ":" + quoted(url)
-    None => ""
-  }
-
   let out = StringBuilder()
   out.write_string("{")
   out.write_string(field_str("generatedAt", "\{@env.now()}") + ",")
@@ -406,7 +377,7 @@ fn render_manifest(
   out.write_string("," + field_raw("mainImports", "[\{join_json(imports)}]"))
   out.write_string("," + field_raw("pkgSources", "[\{join_json(pkg_sources)}]"))
   out.write_string("," + quoted("core") + ":{")
-  out.write_string(field_str("core", core_url) + abort_entry + ",")
+  out.write_string(field_str("core", core_url) + ",")
   out.write_string(field_raw("interfaces", "[\{join_json(interfaces)}]") + "}")
   out.write_string("," + field_raw("packages", "{\{join_json(package_entries)}}"))
   out.write_string("}\n")
@@ -414,48 +385,25 @@ fn render_manifest(
 }
 
 ///|
-async fn prepare_core_bundle(core_bundle_root : String, target : String) -> Unit raise {
-  if first_existing([
-      join_path(core_bundle_root, "core.core"),
-      join_path(core_bundle_root, "core.core.gz"),
-    ]) is Some(source) {
-    copy_core_file(source, target)
-    return
-  }
-
-  let inputs : Array[String] = []
+async fn prepare_core_assets(core_bundle_root : String, bundle_target : String) -> Array[CoreInterface] raise {
+  let package_stems : Array[String] = []
   @fs.walk(core_bundle_root, (dir, files) => {
     for file in files {
-      let path = join_path(dir, file)
-      // The worker links abort/abort.core separately when present.
-      if file.has_suffix(".core") && relative(core_bundle_root, path) != "abort/abort.core" {
-        inputs.push(path)
+      if file.strip_suffix(".mi") is Some(stem) {
+        package_stems.push(join_path(dir, stem.to_owned()))
       }
     }
   })
-  if inputs.is_empty() {
-    fail("No core IR files found in \{core_bundle_root}.")
+  if package_stems.is_empty() {
+    fail("No core package interfaces found in \{core_bundle_root}.")
   }
-  inputs.sort()
-  ensure_parent(target)
-  run_command("moonc", ["bundle-core", ..inputs, "-o", target], "bundle MoonBit core")
-}
+  package_stems.sort()
 
-///|
-async fn collect_core_interfaces(core_bundle_root : String) -> Array[CoreInterface] raise {
-  let mi_files : Array[String] = []
-  @fs.walk(core_bundle_root, (dir, files) => {
-    for file in files {
-      let full = join_path(dir, file)
-      if full.has_suffix(".mi") {
-        mi_files.push(full)
-      }
-    }
-  })
-  mi_files.sort()
-
+  let core_files : Array[String] = []
   let interfaces : Array[CoreInterface] = []
-  for mi_file in mi_files {
+  for stem in package_stems {
+    core_files.push(stem + ".core")
+    let mi_file = stem + ".mi"
     let rel = relative(core_bundle_root, mi_file)
     let pkg_rel = core_package_rel(core_bundle_root, mi_file)
     let target = join_path("public/moonbit-assets/core", rel)
@@ -466,6 +414,7 @@ async fn collect_core_interfaces(core_bundle_root : String) -> Array[CoreInterfa
       url: public_url(target),
     })
   }
+  run_command("moonc", ["bundle-core", ..core_files, "-o", bundle_target], "bundle MoonBit core")
   interfaces
 }
 
@@ -610,25 +559,12 @@ async fn main raise {
 
   download_moonc_worker()
 
-  prepare_core_bundle(core_bundle_root, "public/moonbit-assets/core/core.core")
-
-  let abort_source = first_existing([
-    join_path(core_bundle_root, "abort/abort.core"),
-  ])
-  let abort_url = match abort_source {
-    Some(path) => {
-      copy_file(path, "public/moonbit-assets/core/abort/abort.core")
-      Some(public_url("public/moonbit-assets/core/abort/abort.core"))
-    }
-    None => None
-  }
-
-  let core_interfaces = collect_core_interfaces(core_bundle_root)
+  let core_target = "public/moonbit-assets/core/core.core"
+  let core_interfaces = prepare_core_assets(core_bundle_root, core_target)
   let packages = collect_playground_packages(package_graph)
   copy_repo_examples()
   let manifest = render_manifest(
-    public_url("public/moonbit-assets/core/core.core"),
-    abort_url,
+    public_url(core_target),
     core_interfaces,
     packages,
   )
