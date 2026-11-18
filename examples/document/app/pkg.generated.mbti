@@ -19,7 +19,7 @@ pub(all) struct Issue {
   status : String
 }
 pub fn Issue::equal(Self, Self) -> Bool
-pub fn Issue::from_json(@json.Json, @json.JsonPath) -> Self raise @json.JsonDecodeError
+pub fn Issue::from_json(@json.Json, @json.DecodeContext) -> Self raise @json.JsonDecodeError
 pub fn Issue::not_equal(Self, Self) -> Bool
 pub fn Issue::to_json(Self) -> @json.Json
 
