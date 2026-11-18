@@ -5,7 +5,6 @@ import {
   "moonbit-community/rabbita/http",
   "moonbit-community/rabbita/js",
   "moonbit-community/rabbita/svg",
-  "moonbitlang/core/json",
 }
 
 supported_targets = "js"
