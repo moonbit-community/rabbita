@@ -414,6 +414,34 @@ fn render_manifest(
 }
 
 ///|
+async fn prepare_core_bundle(core_bundle_root : String, target : String) -> Unit raise {
+  if first_existing([
+      join_path(core_bundle_root, "core.core"),
+      join_path(core_bundle_root, "core.core.gz"),
+    ]) is Some(source) {
+    copy_core_file(source, target)
+    return
+  }
+
+  let inputs : Array[String] = []
+  @fs.walk(core_bundle_root, (dir, files) => {
+    for file in files {
+      let path = join_path(dir, file)
+      // The worker links abort/abort.core separately when present.
+      if file.has_suffix(".core") && relative(core_bundle_root, path) != "abort/abort.core" {
+        inputs.push(path)
+      }
+    }
+  })
+  if inputs.is_empty() {
+    fail("No core IR files found in \{core_bundle_root}.")
+  }
+  inputs.sort()
+  ensure_parent(target)
+  run_command("moonc", ["bundle-core", ..inputs, "-o", target], "bundle MoonBit core")
+}
+
+///|
 async fn collect_core_interfaces(core_bundle_root : String) -> Array[CoreInterface] raise {
   let mi_files : Array[String] = []
   @fs.walk(core_bundle_root, (dir, files) => {
@@ -582,11 +610,7 @@ async fn main raise {
 
   download_moonc_worker()
 
-  let core_core = first_existing([
-    join_path(core_bundle_root, "core.core"),
-    join_path(core_bundle_root, "core.core.gz"),
-  ]).unwrap()
-  copy_core_file(core_core, "public/moonbit-assets/core/core.core")
+  prepare_core_bundle(core_bundle_root, "public/moonbit-assets/core/core.core")
 
   let abort_source = first_existing([
     join_path(core_bundle_root, "abort/abort.core"),
