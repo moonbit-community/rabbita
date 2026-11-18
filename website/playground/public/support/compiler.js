@@ -393,7 +393,6 @@ export async function compileMbtToJs(mbtSource, moonPkgSource = "") {
 
     const dependencyCoreFiles = reachableOrder.map((id) => builtPackages.get(id).core);
     const coreFiles = await Promise.all([
-      ...(manifest.core.abort ? [fetchBytes(manifest.core.abort)] : []),
       fetchBytes(manifest.core.core),
       ...dependencyCoreFiles,
       buildResult.core,
