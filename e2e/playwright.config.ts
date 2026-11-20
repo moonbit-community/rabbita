@@ -39,6 +39,7 @@ const ruiFixtures = [
   'slider',
   'toast',
   'tooltip',
+  'keydown-scan',
 ] as const;
 const apps = [
   {
