@@ -23,6 +23,9 @@ concurrency:
   group: publish-module-${{ inputs.module }}
   cancel-in-progress: false
 
+env:
+  MOON_SEPARATE_COMPILATION: "1"
+
 jobs:
   publish:
     runs-on: ubuntu-latest

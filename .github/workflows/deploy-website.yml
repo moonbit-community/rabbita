@@ -25,6 +25,9 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  MOON_SEPARATE_COMPILATION: "1"
+
 jobs:
   build:
     runs-on: ubuntu-latest
