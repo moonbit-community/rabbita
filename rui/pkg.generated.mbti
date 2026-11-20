@@ -277,6 +277,8 @@ pub fn[C : @html.IsChildren] context_menu_sub_trigger(ContextMenuSubScope, disab
 
 pub fn[C : @html.IsChildren] context_menu_trigger(ContextMenuScope, tabindex? : Int32, class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String], C) -> @html.Html
 
+pub fn[Input : Eq] context_menu_with_input(input~ : @rabbita.Val[Input], id~ : String, default_open? : Bool, default_checked_values? : Array[String], default_radio_values? : Array[(String, String)], on_open_change? : @cmd.Emit[Bool], attrs? : @html.Attrs, style? : Array[String], (ContextMenuScope, Input) -> @html.Html) -> @rabbita.Val[@html.Html]
+
 pub fn[T] data_table(id~ : String, rows~ : Array[T], columns~ : Array[DataTableColumn[T]], row_key~ : (T) -> String, page_size? : Int32, searchable? : Bool, selectable? : Bool, show_columns? : Bool, search_placeholder? : String, empty_text? : String, aria_label? : String, default_sort_key? : String, default_sort_descending? : Bool, default_selected? : Array[String], default_hidden_columns? : Array[String], on_selection_change? : @cmd.Emit[Array[String]], on_query_change? : @cmd.Emit[String], class? : String, title? : String, attrs? : @html.Attrs, style? : Array[String]) -> @rabbita.Val[@html.Html]
 
 pub fn[T] data_table_column(key~ : String, label~ : String, value~ : (T) -> String, render? : (T) -> @html.Html, sortable? : Bool, searchable? : Bool, hideable? : Bool, numeric? : Bool) -> DataTableColumn[T]
