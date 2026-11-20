@@ -9,10 +9,10 @@ pub trait IsNode: IsEventTarget {
   fn as_node(Self) -> Node = _
   fn get_node_type(Self) -> Int32 = _
   fn get_node_name(Self) -> String = _
-  fn get_node_value(Self) -> String = _
+  fn get_node_value(Self) -> String? = _
   fn set_node_value(Self, @js.Nullable[String]) -> Unit = _
-  fn get_first_child(Self) -> Node = _
-  fn get_last_child(Self) -> Node = _
+  fn get_first_child(Self) -> Node? = _
+  fn get_last_child(Self) -> Node? = _
   fn get_next_sibling(Self) -> @js.Nullable[Node] = _
   fn get_previous_sibling(Self) -> @js.Nullable[Node] = _
   fn get_parent_node(Self) -> @js.Nullable[Node] = _
@@ -137,19 +137,19 @@ impl IsNode with fn get_node_name(s) {
 ///|
 #cfg(target="js")
 impl IsNode with fn get_node_value(s) {
-  s |> js_identity |> ffi_node_value
+  s |> js_identity |> ffi_node_value |> value => { value.to_option() }
 }
 
 ///|
 #cfg(target="js")
 impl IsNode with fn get_first_child(s) {
-  s |> js_identity |> first_child
+  s |> js_identity |> ffi_first_child |> node => { node.to_option() }
 }
 
 ///|
 #cfg(target="js")
 impl IsNode with fn get_last_child(s) {
-  s |> js_identity |> ffi_last_child
+  s |> js_identity |> ffi_last_child |> node => { node.to_option() }
 }
 
 ///|
@@ -245,15 +245,15 @@ extern "js" fn ffi_node_name(x : @js.Value) -> String = "(x) => x.nodeName"
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_node_value(x : @js.Value) -> String = "(x) => x.nodeValue"
+extern "js" fn ffi_node_value(x : @js.Value) -> @js.Nullable[String] = "(x) => x.nodeValue"
 
 ///|
 #cfg(target="js")
-extern "js" fn first_child(x : @js.Value) -> Node = "(x) => x.firstChild"
+extern "js" fn ffi_first_child(x : @js.Value) -> @js.Nullable[Node] = "(x) => x.firstChild"
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_last_child(x : @js.Value) -> Node = "(x) => x.lastChild"
+extern "js" fn ffi_last_child(x : @js.Value) -> @js.Nullable[Node] = "(x) => x.lastChild"
 
 ///|
 #cfg(target="js")

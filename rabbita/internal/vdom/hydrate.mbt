@@ -1,14 +1,4 @@
 ///|
-#cfg(target="js")
-fn first_child(node : @dom.Node) -> @dom.Node? {
-  if node.get_child_count() == 0 {
-    None
-  } else {
-    Some(node.get_first_child())
-  }
-}
-
-///|
 /// Returns whether `node` can be claimed by `vnode` during hydration.
 ///
 /// Text content and ordinary attributes are reconciled after claiming, so matching
@@ -73,7 +63,7 @@ fn is_boundary(node : @dom.Node, boundary : @dom.Node?) -> Bool {
 ///|
 #cfg(target="js")
 fn fragment_marker(node : @dom.Node, marker : String) -> @dom.Comment? {
-  if node.get_node_type() == 8 && node.get_node_value() == marker {
+  if node.get_node_type() == 8 && node.get_node_value() == Some(marker) {
     node.to_comment()
   } else {
     None
@@ -167,7 +157,7 @@ fn hydrate_existing_element(
   } else {
     let (mounted, next) = hydrate_children(
       children,
-      first_child(element.as_node()),
+      element.as_node().get_first_child(),
       scheduler,
       captured_link_listener,
       element.as_node(),
@@ -301,11 +291,13 @@ fn hydrate_node(
       )
     Text(text) =>
       if find_hydratable(vnode, current, boundary, allow_skip~) is Some(node) {
-        if node.get_node_value() != text {
+        if node.get_node_value() != Some(text) {
           node.set_node_value(nullable(text))
         }
-        let element : @dom.Element = @js.Value::cast_from(node).cast()
-        (Text(text, element), node.get_next_sibling().to_option())
+        (
+          Text(text, node.to_text().unwrap()),
+          node.get_next_sibling().to_option(),
+        )
       } else {
         recover_mismatch(
           vnode, scheduler, captured_link_listener, parent, current, boundary,
