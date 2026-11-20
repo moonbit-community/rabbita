@@ -43,9 +43,26 @@ fn probe_nodes() -> String {
       physical_equal(@dom.IsElement::as_element(root), root),
       "as_element",
     )
+    record(
+      failures,
+      @dom.IsNode::get_node_value(root) is None,
+      "element_node_value",
+    )
+    let empty = document.create_element("div")
+    record(
+      failures,
+      @dom.IsNode::get_first_child(empty) is None,
+      "first_child_empty",
+    )
+    record(
+      failures,
+      @dom.IsNode::get_last_child(empty) is None,
+      "last_child_empty",
+    )
 
     let text = document.create_text_node("alpha")
     let comment = document.create_comment("note")
+    record(failures, @dom.IsNode::get_node_type(text) == 3, "text_node_type")
     record(
       failures,
       @dom.IsEventTarget::to_text(text) is Some(_),
@@ -64,29 +81,25 @@ fn probe_nodes() -> String {
     record(failures, @dom.IsNode::get_child_count(root) == 2, "append_child")
     record(
       failures,
-      @dom.IsNode::get_node_value(text) == "alpha",
+      @dom.IsNode::get_node_value(text) == Some("alpha"),
       "text_node_value",
     )
     @dom.IsNode::set_node_value(text, @js.Nullable::from_option(Some("beta")))
     record(
       failures,
-      @dom.IsNode::get_node_value(text) == "beta",
+      @dom.IsNode::get_node_value(text) == Some("beta"),
       "set_node_value",
     )
     record(
       failures,
-      @dom.IsNode::is_same_node(
-        @dom.IsNode::get_first_child(root),
-        @dom.IsNode::as_node(text),
-      ),
+      @dom.IsNode::get_first_child(root) is Some(child) &&
+      @dom.IsNode::is_same_node(child, @dom.IsNode::as_node(text)),
       "first_child",
     )
     record(
       failures,
-      @dom.IsNode::is_same_node(
-        @dom.IsNode::get_last_child(root),
-        comment.to_node(),
-      ),
+      @dom.IsNode::get_last_child(root) is Some(child) &&
+      @dom.IsNode::is_same_node(child, comment.to_node()),
       "last_child",
     )
     record(

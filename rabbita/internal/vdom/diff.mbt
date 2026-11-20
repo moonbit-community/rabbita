@@ -23,7 +23,7 @@ priv struct IProps {
 #cfg(target="js")
 priv enum INode {
   Elem(String, IProps, Children[INode], namespace_uri~ : String?, @dom.Element)
-  Text(String, @dom.Element)
+  Text(String, @dom.Text)
   Frag(Array[INode], @dom.Comment, @dom.Comment)
   Thunk(Int32, INode)
 }
@@ -32,7 +32,8 @@ priv enum INode {
 #cfg(target="js")
 fn INode::start(self : Self) -> @dom.Node {
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) => element.as_node()
+    Elem(_, _, _, element, ..) => element.as_node()
+    Text(_, text) => text.as_node()
     Thunk(_, node) => node.start()
     Frag(_, start, _) => start.as_node()
   }
@@ -42,7 +43,8 @@ fn INode::start(self : Self) -> @dom.Node {
 #cfg(target="js")
 fn INode::end(self : Self) -> @dom.Node {
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) => element.as_node()
+    Elem(_, _, _, element, ..) => element.as_node()
+    Text(_, text) => text.as_node()
     Thunk(_, node) => node.end()
     Frag(_, _, end) => end.as_node()
   }
@@ -65,8 +67,8 @@ fn INode::needs_relocation(
 #cfg(target="js")
 fn INode::remove(self : Self, parent : @dom.Node) -> Unit {
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) =>
-      parent.remove_child(element.as_node())
+    Elem(_, _, _, element, ..) => parent.remove_child(element.as_node())
+    Text(_, text) => parent.remove_child(text.as_node())
     Thunk(_, node) => node.remove(parent)
     Frag(_, start, end) => {
       let start = start.as_node()
@@ -90,8 +92,9 @@ fn INode::relocate(
 ) -> Unit {
   guard self.needs_relocation(before) else { return }
   match self {
-    Elem(_, _, _, element, ..) | Text(_, element) =>
+    Elem(_, _, _, element, ..) =>
       parent.insert_before(element.as_node(), before)
+    Text(_, text) => parent.insert_before(text.as_node(), before)
     Thunk(_, node) => node.relocate(parent, before)
     Frag(_, start, end) => {
       {
@@ -212,9 +215,9 @@ fn VNode::insert(
 ) -> INode {
   match self {
     Text(text) => {
-      let element = @dom.document().create_text_node(text)
-      parent.insert_before(element.as_node(), before)
-      Text(text, element)
+      let text_node = @dom.document().create_text_node(text)
+      parent.insert_before(text_node.as_node(), before)
+      Text(text, text_node)
     }
     Thunk(hash, render) => {
       let node = render().insert(
@@ -562,11 +565,11 @@ fn diff_node(
         reapply_child_sensitive_properties(element, tag2, props.props)
         Elem(tag2, props, children, namespace_uri=ns2, element)
       }
-    (Text(text1, element), Text(text2)) => {
+    (Text(text1, text_node), Text(text2)) => {
       if text1 != text2 {
-        element.set_node_value(@js.Nullable::from_option(Some(text2)))
+        text_node.set_node_value(@js.Nullable::from_option(Some(text2)))
       }
-      Text(text2, element)
+      Text(text2, text_node)
     }
     (Frag(children1, start, end), Frag(children2)) => {
       let children = diff_children(
