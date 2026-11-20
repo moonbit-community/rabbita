@@ -29,7 +29,7 @@ pub extern "js" fn DOMRectList::item(
 #cfg(target="js")
 pub fn DOMRectList::iter(self : Self) -> Iter[DOMRect] {
   let mut index = 0.0
-  Iter::new(fn() {
+  Iter(fn() {
     let item = self.item(index).to_option()
     index += 1.0
     item

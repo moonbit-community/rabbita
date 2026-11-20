@@ -45,7 +45,7 @@ pub fn TimeRanges::end(self : Self, index : Int32) -> Double? {
 pub fn TimeRanges::iter(self : Self) -> Iter[(Double, Double)] {
   let length = self.length()
   let mut index = 0
-  Iter::new(fn() {
+  Iter(fn() {
     if index < length {
       let item = (self.start_ffi(index), self.end_ffi(index))
       index += 1

@@ -70,7 +70,7 @@ pub fn[T] JsArray::pop(self : JsArray[T]) -> T? {
 #cfg(target="js")
 pub fn[T] JsArray::iter(self : JsArray[T]) -> Iter[T?] {
   let mut index = 0
-  Iter::new(fn() {
+  Iter(fn() {
     guard index < self.length() else { None }
     let value = self.get(index)
     index += 1
