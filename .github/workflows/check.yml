@@ -6,6 +6,9 @@ on:
       - main
   pull_request:
 
+env:
+  MOON_SEPARATE_COMPILATION: "1"
+
 jobs:
   stable-build:
     strategy:
