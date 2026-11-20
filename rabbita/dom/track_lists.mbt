@@ -66,7 +66,7 @@ pub fn AudioTrackList::get_track_by_id(self : Self, id : String) -> AudioTrack? 
 #cfg(target="js")
 pub fn AudioTrackList::iter(self : Self) -> Iter[AudioTrack] {
   let mut index = 0
-  Iter::new(fn() {
+  Iter(fn() {
     let item = self.get(index)
     index += 1
     item
@@ -129,7 +129,7 @@ pub fn VideoTrackList::get_track_by_id(self : Self, id : String) -> VideoTrack? 
 #cfg(target="js")
 pub fn VideoTrackList::iter(self : Self) -> Iter[VideoTrack] {
   let mut index = 0
-  Iter::new(fn() {
+  Iter(fn() {
     let item = self.get(index)
     index += 1
     item
@@ -192,7 +192,7 @@ pub fn TextTrackList::get_track_by_id(self : Self, id : String) -> TextTrack? {
 #cfg(target="js")
 pub fn TextTrackList::iter(self : Self) -> Iter[TextTrack] {
   let mut index = 0
-  Iter::new(fn() {
+  Iter(fn() {
     let item = self.get(index)
     index += 1
     item

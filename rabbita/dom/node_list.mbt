@@ -30,7 +30,7 @@ pub fn[T] NodeList::item(self : NodeList[T], index : Double) -> @js.Nullable[T] 
 #cfg(target="js")
 pub fn[T] NodeList::iter(self : NodeList[T]) -> Iter[T] {
   let mut index = 0.0
-  Iter::new(fn() {
+  Iter(fn() {
     let item = self.item(index).to_option()
     index += 1.0
     item

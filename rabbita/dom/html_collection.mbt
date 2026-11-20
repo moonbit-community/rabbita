@@ -40,7 +40,7 @@ pub extern "js" fn HTMLCollection::named_item(
 #cfg(target="js")
 pub fn HTMLCollection::iter(self : Self) -> Iter[Element] {
   let mut index = 0.0
-  Iter::new(fn() {
+  Iter(fn() {
     let item = self.item(index).to_option()
     index += 1.0
     item
