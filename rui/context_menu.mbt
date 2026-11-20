@@ -477,7 +477,6 @@ fn context_scope(
 
 ///|
 /// Stateful context menu opened at the native `contextmenu` pointer position.
-#cfg(target="js")
 pub fn context_menu(
   id~ : String,
   default_open~ : Bool = false,
@@ -487,6 +486,34 @@ pub fn context_menu(
   attrs? : @html.Attrs,
   style~ : Array[String] = [],
   children : (ContextMenuScope) -> @html.Html,
+) -> @rabbita.Val[@html.Html] {
+  context_menu_with_input(
+    input=@rabbita.Val::constant(()),
+    id~,
+    default_open~,
+    default_checked_values~,
+    default_radio_values~,
+    on_open_change?,
+    attrs?,
+    style~,
+    (scope, _) => children(scope),
+  )
+}
+
+///|
+/// Own a context menu's state while rendering its trigger and content from
+/// another incremental value. Input changes update the same menu instance.
+#cfg(target="js")
+pub fn[Input : Eq] context_menu_with_input(
+  input~ : @rabbita.Val[Input],
+  id~ : String,
+  default_open~ : Bool = false,
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
+  on_open_change? : @cmd.Emit[Bool],
+  attrs? : @html.Attrs,
+  style~ : Array[String] = [],
+  children : (ContextMenuScope, Input) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let initial : ContextMenuModel = {
     menu: menu_core_model(
@@ -645,7 +672,7 @@ pub fn context_menu(
       }
     },
   )
-  model.view(model => {
+  model.view2(input, (model, input) => {
     let scope = context_scope(
       id,
       model.menu,
@@ -661,14 +688,15 @@ pub fn context_menu(
       model.menu.open,
       attrs,
       style,
-      children(scope),
+      children(scope, input),
     )
   })
 }
 
 ///|
 #cfg(not(target="js"))
-pub fn context_menu(
+pub fn[Input : Eq] context_menu_with_input(
+  input~ : @rabbita.Val[Input],
   id~ : String,
   default_open~ : Bool = false,
   default_checked_values~ : Array[String] = [],
@@ -676,28 +704,31 @@ pub fn context_menu(
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
   style~ : Array[String] = [],
-  children : (ContextMenuScope) -> @html.Html,
+  children : (ContextMenuScope, Input) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_open_change)
-  let scope = context_scope(
-    id,
-    menu_core_model(default_open, default_checked_values, default_radio_values),
-    0,
-    0,
-    menu_noop_emit(),
-    menu_noop_emit(),
-    menu_noop_emit(),
+  let model = menu_core_model(
+    default_open, default_checked_values, default_radio_values,
   )
-  @rabbita.Val::constant(
+  input.view(input => {
+    let scope = context_scope(
+      id,
+      model,
+      0,
+      0,
+      menu_noop_emit(),
+      menu_noop_emit(),
+      menu_noop_emit(),
+    )
     menu_root_surface(
       "context-menu",
       id + "-root",
       default_open,
       attrs,
       style,
-      children(scope),
-    ),
-  )
+      children(scope, input),
+    )
+  })
 }
 
 ///|
