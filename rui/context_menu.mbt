@@ -558,6 +558,9 @@ pub fn context_menu(
           if open == current.menu.open {
             (current, @cmd.none)
           } else {
+            if !open {
+              menu_invalidate_focus(id + "-root")
+            }
             (
               { ..current, menu: { ..current.menu, open, submenus: [], }, },
               @cmd.batch([
@@ -588,6 +591,9 @@ pub fn context_menu(
           if open == current.menu.open {
             (current, @cmd.none)
           } else {
+            if !open {
+              menu_invalidate_focus(id + "-root")
+            }
             (
               { ..current, menu: { ..current.menu, open, submenus: [], }, },
               @cmd.batch([

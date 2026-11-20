@@ -6,9 +6,13 @@ using @html {fragment}
 
 ///|
 fn app() -> Val[Html] {
-  dropdown_menu_fixture().map2(menubar_fixture(), fn(dropdown_menu, menubar) {
-    fragment([dropdown_menu, menubar])
-  })
+  dropdown_menu_fixture().map3(
+    menubar_fixture(),
+    focus_after_dismiss_fixture(),
+    fn(dropdown_menu, menubar, focus_after_dismiss) {
+      fragment([dropdown_menu, menubar, focus_after_dismiss])
+    },
+  )
 }
 
 ///|
