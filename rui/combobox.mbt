@@ -979,7 +979,6 @@ pub fn[C : @html.IsChildren] combobox_item(
     style=ui_styles(
       [
         UiBoxSizing,
-        UiFontSans,
         UiTransition,
         ComboboxItemStyle,
         if active {

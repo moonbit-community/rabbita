@@ -1,6 +1,6 @@
 ///|
 const MarkdownCss : String =
-  #|.rui-markdown { --rui-markdown-leading:1.75; --rui-markdown-flow:1.25em; box-sizing:border-box; width:100%; min-width:0; color:var(--rui-foreground,oklch(0.145 0 0)); font-family:var(--rui-font-sans,Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif); font-size:calc(var(--rui-markdown-size,1rem) * 1.125); line-height:var(--rui-markdown-leading); overflow-wrap:break-word; text-align:start; }
+  #|.rui-markdown { --rui-markdown-leading:1.75; --rui-markdown-flow:1.25em; box-sizing:border-box; width:100%; min-width:0; color:var(--rui-foreground,oklch(0.145 0 0)); font-family:var(--rui-font-sans,inherit); font-size:calc(var(--rui-markdown-size,1rem) * 1.125); line-height:var(--rui-markdown-leading); overflow-wrap:break-word; text-align:start; }
   #|@media (min-width:48rem), print { .rui-markdown { font-size:var(--rui-markdown-size,1rem); } }
   #|.rui-markdown *, .rui-markdown *::before, .rui-markdown *::after { box-sizing:border-box; }
   #|.rui-markdown :where(p,ul,ol,blockquote,.rui-markdown-code,.rui-markdown-table) { margin:var(--rui-markdown-flow) 0 0; }

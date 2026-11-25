@@ -35,6 +35,19 @@ Use `--rui-*` theme tokens, component `style` parameters, and `attrs` for normal
 customization. Copy the relevant `.mbt` source when you need to change a
 component's DOM structure, state model, or interaction policy.
 
+RUI inherits the surrounding font by default, with or without `@rui.theme`.
+To set a different font for RUI, define `--rui-font-sans` on `:root` or a
+container. On `@rui.theme`, the font can also be inherited by ordinary HTML
+inside the theme. Code keeps its monospace font.
+
+To keep using RUI's previous Inter-based font stack, set:
+
+```css
+:root {
+  --rui-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+```
+
 ## License
 
 RUI is available under the [MIT License](./LICENSE). See

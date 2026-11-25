@@ -993,7 +993,7 @@ pub fn command_dialog(
       attrs=ui_attrs(attrs)
         .data_set("slot", "command-dialog")
         .aria_label(aria_label),
-      style=ui_styles([UiBoxSizing, CommandDialogStyle], style),
+      style=ui_styles([UiBoxSizing, UiFontSans, CommandDialogStyle], style),
       command_surface(
         root_id,
         model,
@@ -1045,7 +1045,7 @@ pub fn command_dialog(
       attrs=ui_attrs(attrs)
         .data_set("slot", "command-dialog")
         .aria_label(aria_label),
-      style=ui_styles([UiBoxSizing, CommandDialogStyle], style),
+      style=ui_styles([UiBoxSizing, UiFontSans, CommandDialogStyle], style),
       command_surface(
         "\{id}-command",
         { query: default_query, active: -1, },

@@ -60,6 +60,7 @@ pub fn[C : @html.IsChildren] message(
     style=ui_styles(
       [
         UiBoxSizing,
+        UiFontSans,
         "position:relative;display:flex;width:100%;min-width:0;gap:0.5rem;--rui-message-content-align:flex-start;font-size:0.875rem;line-height:1.25rem",
         if align is AlignEnd {
           "flex-direction:row-reverse;--rui-message-content-align:flex-end"
