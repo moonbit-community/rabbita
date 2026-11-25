@@ -3,10 +3,10 @@ name = "moonbit-community/warren"
 version = "0.4.5"
 
 import {
-  "moonbitlang/async@0.22.4",
-  "moonbitlang/parser@0.4.4",
-  "moonbitlang/x@0.5.5",
-  "moonbit-community/evol-minifier@0.3.0",
+  "moonbitlang/async@0.22.10",
+  "moonbitlang/parser@0.4.9",
+  "moonbitlang/x@0.5.9",
+  "moonbit-community/evol-minifier@0.3.3",
 }
 
 readme = "README.md"

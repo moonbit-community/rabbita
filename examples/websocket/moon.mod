@@ -3,7 +3,7 @@ name = "example/websocket"
 version = "0.2.0"
 
 import {
-  "moonbit-community/rabbita@0.15.6",
+  "moonbit-community/rabbita@0.17.0",
 }
 
 readme = "README.md"

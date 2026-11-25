@@ -3,7 +3,7 @@ name = "local/rabbita-e2e-memo"
 version = "0.1.0"
 
 import {
-  "moonbit-community/rabbita@0.15.7",
+  "moonbit-community/rabbita@0.17.0",
 }
 
 license = "Apache-2.0"

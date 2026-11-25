@@ -3,9 +3,9 @@ name = "example/shiki_editor"
 version = "0.2.0"
 
 import {
-  "moonbit-community/rabbita@0.15.6",
-  "Yoorkin/shiki@0.1.0",
-  "moonbitlang/async@0.22.4",
+  "moonbit-community/rabbita@0.17.0",
+  "Yoorkin/shiki@0.1.2",
+  "moonbitlang/async@0.22.10",
 }
 
 readme = "README.md"

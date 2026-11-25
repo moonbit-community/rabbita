@@ -4,9 +4,9 @@ version = "0.2.0"
 
 import {
   "moonbit-community/rabbita@0.17.0",
-  "moonbit-community/rui@0.5.2",
+  "moonbit-community/rui@0.5.1",
   "Yoorkin/shiki@0.1.2",
-  "moonbitlang/async@0.22.4",
+  "moonbitlang/async@0.22.10",
   "moonbit-community/cmark@0.4.17",
 }
 

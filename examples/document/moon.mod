@@ -3,10 +3,10 @@ name = "example/document"
 version = "0.2.0"
 
 import {
-  "moonbit-community/rabbita@0.15.6",
-  "moonbitlang/async@0.22.4",
-  "moonbitlang/moonback@0.8.4",
-  "moonbitlang/x@0.5.1",
+  "moonbit-community/rabbita@0.17.0",
+  "moonbitlang/async@0.22.10",
+  "moonbitlang/moonback@0.8.11",
+  "moonbitlang/x@0.5.9",
 }
 
 readme = "README.md"
