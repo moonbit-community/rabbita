@@ -3,7 +3,7 @@ name = "moonbit-community/rabbita-doc"
 version = "0.2.0"
 
 import {
-  "moonbit-community/rabbita@0.16.4",
+  "moonbit-community/rabbita@0.17.0",
 }
 
 readme = "README.md"

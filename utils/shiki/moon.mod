@@ -3,7 +3,7 @@ name = "Yoorkin/shiki"
 version = "0.1.2"
 
 import {
-  "moonbit-community/rabbita@0.16.0",
+  "moonbit-community/rabbita@0.17.0",
 }
 
 readme = "README.md"
