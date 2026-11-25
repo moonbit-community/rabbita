@@ -40,7 +40,7 @@ pub fn[C : @html.IsChildren] dialog(
     on_close?,
     on_cancel?,
     attrs=ui_attrs(attrs).data_set("slot", "dialog"),
-    style=ui_styles([UiBoxSizing, DialogStyle], style),
+    style=ui_styles([UiBoxSizing, UiFontSans, DialogStyle], style),
     [
       @html.div(style=[UiBoxSizing, "display:contents"], children),
       if show_close {

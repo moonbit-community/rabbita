@@ -170,6 +170,7 @@ pub fn[C : @html.IsChildren] field(
     attrs=field_attrs,
     style=ui_styles(
       [
+        UiFontSans,
         "display:flex;width:100%;gap:0.5rem",
         field_orientation_style(orientation),
         if invalid {

@@ -296,7 +296,7 @@ pub fn[C : @html.IsChildren] drawer(
     on_cancel?,
     attrs~,
     style=ui_styles(
-      [UiBoxSizing, DrawerStyle, drawer_direction_style(direction)],
+      [UiBoxSizing, UiFontSans, DrawerStyle, drawer_direction_style(direction)],
       style,
     ),
     [

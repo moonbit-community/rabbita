@@ -182,6 +182,7 @@ pub fn input_group_control(
     ui_styles(
       [
         "display:flex;width:100%;min-width:0;min-height:2rem;flex:1;border:0;border-radius:0;background:transparent;padding:0.625rem;color:inherit;font:inherit;font-size:var(--rui-control-font-size,1rem);line-height:var(--rui-control-line-height,1.5rem);box-shadow:none;outline:none",
+        UiFontSans,
       ],
       style,
     ),

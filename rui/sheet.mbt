@@ -87,6 +87,7 @@ pub fn[C : @html.IsChildren] sheet(
     style=ui_styles(
       [
         UiBoxSizing,
+        UiFontSans,
         DialogStyle,
         SheetStyle,
         sheet_side_style(side),

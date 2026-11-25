@@ -171,7 +171,7 @@ pub fn render(
   @html.button(
     style=[
         "box-sizing:border-box",
-        "font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif",
+        "font-family:var(--rui-font-sans,inherit)",
         "-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility",
         "transition:color 150ms ease,background-color 150ms ease,border-color 150ms ease,box-shadow 150ms ease,opacity 150ms ease,transform 150ms ease",
         CheckboxBaseStyle,

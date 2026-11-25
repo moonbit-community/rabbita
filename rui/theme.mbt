@@ -1,7 +1,7 @@
 ///|
 /// Shared Nova foundations. Component-specific recipes stay next to their
 /// component so copying source remains straightforward.
-const UiFontSans : String = "font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif"
+const UiFontSans : String = "font-family:var(--rui-font-sans,inherit)"
 
 ///|
 const UiBoxSizing : String = "box-sizing:border-box"

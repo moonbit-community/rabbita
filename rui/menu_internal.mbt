@@ -1624,7 +1624,6 @@ fn[C : @html.IsChildren] menu_item_surface(
     style=ui_styles(
       [
         UiBoxSizing,
-        UiFontSans,
         UiTextRendering,
         UiTransition,
         MenuItemStyle,

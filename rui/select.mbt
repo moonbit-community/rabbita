@@ -692,7 +692,6 @@ pub fn[C : @html.IsChildren] select_item(
     style=ui_styles(
       [
         UiBoxSizing,
-        UiFontSans,
         UiTransition,
         SelectItemStyle,
         if active {

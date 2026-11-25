@@ -29,7 +29,7 @@ pub fn[C : @html.IsChildren] alert_dialog(
     on_close?,
     on_cancel?,
     attrs=ui_attrs(attrs).role("alertdialog").data_set("slot", "alert-dialog"),
-    style=ui_styles([UiBoxSizing, DialogStyle], style),
+    style=ui_styles([UiBoxSizing, UiFontSans, DialogStyle], style),
     children,
   )
 }

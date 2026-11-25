@@ -227,7 +227,7 @@ pub fn[C : @html.IsChildren] typography_inline_code(
 ) -> @html.Html {
   @html.code(
     style=ui_styles(
-      [UiBoxSizing, UiFontSans, UiTextRendering, TypographyInlineCodeStyle],
+      [UiBoxSizing, UiTextRendering, TypographyInlineCodeStyle],
       style,
     ),
     id?,
