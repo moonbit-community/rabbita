@@ -27,6 +27,26 @@ test('select opens on click, closes on Escape, and keeps the chosen value', asyn
   await expect(trigger).toHaveText('Beta');
 });
 
+test('select inside a native modal consumes Escape only while open', async ({ page }) => {
+  await page.goto('/');
+
+  const dialog = page.locator('#fixture-select-dialog');
+  const trigger = dialog.getByRole('combobox');
+  const listbox = dialog.getByRole('listbox');
+
+  await dialog.evaluate((element: HTMLDialogElement) => element.showModal());
+  await trigger.focus();
+  await page.keyboard.press('ArrowDown');
+  await expect(listbox.getByRole('option', { name: 'Alpha' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(listbox).toBeHidden();
+  await expect(dialog).toHaveJSProperty('open', true);
+  await expect(trigger).toBeFocused();
+
+  await page.keyboard.press('Escape');
+  await expect(dialog).toHaveJSProperty('open', false);
+});
+
 test('select keyboard opens, highlights, and confirms an option', async ({ page }) => {
   await page.goto('/');
 

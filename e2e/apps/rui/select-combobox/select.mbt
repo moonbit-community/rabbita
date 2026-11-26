@@ -9,7 +9,17 @@ fn select_fixture() -> Val[Html] {
     ],
     placeholder="Choose an option…",
   )
-  select.map(select_html => {
-    @fixture.section("fixture-section-select", "Select", [select_html])
+  let modal_select = @rui.select(id="fixture-modal-select", options=[
+    @rui.select_option(value="alpha", label="Alpha"),
+  ])
+  select.map2(modal_select, (select_html, modal_select_html) => {
+    @fixture.section("fixture-section-select", "Select", [
+      select_html,
+      @html.dialog(
+        id="fixture-select-dialog",
+        attrs=@html.Attrs::build().aria_label("Select in a modal"),
+        modal_select_html,
+      ),
+    ])
   })
 }
