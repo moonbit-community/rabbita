@@ -401,7 +401,7 @@ fn select_root_keydown(
     "ArrowUp" => Some(SelectMove(-1))
     "Home" => Some(SelectFirst)
     "End" => Some(SelectLast)
-    "Escape" => Some(SelectClose)
+    "Escape" if scope.model.open => Some(SelectClose)
     "Enter" if slot == "select-item" => Some(SelectChoose(-1))
     " " if slot == "select-item" && scope.model.search == "" =>
       Some(SelectChoose(-1))
