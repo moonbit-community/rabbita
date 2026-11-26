@@ -22,6 +22,9 @@ concurrency:
   group: nightly-toolchain-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  MOON_SEPARATE_COMPILATION: "1"
+
 jobs:
   check:
     runs-on: ubuntu-latest
