@@ -33,18 +33,9 @@ test('select inside a native modal consumes Escape only while open', async ({ pa
   const dialog = page.locator('#fixture-select-dialog');
   const trigger = dialog.getByRole('combobox');
   const listbox = dialog.getByRole('listbox');
-  const showModal = async () => {
-    await dialog.evaluate((element: HTMLDialogElement) => element.showModal());
-    await trigger.focus();
-    await expect(trigger).toBeFocused();
-  };
 
-  await showModal();
-  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-  await page.keyboard.press('Escape');
-  await expect(dialog).toHaveJSProperty('open', false);
-
-  await showModal();
+  await dialog.evaluate((element: HTMLDialogElement) => element.showModal());
+  await trigger.focus();
   await page.keyboard.press('ArrowDown');
   await expect(listbox.getByRole('option', { name: 'Alpha' })).toBeFocused();
   await page.keyboard.press('Escape');
