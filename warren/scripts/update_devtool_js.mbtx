@@ -1,10 +1,11 @@
-///|
+----
 import {
   "moonbitlang/async",
   "moonbitlang/async/fs",
   "moonbitlang/async/process",
   "moonbitlang/core/env",
 }
+----
 
 ///|
 fn env_or(name : String, fallback : String) -> String {

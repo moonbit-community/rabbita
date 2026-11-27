@@ -1,6 +1,6 @@
 ///|
 let bundle_server_source =
-  #|///|
+  #|----
   #|import {
   #|  "moonbitlang/async@0.22.4",
   #|  "moonbitlang/moonback@0.8.4",
@@ -8,6 +8,7 @@ let bundle_server_source =
   #|  "moonbitlang/core/env",
   #|  "moonbitlang/core/string",
   #|}
+  #|----
   #|
   #|///|
   #|async fn main {
