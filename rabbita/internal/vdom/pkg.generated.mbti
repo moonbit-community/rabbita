@@ -8,7 +8,7 @@ import {
 }
 
 // Values
-pub fn server_side_render(() -> VNode) -> String
+pub fn server_side_render(() -> VNode, include_doctype? : Bool) -> String
 
 // Errors
 
