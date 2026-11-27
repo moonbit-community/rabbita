@@ -45,7 +45,7 @@ pub fn[A] with_scope(f : (ScopeId) -> A) -> A {
   })
   let result = current_scope.protect(id, () => f(id))
   if global_scopes.get(current_scope.val.0) is Some(scope) {
-    scope.sub_scopes.add(id)
+    scope.sub_scopes.insert(id)
   }
   result
 }
