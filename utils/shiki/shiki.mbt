@@ -251,14 +251,14 @@ pub fn initialize(
         e => fail("shiki load langs failed: \{e}")
       }
       for lang in langs {
-        singleton.loaded_langs.add(lang)
+        singleton.loaded_langs.insert(lang)
       }
 
       load_themes(singleton.highlighter, themes).wait() catch {
         e => fail("shiki load themes failed: \{e}")
       }
       for theme in themes {
-        singleton.loaded_themes.add(theme)
+        singleton.loaded_themes.insert(theme)
       }
       install_static_code_element(singleton.highlighter)
     } catch {
@@ -299,13 +299,13 @@ pub async fn initialize_static(
     e => fail("shiki load langs failed: \{e}")
   }
   for lang in langs {
-    singleton.loaded_langs.add(lang)
+    singleton.loaded_langs.insert(lang)
   }
   load_themes(singleton.highlighter, themes).wait() catch {
     e => fail("shiki load themes failed: \{e}")
   }
   for theme in themes {
-    singleton.loaded_themes.add(theme)
+    singleton.loaded_themes.insert(theme)
   }
   install_static_code_element(singleton.highlighter)
 }

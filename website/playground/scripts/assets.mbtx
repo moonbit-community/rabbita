@@ -1,4 +1,4 @@
-///|
+----
 import {
   "moonbitlang/async",
   "moonbitlang/async/fs",
@@ -6,6 +6,7 @@ import {
   "moonbitlang/core/env",
   "moonbitlang/core/json",
 }
+----
 
 ///|
 struct SourceAsset {
@@ -34,26 +35,30 @@ struct CoreInterface {
 }
 
 ///|
+#derive(FromJson)
 struct ExampleManifest {
   examples : Array[ExampleConfig]
-} derive(FromJson)
+}
 
 ///|
+#derive(FromJson)
 struct ExampleConfig {
   sources : Array[String]
   css : String
   moon_pkg : String
-} derive(FromJson)
+}
 
 ///|
+#derive(FromJson)
 struct NpmPackageMetadata {
   dist : NpmPackageDist
-} derive(FromJson)
+}
 
 ///|
+#derive(FromJson)
 struct NpmPackageDist {
   tarball : String
-} derive(FromJson)
+}
 
 ///|
 let default_moon_bin = "moon"
