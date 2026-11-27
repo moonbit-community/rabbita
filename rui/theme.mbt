@@ -534,9 +534,12 @@ const UiInteractionCss : String =
   #|      transform:translateX(100%) !important;
   #|    }
   #|    :where([data-slot="popover-content"],[data-slot="tooltip-content"],[data-slot="hover-card-content"],[data-slot="select-content"],[data-slot="combobox-content"],[data-slot="dropdown-menu-content"],[data-slot="context-menu-content"],[data-slot="menubar-content"],[data-slot="navigation-menu-content"],[data-submenu-owner])[data-state="open"]:popover-open {
-  #|      visibility:hidden !important;
   #|      opacity:0 !important;
   #|      transform:scale(0.95) !important;
+  #|      /* Select moves keyboard focus into the listbox before the entry transition ends. */
+  #|      &:where(:not([data-slot="select-content"])) {
+  #|        visibility:hidden !important;
+  #|      }
   #|    }
   #|    dialog[data-slot="popover-content"][data-state="open"][open] {
   #|      visibility:hidden !important;
