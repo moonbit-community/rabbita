@@ -375,7 +375,7 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
           let value : V = entry.retain_value.val
           entry.value.compute = () => value
           entry.value.childs = () => []
-          removed.add(entry.value.dirty_flag.id)
+          removed.insert(entry.value.dirty_flag.id)
           if global_scopes.get(entry.scope.0) is Some(scope) {
             scope.dispose()
           }
