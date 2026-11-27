@@ -223,10 +223,15 @@ fn children_to_string(
 }
 
 ///|
-pub fn server_side_render(render : () -> VNode) -> String {
+pub fn server_side_render(
+  render : () -> VNode,
+  include_doctype~ : Bool = true,
+) -> String {
   let vnode = render()
   let buf = StringBuilder()
-  buf.write_string("<!DOCTYPE html>")
+  if include_doctype {
+    buf.write_string("<!DOCTYPE html>")
+  }
   vnode_to_string(buf, vnode, false)
   buf.to_string()
 }
