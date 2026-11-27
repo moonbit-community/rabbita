@@ -1,7 +1,9 @@
+----
 import {
-  "moonbit-community/rabbita@0.15.4",
-  "moonbit-community/rabbita@0.15.4/html" @html,
+  "moonbit-community/rabbita@0.17.1",
+  "moonbit-community/rabbita@0.17.1/html" @html,
 }
+----
 
 ///|
 priv enum Msg {
