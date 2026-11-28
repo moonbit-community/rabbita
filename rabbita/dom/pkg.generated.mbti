@@ -401,13 +401,13 @@ pub fn Comment::dispatch_event(Self, Event) -> Unit
 pub fn Comment::from(Self) -> @js.Value
 pub fn Comment::get_child(Self, Int32) -> Node
 pub fn Comment::get_child_count(Self) -> Int32
-pub fn Comment::get_first_child(Self) -> Node
+pub fn Comment::get_first_child(Self) -> Node?
 pub fn Comment::get_is_connected(Self) -> Bool
-pub fn Comment::get_last_child(Self) -> Node
+pub fn Comment::get_last_child(Self) -> Node?
 pub fn Comment::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn Comment::get_node_name(Self) -> String
 pub fn Comment::get_node_type(Self) -> Int32
-pub fn Comment::get_node_value(Self) -> String
+pub fn Comment::get_node_value(Self) -> String?
 pub fn Comment::get_parent_element(Self) -> Element?
 pub fn Comment::get_parent_node(Self) -> @js.Nullable[Node]
 pub fn Comment::get_previous_sibling(Self) -> @js.Nullable[Node]
@@ -579,7 +579,7 @@ pub fn Document::create_comment(Self, String) -> Comment
 pub fn Document::create_document_fragment(Self) -> DocumentFragment
 pub fn Document::create_element(Self, String) -> Element
 pub fn Document::create_element_ns(Self, String, String, on_namespace_error? : (DOMException) -> Element, on_invalid_character_error? : (DOMException) -> Element) -> Element
-pub fn Document::create_text_node(Self, String) -> Element
+pub fn Document::create_text_node(Self, String) -> Text
 pub fn Document::dispatch_event(Self, Event) -> Unit
 pub fn Document::element_from_point(Self, Double, Double) -> Element?
 pub fn Document::elements_from_point(Self, Double, Double) -> FixedArray[Element]
@@ -632,13 +632,13 @@ pub fn DocumentFragment::dispatch_event(Self, Event) -> Unit
 pub fn DocumentFragment::from(Self) -> @js.Value
 pub fn DocumentFragment::get_child(Self, Int32) -> Node
 pub fn DocumentFragment::get_child_count(Self) -> Int32
-pub fn DocumentFragment::get_first_child(Self) -> Node
+pub fn DocumentFragment::get_first_child(Self) -> Node?
 pub fn DocumentFragment::get_is_connected(Self) -> Bool
-pub fn DocumentFragment::get_last_child(Self) -> Node
+pub fn DocumentFragment::get_last_child(Self) -> Node?
 pub fn DocumentFragment::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn DocumentFragment::get_node_name(Self) -> String
 pub fn DocumentFragment::get_node_type(Self) -> Int32
-pub fn DocumentFragment::get_node_value(Self) -> String
+pub fn DocumentFragment::get_node_value(Self) -> String?
 pub fn DocumentFragment::get_parent_element(Self) -> Element?
 pub fn DocumentFragment::get_parent_node(Self) -> @js.Nullable[Node]
 pub fn DocumentFragment::get_previous_sibling(Self) -> @js.Nullable[Node]
@@ -754,13 +754,13 @@ pub fn Element::get_client_left(Self) -> Double
 pub fn Element::get_client_rects(Self) -> DOMRectList
 pub fn Element::get_client_top(Self) -> Double
 pub fn Element::get_client_width(Self) -> Double
-pub fn Element::get_first_child(Self) -> Node
+pub fn Element::get_first_child(Self) -> Node?
 pub fn Element::get_is_connected(Self) -> Bool
-pub fn Element::get_last_child(Self) -> Node
+pub fn Element::get_last_child(Self) -> Node?
 pub fn Element::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn Element::get_node_name(Self) -> String
 pub fn Element::get_node_type(Self) -> Int32
-pub fn Element::get_node_value(Self) -> String
+pub fn Element::get_node_value(Self) -> String?
 pub fn Element::get_parent_element(Self) -> Self?
 pub fn Element::get_parent_node(Self) -> @js.Nullable[Node]
 pub fn Element::get_previous_sibling(Self) -> @js.Nullable[Node]
@@ -960,7 +960,7 @@ pub fn HTMLCanvasElement::get_dir(Self) -> String
 pub fn HTMLCanvasElement::get_draggable(Self) -> Bool
 pub fn HTMLCanvasElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLCanvasElement::get_enter_key_hint(Self) -> String
-pub fn HTMLCanvasElement::get_first_child(Self) -> Node
+pub fn HTMLCanvasElement::get_first_child(Self) -> Node?
 pub fn HTMLCanvasElement::get_height(Self) -> Int32
 pub fn HTMLCanvasElement::get_hidden(Self) -> @js.Value
 pub fn HTMLCanvasElement::get_inert(Self) -> Bool
@@ -969,11 +969,11 @@ pub fn HTMLCanvasElement::get_input_mode(Self) -> String
 pub fn HTMLCanvasElement::get_is_connected(Self) -> Bool
 pub fn HTMLCanvasElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLCanvasElement::get_lang(Self) -> String
-pub fn HTMLCanvasElement::get_last_child(Self) -> Node
+pub fn HTMLCanvasElement::get_last_child(Self) -> Node?
 pub fn HTMLCanvasElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLCanvasElement::get_node_name(Self) -> String
 pub fn HTMLCanvasElement::get_node_type(Self) -> Int32
-pub fn HTMLCanvasElement::get_node_value(Self) -> String
+pub fn HTMLCanvasElement::get_node_value(Self) -> String?
 pub fn HTMLCanvasElement::get_nonce(Self) -> String
 pub fn HTMLCanvasElement::get_offset_height(Self) -> Double
 pub fn HTMLCanvasElement::get_offset_left(Self) -> Double
@@ -1123,7 +1123,7 @@ pub fn HTMLDialogElement::get_dir(Self) -> String
 pub fn HTMLDialogElement::get_draggable(Self) -> Bool
 pub fn HTMLDialogElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLDialogElement::get_enter_key_hint(Self) -> String
-pub fn HTMLDialogElement::get_first_child(Self) -> Node
+pub fn HTMLDialogElement::get_first_child(Self) -> Node?
 pub fn HTMLDialogElement::get_hidden(Self) -> @js.Value
 pub fn HTMLDialogElement::get_inert(Self) -> Bool
 pub fn HTMLDialogElement::get_inner_text(Self) -> String
@@ -1131,11 +1131,11 @@ pub fn HTMLDialogElement::get_input_mode(Self) -> String
 pub fn HTMLDialogElement::get_is_connected(Self) -> Bool
 pub fn HTMLDialogElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLDialogElement::get_lang(Self) -> String
-pub fn HTMLDialogElement::get_last_child(Self) -> Node
+pub fn HTMLDialogElement::get_last_child(Self) -> Node?
 pub fn HTMLDialogElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLDialogElement::get_node_name(Self) -> String
 pub fn HTMLDialogElement::get_node_type(Self) -> Int32
-pub fn HTMLDialogElement::get_node_value(Self) -> String
+pub fn HTMLDialogElement::get_node_value(Self) -> String?
 pub fn HTMLDialogElement::get_nonce(Self) -> String
 pub fn HTMLDialogElement::get_offset_height(Self) -> Double
 pub fn HTMLDialogElement::get_offset_left(Self) -> Double
@@ -1281,7 +1281,7 @@ pub fn HTMLElement::get_dir(Self) -> String
 pub fn HTMLElement::get_draggable(Self) -> Bool
 pub fn HTMLElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLElement::get_enter_key_hint(Self) -> String
-pub fn HTMLElement::get_first_child(Self) -> Node
+pub fn HTMLElement::get_first_child(Self) -> Node?
 pub fn HTMLElement::get_hidden(Self) -> @js.Value
 pub fn HTMLElement::get_inert(Self) -> Bool
 pub fn HTMLElement::get_inner_text(Self) -> String
@@ -1289,11 +1289,11 @@ pub fn HTMLElement::get_input_mode(Self) -> String
 pub fn HTMLElement::get_is_connected(Self) -> Bool
 pub fn HTMLElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLElement::get_lang(Self) -> String
-pub fn HTMLElement::get_last_child(Self) -> Node
+pub fn HTMLElement::get_last_child(Self) -> Node?
 pub fn HTMLElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLElement::get_node_name(Self) -> String
 pub fn HTMLElement::get_node_type(Self) -> Int32
-pub fn HTMLElement::get_node_value(Self) -> String
+pub fn HTMLElement::get_node_value(Self) -> String?
 pub fn HTMLElement::get_nonce(Self) -> String
 pub fn HTMLElement::get_offset_height(Self) -> Double
 pub fn HTMLElement::get_offset_left(Self) -> Double
@@ -1439,7 +1439,7 @@ pub fn HTMLImageElement::get_dir(Self) -> String
 pub fn HTMLImageElement::get_draggable(Self) -> Bool
 pub fn HTMLImageElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLImageElement::get_enter_key_hint(Self) -> String
-pub fn HTMLImageElement::get_first_child(Self) -> Node
+pub fn HTMLImageElement::get_first_child(Self) -> Node?
 pub fn HTMLImageElement::get_height(Self) -> Double
 pub fn HTMLImageElement::get_hidden(Self) -> @js.Value
 pub fn HTMLImageElement::get_inert(Self) -> Bool
@@ -1449,14 +1449,14 @@ pub fn HTMLImageElement::get_is_connected(Self) -> Bool
 pub fn HTMLImageElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLImageElement::get_is_map(Self) -> Bool
 pub fn HTMLImageElement::get_lang(Self) -> String
-pub fn HTMLImageElement::get_last_child(Self) -> Node
+pub fn HTMLImageElement::get_last_child(Self) -> Node?
 pub fn HTMLImageElement::get_loading(Self) -> String
 pub fn HTMLImageElement::get_natural_height(Self) -> Double
 pub fn HTMLImageElement::get_natural_width(Self) -> Double
 pub fn HTMLImageElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLImageElement::get_node_name(Self) -> String
 pub fn HTMLImageElement::get_node_type(Self) -> Int32
-pub fn HTMLImageElement::get_node_value(Self) -> String
+pub fn HTMLImageElement::get_node_value(Self) -> String?
 pub fn HTMLImageElement::get_nonce(Self) -> String
 pub fn HTMLImageElement::get_offset_height(Self) -> Double
 pub fn HTMLImageElement::get_offset_left(Self) -> Double
@@ -1619,7 +1619,7 @@ pub fn HTMLInputElement::get_dir(Self) -> String
 pub fn HTMLInputElement::get_draggable(Self) -> Bool
 pub fn HTMLInputElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLInputElement::get_enter_key_hint(Self) -> String
-pub fn HTMLInputElement::get_first_child(Self) -> Node
+pub fn HTMLInputElement::get_first_child(Self) -> Node?
 pub fn HTMLInputElement::get_hidden(Self) -> @js.Value
 pub fn HTMLInputElement::get_inert(Self) -> Bool
 pub fn HTMLInputElement::get_inner_text(Self) -> String
@@ -1627,11 +1627,11 @@ pub fn HTMLInputElement::get_input_mode(Self) -> String
 pub fn HTMLInputElement::get_is_connected(Self) -> Bool
 pub fn HTMLInputElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLInputElement::get_lang(Self) -> String
-pub fn HTMLInputElement::get_last_child(Self) -> Node
+pub fn HTMLInputElement::get_last_child(Self) -> Node?
 pub fn HTMLInputElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLInputElement::get_node_name(Self) -> String
 pub fn HTMLInputElement::get_node_type(Self) -> Int32
-pub fn HTMLInputElement::get_node_value(Self) -> String
+pub fn HTMLInputElement::get_node_value(Self) -> String?
 pub fn HTMLInputElement::get_nonce(Self) -> String
 pub fn HTMLInputElement::get_offset_height(Self) -> Double
 pub fn HTMLInputElement::get_offset_left(Self) -> Double
@@ -1793,7 +1793,7 @@ pub fn HTMLMediaElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLMediaElement::get_ended(Self) -> Bool
 pub fn HTMLMediaElement::get_enter_key_hint(Self) -> String
 pub fn HTMLMediaElement::get_error(Self) -> MediaError?
-pub fn HTMLMediaElement::get_first_child(Self) -> Node
+pub fn HTMLMediaElement::get_first_child(Self) -> Node?
 pub fn HTMLMediaElement::get_hidden(Self) -> @js.Value
 pub fn HTMLMediaElement::get_inert(Self) -> Bool
 pub fn HTMLMediaElement::get_inner_text(Self) -> String
@@ -1801,7 +1801,7 @@ pub fn HTMLMediaElement::get_input_mode(Self) -> String
 pub fn HTMLMediaElement::get_is_connected(Self) -> Bool
 pub fn HTMLMediaElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLMediaElement::get_lang(Self) -> String
-pub fn HTMLMediaElement::get_last_child(Self) -> Node
+pub fn HTMLMediaElement::get_last_child(Self) -> Node?
 pub fn HTMLMediaElement::get_loop(Self) -> Bool
 pub fn HTMLMediaElement::get_media_keys(Self) -> MediaKeys?
 pub fn HTMLMediaElement::get_muted(Self) -> Bool
@@ -1809,7 +1809,7 @@ pub fn HTMLMediaElement::get_network_state(Self) -> Int32
 pub fn HTMLMediaElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLMediaElement::get_node_name(Self) -> String
 pub fn HTMLMediaElement::get_node_type(Self) -> Int32
-pub fn HTMLMediaElement::get_node_value(Self) -> String
+pub fn HTMLMediaElement::get_node_value(Self) -> String?
 pub fn HTMLMediaElement::get_nonce(Self) -> String
 pub fn HTMLMediaElement::get_offset_height(Self) -> Double
 pub fn HTMLMediaElement::get_offset_left(Self) -> Double
@@ -2006,7 +2006,7 @@ pub fn HTMLVideoElement::get_edit_context(Self) -> EditContext?
 pub fn HTMLVideoElement::get_ended(Self) -> Bool
 pub fn HTMLVideoElement::get_enter_key_hint(Self) -> String
 pub fn HTMLVideoElement::get_error(Self) -> MediaError?
-pub fn HTMLVideoElement::get_first_child(Self) -> Node
+pub fn HTMLVideoElement::get_first_child(Self) -> Node?
 pub fn HTMLVideoElement::get_hidden(Self) -> @js.Value
 pub fn HTMLVideoElement::get_inert(Self) -> Bool
 pub fn HTMLVideoElement::get_inner_text(Self) -> String
@@ -2014,7 +2014,7 @@ pub fn HTMLVideoElement::get_input_mode(Self) -> String
 pub fn HTMLVideoElement::get_is_connected(Self) -> Bool
 pub fn HTMLVideoElement::get_is_content_editable(Self) -> Bool
 pub fn HTMLVideoElement::get_lang(Self) -> String
-pub fn HTMLVideoElement::get_last_child(Self) -> Node
+pub fn HTMLVideoElement::get_last_child(Self) -> Node?
 pub fn HTMLVideoElement::get_loop(Self) -> Bool
 pub fn HTMLVideoElement::get_media_keys(Self) -> MediaKeys?
 pub fn HTMLVideoElement::get_muted(Self) -> Bool
@@ -2022,7 +2022,7 @@ pub fn HTMLVideoElement::get_network_state(Self) -> Int32
 pub fn HTMLVideoElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn HTMLVideoElement::get_node_name(Self) -> String
 pub fn HTMLVideoElement::get_node_type(Self) -> Int32
-pub fn HTMLVideoElement::get_node_value(Self) -> String
+pub fn HTMLVideoElement::get_node_value(Self) -> String?
 pub fn HTMLVideoElement::get_nonce(Self) -> String
 pub fn HTMLVideoElement::get_offset_height(Self) -> Double
 pub fn HTMLVideoElement::get_offset_left(Self) -> Double
@@ -2409,13 +2409,13 @@ pub fn Node::dispatch_event(Self, Event) -> Unit
 pub fn Node::from(Self) -> @js.Value
 pub fn Node::get_child(Self, Int32) -> Self
 pub fn Node::get_child_count(Self) -> Int32
-pub fn Node::get_first_child(Self) -> Self
+pub fn Node::get_first_child(Self) -> Self?
 pub fn Node::get_is_connected(Self) -> Bool
-pub fn Node::get_last_child(Self) -> Self
+pub fn Node::get_last_child(Self) -> Self?
 pub fn Node::get_next_sibling(Self) -> @js.Nullable[Self]
 pub fn Node::get_node_name(Self) -> String
 pub fn Node::get_node_type(Self) -> Int32
-pub fn Node::get_node_value(Self) -> String
+pub fn Node::get_node_value(Self) -> String?
 pub fn Node::get_parent_element(Self) -> Element?
 pub fn Node::get_parent_node(Self) -> @js.Nullable[Self]
 pub fn Node::get_previous_sibling(Self) -> @js.Nullable[Self]
@@ -2574,13 +2574,13 @@ pub fn SVGElement::get_client_rects(Self) -> DOMRectList
 pub fn SVGElement::get_client_top(Self) -> Double
 pub fn SVGElement::get_client_width(Self) -> Double
 pub fn SVGElement::get_data_set(Self) -> DOMStringMap
-pub fn SVGElement::get_first_child(Self) -> Node
+pub fn SVGElement::get_first_child(Self) -> Node?
 pub fn SVGElement::get_is_connected(Self) -> Bool
-pub fn SVGElement::get_last_child(Self) -> Node
+pub fn SVGElement::get_last_child(Self) -> Node?
 pub fn SVGElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn SVGElement::get_node_name(Self) -> String
 pub fn SVGElement::get_node_type(Self) -> Int32
-pub fn SVGElement::get_node_value(Self) -> String
+pub fn SVGElement::get_node_value(Self) -> String?
 pub fn SVGElement::get_nonce(Self) -> String
 pub fn SVGElement::get_owner_svg_element(Self) -> Self?
 pub fn SVGElement::get_parent_element(Self) -> Element?
@@ -2678,13 +2678,13 @@ pub fn SVGGraphicsElement::get_client_top(Self) -> Double
 pub fn SVGGraphicsElement::get_client_width(Self) -> Double
 pub fn SVGGraphicsElement::get_ctm(Self) -> DOMMatrix
 pub fn SVGGraphicsElement::get_data_set(Self) -> DOMStringMap
-pub fn SVGGraphicsElement::get_first_child(Self) -> Node
+pub fn SVGGraphicsElement::get_first_child(Self) -> Node?
 pub fn SVGGraphicsElement::get_is_connected(Self) -> Bool
-pub fn SVGGraphicsElement::get_last_child(Self) -> Node
+pub fn SVGGraphicsElement::get_last_child(Self) -> Node?
 pub fn SVGGraphicsElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn SVGGraphicsElement::get_node_name(Self) -> String
 pub fn SVGGraphicsElement::get_node_type(Self) -> Int32
-pub fn SVGGraphicsElement::get_node_value(Self) -> String
+pub fn SVGGraphicsElement::get_node_value(Self) -> String?
 pub fn SVGGraphicsElement::get_nonce(Self) -> String
 pub fn SVGGraphicsElement::get_owner_svg_element(Self) -> SVGElement?
 pub fn SVGGraphicsElement::get_parent_element(Self) -> Element?
@@ -2784,13 +2784,13 @@ pub fn SVGImageElement::get_client_rects(Self) -> DOMRectList
 pub fn SVGImageElement::get_client_top(Self) -> Double
 pub fn SVGImageElement::get_client_width(Self) -> Double
 pub fn SVGImageElement::get_data_set(Self) -> DOMStringMap
-pub fn SVGImageElement::get_first_child(Self) -> Node
+pub fn SVGImageElement::get_first_child(Self) -> Node?
 pub fn SVGImageElement::get_is_connected(Self) -> Bool
-pub fn SVGImageElement::get_last_child(Self) -> Node
+pub fn SVGImageElement::get_last_child(Self) -> Node?
 pub fn SVGImageElement::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn SVGImageElement::get_node_name(Self) -> String
 pub fn SVGImageElement::get_node_type(Self) -> Int32
-pub fn SVGImageElement::get_node_value(Self) -> String
+pub fn SVGImageElement::get_node_value(Self) -> String?
 pub fn SVGImageElement::get_nonce(Self) -> String
 pub fn SVGImageElement::get_owner_svg_element(Self) -> SVGElement?
 pub fn SVGImageElement::get_parent_element(Self) -> Element?
@@ -2897,13 +2897,13 @@ pub fn Text::dispatch_event(Self, Event) -> Unit
 pub fn Text::from(Self) -> @js.Value
 pub fn Text::get_child(Self, Int32) -> Node
 pub fn Text::get_child_count(Self) -> Int32
-pub fn Text::get_first_child(Self) -> Node
+pub fn Text::get_first_child(Self) -> Node?
 pub fn Text::get_is_connected(Self) -> Bool
-pub fn Text::get_last_child(Self) -> Node
+pub fn Text::get_last_child(Self) -> Node?
 pub fn Text::get_next_sibling(Self) -> @js.Nullable[Node]
 pub fn Text::get_node_name(Self) -> String
 pub fn Text::get_node_type(Self) -> Int32
-pub fn Text::get_node_value(Self) -> String
+pub fn Text::get_node_value(Self) -> String?
 pub fn Text::get_parent_element(Self) -> Element?
 pub fn Text::get_parent_node(Self) -> @js.Nullable[Node]
 pub fn Text::get_previous_sibling(Self) -> @js.Nullable[Node]
@@ -3535,10 +3535,10 @@ pub trait IsNode : IsEventTarget {
   fn as_node(Self) -> Node
   fn get_node_type(Self) -> Int32
   fn get_node_name(Self) -> String
-  fn get_node_value(Self) -> String
+  fn get_node_value(Self) -> String?
   fn set_node_value(Self, @js.Nullable[String]) -> Unit
-  fn get_first_child(Self) -> Node
-  fn get_last_child(Self) -> Node
+  fn get_first_child(Self) -> Node?
+  fn get_last_child(Self) -> Node?
   fn get_next_sibling(Self) -> @js.Nullable[Node]
   fn get_previous_sibling(Self) -> @js.Nullable[Node]
   fn get_parent_node(Self) -> @js.Nullable[Node]

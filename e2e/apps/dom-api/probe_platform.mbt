@@ -15,7 +15,7 @@ fn probe_platform() -> String {
     // The first base tag takes precedence over Warren's injected base tag.
     head.insert_before(
       base.as_node(),
-      @js.Nullable::from_option(Some(head.get_first_child())),
+      @js.Nullable::from_option(head.get_first_child()),
     )
     record(
       failures,

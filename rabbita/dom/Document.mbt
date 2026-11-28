@@ -93,7 +93,7 @@ pub extern "js" fn Document::create_element_ns(
 pub extern "js" fn Document::create_text_node(
   self : Self,
   str : String,
-) -> Element = "(doc,str) => doc.createTextNode(str)"
+) -> Text = "(doc,str) => doc.createTextNode(str)"
 
 ///|
 #cfg(target="js")
