@@ -317,14 +317,13 @@ fn menu_enabled_items(
   .query_selector_all("[data-menu-index]")
   .iter()
   .filter(item => {
-    if !menu_element_is_visible(item) {
-      false
-    } else if container is Some(container) {
+    let owned = if container is Some(container) {
       item.closest("[role=\"menu\"]") is Some(owner) &&
       owner.is_same_node(container.as_node())
     } else {
       true
     }
+    owned && menu_element_is_visible(item)
   })
   .collect()
 }
@@ -538,16 +537,8 @@ fn menu_handle_keydown(
     return
   }
   let current = event_target.closest("[data-menu-index]")
-  let container = if current is Some(current) {
-    current.closest("[role=\"menu\"]").unwrap_or(binding.root)
-  } else {
-    binding.root
-  }
-  let items = menu_enabled_items(binding, Some(container))
+  let owning_menu = event_target.closest("[role=\"menu\"]")
   let active_submenu = event_target.closest("[data-submenu-owner]")
-  let rtl = ui_element_is_rtl(container)
-  let open_submenu_key = if rtl { "ArrowLeft" } else { "ArrowRight" }
-  let close_submenu_key = if rtl { "ArrowRight" } else { "ArrowLeft" }
   if key == "Escape" && active_submenu is Some(active_submenu) {
     event.prevent_default()
     event.stop_propagation()
@@ -565,6 +556,30 @@ fn menu_handle_keydown(
     }
     return
   }
+  // Ordinary events from a closed menu, or from anywhere outside a menu
+  // surface, have nothing to navigate. The dropdown trigger's ArrowUp and
+  // ArrowDown handling above is the only supported entry from outside.
+  guard owning_menu is Some(owning_menu) else { return }
+  if owning_menu.get_attribute("data-state").unwrap_or("") != "open" {
+    return
+  }
+  // Editable descendants keep their own key handling (typing, IME, caret
+  // movement) instead of being treated as menu typeahead.
+  if event_target.closest(
+      "input, textarea, select, [contenteditable=\"true\"], [contenteditable=\"\"]",
+    )
+    is Some(_) {
+    return
+  }
+  let container = if current is Some(current) {
+    current.closest("[role=\"menu\"]").unwrap_or(owning_menu)
+  } else {
+    owning_menu
+  }
+  let items = menu_enabled_items(binding, Some(container))
+  let rtl = ui_element_is_rtl(container)
+  let open_submenu_key = if rtl { "ArrowLeft" } else { "ArrowRight" }
+  let close_submenu_key = if rtl { "ArrowRight" } else { "ArrowLeft" }
   if items.length() == 0 {
     return
   }
